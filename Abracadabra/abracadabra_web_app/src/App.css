@@ -1,0 +1,158 @@
+html * {
+  font-family: Rockwell, "Courier New", Courier, Georgia, Times,
+  "Times New Roman", serif;
+  text-decoration: none;
+}
+
+/* NAVBAR */
+nav {
+  width: 100vw;
+  background-color: transparent;
+  border: 2px solid #707070;
+  padding: 0px 20px;
+}
+nav input[type="text"] {
+  padding: 6px;
+  width: 300px;
+  font-size: 22px;
+  border: 1px solid #707070;
+  color: #676767;
+}
+nav .search-container button {
+  padding: 6px;
+  margin-left: -35px;
+  background: #f7f7f7;
+  color: #676767;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+}
+nav .search-container button:hover {
+  background: #ccc;
+}
+.navbarText {
+  align-self: center;
+  font-weight: normal;
+  font-size: 40px;
+  color: #707070;
+}
+.navbarButton {
+  font-size: 1.3rem;
+  background: #fff;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  color: #707070;
+}
+.navbarButton:hover {
+  color: #707070;
+  background: #ccc;
+}
+.navbarLogo {
+  align-self: center;
+  width: 50px;
+  height: 70px;
+}
+.navbarHubIcon {
+  color: black;
+  font-size: 50px;
+}
+.navbarHubIcon:hover {
+  color: #707070;
+}
+.navbarAvatarButton {
+  color: black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.navbarAvatarButton:hover {
+  color: #707070;
+}
+.navbarAvatar {
+  font-size: 50px;
+}
+.navbarX {
+  font-size: 66px;
+  margin-right: 5px;
+}
+.dropdownMenu{
+  position: absolute;
+  left: auto !important;
+  top: auto !important;
+  margin-top: -0.1rem;
+  right: 0px;
+  z-index: 9999;
+  display: block;
+  border: 2px solid #707070;
+  border-top: none;
+  border-radius: 0px 0px 6px 6px;
+}
+.dropdownText{
+  font-size: 1.20rem;
+}
+.dropdownText:hover{
+  background-color: #ccc;
+}
+.searchMobile{
+  display: none;
+  font-size: 35px;
+  color: black;
+  border: none;
+  background: transparent;
+}
+.searchMobile:hover{
+  color: #707070;
+}
+.navbarHubIconMobile {
+  display: none;
+  color: black;
+  font-size: 50px;
+}
+.navbarHubIconMobile:hover {
+  color: #707070;
+}
+
+@media (max-width: 844px) {
+  .navbarCollapse{
+    width: 100vw;
+    justify-content: space-evenly;
+  }
+  .navbarHubIcon{
+    display: none;
+  }
+  .navbarHubIconMobile {
+    display: inline;
+  }
+}
+
+@media (max-width: 720px) {
+  nav input[type="text"] {
+    display: none;
+  }
+  nav .search-container button {
+    display: none;
+  }
+  .searchMobile {
+    display: inline;
+  }
+}
+
+/* BodyQuestion */
+.BodyQuestion-CardBody {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  padding-left: 7%;
+}
+
+.BodyQuestion-hastag {
+  border: 1px solid black;
+  padding: 1px;
+  text-align: center;
+  height: 30px;
+}
+/* QuestionHead */
+.wrap-text {
+  word-wrap: break-word;
+}

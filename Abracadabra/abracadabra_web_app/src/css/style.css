@@ -1,0 +1,160 @@
+html,
+body,
+body > div:first-child,
+div#__next{
+  height: 100%;
+}
+#__next-prerender-indicator {
+  display: none;
+}
+
+.LandingLogo {
+    max-height: 250px;
+}
+
+.h-95 {
+  min-height: 95%;
+}
+
+.h-5 {
+  min-height: 5%;
+}
+
+.listlink {
+  color: white;
+}
+
+.listlink:hover {
+  color: white;
+  font-weight: 500;
+}
+
+.listlink:active {
+  color: rgba(240, 240, 240, 1);
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+.bg {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg);
+  background-size: cover;
+}
+
+.central_text{
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+  position: absolute;
+  color: white;
+}
+
+.moon_container{
+	position: absolute;
+	left: 50%; /* can be used to center the circle around mid image */
+	top: 50%;
+	width: 20%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.moon{
+	width: 100%;
+	height: auto;
+	position: relative;
+  left: 175%;
+}
+
+.moon_container.moon1{
+	transform: translate(-50%, -50%);
+}
+.moon_container.moon2{
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+.moon_container.moon3{
+	transform: translate(-50%, -50%) rotate(90deg);
+}
+.moon_container.moon4{
+	transform: translate(-50%, -50%) rotate(135deg);
+}
+.moon_container.moon5{
+	transform: translate(-50%, -50%) rotate(180deg);
+}
+.moon_container.moon6{
+	transform: translate(-50%, -50%) rotate(225deg);
+}
+.moon_container.moon7{
+	transform: translate(-50%, -50%) rotate(270deg);
+}
+.moon_container.moon8{
+	transform: translate(-50%, -50%) rotate(315deg);
+}
+
+.moon.moon2{
+	transform: rotate(-45deg);
+}
+.moon.moon3{
+	transform: rotate(-90deg);
+}
+.moon.moon4{
+	transform: rotate(-135deg);
+}
+.moon.moon5{
+	transform: rotate(-180deg);
+}
+.moon.moon6{
+	transform: rotate(-225deg);
+}
+.moon.moon7{
+	transform: rotate(-270deg);
+}
+.moon.moon8{
+	transform: rotate(-315deg);
+}
+
+
+.SubjectTitle {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+
+/*Subject titles*/
+#MediumSubject {
+  padding-top: 18%;
+  padding-bottom: 18%;
+}
+
+#BigSubject {
+  padding-top: 25%;
+  padding-bottom: 25%;
+}
+
+#VeryBigSubject {
+  padding-top: 35%;
+  padding-bottom: 35%;
+}
+
+/*Landingpage circle and logo mobile scaling */
+@media only screen and (max-width: 600px) {
+  .LandingLogo {
+    max-height: 150px;
+}
+.moon_container{
+  position: absolute;
+  left: 50%;
+	top: 50%;
+	width: 20%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+.SubjectTitle {
+  font-size: unset;
+  font-weight: 600;
+}
+}
