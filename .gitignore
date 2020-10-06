@@ -291,6 +291,6 @@ sketch
 
 ### custom ignores ####
 .vscode/
-abracadabra_web_app/package-lock.json
-abracadabra_web_app/.next/
+Abracadabra/abracadabra_web_app/package-lock.json
+Abracadabra/abracadabra_web_app/.next/
 .test/
