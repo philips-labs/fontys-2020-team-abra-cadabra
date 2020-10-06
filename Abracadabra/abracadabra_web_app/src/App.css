@@ -30,6 +30,9 @@ nav .search-container button {
 nav .search-container button:hover {
   background: #ccc;
 }
+nav .search-container button:before, button:after, button:focus {
+  outline: none !important;
+}
 .navbarText {
   align-self: center;
   font-weight: normal;
@@ -110,6 +113,9 @@ nav .search-container button:hover {
 }
 .navbarHubIconMobile:hover {
   color: #707070;
+}
+.searchMobile:before, .searchMobile:focus, .searchMobile:after, .navbarAvatarButton:before, .navbarAvatarButton:focus, .navbarAvatarButton:after {
+  outline: none !important;
 }
 
 @media (max-width: 844px) {
