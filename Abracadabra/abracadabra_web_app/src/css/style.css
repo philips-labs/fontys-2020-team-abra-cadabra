@@ -63,6 +63,10 @@ div#__next{
   color: white;
 }
 
+.moon_container > a:hover {
+    text-decoration: none; /* no underline */
+}
+
 .moon{
 	width: 100%;
 	height: auto;
