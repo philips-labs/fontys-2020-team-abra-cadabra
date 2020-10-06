@@ -4,7 +4,7 @@ import { Container, Row, Col, Image, Figure, Button } from 'react-bootstrap';
 
 function Question() {
     return (
-        <div class="rounded container">
+        <div className="rounded container">
             <br />
             <Row className="justify-content-md-left">
                 <Col md="1">

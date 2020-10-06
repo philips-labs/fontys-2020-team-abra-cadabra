@@ -57,11 +57,11 @@ function Navbar() {
       }
 
       <Modal centered show={show} onShow={handleClose} onHide={handleShow}>
-        <Modal.Header className="transparent"><button onClick={handleShow} ><FontAwesomeIcon icon={faTimes} /></button></Modal.Header>
-        <Modal.Body>
-          <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search"></input>
-            <button type="submit"><FontAwesomeIcon icon={faSearch} /></button>
+        <Modal.Body className="d-flex flex-column">
+          <button className="navbarModalButton ml-auto mb-1 mr-1" onClick={handleShow}><FontAwesomeIcon icon={faTimes} /></button>
+          <form action="">
+            <input className="navbarModalInput" type="text" placeholder="Search.." name="search"></input>
+            <button className="navbarModalSearchButton mt-1" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
           </form>
         </Modal.Body>
       </Modal>
