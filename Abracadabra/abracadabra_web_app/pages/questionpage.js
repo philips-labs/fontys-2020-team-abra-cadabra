@@ -5,6 +5,7 @@ import Navbar from "../src/components/Navbar";
 
 function QuestionPage() {
     return <div>
+        <Navbar />
         <QuestionHead />
         <QuestionAnwser />
         <QuestionCreateAnswer />
