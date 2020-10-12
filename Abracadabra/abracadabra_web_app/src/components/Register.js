@@ -4,8 +4,8 @@ import { faEnvelope, faHome, faLock, faSearch, faTimes, faUser, faUserCircle, fa
 
 function Title() {
   return (
-    <div className="container">
-			<div className="row main">
+    <div className="container-fluid h-100">
+			<div className="row main my-auto">
 				<div className="main-login main-center">
                     <h2 className="text-center">Register</h2>
 					<form>
