@@ -17,8 +17,8 @@ namespace AbracadabraAPI.Data
 
         }
 
-        public DbSet<ForumThread> ForumThreads { get; set; }
-        public DbSet<ForumPost> ForumPosts { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,8 +59,8 @@ namespace AbracadabraAPI.Data
                 PasswordHash = hasher.HashPassword(null, "Password@2"),
                 SecurityStamp = Guid.NewGuid().ToString()
             });
-            modelBuilder.Entity<ForumThread>().ToTable("ForumThread");
-            modelBuilder.Entity<ForumPost>().ToTable("ForumPost");
+            modelBuilder.Entity<Question>().ToTable("Question");
+            modelBuilder.Entity<Answer>().ToTable("Answer");
         }
     }
 }

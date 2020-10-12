@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace AbracadabraAPI.Models
 {
-    public class ForumThreadDTO
+    public class Question
     {
         [Key]
         public int ID { get; set; }
+        
+        public string UserID { get; set; }
         
         public string Title { get; set; }
         
@@ -19,6 +21,6 @@ namespace AbracadabraAPI.Models
 
         public string DateTimeCreated { get; set; }
 
-        public List<ForumPost> ForumPosts { get; set; }
+        public virtual List<Answer> Answers { get; set; }
     }
 }
