@@ -10,7 +10,7 @@ function Subject({subjectName}) {
 
   export async function getStaticPaths() {
     // Return a list of possible value for id
-        const paths = [{params: { subject: 'cooking'}},{params: { subject: 'politics'}}];
+        const paths = [{params: { subject: 'cooking'}},{params: { subject: 'politics'}}]; //get all possible subjects from DB
         return {
           paths,
           fallback: false
