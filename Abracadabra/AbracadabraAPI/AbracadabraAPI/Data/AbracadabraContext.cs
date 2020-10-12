@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AbracadabraAPI.Authentication;
 using Microsoft.AspNetCore.Identity;
+using AbracadabraAPI.Data.Configuration;
 
 namespace AbracadabraAPI.Data
 {
@@ -22,6 +23,7 @@ namespace AbracadabraAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AnswerConfiguration());
             base.OnModelCreating(modelBuilder);
             var hasher = new PasswordHasher<ApplicationUser>();
 
