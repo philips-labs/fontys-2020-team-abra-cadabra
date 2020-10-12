@@ -161,3 +161,7 @@ nav .search-container button:before, button:after, button:focus {
 .wrap-text {
   word-wrap: break-word;
 }
+/* Question Answer */
+textarea {
+  resize: none;
+}
