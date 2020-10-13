@@ -6,21 +6,30 @@ import AccountService from "../services/AccountService";
 const Register = () => {
 	const [register, setRegister] = useState({ username: "", email: "", password: ""});
 	const [message, setMessage] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
   
 	const handleChange = (event) => {
 	  setRegister({ ...register, [event.target.name]: event.target.value });
 	};
+
+	const handleConfirmPasswordChange = (event) => {
+		setConfirmPassword(event.target.value);
+	  };
   
 	const handleSubmit = (event) => {
 	  event.preventDefault();
-  
+		if(confirmPassword !== register.password){
+			setMessage("passwords don't match")
+			return
+		}
 	  AccountService.Register(register).then((res) => {
 		console.log(res);
 		console.log(res.data);
 		setMessage("Er is een account aangemaakt!");
 	  })
 	  .catch((error) => {
-		  console.log(error);
+		  console.log(error.response.data);
+		  setMessage(error.response.data.message);
 	  });
 	};
   return (
@@ -54,15 +63,14 @@ const Register = () => {
 							<div className="input-group-prepend">
 		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="password" className="form-control" placeholder="Password" type="password" required
-							        />
+        					<input onChange={handleChange} name="password" className="form-control" placeholder="Password" type="password" required/>
     					</div>
 
 						<div className="form-group input-group">
 							<div className="input-group-prepend">
 		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input name="repeatPassword" className="form-control" placeholder="Repeat password" type="password" required
+        					<input onChange={handleConfirmPasswordChange} name="confirmPassword" className="form-control" placeholder="Confirm password" type="password" required
 							  />
     					</div>
 						<div className="form-group ">
