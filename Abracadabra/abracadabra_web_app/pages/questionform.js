@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from "../src/components/Navbar";
 import { Form, Button } from 'react-bootstrap';
-import Question from '../src/services/QuestionService';
+import QuestionService from '../src/services/QuestionService';
 
 function QuestionForm() {
     const [validated, setValidated] = useState(false);
+    const initialInputState = { title: "", description: "" };
+    const [question, setQuestion] = useState(initialInputState);
+    const { title, description } = question;
+
+    const handleInputChange = e => {
+        setQuestion({ ...question, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -13,7 +20,9 @@ function QuestionForm() {
             event.stopPropagation();
         }
         else {
-
+            event.preventDefault();
+            console.log(question);
+            QuestionService.Question(question);
         }
 
         setValidated(true);
@@ -24,15 +33,15 @@ function QuestionForm() {
             <Navbar />
             <Form noValidate validated={validated} onSubmit={handleSubmit} className="questionForm mx-auto">
                 <h1>Submit Your Question</h1>
-                <Form.Group controlId="validationCustom01">
+                <Form.Group>
                     <Form.Label className="label">Question:</Form.Label>
-                    <Form.Control required className="question" type="text" placeholder="Type Your Question Here" />
+                    <Form.Control required className="question" type="text" name="title" onChange={handleInputChange} placeholder="Type Your Question Here" />
                     <Form.Control.Feedback className="feedback">Question Looks Good!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid" className="feedback">Question is Empty!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="validationCustom02">
+                <Form.Group>
                     <Form.Label className="label">Description:</Form.Label>
-                    <Form.Control required as="textarea" rows="10" placeholder="Expand on Your Question Here" minLength="25" />
+                    <Form.Control required as="textarea" rows="10" name="description" onChange={handleInputChange} placeholder="Expand on Your Question Here" minLength="25" />
                     <Form.Control.Feedback className="feedback">The Description Looks Good!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid" className="feedback">The Description Needs to be at least 25 Characters long!</Form.Control.Feedback>
                 </Form.Group>

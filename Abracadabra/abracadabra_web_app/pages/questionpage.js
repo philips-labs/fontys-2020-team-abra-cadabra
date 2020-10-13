@@ -1,33 +1,37 @@
+import React, { useState, useEffect } from 'react'
 import Navbar from "../src/components/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import data from '../src/data.json';
+import QuestionService from '../src/services/QuestionService';
 
 function QuestionPage() {
+    const [question, setQuestion] = useState({});
+
+    const search = async () => {
+        const data = await QuestionService.GetQuestion(3);
+        setQuestion(data);
+        console.log(data);
+    }
+
     return (
         <>
             <Navbar />
-            {
-                data.question.map((question, i) => {
-                    return (
-                        <div key={i} className="mx-auto questionHead">
-                            <div className="row">
-                                <h1 className="col-md-8 questionTitle">{question.question}</h1>
-                                <div className="col-md-4 d-flex justify-content-end">
-                                    <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                                    <p className="questionUsername">{question.userName}</p>
-                                </div>
-                            </div>
-                            <div className="row questionContent">
-                                <p>{question.description}</p>
-                            </div>
-                            <div className="row justify-content-end">
-                                <button className="questionButton">Submit Own Answer</button>
-                            </div>
-                        </div>
-                    );
-                })
-            }
+            <div className="mx-auto questionHead">
+                <div className="row">
+                    <h1 className="col-md-8 questionTitle"></h1>
+                    <div className="col-md-4 d-flex justify-content-end">
+                        <img onClick={search} className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
+                        <p className="questionUsername"></p>
+                    </div>
+                </div>
+                <div className="row questionContent">
+                    <p></p>
+                </div>
+                <div className="row justify-content-end">
+                    <button className="questionButton">Submit Own Answer</button>
+                </div>
+            </div>
+
             <div className="answerHead mx-auto">
                 <h1>A</h1>
                 <div className="row asnwerDiv">
