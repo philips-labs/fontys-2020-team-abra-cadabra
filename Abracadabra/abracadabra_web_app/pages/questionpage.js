@@ -1,36 +1,33 @@
 import Navbar from "../src/components/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-
-const question = [
-    "User4321",
-    "How do you dice an onion",
-    "I don't understand how I can cut an onion, can someone hlep me?"
-];
-
-const answers = [
-
-]
+import data from '../src/data.json';
 
 function QuestionPage() {
     return (
         <>
             <Navbar />
-            <div className="mx-auto questionHead">
-                <div className="row">
-                    <h1 className="col-md-8 questionTitle">{question[1]}</h1>
-                    <div className="col-md-4 d-flex justify-content-end">
-                        <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                        <p className="questionUsername">{question[0]}</p>
-                    </div>
-                </div>
-                <div className="row questionContent">
-                    <p>{question[2]}</p>
-                </div>
-                <div className="row justify-content-end">
-                    <button className="questionButton">Submit Own Answer</button>
-                </div>
-            </div>
+            {
+                data.question.map((question, i) => {
+                    return (
+                        <div key={i} className="mx-auto questionHead">
+                            <div className="row">
+                                <h1 className="col-md-8 questionTitle">{question.question}</h1>
+                                <div className="col-md-4 d-flex justify-content-end">
+                                    <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
+                                    <p className="questionUsername">{question.userName}</p>
+                                </div>
+                            </div>
+                            <div className="row questionContent">
+                                <p>{question.description}</p>
+                            </div>
+                            <div className="row justify-content-end">
+                                <button className="questionButton">Submit Own Answer</button>
+                            </div>
+                        </div>
+                    );
+                })
+            }
             <div className="answerHead mx-auto">
                 <h1>A</h1>
                 <div className="row asnwerDiv">
