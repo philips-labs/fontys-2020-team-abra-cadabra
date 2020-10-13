@@ -21,18 +21,19 @@ function Title() {
     setSearchResults(results);
   }, [searchTerm]);
   return (
-    <div className="container">
+    <div className="container mt-5">
       <input
         type="text"
         placeholder="Search"
         value={searchTerm}
         onChange={handleChange}
         className="form-control"
+        hidden //hidden because we are gonna build it in the navbar
       />
       {searchResults.map((title) => (
-        <div className="card" style={{ marginTop: "2px" }}>
+        <div className="card mt-1" key={title}>
           <div className="BodyQuestion-CardBody">
-            <a
+            <a 
               href={title}
               style={{ color: "black", fontWeight: "bold", fontSize: "25px" }}
             >

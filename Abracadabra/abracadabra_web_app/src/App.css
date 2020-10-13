@@ -1,8 +1,8 @@
-html * {
+/* html * {
   font-family: Rockwell, "Courier New", Courier, Georgia, Times,
   "Times New Roman", serif;
   text-decoration: none;
-}
+} */
 
 /* NAVBAR */
 nav {
@@ -52,8 +52,8 @@ nav .search-container button:before, button:after, button:focus {
 }
 .navbarLogo {
   align-self: center;
-  width: 50px;
   height: 70px;
+  margin-right: -20px;
 }
 .navbarHubIcon {
   color: black;
@@ -135,6 +135,15 @@ nav .search-container button:before, button:after, button:focus {
     display: none;
   }
   nav .search-container button {
+    display: none;
+  }
+  nav .search-box input[type="text"] {
+    display: none;
+  }
+  nav .search-box button {
+    display: none;
+  }
+  nav .search-box {
     display: none;
   }
   .searchMobile {

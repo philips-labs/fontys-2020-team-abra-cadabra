@@ -1,8 +1,14 @@
 import {Container, Row, Col} from 'react-bootstrap';
-
+import Navbar from "src/components/Navbar.js";
+import QuestionBody from "src/components/QuestionBody.js";
+ 
 function Subject({subjectName}) {
     return (
-    <h1>Hello world, welcome to {subjectName}</h1>
+   
+    <>
+            <Navbar subjectTitle={subjectName}/>
+            <QuestionBody />
+    </>
     );
   }
   
