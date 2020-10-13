@@ -32,7 +32,7 @@ namespace AbracadabraAPI.Controllers
             [Route("login")]
             public async Task<IActionResult> Login([FromBody] LoginModel model)
             {
-                var user = await userManager.FindByNameAsync(model.Username);
+                var user = await userManager.FindByEmailAsync(model.Email);
                 if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
                 {
                     var userRoles = await userManager.GetRolesAsync(user);
@@ -71,7 +71,7 @@ namespace AbracadabraAPI.Controllers
             [Route("register")]
             public async Task<IActionResult> Register([FromBody] RegisterModel model)
             {
-                var userExists = await userManager.FindByNameAsync(model.Username);
+                var userExists = await userManager.FindByEmailAsync(model.Email);
                 if (userExists != null)
                     return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
