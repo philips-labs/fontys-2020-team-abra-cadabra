@@ -4,8 +4,6 @@ import { faEnvelope, faHome, faLock, faSearch, faTimes, faUser, faUserCircle, fa
 
 function Title() {
   return (
-    <div className="container">
-			<div className="row main">
 				<div className="main-login main-center">
                     <h2 className="text-center">Login</h2>
 					<form>
@@ -30,8 +28,6 @@ function Title() {
 				         </div>
 					</form>
 				</div>
-			</div>
-		</div>
   );
 }
 
