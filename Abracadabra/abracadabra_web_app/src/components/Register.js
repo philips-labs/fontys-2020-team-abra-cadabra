@@ -8,16 +8,16 @@ const Register = () => {
 	const [message, setMessage] = useState("");
   
 	const handleChange = (event) => {
-	  setPost({ ...register, [event.target.name]: event.target.value });
+	  setRegister({ ...register, [event.target.name]: event.target.value });
 	};
   
 	const handleSubmit = (event) => {
 	  event.preventDefault();
   
-	  CRUDService.create(post).then((res) => {
+	  AccountService.Register(register).then((res) => {
 		console.log(res);
 		console.log(res.data);
-		setMessage("Er is een post aangemaakt!");
+		setMessage("Er is een account aangemaakt!");
 	  });
 	};
   return (
@@ -25,7 +25,7 @@ const Register = () => {
 			<div className="row main my-auto">
 				<div className="main-login main-center">
                     <h2 className="text-center">Register</h2>
-					<form>
+					<form onSubmit={handleSubmit}>
 						{/* <div class="form-group input-group">
 							<div class="input-group-prepend">
 		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUser}/></span>
@@ -37,21 +37,21 @@ const Register = () => {
 							<div class="input-group-prepend">
 		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUsers}/></span>
 		 					</div>
-        					<input name="username" class="form-control" placeholder="Username" type="text"/>
+        					<input onChange={handleChange} name="username" class="form-control" placeholder="Username" type="text"/>
     					</div>
 
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faEnvelope}/></span>
 		 					</div>
-        					<input name="email" class="form-control" placeholder="Email" type="text"/>
+        					<input onChange={handleChange} name="email" class="form-control" placeholder="Email" type="text"/>
     					</div>
 
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input name="password" class="form-control" placeholder="Password" type="text"/>
+        					<input onChange={handleChange} name="password" class="form-control" placeholder="Password" type="text"/>
     					</div>
 
 						<div class="form-group input-group">
@@ -61,16 +61,19 @@ const Register = () => {
         					<input name="password" class="form-control" placeholder="Repeat password" type="text"/>
     					</div>
 						<div className="form-group ">
-							<button type="button" className="btn btn-primary btn-lg btn-block login-button">Register</button>
+							<button type="sumbit" className="btn btn-primary btn-lg btn-block login-button">Register</button>
 						</div>
 						<div className="login-register">
 				            <a href="/loginpage">Login</a>
 				         </div>
 					</form>
 				</div>
+				<div className="alert alert-light" role="alert">
+        {message}
+      </div>
 			</div>
 		</div>
   );
 }
 
-export default Title;
+export default Register;
