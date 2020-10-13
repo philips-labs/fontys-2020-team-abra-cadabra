@@ -38,7 +38,7 @@ function Navbar() {
             <h1 className="navbarText mt-2 ml-2">Cooking</h1>
           </a>
           <div className="search-container align-self-center">
-            <form action="/action_page.php">
+            <form action="">
               <input type="text" placeholder="Search.." name="search"></input>
               <button type="submit"><FontAwesomeIcon icon={faSearch} /></button>
             </form>
@@ -59,11 +59,11 @@ function Navbar() {
       } */}
 
       <Modal centered show={show} onShow={handleClose} onHide={handleShow}>
-        <Modal.Header><button onClick={handleShow} ><FontAwesomeIcon icon={faTimes} /></button></Modal.Header>
-        <Modal.Body>
-          <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search"></input>
-            <button type="submit"><FontAwesomeIcon icon={faSearch} /></button>
+        <Modal.Body className="d-flex flex-column">
+          <button className="navbarModalButton ml-auto mb-1 mr-1" onClick={handleShow}><FontAwesomeIcon icon={faTimes} /></button>
+          <form action="">
+            <input className="navbarModalInput" type="text" placeholder="Search.." name="search"></input>
+            <button className="navbarModalSearchButton mt-1" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
           </form>
         </Modal.Body>
       </Modal>
