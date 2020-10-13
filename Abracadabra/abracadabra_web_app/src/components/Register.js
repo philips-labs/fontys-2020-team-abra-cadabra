@@ -26,39 +26,39 @@ const Register = () => {
 				<div className="main-login main-center">
                     <h2 className="text-center">Register</h2>
 					<form onSubmit={handleSubmit}>
-						{/* <div class="form-group input-group">
-							<div class="input-group-prepend">
-		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUser}/></span>
+						{/* <div className="form-group input-group">
+							<div className="input-group-prepend">
+		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUser}/></span>
 		 					</div>
-        					<input name="name" class="form-control" placeholder="Full name (optional)" type="text"/>
+        					<input name="name" className="form-control" placeholder="Full name (optional)" type="text"/>
     					</div> */}
 						
-						<div class="form-group input-group">
-							<div class="input-group-prepend">
-		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUsers}/></span>
+						<div className="form-group input-group">
+							<div className="input-group-prepend">
+		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUsers}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="username" class="form-control" placeholder="Username" type="text"/>
+        					<input onChange={handleChange} name="username" className="form-control" placeholder="Username" type="text"/>
     					</div>
 
-						<div class="form-group input-group">
-							<div class="input-group-prepend">
-		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faEnvelope}/></span>
+						<div className="form-group input-group">
+							<div className="input-group-prepend">
+		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faEnvelope}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="email" class="form-control" placeholder="Email" type="text"/>
+        					<input onChange={handleChange} name="email" className="form-control" placeholder="Email" type="text"/>
     					</div>
 
-						<div class="form-group input-group">
-							<div class="input-group-prepend">
-		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
+						<div className="form-group input-group">
+							<div className="input-group-prepend">
+		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="password" class="form-control" placeholder="Password" type="text"/>
+        					<input onChange={handleChange} name="password" className="form-control" placeholder="Password" type="text"/>
     					</div>
 
-						<div class="form-group input-group">
-							<div class="input-group-prepend">
-		    					<span class="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
+						<div className="form-group input-group">
+							<div className="input-group-prepend">
+		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input name="password" class="form-control" placeholder="Repeat password" type="text"/>
+        					<input name="password" className="form-control" placeholder="Repeat password" type="text"/>
     					</div>
 						<div className="form-group ">
 							<button type="sumbit" className="btn btn-primary btn-lg btn-block login-button">Register</button>
