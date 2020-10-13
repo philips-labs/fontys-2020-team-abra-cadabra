@@ -91,7 +91,7 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Answers
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO)
+        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO, int questionID)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -103,7 +103,8 @@ namespace AbracadabraAPI.Controllers
             {
                 UserID = user.Id,
                 DateTimeCreated = DateTime.Now,
-                AnswerContent = answerDTO.AnswerContent
+                AnswerContent = answerDTO.AnswerContent,
+                QuestionID = questionID
             };
 
             _context.Answers.Add(answer);
