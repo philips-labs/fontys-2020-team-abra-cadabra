@@ -4,7 +4,7 @@ import { faEnvelope, faHome, faLock, faSearch, faTimes, faUser, faUserCircle, fa
 import AccountService from "../services/AccountService";
 
 const Register = () => {
-	const [register, setRegister] = useState({ userName: "", eMail: "", password: "" });
+	const [register, setRegister] = useState({ username: "", email: "", password: ""});
 	const [message, setMessage] = useState("");
   
 	const handleChange = (event) => {
@@ -18,6 +18,9 @@ const Register = () => {
 		console.log(res);
 		console.log(res.data);
 		setMessage("Er is een account aangemaakt!");
+	  })
+	  .catch((error) => {
+		  console.log(error);
 	  });
 	};
   return (
@@ -37,28 +40,30 @@ const Register = () => {
 							<div className="input-group-prepend">
 		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUsers}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="username" className="form-control" placeholder="Username" type="text"/>
+        					<input onChange={handleChange} name="username" className="form-control" placeholder="Username" type="text" required/>
     					</div>
 
 						<div className="form-group input-group">
 							<div className="input-group-prepend">
 		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faEnvelope}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="email" className="form-control" placeholder="Email" type="text"/>
+        					<input onChange={handleChange} name="email" className="form-control" placeholder="Email" type="email" required/>
     					</div>
 
 						<div className="form-group input-group">
 							<div className="input-group-prepend">
 		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input onChange={handleChange} name="password" className="form-control" placeholder="Password" type="text"/>
+        					<input onChange={handleChange} name="password" className="form-control" placeholder="Password" type="password" required
+							        />
     					</div>
 
 						<div className="form-group input-group">
 							<div className="input-group-prepend">
 		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faLock}/></span>
 		 					</div>
-        					<input name="password" className="form-control" placeholder="Repeat password" type="text"/>
+        					<input name="repeatPassword" className="form-control" placeholder="Repeat password" type="password" required
+							  />
     					</div>
 						<div className="form-group ">
 							<button type="sumbit" className="btn btn-primary btn-lg btn-block login-button">Register</button>
@@ -66,11 +71,11 @@ const Register = () => {
 						<div className="login-register">
 				            <a href="/loginpage">Login</a>
 				         </div>
+						 <div className="alert alert-light" role="alert">
+        					{message}
+      					</div>
 					</form>
 				</div>
-				<div className="alert alert-light" role="alert">
-        {message}
-      </div>
 			</div>
 		</div>
   );
