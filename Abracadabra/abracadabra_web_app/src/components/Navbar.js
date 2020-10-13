@@ -52,14 +52,16 @@ function Navbar({subjectTitle}) {
         {/* </div> */}
         <a className="navbarHubIconMobile" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <button className="searchMobile mx-auto" onClick={handleShow} id="mobile_search"><FontAwesomeIcon icon={faSearch} /></button>
-        <button className="navbarAvatarButton" onClick={handleOpen}>{open ? <FontAwesomeIcon className="navbarX" icon={faTimes} /> : <FontAwesomeIcon className="navbarAvatar" icon={faUserCircle} />}</button>
+
+        <a className="navbarHubIcon" href="/loginpage"><FontAwesomeIcon icon={faUserCircle} /></a>
+        {/* <button className="navbarAvatarButton" onClick={handleOpen}>{open ? <FontAwesomeIcon className="navbarX" icon={faTimes} /> : <FontAwesomeIcon className="navbarAvatar" icon={faUserCircle} />}</button> */}
       </nav>
-      {open ?
+      {/* {open ?
         <div className="dropdown-menu dropdownMenu float-right" id="dropdown">
           <a className="dropdown-item dropdownText" id="#dropdown_item" href="#profile">Profile</a>
           <a className="dropdown-item dropdownText" id="#dropdown_item" href="#logout">Sign out</a>
         </div> : null
-      }
+      } */}
 
       <Modal centered show={show} onShow={handleClose} onHide={handleShow}>
         <Modal.Body className="d-flex flex-column">

@@ -63,6 +63,8 @@ namespace AbracadabraAPI
                  };
              });
 
+            // NOTE: Re-enable CORS when deploying
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +74,9 @@ namespace AbracadabraAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // NOTE: Re-enable CORS when deploying
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

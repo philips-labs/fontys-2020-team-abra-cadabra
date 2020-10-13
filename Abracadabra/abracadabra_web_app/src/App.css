@@ -1,6 +1,6 @@
 /* html * {
   font-family: Rockwell, "Courier New", Courier, Georgia, Times,
-  "Times New Roman", serif;
+    "Times New Roman", serif;
   text-decoration: none;
 } */
 
@@ -77,7 +77,7 @@ nav .search-container button:before, button:after, button:focus {
   font-size: 66px;
   margin-right: 5px;
 }
-.dropdownMenu{
+.dropdownMenu {
   position: absolute;
   left: auto !important;
   top: auto !important;
@@ -89,20 +89,20 @@ nav .search-container button:before, button:after, button:focus {
   border-top: none;
   border-radius: 0px 0px 6px 6px;
 }
-.dropdownText{
-  font-size: 1.20rem;
+.dropdownText {
+  font-size: 1.2rem;
 }
-.dropdownText:hover{
+.dropdownText:hover {
   background-color: #ccc;
 }
-.searchMobile{
+.searchMobile {
   display: none;
   font-size: 35px;
   color: black;
   border: none;
   background: transparent;
 }
-.searchMobile:hover{
+.searchMobile:hover {
   color: #707070;
 }
 .navbarHubIconMobile {
@@ -118,11 +118,11 @@ nav .search-container button:before, button:after, button:focus {
 }
 
 @media (max-width: 844px) {
-  .navbarCollapse{
+  .navbarCollapse {
     width: 100vw;
     justify-content: space-evenly;
   }
-  .navbarHubIcon{
+  .navbarHubIcon {
     display: none;
   }
   .navbarHubIconMobile {
@@ -169,4 +169,58 @@ nav .search-container button:before, button:after, button:focus {
 /* QuestionHead */
 .wrap-text {
   word-wrap: break-word;
+}
+
+/* Register Login */
+h1.title {
+  font-size: 50px;
+  font-family: "Passion One", cursive;
+  font-weight: 400;
+}
+
+hr {
+  width: 10%;
+  color: #fff;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+  font-size: 11px;
+  padding-top: 3px;
+}
+
+.main-login {
+  background-color: #fff;
+  /* shadows and rounded borders */
+  /* border-style: ridge; */
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  -moz-box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.main-center {
+  margin-top: 100px;
+  margin: 0 auto;
+  max-width: 330px;
+  padding: 40px 40px;
+}
+
+.login-button {
+  margin-top: 5px;
+}
+
+.login-register {
+  font-size: 11px;
+  text-align: center;
 }

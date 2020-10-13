@@ -15,7 +15,7 @@ namespace AbracadabraAPI.Data
         {
             context.Database.EnsureCreated();
 
-            if (context.ForumThreads.Any())
+            if (context.Questions.Any())
             {
                 return;
             }
@@ -26,9 +26,9 @@ namespace AbracadabraAPI.Data
                 userIds.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().Id);
             }
 
-            var forumThreads = new ForumThread[]
+            var questions = new Question[]
             {
-                new ForumThread
+                new Question
                 {
                     UserID=userIds[0],
                     Title="Boil water",
@@ -36,7 +36,7 @@ namespace AbracadabraAPI.Data
                     Category="Cooking",
                     DateTimeCreated="2020-9-19-11:35",
                 },
-                new ForumThread
+                new Question
                 {
                     UserID=userIds[1],
                     Title="Craft table",
@@ -45,39 +45,39 @@ namespace AbracadabraAPI.Data
                     DateTimeCreated="2020-10-19-11:35",
                 },
             };
-            foreach (ForumThread forumThread in forumThreads)
+            foreach (Question question in questions)
             {
-                context.ForumThreads.Add(forumThread);
+                context.Questions.Add(question);
             }
             context.SaveChanges();
 
-            var forumPosts = new ForumPost[]
+            var answers = new Answer[]
             {
-                new ForumPost
+                new Answer
                 {
                     UserID=userIds[0],
-                    ForumThreadID=1,
-                    PostContent="Post content 1",
+                    QuestionID=1,
+                    AnswerContent="Post content 1",
                     DateTimeCreated="2020-9-19-12:00",
                 },
-                new ForumPost
+                new Answer
                 {
                     UserID=userIds[1],
-                    ForumThreadID=1,
-                    PostContent="Post content 2",
+                    QuestionID=1,
+                    AnswerContent="Post content 2",
                     DateTimeCreated="2020-9-19-12:30",
                 },
-                new ForumPost
+                new Answer
                 {
                     UserID=userIds[2],
-                    ForumThreadID=2,
-                    PostContent="Post content 1",
+                    QuestionID=2,
+                    AnswerContent="Post content 1",
                     DateTimeCreated="2020-9-19-12:00",
                 },
             };
-            foreach (ForumPost forumPost in forumPosts)
+            foreach (Answer answer in answers)
             {
-                context.ForumPosts.Add(forumPost);
+                context.Answers.Add(answer);
             }
             context.SaveChanges();
         }
