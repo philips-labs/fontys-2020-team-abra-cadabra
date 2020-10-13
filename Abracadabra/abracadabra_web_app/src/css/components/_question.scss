@@ -1,0 +1,34 @@
+.questionHead{
+    width: 60vw;
+    height: 15vh;
+    margin-top: 3rem;
+}
+.questionTitle {
+    color: #707070;
+    font-weight: normal;
+    font-size: 3rem;
+    text-decoration: underline;
+    &::before {
+        font-weight: normal;
+        font-size: 3.5rem;
+        margin-right: 2rem;
+        text-decoration: none;
+        content: "Q ";
+    }
+}
+.questionContent {
+    margin-left: 5.5rem;
+    align-self: flex-end;
+    font-size: 1.2rem;
+}
+.questionAvatar {
+    font-size: 55px;
+    background-color: black;
+    color: white;
+    margin-right: 0.8rem;
+}
+.questionUsername {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #707070;
+}
