@@ -102,7 +102,7 @@ namespace AbracadabraAPI.Controllers
             var answer = new Answer
             {
                 UserID = user.Id,
-                DateTimeCreated = answerDTO.DateTimeCreated,
+                DateTimeCreated = DateTime.Now,
                 AnswerContent = answerDTO.AnswerContent
             };
 
