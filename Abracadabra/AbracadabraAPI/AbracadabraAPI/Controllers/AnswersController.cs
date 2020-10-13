@@ -67,6 +67,7 @@ namespace AbracadabraAPI.Controllers
 
             answer.AnswerContent = answerDTO.AnswerContent;
             answer.DateTimeCreated = answerDTO.DateTimeCreated;
+            answer.QuestionID = answerDTO.QuestionID;
             answer.UserID = user.Id;
 
             try
@@ -91,7 +92,7 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Answers
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO, int questionID)
+        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -104,7 +105,7 @@ namespace AbracadabraAPI.Controllers
                 UserID = user.Id,
                 DateTimeCreated = DateTime.Now,
                 AnswerContent = answerDTO.AnswerContent,
-                QuestionID = questionID
+                QuestionID = answerDTO.QuestionID
             };
 
             _context.Answers.Add(answer);
@@ -150,7 +151,8 @@ namespace AbracadabraAPI.Controllers
             {
                 ID = answer.ID,
                 AnswerContent = answer.AnswerContent,
-                DateTimeCreated = answer.DateTimeCreated
+                DateTimeCreated = answer.DateTimeCreated,
+                QuestionID = answer.QuestionID
             };
     }
 }
