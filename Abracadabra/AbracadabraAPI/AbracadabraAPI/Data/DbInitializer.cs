@@ -25,7 +25,29 @@ namespace AbracadabraAPI.Data
             {
                 userIds.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().Id);
             }
+            var subects = new Subject[]
+            {
+                new Subject
+                {
+                    
+                    SubjectName = "Cooking",
 
+                },
+                new Subject
+                {
+                    
+                    SubjectName = "Gaming",
+
+                },
+                };
+
+            foreach (Subject subject in subects)
+            {
+                context.Subjects.Add(subject);
+            }
+            context.SaveChanges();
+        
+        
             var questions = new Question[]
             {
                 new Question
@@ -34,6 +56,7 @@ namespace AbracadabraAPI.Data
                     Title="Boil water",
                     Description="How to boil water",
                     Category="Cooking",
+                    SubjectID=1,
                     DateTimeCreated="2020-9-19-11:35",
                 },
                 new Question
@@ -42,6 +65,7 @@ namespace AbracadabraAPI.Data
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     Category="Crafting",
+                    SubjectID=2,
                     DateTimeCreated="2020-10-19-11:35",
                 },
             };
@@ -73,6 +97,7 @@ namespace AbracadabraAPI.Data
                     QuestionID=2,
                     AnswerContent="Post content 1",
                     DateTimeCreated="2020-9-19-12:00",
+                    
                 },
             };
             foreach (Answer answer in answers)
