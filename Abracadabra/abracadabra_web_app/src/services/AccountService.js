@@ -7,3 +7,9 @@ const Login = (data) => {
   const Register = (data) => {
     return http.post("/authenticate", data);
   };
+
+  export default {
+    Login,
+    Register,
+  };
+  
