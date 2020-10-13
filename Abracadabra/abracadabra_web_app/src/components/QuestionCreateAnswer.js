@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Figure, Form, Button } from 'react-bootstrap';
 import Question from "./QuestionHead";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import QuestionService from "../services/QuestionService";
 
 
 
@@ -9,14 +10,18 @@ function QuestionCreateAnwser() {
     const [Answer, setAnswer] = useState(
         {
             answercontent: '',
-            questionid: '',
-            token: ''
+            questionid: ''
         }
     );
 
     const handleSubmit = (event) => {
         var token = localStorage.getItem('token');
         setAnswer({ ...Answer, token: token })
+
+        QuestionService.QuestionAnswer(Answer).then((res) => {
+            console.log(res);
+            console.log(res.data);
+        })
     };
 
     const handleChange = (event) => {
