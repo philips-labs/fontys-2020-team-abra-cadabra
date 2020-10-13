@@ -9,6 +9,7 @@ function QuestionCreateAnwser() {
     const [Answer, setAnswer] = useState(
         {
             answercontent: '',
+            questionid: '',
             token: ''
         }
     );
