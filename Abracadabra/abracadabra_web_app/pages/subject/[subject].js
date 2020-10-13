@@ -1,10 +1,10 @@
 import {Container, Row, Col} from 'react-bootstrap';
 import Navbar from "src/components/Navbar.js";
 import QuestionBody from "src/components/QuestionBody.js";
+import SubjectService from 'src/services/SubjectService';
  
 function Subject({subjectName}) {
     return (
-   
     <>
             <Navbar subjectTitle={subjectName}/>
             <QuestionBody />
