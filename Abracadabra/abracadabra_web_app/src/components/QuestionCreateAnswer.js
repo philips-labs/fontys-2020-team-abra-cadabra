@@ -5,13 +5,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function QuestionCreateAnwser() {
+    const [Answer, setAnswer] = useState(
+        {
+            answercontent: '',
+            datetimecreated: ''
+        }
+    );
+    const handleChange = () => {
+        setQuestion();
+    };
+
     return (
         <div class="rounded container">
             <Row className="justify-content-md-left">
                 <Col md="12">
                     <Form.Group className="textarea">
                         <Form.Label><h4>Enter Answer</h4></Form.Label>
-                        <Form.Control as="textarea" rows="2" placeholder="Enter Answer" name="title" /*value="" onChange=""*/ />
+                        <Form.Control as="textarea" rows="2" placeholder="Enter Answer" name="answercontent" /*value="" onChange=""*/ />
                     </Form.Group>
                 </Col>
             </Row>
