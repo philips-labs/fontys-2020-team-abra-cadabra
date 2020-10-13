@@ -9,21 +9,13 @@ function QuestionCreateAnwser() {
     const [Answer, setAnswer] = useState(
         {
             answercontent: '',
-            datetimecreated: ''
+            token: ''
         }
     );
 
-    const handleSubmit = () => {
-        var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth() + 1; //Current Month
-        var year = new Date().getFullYear(); //Current Year
-        var hours = new Date().getHours(); //Current Hours
-        var min = new Date().getMinutes(); //Current Minutes
-        var sec = new Date().getSeconds(); //Current Seconds
-        var realdate =
-            year + '-' + month + '-' + date
-            + 'T' + hours + ':' + min + ':' + sec;
-         setAnswer({ ...Answer, datetimecreated: realdate });
+    const handleSubmit = (event) => {
+        var token = localStorage.getItem('token');
+        setAnswer({ ...Answer, token: token })
     };
 
     const handleChange = (event) => {
