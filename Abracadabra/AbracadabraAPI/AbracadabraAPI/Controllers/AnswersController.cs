@@ -16,35 +16,35 @@ namespace AbracadabraAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ForumPostsController : ControllerBase
+    public class AnswersController : ControllerBase
     {
         private readonly AbracadabraContext _context;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public ForumPostsController(AbracadabraContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AnswersController(AbracadabraContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
 
-        private async Task<ActionResult<ForumPostDTO>> GetForumPost(int id)
+        private async Task<ActionResult<AnswerDTO>> GetAnswer(int id)
         {
-            var forumPost = await _context.ForumPosts.Where(x => x.ID == id).FirstOrDefaultAsync();
+            var answer = await _context.Answers.Where(x => x.ID == id).FirstOrDefaultAsync();
 
-            if (forumPost == null)
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            return ForumPostToDTO(forumPost);
+            return AnswerToDTO(answer);
         }
 
-        // PUT: api/ForumPosts/5
+        // PUT: api/Answers/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutForumPost(int id, ForumPostDTO forumPostDTO)
+        public async Task<IActionResult> PutAnswer(int id, AnswerDTO answerDTO)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -52,20 +52,20 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            if (id != forumPostDTO.ID)
+            if (id != answerDTO.ID)
             {
                 return BadRequest();
             }
 
-            var forumPost = await _context.ForumPosts.FindAsync(id);
-            if (forumPost == null)
+            var answer = await _context.Answers.FindAsync(id);
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            forumPost.PostContent = forumPostDTO.PostContent;
-            forumPost.DateTimeCreated = forumPostDTO.DateTimeCreated;
-            forumPost.UserID = user.Id;
+            answer.AnswerContent = answerDTO.AnswerContent;
+            answer.DateTimeCreated = answerDTO.DateTimeCreated;
+            answer.UserID = user.Id;
 
             try
             {
@@ -73,7 +73,7 @@ namespace AbracadabraAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ForumPostExists(id))
+                if (!AnswerExists(id))
                 {
                     return NotFound();
                 }
@@ -86,10 +86,10 @@ namespace AbracadabraAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/ForumPosts
+        // POST: api/Answers
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<ForumPostDTO>> PostForumPost(ForumPostDTO forumPostDTO)
+        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -97,23 +97,23 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var forumPost = new ForumPost
+            var answer = new Answer
             {
                 UserID = user.Id,
-                DateTimeCreated = forumPostDTO.DateTimeCreated,
-                PostContent = forumPostDTO.PostContent
+                DateTimeCreated = answerDTO.DateTimeCreated,
+                AnswerContent = answerDTO.AnswerContent
             };
 
-            _context.ForumPosts.Add(forumPost);
+            _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetForumPost), new { id = forumPostDTO.ID }, ForumPostToDTO(forumPost));
+            return CreatedAtAction(nameof(GetAnswer), new { id = answerDTO.ID }, AnswerToDTO(answer));
         }
 
         // DELETE: api/ForumPosts/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<ForumPostDTO>> DeleteForumPost(int id)
+        public async Task<ActionResult<AnswerDTO>> DeleteAnswer(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -121,33 +121,33 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var forumPost = await _context.ForumPosts.FindAsync(id);
-            if (forumPost == null)
+            var answer = await _context.Answers.FindAsync(id);
+            if (answer == null)
             {
                 return NotFound();
             }
-            if (forumPost.UserID != user.Id)
+            if (answer.UserID != user.Id)
             {
                 return Unauthorized();
             }
 
-            _context.ForumPosts.Remove(forumPost);
+            _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return ForumPostToDTO(forumPost);
+            return AnswerToDTO(answer);
         }
 
-        private bool ForumPostExists(int id)
+        private bool AnswerExists(int id)
         {
-            return _context.ForumPosts.Any(e => e.ID == id);
+            return _context.Answers.Any(e => e.ID == id);
         }
 
-        private static ForumPostDTO ForumPostToDTO(ForumPost forumPost) =>
-            new ForumPostDTO
+        private static AnswerDTO AnswerToDTO(Answer answer) =>
+            new AnswerDTO
             {
-                ID = forumPost.ID,
-                PostContent = forumPost.PostContent,
-                DateTimeCreated = forumPost.DateTimeCreated
+                ID = answer.ID,
+                AnswerContent = answer.AnswerContent,
+                DateTimeCreated = answer.DateTimeCreated
             };
     }
 }
