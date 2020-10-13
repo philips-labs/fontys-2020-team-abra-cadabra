@@ -15,7 +15,7 @@ namespace AbracadabraAPI.Models
 
         public string AnswerContent { get; set; }
 
-        public string DateTimeCreated { get; set; }
+        public DateTime DateTimeCreated { get; set; }
 
         public int QuestionID { get; set; }
     }

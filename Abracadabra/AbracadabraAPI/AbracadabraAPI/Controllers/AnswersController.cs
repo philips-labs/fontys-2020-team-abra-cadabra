@@ -29,7 +29,9 @@ namespace AbracadabraAPI.Controllers
             this.roleManager = roleManager;
         }
 
-        private async Task<ActionResult<AnswerDTO>> GetAnswer(int id)
+        // GET: api/Answers/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AnswerDTO>> GetAnswer(int id)
         {
             var answer = await _context.Answers.Where(x => x.ID == id).FirstOrDefaultAsync();
 
