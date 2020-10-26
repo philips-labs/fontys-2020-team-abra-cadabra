@@ -46,6 +46,7 @@ namespace AbracadabraAPI
                     options.Password.RequiredLength = 8;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = true;
+                    options.User.AllowedUserNameCharacters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                 })
                 .AddEntityFrameworkStores<AbracadabraContext>()
                 .AddDefaultTokenProviders();

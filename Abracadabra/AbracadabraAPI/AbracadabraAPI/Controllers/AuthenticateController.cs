@@ -143,56 +143,6 @@ namespace AbracadabraAPI.Controllers
                 return false;
             }
         }
-
-        private bool IsPasswordValid(string password, out string errorMessage)
-        {
-            errorMessage = string.Empty;
-
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                errorMessage = "The password should not be empty.";
-                return false;
-            }
-
-            var hasNumber = new Regex(@"[0-9]+");
-            var hasUpperChar = new Regex(@"[A-Z]+");
-            var hasMiniMaxChars = new Regex(@".{8,200}");
-            var hasLowerChar = new Regex(@"[a-z]+");
-            //var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
-
-            if (!hasLowerChar.IsMatch(password))
-            {
-                errorMessage = "Password should contain at least one lower case letter.";
-                return false;
-            }
-            else if (!hasUpperChar.IsMatch(password))
-            {
-                errorMessage = "Password should contain at least one upper case letter.";
-                return false;
-            }
-            else if (!hasMiniMaxChars.IsMatch(password))
-            {
-                errorMessage = "Password should not be lesser than 8 or greater than 200 characters.";
-                return false;
-            }
-            else if (!hasNumber.IsMatch(password))
-            {
-                errorMessage = "Password should contain at least one numeric value.";
-                return false;
-            }
-
-            /*
-            else if (!hasSymbols.IsMatch(password))
-            {
-                errorMessage = "Password should contain at least one special case character.";
-                return false;
-            }
-            */
-            else
-            {
-                return true;
-            }
-        }
     }
 }
 
