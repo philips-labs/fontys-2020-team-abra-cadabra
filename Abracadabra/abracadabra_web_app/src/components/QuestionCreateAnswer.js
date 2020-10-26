@@ -10,18 +10,19 @@ function QuestionCreateAnwser() {
     const [Answer, setAnswer] = useState(
         {
             answercontent: '',
-            questionid: ''
         }
     );
 
     const handleSubmit = (event) => {
-        var token = localStorage.getItem('token');
-        setAnswer({ ...Answer, token: token })
-
+        /* setAnswer({ ...Answer, questionid: questionid }) */
         QuestionService.QuestionAnswer(Answer).then((res) => {
             console.log(res);
             console.log(res.data);
         })
+        .catch((error) => {
+            console.log(error.response.data);
+            setMessage(error.response.data.message);
+        });
     };
 
     const handleChange = (event) => {
