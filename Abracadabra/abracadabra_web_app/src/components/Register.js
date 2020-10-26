@@ -11,6 +11,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
+import Router from "next/router";
 
 const Register = () => {
   const [register, setRegister] = useState({
@@ -31,6 +32,13 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    //check if username doesn't contain symbols
+    if (!RegExp(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/).test(register.username)) {
+      setMessage("Username can't contain any symbols");
+      return;
+    }
+
     //check if passwords match
     if (confirmPassword !== register.password) {
       setMessage("passwords don't match");
@@ -52,7 +60,7 @@ const Register = () => {
       return;
     }
     // check for numbers
-    if (!RegExp(/.*[1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
       setMessage("password must contain a number");
       return;
     }
@@ -62,6 +70,7 @@ const Register = () => {
         console.log(res);
         console.log(res.data);
         setMessage("Er is een account aangemaakt!");
+        Router.push("/");
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -74,13 +83,6 @@ const Register = () => {
         <div className="main-login main-center">
           <h2 className="text-center">Register</h2>
           <form onSubmit={handleSubmit}>
-            {/* <div className="form-group input-group">
-							<div className="input-group-prepend">
-		    					<span className="input-group-text" style={{width:"45px"}}> <FontAwesomeIcon icon={faUser}/></span>
-		 					</div>
-        					<input name="name" className="form-control" placeholder="Full name (optional)" type="text"/>
-    					</div> */}
-
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text" style={{ width: "45px" }}>
