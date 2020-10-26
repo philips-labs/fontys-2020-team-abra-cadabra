@@ -34,7 +34,7 @@ namespace AbracadabraAPI.Data
                     Title="Boil water",
                     Description="How to boil water",
                     Category="Cooking",
-                    DateTimeCreated="2020-9-19-11:35",
+                    DateTimeCreated=DateTime.Parse("2020-07-03 19:00"),
                 },
                 new Question
                 {
@@ -42,7 +42,7 @@ namespace AbracadabraAPI.Data
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     Category="Crafting",
-                    DateTimeCreated="2020-10-19-11:35",
+                    DateTimeCreated=DateTime.Parse("2020-05-03 19:00"),
                 },
             };
             foreach (Question question in questions)

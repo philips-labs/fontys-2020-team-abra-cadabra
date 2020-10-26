@@ -97,18 +97,18 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Questions
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO questionDTO)
         {
-            //var user = await userManager.FindByNameAsync(User.Identity.Name);
-            //if (user == null)
-            //{
-            //    return Unauthorized();
-            //}
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
 
             var question = new Question
             {
-                UserID = "1",
+                UserID = user.Id,
                 Title = questionDTO.Title,
                 Description = questionDTO.Description
             };
