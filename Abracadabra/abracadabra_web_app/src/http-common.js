@@ -9,11 +9,12 @@ const httpdefault = () => {
 })
 };
 const httptoken = () => {
+  const token = localStorage.getItem('Token');
   return axios.create({
     baseURL: "https://localhost:44343/api",
     headers: {
       "Content-type": "application/json",
-      "authorization": localStorage.getItem('Token') 
+      'Authorization': `Bearer ${token}` 
   }
 })
 };

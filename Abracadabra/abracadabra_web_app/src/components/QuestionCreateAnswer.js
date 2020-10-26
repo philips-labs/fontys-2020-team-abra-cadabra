@@ -14,6 +14,7 @@ function QuestionCreateAnwser() {
     );
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         /* setAnswer({ ...Answer, questionid: questionid }) */
         QuestionService.QuestionAnswer(Answer).then((res) => {
             console.log(res);
@@ -21,7 +22,6 @@ function QuestionCreateAnwser() {
         })
         .catch((error) => {
             console.log(error.response.data);
-            setMessage(error.response.data.message);
         });
     };
 
