@@ -3,12 +3,34 @@ import Router from 'next/router';
 import Navbar from "../src/components/Navbar";
 import { Form, Button } from 'react-bootstrap';
 import QuestionService from '../src/services/QuestionService';
+import axios from 'axios';
 
 function QuestionForm() {
     const [validated, setValidated] = useState(false);
     const initialInputState = { title: "", description: "" };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
+    const [questions, setQuestions] = useState([]);
+
+    function reverseArray(array) {
+        return array.reverse();
+    }
+
+    useEffect(() => {
+        GetQuestions();
+    }, []);
+
+    const URL = 'https://localhost:44343/api/Questions';
+    async function GetQuestions() {
+        const response = await axios.get(URL)
+            .then(
+                response => {
+                    setQuestions(reverseArray(response.data));
+                }
+            ).catch(function (error) {
+                console.error(error);
+            })
+    }
 
     const handleInputChange = e => {
         setQuestion({ ...question, [e.target.name]: e.target.value });
@@ -24,7 +46,8 @@ function QuestionForm() {
             event.preventDefault();
             console.log(question);
             QuestionService.Question(question);
-            Router.push('/questionpage')
+            console.log(questions[0].id);
+            Router.push('/question/' + questions[0].id);
         }
 
         setValidated(true);

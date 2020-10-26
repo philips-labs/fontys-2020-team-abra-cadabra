@@ -5,7 +5,7 @@ import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPen
 import axios from 'axios';
 
 function QuestionPage() {
-    const [route, setRoute] = useState();
+    const [route, setRoute] = useState(null);
     const [question, setQuestion] = useState({});
     const [answers, setAnswers] = useState([]);
 
@@ -17,7 +17,9 @@ function QuestionPage() {
         setRoute(window.location.pathname.split("/")[2]);
     }, [])
     useEffect(() => {
-        GetQuestion(route);
+        if (route != null) {
+            GetQuestion(route);
+        }
     }, [route])
 
     const URL = 'https://localhost:44343/api/Questions/';
