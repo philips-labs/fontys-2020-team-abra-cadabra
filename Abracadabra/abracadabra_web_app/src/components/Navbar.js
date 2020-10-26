@@ -43,7 +43,7 @@ function Navbar() {
               <button type="submit"><FontAwesomeIcon icon={faSearch} /></button>
             </form>
           </div>
-          <a href="#question" className="btn btn-outline-secondary navbarButton align-self-center ml-2">Ask a Question</a>
+          <a href="/questionform" className="btn btn-outline-secondary navbarButton align-self-center ml-2">Ask a Question</a>
         </div>
         <a className="navbarHubIconMobile" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <button className="searchMobile mx-auto" onClick={handleShow} id="mobile_search"><FontAwesomeIcon icon={faSearch} /></button>

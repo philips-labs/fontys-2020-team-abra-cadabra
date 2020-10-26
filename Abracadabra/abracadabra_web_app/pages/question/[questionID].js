@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import Navbar from "../src/components/Navbar";
+import React, { useState, useEffect } from 'react';
+import Navbar from "../../src/components/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 function QuestionPage() {
+    const [route, setRoute] = useState();
     const [question, setQuestion] = useState({});
     const [answers, setAnswers] = useState([]);
 
@@ -12,25 +13,27 @@ function QuestionPage() {
         return array.reverse();
     }
 
+    useEffect(() => {
+        setRoute(window.location.pathname.split("/")[2]);
+    }, [])
+    useEffect(() => {
+        GetQuestion(route);
+    }, [route])
+
     const URL = 'https://localhost:44343/api/Questions/';
     async function GetQuestion() {
-        const response = await axios.get(URL + 6)
+        console.log(route);
+        const response = await axios.get(URL + route)
             .then(
                 response => {
                     setQuestion(response.data);
                     setAnswers(reverseArray(response.data.answers));
                 }
-            ).catch(function (error) {
+            )
+            .catch(function (error) {
                 console.error(error);
             })
     }
-
-    useEffect(() => {
-        GetQuestion();
-    }, []);
-
-    // console.log(question);
-    // console.log(answers);
 
     return (
         <>

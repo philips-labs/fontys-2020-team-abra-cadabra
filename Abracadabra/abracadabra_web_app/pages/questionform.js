@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import Navbar from "../src/components/Navbar";
 import { Form, Button } from 'react-bootstrap';
 import QuestionService from '../src/services/QuestionService';
@@ -23,6 +24,7 @@ function QuestionForm() {
             event.preventDefault();
             console.log(question);
             QuestionService.Question(question);
+            Router.push('/questionpage')
         }
 
         setValidated(true);
