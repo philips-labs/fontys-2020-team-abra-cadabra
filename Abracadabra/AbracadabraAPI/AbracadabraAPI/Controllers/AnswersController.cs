@@ -114,7 +114,7 @@ namespace AbracadabraAPI.Controllers
             return CreatedAtAction(nameof(GetAnswer), new { id = answerDTO.ID }, AnswerToDTO(answer));
         }
 
-        // DELETE: api/ForumPosts/5
+        // DELETE: api/Answers/5
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<ActionResult<AnswerDTO>> DeleteAnswer(int id)
