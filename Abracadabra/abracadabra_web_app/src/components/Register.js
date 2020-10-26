@@ -46,6 +46,11 @@ const Register = () => {
       setMessage("password must contain a capital letter");
       return;
     }
+    // Check for lower letters
+    if (!RegExp(/.*[a-z]+.*/g).test(register.password)) {
+      setMessage("password must contain a lower letter");
+      return;
+    }
     // check for numbers
     if (!RegExp(/.*[1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
       setMessage("password must contain a number");
