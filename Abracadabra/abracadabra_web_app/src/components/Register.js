@@ -20,6 +20,8 @@ const Register = () => {
     password: "",
   });
   const [message, setMessage] = useState("");
+  const [messagePassword, setMessagePassword] = useState("");
+  const [messageUserName, setMessageUserName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleChange = (event) => {
@@ -32,37 +34,40 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setMessagePassword("");
+    setMessageUserName("");
+    setMessage("");
 
     //check if username doesn't contain symbols
     if (RegExp(/^[a-zA-Z0-9]+$/).test(register.username)) {
     } else {
-      setMessage("Username can't contain any symbols");
+      setMessageUserName("can't contain any symbols");
       return;
     }
 
     //check if passwords match
     if (confirmPassword !== register.password) {
-      setMessage("passwords don't match");
+      setMessagePassword("passwords don't match");
       return;
     }
     //check if password is between 8 and 200 characters
     if (register.password.length < 8 || register.password.length > 200) {
-      setMessage("password must be between 8 and 200 characters");
+      setMessagePassword("must be 8-200 characters long");
       return;
     }
     // Check for capital letters
     if (!RegExp(/.*[A-Z]+.*/g).test(register.password)) {
-      setMessage("password must contain a capital letter");
+      setMessagePassword("must contain a capital letter");
       return;
     }
     // Check for lower letters
     if (!RegExp(/.*[a-z]+.*/g).test(register.password)) {
-      setMessage("password must contain a lower letter");
+      setMessagePassword("must contain a lower letter");
       return;
     }
     // check for numbers
     if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
-      setMessage("password must contain a number");
+      setMessagePassword("must contain a number");
       return;
     }
 
@@ -84,6 +89,9 @@ const Register = () => {
         <div className="main-login main-center">
           <h2 className="text-center">Register</h2>
           <form onSubmit={handleSubmit}>
+            <small id="passwordHelp" class="text-danger">
+              {messageUserName}
+            </small>
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text" style={{ width: "45px" }}>
@@ -117,7 +125,9 @@ const Register = () => {
                 required
               />
             </div>
-
+            <small id="passwordHelp" class="text-danger">
+              {messagePassword}
+            </small>
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text" style={{ width: "45px" }}>
