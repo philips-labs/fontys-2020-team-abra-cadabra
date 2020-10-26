@@ -97,18 +97,18 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Questions
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO questionDTO)
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null)
-            {
-                return Unauthorized();
-            }
+            //var user = await userManager.FindByNameAsync(User.Identity.Name);
+            //if (user == null)
+            //{
+            //    return Unauthorized();
+            //}
 
             var question = new Question
             {
-                UserID = user.Id,
+                UserID = "1",
                 Title = questionDTO.Title,
                 Description = questionDTO.Description
             };
@@ -121,24 +121,24 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<QuestionDTO>> DeleteQuestions(int id)
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null)
-            {
-                return Unauthorized();
-            }
+            //var user = await userManager.FindByNameAsync(User.Identity.Name);
+            //if (user == null)
+            //{
+            //    return Unauthorized();
+            //}
 
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
             }
-            if (question.UserID != user.Id)
-            {
-                return Unauthorized();
-            }
+            //if (question.UserID != user.Id)
+            //{
+            //    return Unauthorized();
+            //}
 
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();

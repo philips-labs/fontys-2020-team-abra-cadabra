@@ -4,7 +4,12 @@ const QuestionAnswer = (data) => {
     return http.httptoken().post("/answers", data);
   };
   
-  export default {
-    QuestionAnswer
-  };
-  
+const Question = (data) => {
+  return http.httptoken().post("/questions", data);
+};
+
+export default {
+  Question,
+  QuestionAnswer
+};
+
