@@ -34,7 +34,8 @@ const Register = () => {
     event.preventDefault();
 
     //check if username doesn't contain symbols
-    if (!RegExp(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/).test(register.username)) {
+    if (RegExp(/^[a-zA-Z0-9]+$/).test(register.username)) {
+    } else {
       setMessage("Username can't contain any symbols");
       return;
     }
@@ -74,7 +75,7 @@ const Register = () => {
       })
       .catch((error) => {
         console.log(error.response.data);
-        setMessage(error.response.data.message);
+        setMessage(error.response.data.messages);
       });
   };
   return (
