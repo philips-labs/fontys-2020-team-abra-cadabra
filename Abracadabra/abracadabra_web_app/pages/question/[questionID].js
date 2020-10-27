@@ -45,7 +45,7 @@ function QuestionPage() {
                     <h1 className="col-md-8 questionTitle">{question.title}</h1>
                     <div className="col-md-4 d-flex justify-content-end">
                         <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                        <p className="questionUsername">{question.id}</p>
+                        <p className="questionUsername">{question.userName}</p>
                     </div>
                 </div>
                 <div className="row questionContent">
@@ -65,7 +65,7 @@ function QuestionPage() {
                                 <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
                             </div>
                             <div className="col-xl-10 d-flex ml-1">
-                                <p className="answerUsername"><span className="expert">{answer.userID}</span></p>
+                                <p className="answerUsername"><span className="expert">{answer.userName}</span></p>
                                 <FontAwesomeIcon className="checkmark" icon={faCheckSquare} />
                                 <p className="answerTagExpert">Has Helped: <span>100</span> People</p>
                             </div>
