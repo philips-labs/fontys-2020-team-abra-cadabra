@@ -33,7 +33,7 @@ function Title() {
         <div className="card" style={{ marginTop: "2px" }}>
           <div className="BodyQuestion-CardBody">
             <a
-              href={title}
+              href="question/1"
               style={{ color: "black", fontWeight: "bold", fontSize: "25px" }}
             >
               {title}
