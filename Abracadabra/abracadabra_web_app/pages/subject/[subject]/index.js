@@ -38,9 +38,9 @@ function Subject({subjectName, response}) {
     // Fetch necessary data for the blog post using params.id
     let apiRes = null;
     try {
-      apiRes = await axios.get("https://10.211.55.3:45455/api/subjects/" + params.subject);
+      apiRes = await axios.get("https://10.211.55.3:45455/api/subjects/" + params.subject, {timeout: 5000});
     } catch (err) {
-      apiRes = err.response.status;
+      apiRes = err.response?.status; 
     }
 
     const subjectName = params.subject;
