@@ -20,8 +20,9 @@ const Register = () => {
     password: "",
   });
   const [message, setMessage] = useState("");
-  const [messagePassword, setMessagePassword] = useState("");
-  const [messageUserName, setMessageUserName] = useState("");
+  const [messagePassword, setMessagePassword] = useState([]);
+  const [messageUserName, setMessageUserName] = useState([]);
+  const [messageEmail, setMessageEmail] = useState([]);
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleChange = (event) => {
@@ -33,41 +34,78 @@ const Register = () => {
   };
 
   const handleSubmit = (event) => {
+    var isValid = true;
+    var passwordErrorList = [];
+    var userNameErrorList = [];
+    var emailErrorList = [];
+
     event.preventDefault();
-    setMessagePassword("");
-    setMessageUserName("");
+    setMessagePassword([]);
+    setMessageUserName([]);
+    setMessageEmail([]);
     setMessage("");
 
+    //check if username isn't empty
+    if (register.username.length === 0) {
+      userNameErrorList.push("Can't be empty");
+      isValid = false;
+    }
+
     //check if username doesn't contain symbols
-    if (RegExp(/^[a-zA-Z0-9]+$/).test(register.username)) {
-    } else {
-      setMessageUserName("can't contain any symbols");
-      return;
+    if (!RegExp(/^[a-zA-Z0-9]+$/).test(register.username)) {
+      userNameErrorList.push("Can't contain any symbols");
+      isValid = false;
+    }
+
+    //check if email isn't empty
+    if (register.email.length === 0) {
+      emailErrorList.push("Can't be empty");
+      isValid = false;
+    }
+
+    //check if email contains . and @
+    if (
+      !RegExp(
+        /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+      ).test(register.email)
+    ) {
+      emailErrorList.push("Not a valid e-mail address");
+      isValid = false;
     }
 
     //check if passwords match
     if (confirmPassword !== register.password) {
-      setMessagePassword("passwords don't match");
-      return;
+      passwordErrorList.push("Passwords don't match");
+      isValid = false;
     }
     //check if password is between 8 and 200 characters
-    if (register.password.length < 8 || register.password.length > 200) {
-      setMessagePassword("must be 8-200 characters long");
-      return;
+    if (
+      register.password.length < 8 ||
+      register.password.length > 200 ||
+      register.password.length === 0
+    ) {
+      passwordErrorList.push("Must be 8-200 characters long");
+      isValid = false;
     }
     // Check for capital letters
     if (!RegExp(/.*[A-Z]+.*/g).test(register.password)) {
-      setMessagePassword("must contain a capital letter");
-      return;
+      passwordErrorList.push("Must contain a capital letter");
+      isValid = false;
     }
     // Check for lower letters
     if (!RegExp(/.*[a-z]+.*/g).test(register.password)) {
-      setMessagePassword("must contain a lower letter");
-      return;
+      passwordErrorList.push("Must contain a lower letter");
+      isValid = false;
     }
     // check for numbers
     if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
-      setMessagePassword("must contain a number");
+      passwordErrorList.push("Must contain a number");
+      isValid = false;
+    }
+    if (isValid === false) {
+      setMessagePassword(passwordErrorList);
+      setMessageUserName(userNameErrorList);
+      setMessageEmail(emailErrorList);
       return;
     }
 
@@ -89,24 +127,28 @@ const Register = () => {
         <div className="main-login main-center">
           <h2 className="text-center">Register</h2>
           <form onSubmit={handleSubmit}>
-            <small id="passwordHelp" class="text-danger">
-              {messageUserName}
-            </small>
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text" style={{ width: "45px" }}>
                   {" "}
                   <FontAwesomeIcon icon={faUsers} />
                 </span>
+                <input
+                  onChange={handleChange}
+                  name="username"
+                  className="form-control"
+                  placeholder="Username"
+                  type="text"
+                />
               </div>
-              <input
-                onChange={handleChange}
-                name="username"
-                className="form-control"
-                placeholder="Username"
-                type="text"
-                required
-              />
+              <div>
+                {messageUserName.map((message, index) => (
+                  <div key={index}>
+                    <small className="help-block text-danger">{message}</small>{" "}
+                    <br></br>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="form-group input-group">
@@ -115,34 +157,46 @@ const Register = () => {
                   {" "}
                   <FontAwesomeIcon icon={faEnvelope} />
                 </span>
+                <input
+                  onChange={handleChange}
+                  name="email"
+                  className="form-control"
+                  placeholder="Email"
+                  // type="email"
+                />
               </div>
-              <input
-                onChange={handleChange}
-                name="email"
-                className="form-control"
-                placeholder="Email"
-                type="email"
-                required
-              />
+              <div>
+                {messageEmail.map((message, index) => (
+                  <div key={index}>
+                    <small className="help-block text-danger">{message}</small>{" "}
+                    <br></br>
+                  </div>
+                ))}
+              </div>
             </div>
-            <small id="passwordHelp" class="text-danger">
-              {messagePassword}
-            </small>
+
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text" style={{ width: "45px" }}>
                   {" "}
                   <FontAwesomeIcon icon={faLock} />
                 </span>
+                <input
+                  onChange={handleChange}
+                  name="password"
+                  className="form-control"
+                  placeholder="Password"
+                  type="password"
+                />
               </div>
-              <input
-                onChange={handleChange}
-                name="password"
-                className="form-control"
-                placeholder="Password"
-                type="password"
-                required
-              />
+              <div>
+                {messagePassword.map((message, index) => (
+                  <div key={index}>
+                    <small className="help-block text-danger">{message}</small>{" "}
+                    <br></br>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="form-group input-group">
@@ -158,7 +212,6 @@ const Register = () => {
                 className="form-control"
                 placeholder="Confirm password"
                 type="password"
-                required
               />
             </div>
             <div className="form-group ">
@@ -172,7 +225,11 @@ const Register = () => {
             <div className="login-register">
               <a href="/loginpage">Login</a>
             </div>
-            <div className="alert alert-light" role="alert">
+            <div
+              className="text-danger"
+              role="alert"
+              style={{ textAlign: "center" }}
+            >
               {message}
             </div>
           </form>

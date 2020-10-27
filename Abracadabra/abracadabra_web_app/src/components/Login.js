@@ -19,13 +19,12 @@ const Login = () => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        setMessage("Logged in, token is: " + res.data.token);
         localStorage.setItem("Token", res.data.token);
         Router.push("/");
       })
       .catch((error) => {
         console.log(error);
-        setMessage("Gegevens kloppen niet");
+        setMessage("Account information does not match");
       });
   };
   return (
@@ -76,7 +75,11 @@ const Login = () => {
         <div className="login-register">
           <a href="/registerpage">Don't have an account? Create one!</a>
         </div>
-        <div className="alert alert-light" role="alert">
+        <div
+          className="text-danger"
+          role="alert"
+          style={{ textAlign: "center" }}
+        >
           {message}
         </div>
       </form>
