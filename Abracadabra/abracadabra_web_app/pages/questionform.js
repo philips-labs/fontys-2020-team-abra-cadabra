@@ -46,8 +46,9 @@ function QuestionForm() {
             event.preventDefault();
             console.log(question);
             QuestionService.Question(question);
-            console.log(questions[0].id);
-            Router.push('/question/' + questions[0].id);
+            const goToQuestion = questions[0].id + 1;
+            console.log(goToQuestion);
+            Router.push('/question/' + goToQuestion);
         }
 
         setValidated(true);

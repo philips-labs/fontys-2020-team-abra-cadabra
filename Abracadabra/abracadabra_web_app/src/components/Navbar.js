@@ -33,7 +33,7 @@ function Navbar() {
       <nav className="navbar mr-auto d-flex">
         <a className="navbarHubIcon" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <div className="navbarCollapse d-flex mx-auto">
-          <a className="navbar-brand d-flex" href="#home">
+          <a className="navbar-brand d-flex" href="/topic">
             <img src={cookingLogo} className="navbarLogo" />
             <h1 className="navbarText mt-2 ml-2">Cooking</h1>
           </a>
