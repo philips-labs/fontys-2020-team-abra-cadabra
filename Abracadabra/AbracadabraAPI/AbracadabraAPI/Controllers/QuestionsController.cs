@@ -125,7 +125,8 @@ namespace AbracadabraAPI.Controllers
             {
                 UserID = user.Id,
                 Title = questionViewModel.Title,
-                Description = questionViewModel.Description
+                Description = questionViewModel.Description,
+                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"))
             };
 
             _context.Questions.Add(question);

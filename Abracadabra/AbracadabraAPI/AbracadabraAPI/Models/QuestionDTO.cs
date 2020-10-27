@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AbracadabraAPI.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,6 @@ namespace AbracadabraAPI.Models
 
         public DateTime DateTimeCreated { get; set; }
 
-        public List<Answer> Answers { get; set; }
+        public List<AnswerViewModel> Answers { get; set; }
     }
 }

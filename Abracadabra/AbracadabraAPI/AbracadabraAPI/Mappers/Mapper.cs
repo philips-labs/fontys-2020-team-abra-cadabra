@@ -22,5 +22,15 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = question.DateTimeCreated,
             Answers = _context.Answers.Where(x => x.QuestionID == question.ID).ToList()
         };
+
+        public static AnswerViewModel AnswerToViewModel(Answer answer, IdentityUser user) =>
+        new AnswerViewModel
+        {
+             ID = answer.ID,
+             AnswerContent = answer.AnswerContent,
+             UserName = user.UserName,
+             DateTimeCreated = answer.DateTimeCreated,
+             QuestionID = answer.QuestionID
+        };
     }
 }
