@@ -14,14 +14,14 @@ function Subject({subjectName, response}) {
     "This is a test",
   ];
 
+  console.log(response);
+
     if(response === 404 || response == "failure" || response === 400)
     {
       return (
         <DefaultErrorPage statusCode={404} />
       );
     }
-
-    console.log(response);
 
     return (
     <>
@@ -36,10 +36,19 @@ function Subject({subjectName, response}) {
   
   export async function getServerSideProps({ params }) {
     // Fetch necessary data for the blog post using params.id
+
+    // this is bad for security, but the only way it will work on both mac and windows dev env.
+    const https = require('https');
+    const instance = axios.create({
+      httpsAgent: new https.Agent({  
+        rejectUnauthorized: false
+      })
+    });
     let apiRes = null;
     try {
-      apiRes = await axios.get("https://10.211.55.3:45455/api/subjects/" + params.subject, {timeout: 5000});
+      apiRes = await instance.get("https://10.211.55.3:45455/api/subjects/" + params.subject, {timeout: 5000});
     } catch (err) {
+      //apiRes = err;
       apiRes = err.response?.status; 
     }
 
