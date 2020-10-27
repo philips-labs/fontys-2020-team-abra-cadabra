@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "newsapi": "^2.4.1",
     "next": "^9.5.3",
@@ -26,7 +27,7 @@
     "stop": "taskkill -F -IM node.exe",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "next dev",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED='0' next dev",
     "build": "next build",
     "start": "next start"
   },

@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const subject = [
-  "How do you dice an onion",
-  "How big is an onion",
-  "what color is an onion",
-  "why is an onion round",
-  "how do onions grow",
-];
-
-function Title() {
+function Title({question}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
   useEffect(() => {
-    const results = subject.filter((subjects) =>
+    const results = question.filter((subjects) =>
       subjects.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);

@@ -1,7 +1,9 @@
 import http from "../http-common";
 
 const GetAllSubjects = () => {
-    return http.get("/subjects");
+    http.get("api/subjects");
+
+    return [];
   };
   
   const GetSubjectByID = (data) => {
