@@ -33,11 +33,20 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuestionViewModel>>> GetQuestions()
+        public async Task<ActionResult<IList<QuestionViewModel>>> GetQuestions()
         {
             List<ApplicationUser> users = await userManager.Users.ToListAsync();
 
-            return await _context.Questions.Select(x => Mapper.QuestionToViewModel(x, users.Find(user => x.UserID == user.Id), _context)).ToListAsync();
+            List<Question> questions = await _context.Questions.ToListAsync();
+
+            List<QuestionViewModel> models = new List<QuestionViewModel>();
+
+            foreach(Question question in questions)
+            {
+                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), _context));
+            }
+
+            return models;
         }
 
         // GET: api/Questions/5
