@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../src/components/Navbar";
+import QuestionCreateAnswer from "../../src/components/QuestionCreateAnswer";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -29,7 +30,7 @@ function QuestionPage() {
             .then(
                 response => {
                     setQuestion(response.data);
-                    setAnswers(reverseArray(response.data.answers));
+                 setAnswers(reverseArray(response.data.answers));
                 }
             )
             .catch(function (error) {
@@ -93,8 +94,8 @@ function QuestionPage() {
                         </div>
                     </div>
                 ))}
-
             </div>
+            <QuestionCreateAnswer QID={question.id} />
         </>
     )
 }

@@ -6,10 +6,11 @@ import QuestionService from "../services/QuestionService";
 
 
 
-function QuestionCreateAnwser() {
+function QuestionCreateAnwser( questionSendId ) {
     const [Answer, setAnswer] = useState(
         {
             answercontent: '',
+            questionid: questionSendId.QID
         }
     );
 

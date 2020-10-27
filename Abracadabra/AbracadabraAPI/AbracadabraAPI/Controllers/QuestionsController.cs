@@ -110,7 +110,9 @@ namespace AbracadabraAPI.Controllers
             {
                 UserID = user.Id,
                 Title = questionDTO.Title,
-                Description = questionDTO.Description
+                Description = questionDTO.Description,
+                DateTimeCreated = DateTime.Now
+                
             };
 
             _context.Questions.Add(question);
