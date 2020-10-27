@@ -7,6 +7,9 @@ const httpdefault = () => {
       "Content-type": "application/json"
   }
 })
+.catch((error) => {
+  console.log(error.response.data);
+});
 };
 const httptoken = () => {
   const token = localStorage.getItem('Token');
@@ -17,6 +20,9 @@ const httptoken = () => {
       'Authorization': `Bearer ${token}` 
   }
 })
+.catch((error) => {
+  console.log(error.response.data);
+});
 };
 
 export default {
