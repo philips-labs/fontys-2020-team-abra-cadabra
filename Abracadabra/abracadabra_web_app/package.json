@@ -27,7 +27,7 @@
     "stop": "taskkill -F -IM node.exe",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "($env:REACT_APP_NOT_SECRET_CODE = 'abcdef') -and (next dev)",
+    "dev": "($env:NODE_TLS_REJECT_UNAUTHORIZED='0') -and (next dev)",
     "macdev": "NODE_TLS_REJECT_UNAUTHORIZED='0' next dev",
     "build": "next build",
     "start": "next start"
