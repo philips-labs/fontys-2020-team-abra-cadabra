@@ -13,7 +13,9 @@ function QuestionCreateAnwser( questionSendId ) {
             questionid: questionSendId.QID
         }
     );
-
+    useEffect(() => {
+        setAnswer({answercontent: '', questionid: questionSendId.QID})
+    }, [questionSendId])
     const handleSubmit = (event) => {
         event.preventDefault();
         /* setAnswer({ ...Answer, questionid: questionid }) */

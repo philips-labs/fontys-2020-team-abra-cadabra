@@ -19,7 +19,7 @@ function QuestionPage() {
     }, [])
     useEffect(() => {
         if (route != null) {
-            GetQuestion(route);
+             GetQuestion(route);
         }
     }, [route])
 
