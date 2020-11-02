@@ -25,7 +25,7 @@ function QuestionCreateAnwser(questionSendId) {
         setAnswer({ answercontent: '', questionid: questionSendId.QID })
     }, [questionSendId])
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
@@ -33,8 +33,7 @@ function QuestionCreateAnwser(questionSendId) {
             event.stopPropagation();
         }
         else {
-            event.preventDefault();
-            QuestionService.QuestionAnswer(Answer).then((res) => {
+            await QuestionService.QuestionAnswer(Answer).then((res) => {
                 console.log(res);
                 console.log(res.data);
             })
