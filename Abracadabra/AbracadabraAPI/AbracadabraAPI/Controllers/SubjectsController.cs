@@ -36,6 +36,7 @@ namespace AbracadabraAPI.Controllers
             return await _context.Subjects.Select(x => SubjectToDTO(x, _context)).ToListAsync();
         }
 
+
         // GET: api/Subjects/cooking
         [HttpGet("{slug}")]
         public async Task<ActionResult<SubjectDTO>> GetSubject(string slug)
