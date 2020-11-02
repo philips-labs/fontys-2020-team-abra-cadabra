@@ -1,4 +1,4 @@
-import http from "../http-common";
+import http from "../common-api";
 
 const Login = (data) => {
     return http.post("/authenticate/Login", data);

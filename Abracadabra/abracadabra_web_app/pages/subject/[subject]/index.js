@@ -2,7 +2,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import Navbar from "src/components/Navbar.js";
 import QuestionBody from "src/components/QuestionBody.js";
 import DefaultErrorPage from 'next/error';
-import axios from 'axios';
+import SubjectService from 'src/services/SubjectService';
  
 function Subject({subjectName, response}) {
 
@@ -36,23 +36,15 @@ function Subject({subjectName, response}) {
   
   export async function getServerSideProps({ params }) {
     // Fetch necessary data for the blog post using params.id
-
-    // this is bad for security, but the only way it will work on both mac and windows dev env.
-    const https = require('https');
-    const instance = axios.create({
-      httpsAgent: new https.Agent({  
-        rejectUnauthorized: false
-      })
-    });
     let apiRes = null;
     try {
-      apiRes = await instance.get("https://10.211.55.3:45455/api/subjects/" + params.subject, {timeout: 5000});
+      apiRes = await SubjectService.GetSubjectByID(params.subject);
     } catch (err) {
       //apiRes = err;
       apiRes = err.response?.status; 
     }
 
-    const subjectName = params.subject;
+    const subjectName = params?.subject;
 
     if(apiRes?.data?.subjectName != null) {
 
