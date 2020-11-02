@@ -34,7 +34,7 @@ function Navbar({subjectTitle}) {
       <nav className="navbar mr-auto d-flex">
         <a className="navbarHubIcon" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <div className="navbarCollapse d-flex mx-auto">
-          <a className="navbar-brand d-flex" href="#home">
+          <a className="navbar-brand d-flex" href={'/subject/' + subjectTitle}>
             <img src={logo} className="navbarLogo" />
             <h1 className="navbarText mt-2">{subjectTitle}</h1>
           </a>
