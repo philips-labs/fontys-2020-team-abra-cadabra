@@ -54,13 +54,11 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionViewModel>> GetQuestion(int id)
         {
             var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
-
-            var user = await userManager.FindByIdAsync(question.UserID);
-
             if (question == null)
             {
                 return NotFound();
             }
+            var user = await userManager.FindByIdAsync(question.UserID);
 
             return Mapper.QuestionToViewModel(question, user, _context);
         }

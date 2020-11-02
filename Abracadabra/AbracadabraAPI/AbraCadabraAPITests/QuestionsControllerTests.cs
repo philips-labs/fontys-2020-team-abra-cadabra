@@ -47,5 +47,11 @@ namespace AbraCadabraAPITests
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+        [Fact]
+        public async Task Get_Request_Wrong_ID()
+        {
+            var response = await _client.GetAsync("api/Questions/3");
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
     }
 }
