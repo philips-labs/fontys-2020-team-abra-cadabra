@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Figure, Form, Button } from 'react-bootstrap';
-import Question from "./QuestionHead";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import QuestionService from "../services/QuestionService";
 
 
@@ -13,12 +11,13 @@ function QuestionCreateAnwser( questionSendId ) {
             questionid: questionSendId.QID
         }
     );
+
     useEffect(() => {
         setAnswer({answercontent: '', questionid: questionSendId.QID})
     }, [questionSendId])
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        /* setAnswer({ ...Answer, questionid: questionid }) */
         QuestionService.QuestionAnswer(Answer).then((res) => {
             console.log(res);
             console.log(res.data);
