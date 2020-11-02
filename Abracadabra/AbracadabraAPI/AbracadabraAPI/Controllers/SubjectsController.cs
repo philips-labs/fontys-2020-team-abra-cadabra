@@ -36,11 +36,11 @@ namespace AbracadabraAPI.Controllers
             return await _context.Subjects.Select(x => SubjectToDTO(x, _context)).ToListAsync();
         }
 
-        // GET: api/Subjects/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SubjectDTO>> GetSubject(int id)
+        // GET: api/Subjects/
+        [HttpGet("{slug}")]
+        public async Task<ActionResult<SubjectDTO>> GetSubject(string slug)
         {
-            var subject = await _context.Subjects.Where(x => x.ID == id).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName == slug).FirstOrDefaultAsync();
 
             if (subject == null)
             {

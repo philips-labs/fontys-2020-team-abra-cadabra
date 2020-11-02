@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AbracadabraAPI.Data;
 using AbracadabraAPI.Models;
+using AbracadabraAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using AbracadabraAPI.Authentication;
+using AbracadabraAPI.Mappers;
 using System.Linq.Expressions;
 
 namespace AbracadabraAPI.Controllers
@@ -31,29 +33,42 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
+        public async Task<ActionResult<IList<QuestionViewModel>>> GetQuestions()
         {
-            return await _context.Questions.Select(x => QuestionToDTO(x, _context)).ToListAsync();
+            List<ApplicationUser> users = await userManager.Users.ToListAsync();
+
+            List<Question> questions = await _context.Questions.ToListAsync();
+
+            List<QuestionViewModel> models = new List<QuestionViewModel>();
+
+            foreach(Question question in questions)
+            {
+                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), _context));
+            }
+
+            return models;
         }
 
         // GET: api/Questions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<QuestionDTO>> GetQuestion(int id)
+        public async Task<ActionResult<QuestionViewModel>> GetQuestion(int id)
         {
             var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
+
+            var user = await userManager.FindByIdAsync(question.UserID);
 
             if (question == null)
             {
                 return NotFound();
             }
 
-            return QuestionToDTO(question, _context);
+            return Mapper.QuestionToViewModel(question, user, _context);
         }
 
         // PUT: api/Questions/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutQuestion(int id, QuestionDTO questionDTO)
+        public async Task<IActionResult> PutQuestion(int id, QuestionViewModel questionViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -61,7 +76,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            if (id != questionDTO.ID)
+            if (id != questionViewModel.ID)
             {
                 return BadRequest();
             }
@@ -72,8 +87,8 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            question.Title = questionDTO.Title;
-            question.Description = questionDTO.Description;
+            question.Title = questionViewModel.Title;
+            question.Description = questionViewModel.Description;
             question.UserID = user.Id;
 
             try
@@ -98,7 +113,7 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Questions
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO questionDTO)
+        public async Task<ActionResult<QuestionViewModel>> PostQuestion(QuestionViewModel questionViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -109,20 +124,21 @@ namespace AbracadabraAPI.Controllers
             var question = new Question
             {
                 UserID = user.Id,
-                Title = questionDTO.Title,
-                Description = questionDTO.Description
+                Title = questionViewModel.Title,
+                Description = questionViewModel.Description,
+                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"))
             };
 
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionDTO.ID }, QuestionToDTO(question, _context));
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, _context));
         }
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        [Authorize]
-        public async Task<ActionResult<QuestionDTO>> DeleteQuestions(int id)
+        //[Authorize]
+        public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -143,23 +159,12 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return QuestionToDTO(question, _context);
+            return Mapper.QuestionToViewModel(question, user, _context);
         }
 
         private bool QuestionExists(int id)
         {
             return _context.Questions.Any(e => e.ID == id);
         }
-
-        private static QuestionDTO QuestionToDTO(Question question, AbracadabraContext _context) =>
-            new QuestionDTO
-            {
-                ID = question.ID,
-                Title = question.Title,
-                Description = question.Description,
-                Category = question.Category,
-                DateTimeCreated = question.DateTimeCreated,
-                Answers = _context.Answers.Where(x => x.QuestionID == question.ID).ToList()
-            };
     }
 }

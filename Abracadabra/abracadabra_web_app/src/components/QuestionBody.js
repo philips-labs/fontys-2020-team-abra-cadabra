@@ -33,8 +33,13 @@ function Title() {
       {searchResults.map((title) => (
         <div className="card mt-1" key={title}>
           <div className="BodyQuestion-CardBody">
+<<<<<<< HEAD
             <a 
               href={title}
+=======
+            <a
+              href="question/1"
+>>>>>>> addQuestions
               style={{ color: "black", fontWeight: "bold", fontSize: "25px" }}
             >
               {title}

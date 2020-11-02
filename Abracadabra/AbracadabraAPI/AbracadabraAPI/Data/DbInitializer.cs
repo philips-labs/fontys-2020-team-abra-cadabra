@@ -20,10 +20,12 @@ namespace AbracadabraAPI.Data
                 return;
             }
             List<string> userIds = new List<string>();
+            List<string> userNames = new List<string>();
 
             for (int i = 0; i < context.Users.Count(); i++)
             {
                 userIds.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().Id);
+                userNames.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().UserName);
             }
             var subects = new Subject[]
             {
@@ -57,7 +59,8 @@ namespace AbracadabraAPI.Data
                     Description="How to boil water",
                     Category="Cooking",
                     SubjectID=1,
-                    DateTimeCreated="2020-9-19-11:35",
+                    DateTimeCreated=DateTime.Parse("2020-9-19-11:35"),
+
                 },
                 new Question
                 {
@@ -65,8 +68,11 @@ namespace AbracadabraAPI.Data
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     Category="Crafting",
+
                     SubjectID=2,
-                    DateTimeCreated="2020-10-19-11:35",
+                    DateTimeCreated=DateTime.Parse("2020-10-19-11:35"),
+
+
                 },
             };
             foreach (Question question in questions)
@@ -81,23 +87,28 @@ namespace AbracadabraAPI.Data
                 {
                     UserID=userIds[0],
                     QuestionID=1,
+                    UserName = userNames[0],
                     AnswerContent="Post content 1",
-                    DateTimeCreated="2020-9-19-12:00",
+                    DateTimeCreated=DateTime.Parse("2020-09-18 17:12"),
                 },
                 new Answer
                 {
                     UserID=userIds[1],
                     QuestionID=1,
+                    UserName = userNames[1],
                     AnswerContent="Post content 2",
-                    DateTimeCreated="2020-9-19-12:30",
+                    DateTimeCreated=DateTime.Parse("2020-10-01 12:56"),
                 },
                 new Answer
                 {
                     UserID=userIds[2],
                     QuestionID=2,
+                    UserName = userNames[2],
                     AnswerContent="Post content 1",
-                    DateTimeCreated="2020-9-19-12:00",
+
+                    DateTimeCreated=DateTime.Parse("2020-9-19-12:00"),
                     
+
                 },
             };
             foreach (Answer answer in answers)
