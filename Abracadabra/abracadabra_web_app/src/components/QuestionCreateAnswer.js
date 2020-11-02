@@ -4,7 +4,8 @@ import QuestionService from "../services/QuestionService";
 
 
 
-function QuestionCreateAnwser( questionSendId ) {
+function QuestionCreateAnwser(questionSendId) {
+    const [validated, setValidated] = useState(false);
     const [Answer, setAnswer] = useState(
         {
             answercontent: '',
@@ -13,19 +14,29 @@ function QuestionCreateAnwser( questionSendId ) {
     );
 
     useEffect(() => {
-        setAnswer({answercontent: '', questionid: questionSendId.QID})
+        setAnswer({ answercontent: '', questionid: questionSendId.QID })
     }, [questionSendId])
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        QuestionService.QuestionAnswer(Answer).then((res) => {
-            console.log(res);
-            console.log(res.data);
-        })
-        .catch((error) => {
-            console.log(error.response.data);
-        });
-    };
+        
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else {
+            event.preventDefault();
+            QuestionService.QuestionAnswer(Answer).then((res) => {
+                console.log(res);
+                console.log(res.data);
+            })
+                .catch((error) => {
+                    console.log(error.response.data);
+                });
+        };
+
+         setValidated(true);
+    }
 
     const handleChange = (event) => {
         setAnswer({ ...Answer, [event.target.name]: event.target.value })
@@ -33,12 +44,13 @@ function QuestionCreateAnwser( questionSendId ) {
 
     return (
         <div class="rounded container">
-            <Form onSubmit={handleSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="justify-content-md-left">
                     <Col md="12">
-                        <Form.Group className="textarea">
+                        <Form.Group className="textarea" controlId="validationCustom01">
                             <Form.Label><h4>Enter Answer</h4></Form.Label>
-                            <Form.Control as="textarea" rows="2" placeholder="Enter Answer" name="answercontent" value={Answer.answercontent} onChange={handleChange} />
+                            <Form.Control required as="textarea" rows="2" placeholder="Enter Answer" name="answercontent" value={Answer.answercontent} onChange={handleChange} />
+                            <Form.Control.Feedback type="invalid" >Please insert an answer</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
