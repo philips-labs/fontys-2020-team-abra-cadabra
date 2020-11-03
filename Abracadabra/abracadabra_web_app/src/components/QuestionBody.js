@@ -1,42 +1,35 @@
 import React, { useState, useEffect } from "react";
 
-const subject = [
-  "How do you dice an onion",
-  "How big is an onion",
-  "what color is an onion",
-  "why is an onion round",
-  "how do onions grow",
-];
-
-function Title() {
+function Title({question, subject}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
   useEffect(() => {
-    const results = subject.filter((subjects) =>
-      subjects.toLowerCase().includes(searchTerm)
+    const results = question.filter((question) =>
+      question.title.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
   }, [searchTerm]);
   return (
-    <div className="container">
+    <div className="container mt-5">
       <input
         type="text"
         placeholder="Search"
         value={searchTerm}
         onChange={handleChange}
         className="form-control"
+        hidden //hidden because we are gonna build it in the navbar
       />
-      {searchResults.map((title) => (
-        <div className="card" style={{ marginTop: "2px" }}>
+      {searchResults.map((question) => (
+        <div className="card mt-1" key={question.id}>
           <div className="BodyQuestion-CardBody">
-            <a
-              href="question/1"
+
+            <a href={subject + '/question/' + question.id}
               style={{ color: "black", fontWeight: "bold", fontSize: "25px" }}
             >
-              {title}
+              {question.title}
             </a>
             <div className="d-flex row mr-auto">
               <div className="col-sm-8">
@@ -49,7 +42,7 @@ function Title() {
                 </span>
               </div>
               <div className="col-sm-4">
-                <p>Last modified by user: 10 hours ago</p>
+              <p>Question created on: {question.dateTimeCreated}</p>
               </div>
             </div>
           </div>

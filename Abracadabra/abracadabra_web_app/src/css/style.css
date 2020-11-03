@@ -156,6 +156,7 @@ div#__next{
 	width: 20%;
   transform: translate(-50%, -50%);
   color: white;
+  font-size: 0.8rem;
 }
 .SubjectTitle {
   font-size: unset;
