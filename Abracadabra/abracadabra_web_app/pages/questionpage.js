@@ -12,9 +12,9 @@ function QuestionPage() {
         return array.reverse();
     }
 
-    const URL = 'https://localhost:44343/api/Questions/';
+    const URL = 'https://10.211.55.3:45455/api/Questions/';
     async function GetQuestion() {
-        const response = await axios.get(URL + 6)
+        const response = await axios.get(URL + 2)
             .then(
                 response => {
                     setQuestion(response.data);

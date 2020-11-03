@@ -74,7 +74,6 @@ namespace AbracadabraAPI.Controllers
             {
                 return NotFound();
             }
-            var user = await userManager.FindByIdAsync(question.UserID);
 
             foreach(Answer answer in _context.Answers)
             {
@@ -149,7 +148,8 @@ namespace AbracadabraAPI.Controllers
                 UserID = user.Id,
                 Title = questionViewModel.Title,
                 Description = questionViewModel.Description,
-                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"))
+                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
+                Category = "Cooking",
             };
 
             _context.Questions.Add(question);

@@ -1,31 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
-import Navbar from "../src/components/Navbar";
+import Navbar from "src/components/Navbar";
 import { Form, Button } from 'react-bootstrap';
-import QuestionService from '../src/services/QuestionService';
-import axios from 'axios';
+import QuestionService from 'src/services/QuestionService';
 
 function QuestionForm() {
             // get the subject from router, to pass to the navbar for navigation button and title
         const router = useRouter();
-        const { subject, id } = router.query;
+        const {subject} = router.query;
 
+    const [SubjectSlug, setSubjectSlug] = useState();
     const [validated, setValidated] = useState(false);
-    const initialInputState = { title: "", description: "", subjectslug: "cooking"};
+    const initialInputState = { title: "", description: "", subjectslug: ""};
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
-    const [questions, setQuestions] = useState([]);
 
-    function reverseArray(array) {
-        return array.reverse();
-    }
 
     const handleInputChange = e => {
-        setQuestion({ ...question, [e.target.name]: e.target.value });
+        setQuestion({ ...question, [e.target.name]: e.target.value, subjectslug: router.query.subject});
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -33,11 +29,11 @@ function QuestionForm() {
         }
         else {
             event.preventDefault();
+            const { subject } = router.query;
+            setQuestion({...question, subjectslug: SubjectSlug});
             console.log(question);
-            QuestionService.Question(question);
-            const goToQuestion = question.id + 1;
-            console.log(goToQuestion);
-            Router.push(subject + '/question/' + goToQuestion);
+            var response = await QuestionService.Question(question);
+            Router.push('/subject/' + subject + '/question/' + response?.data?.id);
         }
 
         setValidated(true);
@@ -45,7 +41,7 @@ function QuestionForm() {
 
     return (
         <>
-            <Navbar />
+            <Navbar subjectTitle={subject} />
             <Form noValidate validated={validated} onSubmit={handleSubmit} className="questionForm mx-auto">
                 <h1>Submit Your Question</h1>
                 <Form.Group>
