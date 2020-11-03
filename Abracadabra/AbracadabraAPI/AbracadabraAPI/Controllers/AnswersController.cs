@@ -107,7 +107,6 @@ namespace AbracadabraAPI.Controllers
                 UserID = user.Id,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
                 AnswerContent = answerViewModel.AnswerContent,
-                UserName = answerViewModel.UserName,
                 QuestionID = answerViewModel.QuestionID
             };
 

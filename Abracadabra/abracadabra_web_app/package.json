@@ -68,5 +68,12 @@
       "node_modules"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@testing-library/dom": "^7.26.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "babel-jest": "^26.6.1",
+    "jest": "^26.6.1",
+    "jest-dom": "^4.0.0"
+  }
 }

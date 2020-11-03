@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AbracadabraAPI.Authentication
 {
     public class Response
     {
         public string Status { get; set; }
-        public string Message { get; set; }
+        public List<string> Messages { get; set; }
     }
 }

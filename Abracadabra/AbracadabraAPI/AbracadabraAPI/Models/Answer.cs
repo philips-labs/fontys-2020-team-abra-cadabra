@@ -13,8 +13,6 @@ namespace AbracadabraAPI.Models
 
         public string UserID { get; set; }
 
-        public string UserName { get; set; }
-
         public string AnswerContent { get; set; }
 
         public DateTime DateTimeCreated { get; set; }

@@ -41,9 +41,20 @@ namespace AbracadabraAPI.Controllers
 
             List<QuestionViewModel> models = new List<QuestionViewModel>();
 
-            foreach(Question question in questions)
+
+            foreach (Question question in questions)
             {
-                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), _context));
+                List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+
+                foreach (Answer answer in _context.Answers) {
+
+                    var answerUser = await userManager.FindByIdAsync(answer.UserID);
+                    if (answer.QuestionID == question.ID)
+                    {
+                        answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
+                    }
+                }
+                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels));
             }
 
             return models;
@@ -54,13 +65,27 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionViewModel>> GetQuestion(int id)
         {
             var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
+
+            var user = await userManager.FindByIdAsync(question.UserID);
+
+            List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+
             if (question == null)
             {
                 return NotFound();
             }
             var user = await userManager.FindByIdAsync(question.UserID);
 
-            return Mapper.QuestionToViewModel(question, user, _context);
+            foreach(Answer answer in _context.Answers)
+            {
+                var answerUser = await userManager.FindByIdAsync(answer.UserID);
+                if (answer.QuestionID == question.ID)
+                {
+                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
+                }
+            }
+
+            return Mapper.QuestionToViewModel(question, user, answerViewModels);
         }
 
         // PUT: api/Questions/5
@@ -130,7 +155,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, _context));
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null));
         }
 
         // DELETE: api/Questions/5
@@ -157,7 +182,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return Mapper.QuestionToViewModel(question, user, _context);
+            return Mapper.QuestionToViewModel(question, user, null);
         }
 
         private bool QuestionExists(int id)

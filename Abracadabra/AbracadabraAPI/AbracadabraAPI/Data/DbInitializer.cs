@@ -20,12 +20,10 @@ namespace AbracadabraAPI.Data
                 return;
             }
             List<string> userIds = new List<string>();
-            List<string> userNames = new List<string>();
 
             for (int i = 0; i < context.Users.Count(); i++)
             {
                 userIds.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().Id);
-                userNames.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().UserName);
             }
             var subects = new Subject[]
             {
@@ -87,7 +85,6 @@ namespace AbracadabraAPI.Data
                 {
                     UserID=userIds[0],
                     QuestionID=1,
-                    UserName = userNames[0],
                     AnswerContent="Post content 1",
                     DateTimeCreated=DateTime.Parse("2020-09-18 17:12"),
                 },
@@ -95,7 +92,6 @@ namespace AbracadabraAPI.Data
                 {
                     UserID=userIds[1],
                     QuestionID=1,
-                    UserName = userNames[1],
                     AnswerContent="Post content 2",
                     DateTimeCreated=DateTime.Parse("2020-10-01 12:56"),
                 },
@@ -103,7 +99,6 @@ namespace AbracadabraAPI.Data
                 {
                     UserID=userIds[2],
                     QuestionID=2,
-                    UserName = userNames[2],
                     AnswerContent="Post content 1",
 
                     DateTimeCreated=DateTime.Parse("2020-9-19-12:00"),

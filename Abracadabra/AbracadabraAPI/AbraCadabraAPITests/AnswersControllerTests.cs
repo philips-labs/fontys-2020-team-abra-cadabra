@@ -26,10 +26,7 @@ namespace AbraCadabraAPITests
         CustomWebApplicationFactory<Startup> factory)
         {
             _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
+            _client = factory.CreateClient();
         }
 
         [Fact]
