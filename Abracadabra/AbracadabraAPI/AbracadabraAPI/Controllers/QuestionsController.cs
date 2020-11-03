@@ -74,7 +74,6 @@ namespace AbracadabraAPI.Controllers
             {
                 return NotFound();
             }
-            var user = await userManager.FindByIdAsync(question.UserID);
 
             foreach(Answer answer in _context.Answers)
             {
