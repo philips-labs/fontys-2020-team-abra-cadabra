@@ -39,7 +39,15 @@ namespace AbracadabraAPI
             services.AddControllers();
 
             // For Identity  
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = true;
+                    options.User.AllowedUserNameCharacters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                })
                 .AddEntityFrameworkStores<AbracadabraContext>()
                 .AddDefaultTokenProviders();
 
@@ -63,6 +71,8 @@ namespace AbracadabraAPI
                  };
              });
 
+            // NOTE: Re-enable CORS when deploying
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +82,9 @@ namespace AbracadabraAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // NOTE: Re-enable CORS when deploying
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

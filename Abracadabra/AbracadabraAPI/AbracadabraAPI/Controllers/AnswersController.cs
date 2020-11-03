@@ -10,6 +10,8 @@ using AbracadabraAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using AbracadabraAPI.Authentication;
+using AbracadabraAPI.Mappers;
+using AbracadabraAPI.ViewModels;
 using System.Linq.Expressions;
 
 namespace AbracadabraAPI.Controllers
@@ -29,22 +31,25 @@ namespace AbracadabraAPI.Controllers
             this.roleManager = roleManager;
         }
 
-        private async Task<ActionResult<AnswerDTO>> GetAnswer(int id)
+        // GET: api/Answers/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AnswerViewModel>> GetAnswer(int id)
         {
             var answer = await _context.Answers.Where(x => x.ID == id).FirstOrDefaultAsync();
+            var user = await userManager.FindByIdAsync(answer.UserID);
 
             if (answer == null)
             {
                 return NotFound();
             }
 
-            return AnswerToDTO(answer);
+            return Mapper.AnswerToViewModel(answer, user);
         }
 
         // PUT: api/Answers/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutAnswer(int id, AnswerDTO answerDTO)
+        public async Task<IActionResult> PutAnswer(int id, AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -52,7 +57,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            if (id != answerDTO.ID)
+            if (id != answerViewModel.ID)
             {
                 return BadRequest();
             }
@@ -63,8 +68,8 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            answer.AnswerContent = answerDTO.AnswerContent;
-            answer.DateTimeCreated = answerDTO.DateTimeCreated;
+            answer.AnswerContent = answerViewModel.AnswerContent;
+            answer.QuestionID = answerViewModel.QuestionID;
             answer.UserID = user.Id;
 
             try
@@ -89,7 +94,7 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Answers
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerDTO answerDTO)
+        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -100,20 +105,21 @@ namespace AbracadabraAPI.Controllers
             var answer = new Answer
             {
                 UserID = user.Id,
-                DateTimeCreated = answerDTO.DateTimeCreated,
-                AnswerContent = answerDTO.AnswerContent
+                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
+                AnswerContent = answerViewModel.AnswerContent,
+                QuestionID = answerViewModel.QuestionID
             };
 
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAnswer), new { id = answerDTO.ID }, AnswerToDTO(answer));
+            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user));
         }
 
-        // DELETE: api/ForumPosts/5
+        // DELETE: api/Answers/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<AnswerDTO>> DeleteAnswer(int id)
+        public async Task<ActionResult<AnswerViewModel>> DeleteAnswer(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -134,7 +140,7 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return AnswerToDTO(answer);
+            return Mapper.AnswerToViewModel(answer, user);
         }
 
         private bool AnswerExists(int id)
@@ -142,12 +148,5 @@ namespace AbracadabraAPI.Controllers
             return _context.Answers.Any(e => e.ID == id);
         }
 
-        private static AnswerDTO AnswerToDTO(Answer answer) =>
-            new AnswerDTO
-            {
-                ID = answer.ID,
-                AnswerContent = answer.AnswerContent,
-                DateTimeCreated = answer.DateTimeCreated
-            };
     }
 }

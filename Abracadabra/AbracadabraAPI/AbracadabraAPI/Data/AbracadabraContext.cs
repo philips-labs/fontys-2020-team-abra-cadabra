@@ -20,6 +20,7 @@ namespace AbracadabraAPI.Data
 
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,8 +62,10 @@ namespace AbracadabraAPI.Data
                 PasswordHash = hasher.HashPassword(null, "Password@2"),
                 SecurityStamp = Guid.NewGuid().ToString()
             });
+
             modelBuilder.Entity<Question>().ToTable("Question");
             modelBuilder.Entity<Answer>().ToTable("Answer");
+            modelBuilder.Entity<Subject>().ToTable("Subject");
         }
     }
 }

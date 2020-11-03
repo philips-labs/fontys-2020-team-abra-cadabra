@@ -19,7 +19,9 @@ namespace AbracadabraAPI.Models
 
         public string Category { get; set; }
 
-        public string DateTimeCreated { get; set; }
+        public DateTime DateTimeCreated { get; set; }
+
+        public int SubjectID { get; set; }
 
         public virtual List<Answer> Answers { get; set; }
     }

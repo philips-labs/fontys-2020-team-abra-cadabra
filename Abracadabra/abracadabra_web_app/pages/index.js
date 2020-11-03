@@ -3,7 +3,8 @@ import {Container, Row, Col} from 'react-bootstrap';
 
 function HomePage() {
     return (
-      // html, body and _next div need 100% height to work
+         // html, body and _next div need 100% height to work
+        <>
         <div className="container-fluid p-0 m-0 h-100 bg">
             {/* <div className="row h-100">
                 <div className="col-md-12 text-center d-flex">
@@ -30,6 +31,7 @@ function HomePage() {
 </div>
 </div>
         </div>
+        </>
     );
   }
   
