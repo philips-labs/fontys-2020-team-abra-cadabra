@@ -1,14 +1,20 @@
-import {Container, Row, Col} from 'react-bootstrap';
-import Navbar from "src/components/Navbar.js";
+//react imports
 import DefaultErrorPage from 'next/error';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react'
+//style imports
+import {Container, Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import QuestionService from 'src/services/QuestionService';
+//component imports
+import Navbar from "src/components/Navbar.js";
 import QuestionCreateAnswer from 'src/components/QuestionCreateAnswer';
- 
+import QuestionAnswer from 'src/components/QuestionAnwser'; //not used, this is a decent starting component, missing mobile friendly
+import SubjectAnswer from 'src/components/SubjectQuestionAnswer';
+import SubjectQuestion from 'src/components/SubjectQuestion';
+//functionality imports
+import QuestionService from 'src/services/QuestionService';
+
 function Question({data, subject}) {
 
         // get the subject from router, to pass to the navbar for navigation button and title
@@ -19,23 +25,6 @@ function Question({data, subject}) {
 
         console.log(data);
 
-        function reverseArray(array) {
-            return array.reverse();
-        }
-    
-        // const URL = 'https://localhost:44343/api/Questions/';
-        // async function GetQuestion() {
-        //     const response = await QuestionService.GetQuestion(id)
-        //         .then(
-        //             response => {
-        //                 setQuestion(response.data);
-        //                 setAnswers(reverseArray(response.data.answers));
-        //             }
-        //         ).catch(function (error) {
-        //             console.error(error);
-        //         })
-        // }
-    
         useEffect(() => {
             //GetQuestion();
             setQuestion(data);
@@ -52,62 +41,13 @@ function Question({data, subject}) {
     return (
     <>
             <Navbar subjectTitle={subject}/>
-            <div className="mx-auto questionHead">
-            <div className="answerHead mx-auto">
-                <h1>Q</h1>
-                <Row>
-                 <Col md={10} className="mx-auto">                 
-                   <Row>
-                     <Col md={9}>
-                     <h3>{question.title}</h3>
-                     </Col>
-                     <Col md={3} className="d-flex justify-content-end">
-                        <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                        <p className="questionUsername">{question.userName}</p>
-                     </Col>
-                  </Row>
-                  <Row className="">
-                          <Col>
-                          <p>{question.description}</p>
-                          </Col>
-                   
-                </Row>
-                 </Col>
-                </Row>
-                </div>
-                <div className="row justify-content-end">
-                    <button className="questionButton">Submit Own Answer</button>
-                </div>
-            </div>
+            <SubjectQuestion question={question} />
 
             <div className="answerHead mx-auto">
                 <h1>A</h1>
                 {/* Create component for answer tnx */}
                 {answers.map(answer => (
-                    <Row key={answer.id} className="border-bottom mb-3">
-                        <Col md={10} className="mx-auto">
-                                {/* Answer header */}
-                                <Row>
-                                <Col md={1}>
-                                <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                                </Col>
-                            <Col md={7}>
-                                <h6 className="font-weight-bold">{answer.userName}</h6>
-
-                            </Col>
-                            <Col md={4}>
-                            <h6 className="font-weight-bold helpedText">Has Helped: <span>100</span> People</h6>
-                            </Col>
-                            </Row>
-                            {/* Answer content */}
-                            <Row>
-                                <Col md={1}></Col>
-                                <Col>
-                                        <p className="answerContentText">{answer.answerContent}</p>
-                                </Col>
-                            </Row>   
-                        </Col>                  
-                    </Row>                         
+                    <SubjectAnswer key={answer.id} answer={answer} />         
                 ))}
                 <QuestionCreateAnswer QID={question.id} />
             </div>

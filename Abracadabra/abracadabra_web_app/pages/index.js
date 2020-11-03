@@ -23,7 +23,7 @@ function HomePage() {
     <div className="moon_container moon1"><div className="moon moon1 box leftSideTalk" id="BigSubject">Big Subject</div></div>
 	<div className="moon_container moon2"><a href='subject/cooking'><div className="moon moon2 box leftSideTalk" id="VeryBigSubject">Cooking</div></a></div> {/*h2 className='SubjectTitle'></h3> */}
 	<div className="moon_container moon3"><div className="moon moon3 box topMiddleTalk2" id="MediumSubject">Medium Subject</div></div>
-	<div className="moon_container moon4"><div className="moon moon4 box topMiddleTalk">Subject</div></div>
+	<div className="moon_container moon4"><a href='subject/gaming'><div className="moon moon4 box topMiddleTalk">Gaming</div></a></div>
 	<div className="moon_container moon5"><div className="moon moon5 box rightSideTalk">Subject</div></div>
 	<div className="moon_container moon6"><div className="moon moon6 box rightBottomTalk">Subject</div></div>
 	<div className="moon_container moon7"><div className="moon moon7 box bottomMiddleTalk">Subject</div></div>
