@@ -28,8 +28,8 @@ namespace AbraCadabraAPITests
             return new List<Answer>()
             {
              new Answer(){ID = 1, UserID = "1", AnswerContent="Testinngngngngngn", QuestionID = 1},
-             new Answer(){ID = 2, UserID = "2", UserName = "Milos", AnswerContent="Creatededededed", QuestionID = 1},
-             new Answer(){ID = 3, UserID = "1", UserName = "Croewew", AnswerContent="Heyeeyeyeyeyeyeyey", QuestionID = 2}
+             new Answer(){ID = 2, UserID = "2", AnswerContent="Creatededededed", QuestionID = 1},
+             new Answer(){ID = 3, UserID = "1", AnswerContent="Heyeeyeyeyeyeyeyey", QuestionID = 2}
             };
         }
         public static List<ApplicationUser> GetUsers()
