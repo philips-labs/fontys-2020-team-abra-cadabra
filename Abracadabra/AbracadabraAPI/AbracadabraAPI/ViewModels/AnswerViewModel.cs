@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AbracadabraAPI.Models
+namespace AbracadabraAPI.ViewModels
 {
-    public class Answer
+    public class AnswerViewModel
     {
         [Key]
         public int ID { get; set; }
 
-        public string UserID { get; set; }
-
         public string AnswerContent { get; set; }
+
+        public string UserName { get; set; }
 
         public DateTime DateTimeCreated { get; set; }
 

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import Navbar from "../src/components/Navbar";
+import React, { useState, useEffect } from 'react';
+import Navbar from "../../src/components/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faArrowAltCircleUp, faArrowAltCircleDown, faAward, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 function QuestionPage() {
+    const [route, setRoute] = useState(null);
     const [question, setQuestion] = useState({});
     const [answers, setAnswers] = useState([]);
 
@@ -12,25 +13,29 @@ function QuestionPage() {
         return array.reverse();
     }
 
+    useEffect(() => {
+        setRoute(window.location.pathname.split("/")[2]);
+    }, [])
+    useEffect(() => {
+        if (route != null) {
+            GetQuestion(route);
+        }
+    }, [route])
+
     const URL = 'https://localhost:44343/api/Questions/';
     async function GetQuestion() {
-        const response = await axios.get(URL + 6)
+        console.log(route);
+        const response = await axios.get(URL + route)
             .then(
                 response => {
                     setQuestion(response.data);
                     setAnswers(reverseArray(response.data.answers));
                 }
-            ).catch(function (error) {
+            )
+            .catch(function (error) {
                 console.error(error);
             })
     }
-
-    useEffect(() => {
-        GetQuestion();
-    }, []);
-
-    // console.log(question);
-    // console.log(answers);
 
     return (
         <>
@@ -40,7 +45,7 @@ function QuestionPage() {
                     <h1 className="col-md-8 questionTitle">{question.title}</h1>
                     <div className="col-md-4 d-flex justify-content-end">
                         <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                        <p className="questionUsername">{question.id}</p>
+                        <p className="questionUsername">{question.userName}</p>
                     </div>
                 </div>
                 <div className="row questionContent">
@@ -60,7 +65,7 @@ function QuestionPage() {
                                 <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
                             </div>
                             <div className="col-xl-10 d-flex ml-1">
-                                <p className="answerUsername"><span className="expert">{answer.userID}</span></p>
+                                <p className="answerUsername"><span className="expert">{answer.userName}</span></p>
                                 <FontAwesomeIcon className="checkmark" icon={faCheckSquare} />
                                 <p className="answerTagExpert">Has Helped: <span>100</span> People</p>
                             </div>

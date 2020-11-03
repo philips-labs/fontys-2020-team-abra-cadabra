@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using AbracadabraAPI.Models;
 
-namespace AbracadabraAPI.Models
+namespace AbracadabraAPI.ViewModels
 {
-    public class Question
+    public class QuestionViewModel
     {
         [Key]
         public int ID { get; set; }
-        
-        public string UserID { get; set; }
-        
+
         public string Title { get; set; }
-        
+
         public string Description { get; set; }
 
         public string Category { get; set; }
 
+        public string UserName { get; set; }
+
         public DateTime DateTimeCreated { get; set; }
 
-        public virtual List<Answer> Answers { get; set; }
+        public List<AnswerViewModel> AnswerViewModels { get; set; }
     }
 }

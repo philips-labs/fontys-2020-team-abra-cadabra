@@ -34,7 +34,7 @@ namespace AbracadabraAPI.Data
                     Title="Boil water",
                     Description="How to boil water",
                     Category="Cooking",
-                    DateTimeCreated="2020-9-19-11:35",
+                    DateTimeCreated=DateTime.Parse("2020-07-03 19:00"),
                 },
                 new Question
                 {
@@ -42,7 +42,7 @@ namespace AbracadabraAPI.Data
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     Category="Crafting",
-                    DateTimeCreated="2020-10-19-11:35",
+                    DateTimeCreated=DateTime.Parse("2020-05-03 19:00"),
                 },
             };
             foreach (Question question in questions)
@@ -58,21 +58,21 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[0],
                     QuestionID=1,
                     AnswerContent="Post content 1",
-                    DateTimeCreated="2020-9-19-12:00",
+                    DateTimeCreated=DateTime.Parse("2020-09-18 17:12"),
                 },
                 new Answer
                 {
                     UserID=userIds[1],
                     QuestionID=1,
                     AnswerContent="Post content 2",
-                    DateTimeCreated="2020-9-19-12:30",
+                    DateTimeCreated=DateTime.Parse("2020-10-01 12:56"),
                 },
                 new Answer
                 {
                     UserID=userIds[2],
                     QuestionID=2,
                     AnswerContent="Post content 1",
-                    DateTimeCreated="2020-9-19-12:00",
+                    DateTimeCreated=DateTime.Parse("2020-10-08 13:34"),
                 },
             };
             foreach (Answer answer in answers)

@@ -1,8 +1,8 @@
-html * {
+/* html * {
   font-family: Rockwell, "Courier New", Courier, Georgia, Times,
     "Times New Roman", serif;
   text-decoration: none;
-}
+} */
 
 /* NAVBAR */
 nav {
@@ -160,6 +160,10 @@ nav .search-container button:before, button:after, button:focus {
 /* QuestionHead */
 .wrap-text {
   word-wrap: break-word;
+}
+/* Question Answer */
+textarea {
+  resize: none;
 }
 
 /* Register Login */
