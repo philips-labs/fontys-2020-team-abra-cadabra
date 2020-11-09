@@ -49,7 +49,6 @@ export async function getServerSideProps({ params }) {
             rspns = err.response?.status;
         }
         const response = JSON.parse(JSON.stringify(rspns.data));
-        console.log(response);
 
         return {
             props: {
