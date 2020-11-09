@@ -41,7 +41,6 @@ export async function getServerSideProps({ params }) {
 
     if (apiRes?.data?.subjectName != null) {
 
-        // const response = apiRes.data;
         const filter = "new";
         let rspns = null;
         try {
