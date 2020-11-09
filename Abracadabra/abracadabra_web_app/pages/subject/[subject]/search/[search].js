@@ -3,8 +3,12 @@ import Navbar from "src/components/Navbar.js";
 import QuestionBody from "src/components/QuestionBody.js";
 import DefaultErrorPage from "next/error";
 import SubjectService from "src/services/SubjectService";
+import { useRouter } from "next/router";
 
 function Subject({ subjectName, response }) {
+  const router = useRouter();
+  const { subject, search } = router.query;
+  console.log(search);
   console.log(response);
 
   if (response === 404 || response == "failure" || response === 400) {
@@ -22,10 +26,15 @@ function Subject({ subjectName, response }) {
 export default Subject;
 
 export async function getServerSideProps({ params }) {
+  const searchData = {
+    subject: params.subject,
+    search: params.search,
+  };
+
   // Fetch necessary data for the blog post using params.id
   let apiRes = null;
   try {
-    apiRes = await SubjectService.GetSubjectBySlug(params.subject);
+    apiRes = await SubjectService.GetQuestionBySearch(searchData);
   } catch (err) {
     //apiRes = err;
     apiRes = err.response?.status;

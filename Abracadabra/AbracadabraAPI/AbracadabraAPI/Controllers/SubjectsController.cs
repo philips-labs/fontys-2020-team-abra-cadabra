@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using AbracadabraAPI.Authentication;
 using System.Linq.Expressions;
+using AbracadabraAPI.ViewModels;
 
 namespace AbracadabraAPI.Controllers
 {
@@ -36,6 +37,19 @@ namespace AbracadabraAPI.Controllers
             return await _context.Subjects.Select(x => SubjectToDTO(x, _context)).ToListAsync();
         }
 
+        // GET: api/Subjects/cooking
+        [HttpGet("{slug}/searchBar")]
+        public async Task<ActionResult<SubjectDTO>> GetSubjectBySearch(SearchViewModel searchViewModel)
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName == searchViewModel.subject).FirstOrDefaultAsync();
+
+            if (subject == null)
+            {
+                return NotFound();
+            }
+
+            return SubjectToDTO(subject, _context);
+        }
 
         // GET: api/Subjects/cooking
         [HttpGet("{slug}")]
