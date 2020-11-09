@@ -20,6 +20,13 @@ namespace AbracadabraAPI.Models
         public string Category { get; set; }
 
         public DateTime DateTimeCreated { get; set; }
+
+        public int Upvotes { get; set; }
+
+        public int Downvotes { get; set; }
+
+        public double TrendingScore { get; set; }
+
         public int SubjectID { get; set; }
 
         public virtual List<Answer> Answers { get; set; }
