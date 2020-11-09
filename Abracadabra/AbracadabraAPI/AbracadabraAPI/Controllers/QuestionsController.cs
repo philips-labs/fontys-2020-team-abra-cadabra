@@ -46,7 +46,8 @@ namespace AbracadabraAPI.Controllers
             {
                 List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
 
-                foreach (Answer answer in _context.Answers) {
+                foreach (Answer answer in _context.Answers)
+                {
 
                     var answerUser = await userManager.FindByIdAsync(answer.UserID);
                     if (answer.QuestionID == question.ID)
@@ -75,7 +76,7 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            foreach(Answer answer in _context.Answers)
+            foreach (Answer answer in _context.Answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
                 if (answer.QuestionID == question.ID)
@@ -185,6 +186,44 @@ namespace AbracadabraAPI.Controllers
 
             return Mapper.QuestionToViewModel(question, user, null, null);
         }
+
+        // GET: api/Questions/Cooking/new
+        [HttpGet("{subject}/new")]
+        public async Task<ActionResult<IList<QuestionViewModel>>> GetQuestionsSortedByDate(string subject)
+        {
+            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
+            if (subjects == null)
+            {
+                return BadRequest();
+            }
+            List<ApplicationUser> users = await userManager.Users.ToListAsync();
+
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).ToListAsync();
+
+            List<QuestionViewModel> models = new List<QuestionViewModel>();
+
+
+            foreach (Question question in questions)
+            {
+                List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+
+                foreach (Answer answer in _context.Answers)
+                {
+
+                    var answerUser = await userManager.FindByIdAsync(answer.UserID);
+                    if (answer.QuestionID == question.ID)
+                    {
+                        answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
+                    }
+                }
+                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels, null));
+                models.Sort((x, y) => DateTime.Compare(x.DateTimeCreated, y.DateTimeCreated));
+            }
+
+            return models;
+        }
+    
+    
 
         private bool QuestionExists(int id)
         {
