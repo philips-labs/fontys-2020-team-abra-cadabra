@@ -217,7 +217,7 @@ namespace AbracadabraAPI.Controllers
                     }
                 }
                 models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels, null));
-                models.Sort((x, y) => DateTime.Compare(x.DateTimeCreated, y.DateTimeCreated));
+                models.Sort((x, y) => DateTime.Compare(y.DateTimeCreated, x.DateTimeCreated));
             }
 
             return models;

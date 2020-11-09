@@ -4,6 +4,7 @@ import FilterNav from 'src/components/FilterNav';
 import QuestionBody from 'src/components/QuestionBody.js';
 import DefaultErrorPage from 'next/error';
 import SubjectService from 'src/services/SubjectService';
+import QuestionService from 'src/services/QuestionService';
 
 function Subject({ subjectName, response }) {
 
@@ -19,7 +20,7 @@ function Subject({ subjectName, response }) {
         <>
             <Navbar subjectTitle={subjectName} />
             <FilterNav subjectTitle={subjectName} />
-            <QuestionBody question={response.questions} subject={subjectName} />
+            <QuestionBody question={response} subject={subjectName} />
         </>
     );
 }
@@ -33,7 +34,6 @@ export async function getServerSideProps({ params }) {
     try {
         apiRes = await SubjectService.GetSubjectByID(params.subject);
     } catch (err) {
-        //apiRes = err;
         apiRes = err.response?.status;
     }
 
@@ -41,7 +41,16 @@ export async function getServerSideProps({ params }) {
 
     if (apiRes?.data?.subjectName != null) {
 
-        const response = apiRes.data;
+        // const response = apiRes.data;
+        const filter = "new";
+        let rspns = null;
+        try {
+            rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);
+        } catch (err) {
+            rspns = err.response?.status;
+        }
+        const response = JSON.parse(JSON.stringify(rspns.data));
+        console.log(response);
 
         return {
             props: {
