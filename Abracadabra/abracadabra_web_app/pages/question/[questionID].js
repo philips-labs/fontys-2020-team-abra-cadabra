@@ -23,7 +23,7 @@ function QuestionPage() {
         }
     }, [route])
 
-    const URL = 'https://localhost:44343/api/Questions/';
+    const URL = 'https://10.211.55.3:45455/api/Questions/';
     async function GetQuestion() {
         console.log(route);
         const response = await axios.get(URL + route)

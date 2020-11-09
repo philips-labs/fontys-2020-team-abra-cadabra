@@ -54,7 +54,7 @@ namespace AbracadabraAPI.Controllers
                         answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
                     }
                 }
-                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels));
+                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels, null));
             }
 
             return models;
@@ -84,7 +84,7 @@ namespace AbracadabraAPI.Controllers
                 }
             }
 
-            return Mapper.QuestionToViewModel(question, user, answerViewModels);
+            return Mapper.QuestionToViewModel(question, user, answerViewModels, null);
         }
 
         // PUT: api/Questions/5
@@ -142,19 +142,21 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectSlug).FirstOrDefaultAsync();
 
             var question = new Question
             {
                 UserID = user.Id,
                 Title = questionViewModel.Title,
                 Description = questionViewModel.Description,
-                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"))
+                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
+                SubjectID = subject.ID
             };
 
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null));
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null, subject));
         }
 
         // DELETE: api/Questions/5
@@ -181,7 +183,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return Mapper.QuestionToViewModel(question, user, null);
+            return Mapper.QuestionToViewModel(question, user, null, null);
         }
 
         private bool QuestionExists(int id)

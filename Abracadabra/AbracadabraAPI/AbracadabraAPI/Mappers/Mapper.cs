@@ -11,7 +11,7 @@ namespace AbracadabraAPI.Mappers
 {
     public static class Mapper
     {
-        public static QuestionViewModel QuestionToViewModel(Question question, IdentityUser user, List<AnswerViewModel> viewModels) =>
+        public static QuestionViewModel QuestionToViewModel(Question question, IdentityUser user, List<AnswerViewModel> viewModels, Subject subject) =>
         new QuestionViewModel
         {
             ID = question.ID,
@@ -19,6 +19,7 @@ namespace AbracadabraAPI.Mappers
             Description = question.Description,
             Category = question.Category,
             UserName = user.UserName,
+            SubjectSlug = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
         };

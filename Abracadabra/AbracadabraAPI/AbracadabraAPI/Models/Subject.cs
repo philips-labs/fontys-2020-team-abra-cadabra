@@ -6,6 +6,5 @@ namespace AbracadabraAPI.Models
     {
         public int ID { get; set; }
         public string SubjectName { get; set; }
-        public virtual List<Question> Questions { get; set; }
     }
 }

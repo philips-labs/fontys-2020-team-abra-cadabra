@@ -2,7 +2,7 @@ import axios from "axios";
 
 const httpdefault = () => {
   return axios.create({ 
-    baseURL: "https://localhost:44343/api",
+    baseURL: " https://10.211.55.3:45455/api",
     headers: {
       "Content-type": "application/json"
   }
@@ -11,7 +11,7 @@ const httpdefault = () => {
 const httptoken = () => {
   const token = localStorage.getItem('Token');
   return axios.create({
-    baseURL: "https://localhost:44343/api",
+    baseURL: " https://10.211.55.3:45455/api",
     headers: {
       "Content-type": "application/json",
       'Authorization': `Bearer ${token}` 
