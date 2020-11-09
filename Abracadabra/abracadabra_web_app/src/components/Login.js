@@ -17,13 +17,10 @@ const Login = () => {
 
     AccountService.Login(login)
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        localStorage.setItem("Token", res.data.token);
         Router.push("/");
+        localStorage.setItem("Token", res.data.token);
       })
       .catch((error) => {
-        console.log(error);
         setMessage("Account information does not match");
       });
   };

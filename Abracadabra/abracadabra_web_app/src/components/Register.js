@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faHome,
-  faLock,
-  faSearch,
-  faTimes,
-  faUser,
-  faUserCircle,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock, faUsers } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
 import Router from "next/router";
 
@@ -111,14 +102,10 @@ const Register = () => {
 
     AccountService.Register(register)
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        setMessage("Er is een account aangemaakt!");
-        Router.push("/");
+        Router.push("/loginpage");
       })
       .catch((error) => {
-        console.log(error.response.data);
-        setMessage(error.response.data.messages);
+        setMessage("Something went wrong, try again in a few minutes ...");
       });
   };
   return (
@@ -162,7 +149,6 @@ const Register = () => {
                   name="email"
                   className="form-control"
                   placeholder="Email"
-                  // type="email"
                 />
               </div>
               <div>
