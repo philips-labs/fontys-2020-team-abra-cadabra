@@ -21,9 +21,9 @@ namespace AbracadabraAPI.Models
 
         public DateTime DateTimeCreated { get; set; }
 
-        public int Upvotes { get; set; }
+        public long Upvotes { get; set; }
 
-        public int Downvotes { get; set; }
+        public long Downvotes { get; set; }
 
         public double TrendingScore { get; set; }
 
