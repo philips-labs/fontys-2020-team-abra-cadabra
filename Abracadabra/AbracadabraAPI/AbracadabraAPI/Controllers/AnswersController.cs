@@ -94,7 +94,7 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Answers
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerViewModel answerViewModel)
+        public async Task<ActionResult<AnswerViewModel>> PostAnswer(AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
