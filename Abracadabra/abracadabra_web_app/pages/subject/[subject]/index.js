@@ -4,6 +4,7 @@ import FilerNav from 'src/components/FilterNav';
 import QuestionBody from 'src/components/QuestionBody.js';
 import DefaultErrorPage from 'next/error';
 import SubjectService from 'src/services/SubjectService';
+import FilterNav from 'src/components/Filternav';
 
 function Subject({ subjectName, response }) {
 
@@ -25,8 +26,10 @@ function Subject({ subjectName, response }) {
 
   return (
     <>
+    <body className="BodyQuestion">
       <Navbar subjectTitle={subjectName} />
       <QuestionBody question={response.questions} subject={subjectName} />
+      </body>
     </>
   );
 }

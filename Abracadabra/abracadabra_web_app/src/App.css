@@ -179,11 +179,12 @@ nav .search-container button:before, button:after, button:focus {
   background-color: #17A2B8;
 }
 .BodyQuestion-CardBody {
+  background-color:#373A3C;
+}
+.BodyQuestion {
   background-color: #2A2B2D;
 }
-  #questionbody body {
-     color:#2A2B2D;
-  }
+
 /* QuestionHead */
 .wrap-text {
   word-wrap: break-word;
