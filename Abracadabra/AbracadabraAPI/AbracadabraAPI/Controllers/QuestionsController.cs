@@ -194,7 +194,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return BadRequest();
             }
-            List<Question> questions = await _context.Questions.Where(x=>x.Category == subject).Skip(pageSize*pageIndex).Take(pageSize).OrderByDescending(x=>x.DateTimeCreated).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
@@ -213,8 +213,35 @@ namespace AbracadabraAPI.Controllers
 
             return models;
         }
-    
-    
+        // GET: api/Questions/Cooking/unanswered[?pagesize=5]
+        [HttpGet("{subject}/unanswered")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        {
+            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
+            if (subjects == null)
+            {
+                return BadRequest();
+            }
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Where(x=>x.Answers.Count()==0 ).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
+
+            foreach (Question question in questions)
+            {
+                
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
+            }
+
+            return models;
+        }
+
 
         private bool QuestionExists(int id)
         {
