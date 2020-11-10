@@ -44,17 +44,7 @@ namespace AbracadabraAPI.Controllers
 
             foreach (Question question in questions)
             {
-                List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
-
-                foreach (Answer answer in _context.Answers) {
-
-                    var answerUser = await userManager.FindByIdAsync(answer.UserID);
-                    if (answer.QuestionID == question.ID)
-                    {
-                        answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
-                    }
-                }
-                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels, null));
+                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), null, null));
             }
 
             return models;
