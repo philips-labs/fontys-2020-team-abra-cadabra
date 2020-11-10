@@ -37,18 +37,20 @@ namespace AbracadabraAPI.Controllers
             return await _context.Subjects.Select(x => SubjectToDTO(x, _context)).ToListAsync();
         }
 
-        // GET: api/Subjects/cooking
+        // GET: api/Subjects/cooking/searchBar/test
         [HttpGet("{slug}/searchBar")]
-        public async Task<ActionResult<SubjectDTO>> GetSubjectBySearch(SearchViewModel searchViewModel)
+        public async Task<ActionResult<SubjectDTO>> GetSubjectBySearch([FromQuery]SearchViewModel searchViewModel)
         {
             var subject = await _context.Subjects.Where(x => x.SubjectName == searchViewModel.subject).FirstOrDefaultAsync();
+            var questions = await _context.Questions.Where(x => x.SubjectID == subject.ID && x.Title.Contains(searchViewModel.search)).ToListAsync();
 
-            if (subject == null)
-            {
-                return NotFound();
-            }
+            
+            SubjectDTO subjectDto = new SubjectDTO();
+            subjectDto.Questions = questions;
+            subjectDto.ID = subject.ID;
+            subjectDto.SubjectName = subject.SubjectName;
 
-            return SubjectToDTO(subject, _context);
+            return subjectDto;
         }
 
         // GET: api/Subjects/cooking

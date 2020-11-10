@@ -18,7 +18,12 @@ function Subject({ subjectName, response }) {
   return (
     <>
       <Navbar subjectTitle={subjectName} />
-      <QuestionBody question={response.questions} subject={subjectName} />
+      <QuestionBody
+        question={response.questions}
+        subject={subjectName}
+        search={search}
+        searchLength={search.length}
+      />
     </>
   );
 }
