@@ -26,7 +26,6 @@ function Subject({ subjectName, response }) {
   return (
     <>
       <Navbar subjectTitle={subjectName} />
-      <FilerNav subjectTitle={subjectName} />
       <QuestionBody question={response.questions} subject={subjectName} />
     </>
   );
