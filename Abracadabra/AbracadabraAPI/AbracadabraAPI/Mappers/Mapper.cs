@@ -23,16 +23,27 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
         };
-        public static QuestionWithNoAnswersViewModel QuestionWithNoAnswersToViewModel(Question question, IdentityUser user)=>
+        public static QuestionWithNoAnswersViewModel QuestionWithNoAnswersToViewModel(Question question, IdentityUser user) =>
             new QuestionWithNoAnswersViewModel
-        {
-            ID = question.ID,
-            Title = question.Title,
-            Description = question.Description,
-            Category = question.Category,
-            UserName = user.UserName,
-            DateTimeCreated = question.DateTimeCreated,
-        };
+            {
+                ID = question.ID,
+                Title = question.Title,
+                Description = question.Description,
+                Category = question.Category,
+                UserName = user.UserName,
+                DateTimeCreated = question.DateTimeCreated,
+            };
+        public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
+        new QuestionWithAnswerCount{
+
+                ID = question.ID,
+                Title = question.Title,
+                Description = question.Description,
+                Category = question.Category,
+                UserName = user.UserName,
+                DateTimeCreated = question.DateTimeCreated,
+                numberOfAnswers = number,
+            };
 
         public static AnswerViewModel AnswerToViewModel(Answer answer, IdentityUser user) =>
         new AnswerViewModel
