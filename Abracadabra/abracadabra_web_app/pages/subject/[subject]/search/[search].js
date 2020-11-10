@@ -8,8 +8,6 @@ import { useRouter } from "next/router";
 function Subject({ subjectName, response }) {
   const router = useRouter();
   const { subject, search } = router.query;
-  console.log(search);
-  console.log(response);
 
   if (response === 404 || response == "failure" || response === 400) {
     return <DefaultErrorPage statusCode={404} />;

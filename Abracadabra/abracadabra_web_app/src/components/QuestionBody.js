@@ -18,7 +18,7 @@ function Title({ question, subject, search, searchLength }) {
             <div className="BodyQuestion-CardBody">
               <a
                 href={
-                  "http://localhost:3000/subject/" +
+                  "/subject/" +
                   subject +
                   "/question/" +
                   question.id
