@@ -223,8 +223,43 @@ namespace AbracadabraAPI.Controllers
 
             return models;
         }
-    
-    
+
+        // GET: api/Questions/Cooking/unanswered
+        [HttpGet("{subject}/unanswered")]
+        public async Task<ActionResult<IList<QuestionWithNoAnswersViewModel>>> GetQuestionsWithNoAnswers(string subject)
+        {
+            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
+            if (subjects == null)
+            {
+                return BadRequest();
+            }
+            List<ApplicationUser> users = await userManager.Users.ToListAsync();
+
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).ToListAsync();
+
+            List<QuestionWithNoAnswersViewModel> models = new List<QuestionWithNoAnswersViewModel>();
+
+            foreach (Question question in questions)
+            {
+                int numberAnswers = 0;
+
+                foreach (Answer answer in _context.Answers)
+                {
+                    if (answer.QuestionID == question.ID)
+                    {
+                        numberAnswers += 1;
+                    }
+                }
+
+                if (numberAnswers == 0)
+                {
+                    models.Add(Mapper.QuestionWithNoAnswersToViewModel(question, users.Find(user => user.Id == question.UserID)));
+                }
+            }
+
+            return models;
+        }
+
 
         private bool QuestionExists(int id)
         {

@@ -40,7 +40,7 @@ export async function getServerSideProps({ params }) {
 
     if (apiRes?.data?.subjectName != null) {
 
-        const filter = "new";
+        const filter = "unanswered";
         let rspns = null;
         try {
             rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);

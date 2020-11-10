@@ -38,7 +38,7 @@ function Title({ question, subject }) {
         <div className="card mt-1" key={question.id}>
           <div className="BodyQuestion-CardBody">
 
-            <a href={subject + '/question/' + question.id}
+            <a href={"/subject/" + subject + '/question/' + question.id}
               style={{ color: "black", fontWeight: "bold", fontSize: "25px" }}
             >
               {question.title}
