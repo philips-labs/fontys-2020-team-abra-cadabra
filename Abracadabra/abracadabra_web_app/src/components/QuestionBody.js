@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { slice } from "__mocks__/fileMock";
 
-function Title({question, subject}) {
+function Title({ question, subject }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
   useEffect(() => {
     const results = question.filter((question) =>
       question.title.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
   }, [searchTerm]);
+
+  function HumanDateTime(dateAndTime) {
+    var date = new Date(dateAndTime + "Z");
+    date = date.toUTCString().split(", ");
+    date = date[1].slice(0, 17);
+
+    return (date);
+  }
+
   return (
     <div className="container mt-5">
       <input
@@ -42,7 +54,7 @@ function Title({question, subject}) {
                 </span>
               </div>
               <div className="col-sm-4">
-              <p>Question created on: {question.dateTimeCreated}</p>
+                <p>Question created on: {HumanDateTime(question.dateTimeCreated)}</p>
               </div>
             </div>
           </div>
