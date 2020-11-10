@@ -1,0 +1,19 @@
+.Default-Sidebar {
+    background-color: $secondary-color;
+    color: $text-color;
+   a {
+       color: $text-color;
+       :hover {
+           color: darken($text-color, 5%);
+       }
+   }
+   a .nav-link:active {
+       text-decoration: underline;
+   }
+   .nav-link:hover, .nav-link:focus {
+    text-decoration: underline;
+    }
+    .nav-item:hover {
+        background-color: $hover-color;
+    }
+}
