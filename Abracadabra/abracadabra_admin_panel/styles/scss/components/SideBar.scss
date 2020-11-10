@@ -1,10 +1,12 @@
 .Default-Sidebar {
     background-color: $secondary-color;
     color: $text-color;
+    height: 100vh;
    a {
        color: $text-color;
        :hover {
            color: darken($text-color, 5%);
+           background-color: $hover-color;
        }
    }
    a .nav-link:active {
@@ -15,5 +17,8 @@
     }
     .nav-item:hover {
         background-color: $hover-color;
+    }
+    .Nav-color {
+        color: $text-color;
     }
 }

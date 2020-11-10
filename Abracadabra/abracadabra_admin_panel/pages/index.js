@@ -1,94 +1,84 @@
 
-import {Container, Row, Col, Nav, NavItem, NavLink} from 'react-bootstrap';
+import { Container, Row, Col, Nav, NavItem, NavLink, Navbar } from 'react-bootstrap';
 //components
 import NavBar from 'src/components/NavBar';
+import {FaHome, FaUserGraduate, FaFlag, FaChartBar, FaUsers, FaNewspaper} from 'react-icons/fa'
 
 export default function Dashboard() {
   return (
-   <>
-{/* navbar here */}
-<NavBar />
-<Container fluid>
-  <Row>
-    <Col md={3} lg={2} className="pl-0">
-    <Nav id="sidebarMenu" className="flex-column Default-Sidebar">
-      <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file"></span>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
-            </a>
-          </li>
-        </ul>
+    <>
+      <NavBar />
+      
+      <Container fluid className="">
+        {/* Sidebar hidden on mobile, and put into the NavBar */}
+        <Row className="d-none d-sm-none d-md-block d-lg-block">
+          <Col md={3} xl={2} className="pl-0 pr-0">
+            <Nav id="sidebarMenu" className="flex-column Default-Sidebar">
+                <Nav className="">
+                  {/* a is used for the */}
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Year-end sale
-            </a>
-          </li>
-        </ul>
-      </div>
-    </Nav>
-    </Col>
-  </Row>
-</Container>
-   </>
+                  {/* Dashboard */}
+                  <a href="/" className="w-100">
+                  <Row className="w-100 m-0 p-2 border-bottom">
+                  <FaHome className="my-auto ml-2 Nav-color"/>
+                  <p className="Nav-color p-2 my-auto">
+                     Dashboard
+                    </p>
+                    </Row>
+                  </a>
+
+                  {/* Expert verification */}
+                  <a href="/expertverification" className="w-100">
+                    <Row className="w-100 m-0 p-2 border-bottom">
+                  <FaUserGraduate className="my-auto ml-2 Nav-color"/>
+                    <p className="Nav-color p-2 my-auto">
+                     Expert verification
+                    </p>
+                    </Row>
+                    </a>
+                    {/* Reports */}
+                    <a href="/reports" className="w-100">
+                    <Row className="w-100 m-0 p-2 border-bottom">
+                  <FaFlag className="my-auto ml-2 Nav-color"/>
+                    <p href="#" className="Nav-color p-2 my-auto">
+                    Reports
+                    </p>
+                    </Row>
+                    </a>
+
+                  {/* Detailed statistics */}
+                    <a href="/statistics" className="w-100">
+                    <Row className="w-100 m-0 p-2 border-bottom">
+                  <FaChartBar className="my-auto ml-2 Nav-color"/>
+                  <p href="#" className="Nav-color p-2 my-auto">
+                     Detailed statistics
+                    </p>
+                    </Row>
+                    </a>
+                    {/* User management */}
+                    <a href="/usermanagement" className="w-100">
+                    <Row className="w-100 m-0 p-2 border-bottom">
+                  <FaUsers className="my-auto ml-2 Nav-color"/>
+                  <p href="#" className="Nav-color p-2 my-auto">
+                     User management
+                    </p>
+                    </Row>
+                    </a>
+
+                    {/* Subject management */}
+                    <a href="/subjectmanagement" className="w-100">
+                    <Row className="w-100 m-0 p-2 border-bottom">
+                  <FaNewspaper className="my-auto ml-2 Nav-color"/>
+                  <p href="#" className="Nav-color p-2 my-auto">
+                     Subject management
+                    </p>
+                    </Row>   
+                    </a>
+                </Nav>
+            </Nav>
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }
