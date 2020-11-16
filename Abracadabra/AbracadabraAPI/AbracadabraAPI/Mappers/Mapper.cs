@@ -24,17 +24,26 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
         };
+        public static QuestionWithNoAnswersViewModel QuestionWithNoAnswersToViewModel(Question question, IdentityUser user)=>
+            new QuestionWithNoAnswersViewModel
+        {
+            ID = question.ID,
+            Title = question.Title,
+            Description = question.Description,
+            Category = question.Category,
+            UserName = user.UserName,
+            DateTimeCreated = question.DateTimeCreated,
+        };
 
         public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user) =>
         new AnswerViewModel
         {
-             ID = answer.ID,
-             AnswerContent = answer.AnswerContent,
-             UserName = user.UserName,
-             DateTimeCreated = answer.DateTimeCreated,
-             QuestionID = answer.QuestionID
+            ID = answer.ID,
+            AnswerContent = answer.AnswerContent,
+            UserName = user.UserName,
+            DateTimeCreated = answer.DateTimeCreated,
+            QuestionID = answer.QuestionID
         };
-
         public static UserViewModel UserToViewModel(ApplicationUser user, string role) {
 
             //var roles = await userManager.GetRolesAsync(user);
@@ -50,5 +59,20 @@ namespace AbracadabraAPI.Mappers
                 DateTimeCreated = user.DateTimeCreated
             };
         }
+
+        public static SubjectViewModel SubjectToViewModel(Subject subject) =>
+            new SubjectViewModel
+            {
+                ID = subject.ID,
+                SubjectName = subject.SubjectName,
+            };
+        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithNoAnswersViewModel> viewModels) =>
+    new SubjectWithQuestionsViewModel
+    {
+        ID = subject.ID,
+        SubjectName = subject.SubjectName,
+        Questions= viewModels,
+    };
+
     }
 }

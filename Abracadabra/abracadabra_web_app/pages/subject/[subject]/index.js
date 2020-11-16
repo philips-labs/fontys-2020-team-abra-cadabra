@@ -1,10 +1,11 @@
-import {Container, Row, Col} from 'react-bootstrap';
-import Navbar from "src/components/Navbar.js";
-import QuestionBody from "src/components/QuestionBody.js";
+import { Container, Row, Col } from 'react-bootstrap';
+import Navbar from 'src/components/Navbar.js';
+import FilerNav from 'src/components/FilterNav';
+import QuestionBody from 'src/components/QuestionBody.js';
 import DefaultErrorPage from 'next/error';
 import SubjectService from 'src/services/SubjectService';
- 
-function Subject({subjectName, response}) {
+
+function Subject({ subjectName, response }) {
 
   const subject = [
     "How do you dice an onion",
@@ -16,39 +17,39 @@ function Subject({subjectName, response}) {
 
   console.log(response);
 
-    if(response === 404 || response == "failure" || response === 400)
-    {
-      return (
-        <DefaultErrorPage statusCode={404} />
-      );
-    }
-
+  if (response === 404 || response == "failure" || response === 400) {
     return (
-    <>
-            <Navbar subjectTitle={subjectName}/>
-            <QuestionBody question={response.questions} subject={subjectName}/>
-    </>
+      <DefaultErrorPage statusCode={404} />
     );
   }
-  
-  export default Subject
 
-  
-  export async function getServerSideProps({ params }) {
-    // Fetch necessary data for the blog post using params.id
-    let apiRes = null;
-    try {
-      apiRes = await SubjectService.GetSubjectByID(params.subject);
-    } catch (err) {
-      //apiRes = err;
-      apiRes = err.response?.status; 
-    }
+  return (
+    <>
+      <Navbar subjectTitle={subjectName} />
+      <FilerNav subjectTitle={subjectName} />
+      <QuestionBody question={response.questions} subject={subjectName} />
+    </>
+  );
+}
 
-    const subjectName = params?.subject;
+export default Subject
 
-    if(apiRes?.data?.subjectName != null) {
 
-      const response = apiRes.data;
+export async function getServerSideProps({ params }) {
+  // Fetch necessary data for the blog post using params.id
+  let apiRes = null;
+  try {
+    apiRes = await SubjectService.GetSubjectByID(params.subject);
+  } catch (err) {
+    //apiRes = err;
+    apiRes = err.response?.status;
+  }
+
+  const subjectName = params?.subject;
+
+  if (apiRes?.data?.subjectName != null) {
+
+    const response = apiRes.data;
 
     return {
       props: {
@@ -57,8 +58,7 @@ function Subject({subjectName, response}) {
       }
     }
   }
-  else if(apiRes === 404 || apiRes === 400)
-  {
+  else if (apiRes === 404 || apiRes === 400) {
     const response = apiRes;
 
     return {
@@ -79,6 +79,6 @@ function Subject({subjectName, response}) {
       }
     }
   }
-  }
+}
 
 
