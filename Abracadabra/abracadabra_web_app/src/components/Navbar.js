@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import cookingLogo from '../images/logo_cooking_wip.png';
 import logo from 'src/images/Abra_Logo_Centered.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faSearch, faTimes, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'react-bootstrap';
 
-function Navbar({subjectTitle}) {
+function Navbar({ subjectTitle }) {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -40,15 +39,15 @@ function Navbar({subjectTitle}) {
           </a>
           {/* <div className="search-container align-self-center"> */}
           <div className='align-self-center'>
-          <div className="input-group mt-3 mb-3 search-box">
+            <div className="input-group mt-3 mb-3 search-box">
               <input type="text" placeholder="Search.." aria-label="Search questions" name="search"></input>
               <div className="input-group-append">
-              <button type="button" className='btn btn-outline-secondary navbarButton'><FontAwesomeIcon icon={faSearch} /></button>
+                <button type="button" className='btn btn-outline-secondary navbarButton'><FontAwesomeIcon icon={faSearch} /></button>
+              </div>
             </div>
           </div>
-          </div>
           <a href={'/subject/' + subjectTitle + '/createquestion'} className="btn btn-outline-secondary navbarButton align-self-center ml-2">Ask a Question</a>
-          </div>
+        </div>
         {/* </div> */}
         <a className="navbarHubIconMobile" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <button className="searchMobile mx-auto" onClick={handleShow} id="mobile_search"><FontAwesomeIcon icon={faSearch} /></button>
