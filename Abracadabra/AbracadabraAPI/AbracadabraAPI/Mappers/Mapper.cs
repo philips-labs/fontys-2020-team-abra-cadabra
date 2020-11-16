@@ -34,16 +34,16 @@ namespace AbracadabraAPI.Mappers
                 DateTimeCreated = question.DateTimeCreated,
             };
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
-        new QuestionWithAnswerCount{
-
-                ID = question.ID,
-                Title = question.Title,
-                Description = question.Description,
-                Category = question.Category,
-                UserName = user.UserName,
-                DateTimeCreated = question.DateTimeCreated,
-                numberOfAnswers = number,
-            };
+        new QuestionWithAnswerCount
+        {
+            ID = question.ID,
+            Title = question.Title,
+            Description = question.Description,
+            Category = question.Category,
+            UserName = user.UserName,
+            DateTimeCreated = question.DateTimeCreated,
+            numberOfAnswers = number,
+        };
 
         public static AnswerViewModel AnswerToViewModel(Answer answer, IdentityUser user) =>
         new AnswerViewModel
@@ -60,12 +60,12 @@ namespace AbracadabraAPI.Mappers
                 ID = subject.ID,
                 SubjectName = subject.SubjectName,
             };
-        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithNoAnswersViewModel> viewModels) =>
+        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject, List<QuestionWithAnswerCount> viewModels) =>
     new SubjectWithQuestionsViewModel
     {
         ID = subject.ID,
         SubjectName = subject.SubjectName,
-        Questions= viewModels,
+        Questions = viewModels,
     };
     }
 }
