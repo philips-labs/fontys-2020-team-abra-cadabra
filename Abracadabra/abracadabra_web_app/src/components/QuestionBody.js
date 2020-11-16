@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-function Title({ question, subject }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+export default function Title({ question, subject }) {
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    const results = question.filter((question) =>
-      question.title.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
+    setQuestions(question);
+  }, [])
 
   function HumanDateTime(dateAndTime) {
     var date = new Date(dateAndTime + "Z");
@@ -34,7 +26,7 @@ function Title({ question, subject }) {
 
   return (
     <div className="container mt-5">
-      {searchResults.map((question) => (
+      {questions.map((question) => (
         <div key={question.id}>
           <div className="BoduQuestion-Total">
             <div className="BodyQuestion-CardBody">
@@ -72,5 +64,3 @@ function Title({ question, subject }) {
     </div>
   );
 }
-
-export default Title;

@@ -27,11 +27,9 @@ function Subject({ subjectName, response }) {
 
   return (
     <>
-      <body className="BodyQuestion">
-        <Navbar subjectTitle={subjectName} />
-        <FilterButtons subjectTitle={subjectName} />
-        <QuestionBody question={response.questions} subject={subjectName} />
-      </body>
+      <Navbar subjectTitle={subjectName} />
+      <FilterButtons subjectTitle={subjectName} />
+      <QuestionBody question={response.questions} subject={subjectName} />
     </>
   );
 }
