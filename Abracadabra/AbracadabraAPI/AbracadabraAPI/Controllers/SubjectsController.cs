@@ -54,19 +54,25 @@ namespace AbracadabraAPI.Controllers
             {
                 return NotFound();
             }
-            List<QuestionWithNoAnswersViewModel> questionViewModels = new List<QuestionWithNoAnswersViewModel>();
-            var questions = await _context.Questions.Where(x => x.Category == slug).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.Category == slug).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
-                var user = await userManager.FindByIdAsync(item.UserID);
-                questionViewModels.Add(Mapper.QuestionWithNoAnswersToViewModel(item, user));
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
             }
+
+            List<QuestionWithAnswerCount> questionViewModels = new List<QuestionWithAnswerCount>();
+
+
+            foreach (Question question in questions)
+            {
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                questionViewModels.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
+            }
+
             var model = Mapper.SubjectWithQuestionsToViewModel(subject, questionViewModels);
             return model;
-
-
-
-
         }
 
         // PUT: api/Subjects/5
