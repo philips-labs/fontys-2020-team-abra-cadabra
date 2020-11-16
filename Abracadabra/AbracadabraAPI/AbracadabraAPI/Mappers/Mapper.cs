@@ -6,12 +6,13 @@ using AbracadabraAPI.Models;
 using AbracadabraAPI.Data;
 using AbracadabraAPI.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using AbracadabraAPI.Authentication;
 
 namespace AbracadabraAPI.Mappers
 {
     public static class Mapper
     {
-        public static QuestionViewModel QuestionToViewModel(Question question, IdentityUser user, List<AnswerViewModel> viewModels, Subject subject) =>
+        public static QuestionViewModel QuestionToViewModel(Question question, ApplicationUser user, List<AnswerViewModel> viewModels, Subject subject) =>
         new QuestionViewModel
         {
             ID = question.ID,
@@ -45,7 +46,7 @@ namespace AbracadabraAPI.Mappers
                 numberOfAnswers = number,
             };
 
-        public static AnswerViewModel AnswerToViewModel(Answer answer, IdentityUser user) =>
+        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user) =>
         new AnswerViewModel
         {
             ID = answer.ID,
@@ -54,6 +55,20 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = answer.DateTimeCreated,
             QuestionID = answer.QuestionID
         };
+        public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
+        {
+           return new UserViewModel
+            {
+                ID = user.Id,
+                Username = user.UserName,
+                Email = user.Email,
+                Role = role,
+                NrOfTimesReported = user.NrOfTimesReported,
+                LastLoggedIn = user.LastLoggedIn,
+                DateTimeCreated = user.DateTimeCreated
+            };
+        }
+
         public static SubjectViewModel SubjectToViewModel(Subject subject) =>
             new SubjectViewModel
             {
@@ -67,5 +82,6 @@ namespace AbracadabraAPI.Mappers
         SubjectName = subject.SubjectName,
         Questions= viewModels,
     };
+
     }
 }

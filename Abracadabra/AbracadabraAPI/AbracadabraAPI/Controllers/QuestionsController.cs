@@ -45,7 +45,7 @@ namespace AbracadabraAPI.Controllers
 
                 users.Add(auser);
             }
-
+            
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
 
 
