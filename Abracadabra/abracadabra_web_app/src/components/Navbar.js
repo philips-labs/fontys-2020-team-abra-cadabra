@@ -31,13 +31,11 @@ function Navbar({ subjectTitle }) {
   return (
     <>
       <nav className="navbar mr-auto d-flex">
-        <a className="navbarHubIcon" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <div className="navbarCollapse d-flex mx-auto">
           <a className="navbar-brand d-flex" href={'/subject/' + subjectTitle}>
             <img src={logo} className="navbarLogo" />
             <h1 className="navbarText mt-2">{subjectTitle}</h1>
           </a>
-          {/* <div className="search-container align-self-center"> */}
           <div className='align-self-center'>
             <div className="input-group mt-3 mb-3 search-box">
               <input type="text" placeholder="Search.." aria-label="Search questions" name="search"></input>
@@ -51,17 +49,8 @@ function Navbar({ subjectTitle }) {
         {/* </div> */}
         <a className="navbarHubIconMobile" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <button className="searchMobile mx-auto" onClick={handleShow} id="mobile_search"><FontAwesomeIcon icon={faSearch} /></button>
-
-        {/* <a className="navbarHubIcon" href="/loginpage"><FontAwesomeIcon icon={faUserCircle} /></a> */}
-        <a className="navbarAvatarButton" href="/loginpage"><FontAwesomeIcon className="navbarAvatar" icon={faUserCircle} /></a>
-        {/* {open ? <FontAwesomeIcon className="navbarX" icon={faTimes} /> : <FontAwesomeIcon className="navbarAvatar" icon={faUserCircle} />} */}
       </nav>
-      {/* {open ?
-        <div className="dropdown-menu dropdownMenu float-right" id="dropdown">
-          <a className="dropdown-item dropdownText" id="#dropdown_item" href="#profile">Profile</a>
-          <a className="dropdown-item dropdownText" id="#dropdown_item" href="#logout">Sign out</a>
-        </div> : null
-      } */}
+     
 
       <Modal centered show={show} onShow={handleClose} onHide={handleShow}>
         <Modal.Body className="d-flex flex-column">
