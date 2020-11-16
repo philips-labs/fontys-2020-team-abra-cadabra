@@ -253,33 +253,3 @@ input::-webkit-input-placeholder {
   font-size: 11px;
   text-align: center;
 }
-/* FilterButtons */
-.btn-primary {
-  margin-top: 25px;
-  color: white;
-  background-color: #6C757D;
-  margin-right: 10px;
-  border: none;
-  min-width: 70px;
-
-}
-.btn-secondary {
-  margin-top: 25px;
-  color: white;
-  background-color: #6C757D;
-  margin-left: 10px;
-  border: none;
-  min-width: 100px;
-
-}
-/* Login 2 */
-.mt-4 {
-  margin-top: 100px;
-  margin: 0 auto;
-  max-width: 600px;
-  height: 50vh;
-  padding: 40px 40px;
-  background-color: gray;
-
-}
-
