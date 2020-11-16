@@ -13,9 +13,10 @@ function Title({ question, subject }) {
     setSearchResults(results);
   }, [searchTerm]);
   return (
-      <div className="container mt-5">
-        {searchResults.map((question) => (
-          <div key={question.id}>
+    <div className="container mt-5">
+      {searchResults.map((question) => (
+        <div key={question.id}>
+          <div className="BoduQuestion-Total">
             <div className="BodyQuestion-CardBody">
               <div className='row'>
                 <div className="col-sm-10">
@@ -46,8 +47,9 @@ function Title({ question, subject }) {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
   );
 }
 

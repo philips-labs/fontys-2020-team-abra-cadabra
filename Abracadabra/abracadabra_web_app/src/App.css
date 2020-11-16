@@ -158,8 +158,12 @@ nav .search-container button:before, button:after, button:focus {
   min-height: 1px;
   padding: 1.25rem;
   padding-left: 2%;
+  margin-top: 15px; 
   background-color: #373A3C;
   color: #FFFFFF;
+}
+.mt-5{
+  margin-top: 20px !important;
 }
 .BodyQuestionText {
   font-weight: "bold";
@@ -251,11 +255,20 @@ input::-webkit-input-placeholder {
 }
 /* FilterButtons */
 .btn-primary {
-  margin-top: 10px;
+  margin-top: 25px;
   color: white;
   background-color: #6C757D;
-  margin-right: 15px;
+  margin-right: 10px;
   border: none;
   min-width: 70px;
+
+}
+.btn-secondary {
+  margin-top: 25px;
+  color: white;
+  background-color: #6C757D;
+  margin-left: 10px;
+  border: none;
+  min-width: 100px;
 
 }
