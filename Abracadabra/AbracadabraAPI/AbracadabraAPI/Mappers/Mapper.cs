@@ -44,10 +44,8 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = answer.DateTimeCreated,
             QuestionID = answer.QuestionID
         };
-        public static UserViewModel UserToViewModel(ApplicationUser user, string role) {
-
-            //var roles = await userManager.GetRolesAsync(user);
-
+        public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
+        {
            return new UserViewModel
             {
                 ID = user.Id,
