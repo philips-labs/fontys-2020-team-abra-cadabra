@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { slice } from "__mocks__/fileMock";
 
-function Title({ question, subject }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+function Title({ question, subject, search, searchLength }) {
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const results = question.filter((question) =>
-      question.title.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
-
+    if (searchLength > 0) {
+      setMessage("Results for: " + search);
+    }
+  }, []);
+                  
   function HumanDateTime(dateAndTime) {
     var date = new Date(dateAndTime + "Z");
     date = date.toUTCString().split(", ");
@@ -33,10 +27,12 @@ function Title({ question, subject }) {
     }
   }
 
-  return (
-    <div className="container mt-5">
-      {searchResults.map((question) => (
-        <div key={question.id}>
+  if (question.length > 0) {
+    return (
+      <div className="container mt-5">
+        <h1>{message}</h1>
+        {question.map((question) => (
+          <div key={question.id}>
           <div className="BoduQuestion-Total">
             <div className="BodyQuestion-CardBody">
               <div className='row'>
@@ -68,10 +64,16 @@ function Title({ question, subject }) {
               </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  } else {
+    return (
+      <div className="container mt-5">
+        <h1>No results for: {search}</h1>
+      </div>
+    );
+  }
 }
 
 export default Title;

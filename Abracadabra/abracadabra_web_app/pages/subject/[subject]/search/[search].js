@@ -1,24 +1,13 @@
-import { Container, Row, Col } from 'react-bootstrap';
-import Navbar from 'src/components/Navbar.js';
-import FilterNav from 'src/components/FilterNav';
-import QuestionBody from 'src/components/QuestionBody.js';
-import DefaultErrorPage from 'next/error';
-import SubjectService from 'src/services/SubjectService';
-import FilterButtons from "src/components/FilterButtons"
-
+import { Container, Row, Col } from "react-bootstrap";
+import Navbar from "src/components/Navbar.js";
+import QuestionBody from "src/components/QuestionBody.js";
+import DefaultErrorPage from "next/error";
+import SubjectService from "src/services/SubjectService";
+import { useRouter } from "next/router";
 
 function Subject({ subjectName, response }) {
-
-  const subject = [
-    "How do you dice an onion",
-    "How big is an onion",
-    "what color is an onion",
-    "why is an onion round",
-    "This is a test",
-  ];
-
-function Subject({ subjectName, response }) {
-  console.log(response);
+  const router = useRouter();
+  const { subject, search } = router.query;
 
   if (response === 404 || response == "failure" || response === 400) {
     return <DefaultErrorPage statusCode={404} />;
@@ -26,11 +15,13 @@ function Subject({ subjectName, response }) {
 
   return (
     <>
-      <body className="BodyQuestion">
-        <Navbar subjectTitle={subjectName} />
-        <FilterButtons subjectTitle={subjectName} />
-        <QuestionBody question={response.questions} subject={subjectName} />
-      </body>
+      <Navbar subjectTitle={subjectName} />
+      <QuestionBody
+        question={response.questions}
+        subject={subjectName}
+        search={search}
+        searchLength={search.length}
+      />
     </>
   );
 }
@@ -38,11 +29,17 @@ function Subject({ subjectName, response }) {
 export default Subject;
 
 export async function getServerSideProps({ params }) {
+  const searchData = {
+    subject: params.subject,
+    search: params.search,
+  };
+
   // Fetch necessary data for the blog post using params.id
   let apiRes = null;
   try {
-    apiRes = await SubjectService.GetSubjectBySlug(params.subject);
+    apiRes = await SubjectService.GetQuestionBySearch(searchData);
   } catch (err) {
+    //apiRes = err;
     apiRes = err.response?.status;
   }
 
