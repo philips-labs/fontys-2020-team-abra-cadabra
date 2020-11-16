@@ -4,3 +4,9 @@ body {
   background-color: $body-bg-color;
 }
 
+a {
+  &:hover{
+      text-decoration: none;
+      color: $text-color;
+  }
+}
