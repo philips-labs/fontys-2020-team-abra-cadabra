@@ -18,28 +18,30 @@ function Title({ question, subject }) {
         <div key={question.id}>
           <div className="BoduQuestion-Total">
             <div className="BodyQuestion-CardBody">
-              <div className='row'>
+              <div className="row">
                 <div className="col-sm-10">
-                  <a className="BodyQuestionText" href={subject + '/question/' + question.id}
+                  <a
+                    className="BodyQuestionText"
+                    href={subject + "/question/" + question.id}
                   >
                     <h4> {question.title} </h4>
                   </a>
                 </div>
-                <div className="col-sm-2">
-                  25 people responded
-             </div>
+                <div className="col-sm-2">25 people responded</div>
               </div>
             </div>
             <div className="BodyQuestion-hastag">
               <div className="row">
                 <div className="col-sm-9">
-                  <span className="badge badge-secondary p-1 mr-1">#Cutting</span>
+                  <span className="badge badge-secondary p-1 mr-1">
+                    #Cutting
+                  </span>
                   <span className="badge badge-secondary p-1 mr-1">
                     #Vegetables
-                </span>
+                  </span>
                   <span className="badge badge-secondary p-1 mr-1">
                     #mise-en-place
-                </span>
+                  </span>
                 </div>
                 <div className="col-sm-3">
                   <p>Posted on: {question.dateTimeCreated}</p>

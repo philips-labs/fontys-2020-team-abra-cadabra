@@ -1,0 +1,9 @@
+html,
+body,
+body > div:first-child,
+div#__next{
+  height: 100%;
+}
+#__next-prerender-indicator {
+  display: none;
+}
