@@ -2,22 +2,21 @@
     background-color: $secondary-color;
     color: $text-color;
     height: 100vh;
-   a {
+   a.wrap {
        color: $text-color;
        :hover {
-           color: darken($text-color, 5%);
-           background-color: $hover-color;
+        //    color: darken($text-color, 5%);
+           background-color: $special-color;
        }
-   }
-   a .nav-link:active {
-       text-decoration: underline;
-   }
-   .nav-link:hover, .nav-link:focus {
-    text-decoration: underline;
-    }
-    .nav-item:hover {
+       .active {
         background-color: $hover-color;
+       }
+       .Nav-color:hover {
+        color: $text-color;
+        background-color: transparent;
     }
+   }
+
     .Nav-color {
         color: $text-color;
     }

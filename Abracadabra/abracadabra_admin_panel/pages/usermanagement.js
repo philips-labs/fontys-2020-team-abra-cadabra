@@ -8,7 +8,7 @@ import NavBar from 'src/components/NavBar';
 import SideBar from 'src/components/SideBar'
 import {} from 'react-icons/fa'
 
-export default function Dashboard() {
+export default function Usermanagement() {
 
   return (
     <>

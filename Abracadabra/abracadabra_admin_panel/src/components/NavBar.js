@@ -15,7 +15,7 @@ export default function NavBar() {
     const router = useRouter();
 
     return (
-            <Navbar collapseOnSelect expand="md" variant="dark" className="Default-Navbar">
+            <Navbar collapseOnSelect expand="lg" variant="dark" className="Default-Navbar">
                 <Navbar.Brand href="/" className="p-0 d-flex">   
                     <Image src={Logo} height={60} className="my-auto"/>
                     <h5 className="my-auto">Abracadabra Admin Panel</h5>
@@ -31,7 +31,7 @@ export default function NavBar() {
                     </Nav.Link>
                     </Row>
                     </Nav>
-                    <Nav className="d-block d-sm-block d-md-none">
+                    <Nav className="d-block d-sm-block d-lg-none">
                     <Row>
                     <FaHome className="ml-3 my-auto mr-2"/>
                     <Nav.Link href="#" className="Nav-color">
