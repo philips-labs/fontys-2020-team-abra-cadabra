@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 //import react bootstrap
-import {Image, Row} from 'react-bootstrap';
+import {Image, Row, FormControl, InputGroup,Button} from 'react-bootstrap';
 //nextjs router hook
 import { useRouter } from "next/router";
 //import image

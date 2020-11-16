@@ -13,8 +13,8 @@ const router = useRouter();
   return (
     <>
 {/* Sidebar hidden on mobile, and put into the NavBar */}
-<Row className="d-none d-sm-none d-lg-block">
-          <Col md={3} xl={2} className="pl-0 pr-0">
+{/* <Row className=""> */}
+          <Col md={3} xl={2} className="pl-0 pr-0 d-none d-sm-none d-lg-block">
             <Nav id="sidebarMenu" className="flex-column Default-Sidebar">
                 <Nav className="">
                   {/* a is used for the */}
@@ -79,7 +79,7 @@ const router = useRouter();
                 </Nav>
             </Nav>
           </Col>
-        </Row>
+        {/* </Row> */}
     </>
   )
 }
