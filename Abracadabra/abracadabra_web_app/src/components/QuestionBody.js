@@ -54,8 +54,8 @@ function Title({ question, subject }) {
                   #mise-en-place
                 </span>
               </div>
-              <div className="col-sm-4">
-                <p>Question created on: {HumanDateTime(question.dateTimeCreated)}</p>
+              <div className="col-sm-3">
+                <p>Posted on: {HumanDateTime(question.dateTimeCreated)}</p>
               </div>
             </div>
           </div>
