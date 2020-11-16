@@ -1,5 +1,5 @@
 import Navbar from 'src/components/Navbar.js';
-import FilterNav from 'src/components/FilterNav';
+import FilterButtons from 'src/components/FilterButtons';
 import QuestionBody from 'src/components/QuestionBody.js';
 import DefaultErrorPage from 'next/error';
 import SubjectService from 'src/services/SubjectService';
@@ -16,7 +16,7 @@ function Subject({ subjectName, response }) {
     return (
         <>
             <Navbar subjectTitle={subjectName} />
-            <FilterNav subjectTitle={subjectName} />
+            <FilterButtons subjectTitle={subjectName} />
             <QuestionBody question={response} subject={subjectName} />
         </>
     );
@@ -45,6 +45,7 @@ export async function getServerSideProps({ params }) {
         } catch (err) {
             rspns = err.response?.status;
         }
+        console.log(rspns.data);
 
         const response = JSON.parse(JSON.stringify(rspns.data));
 

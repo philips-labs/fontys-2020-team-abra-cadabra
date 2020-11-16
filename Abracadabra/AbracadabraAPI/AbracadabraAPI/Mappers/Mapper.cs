@@ -34,8 +34,8 @@ namespace AbracadabraAPI.Mappers
                 DateTimeCreated = question.DateTimeCreated,
             };
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
-        new QuestionWithAnswerCount{
-
+        new QuestionWithAnswerCount
+            {
                 ID = question.ID,
                 Title = question.Title,
                 Description = question.Description,
@@ -60,7 +60,7 @@ namespace AbracadabraAPI.Mappers
                 ID = subject.ID,
                 SubjectName = subject.SubjectName,
             };
-        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithNoAnswersViewModel> viewModels) =>
+        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
     new SubjectWithQuestionsViewModel
     {
         ID = subject.ID,

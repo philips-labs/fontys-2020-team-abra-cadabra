@@ -24,6 +24,15 @@ function Title({ question, subject }) {
     return (date);
   }
 
+  function NrOfAnswers(numberOfAnswers) {
+    if (numberOfAnswers == 1) {
+      return numberOfAnswers + " person responded";
+    }
+    else {
+      return numberOfAnswers + " people responded";
+    }
+  }
+
   return (
     <div className="container mt-5">
       {searchResults.map((question) => (
@@ -38,8 +47,8 @@ function Title({ question, subject }) {
                   </a>
                 </div>
                 <div className="col-sm-2">
-                  25 people responded
-             </div>
+                  {NrOfAnswers(question.numberOfAnswers)}
+                </div>
               </div>
             </div>
           </div>
