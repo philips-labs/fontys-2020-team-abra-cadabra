@@ -1,0 +1,27 @@
+// Variables
+@import './variables';
+
+// Components
+@import './components/bubbles';
+@import './components/navbarModal';
+@import './components/question';
+@import './components/questionForm';
+@import './components/filterButtons';
+
+body {
+    background-color: $dark;
+    color: $white;
+}
+
+a {
+    &:hover{
+        text-decoration: none;
+        color: $white;
+    }
+}
+
+.bnt-secondary {
+    &:hover {
+        background-color: $secondaryHover;
+    }
+}

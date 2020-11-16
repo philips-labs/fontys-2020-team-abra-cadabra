@@ -12,7 +12,7 @@ namespace AbracadabraAPI.ViewModels
         [Key]
         public int ID { get; set; }
         public string SubjectName { get; set; }
-        public List<QuestionWithNoAnswersViewModel> Questions { get; set; }
+        public List<QuestionWithAnswerCount> Questions { get; set; }
 
     }
 }
