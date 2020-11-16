@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using AbracadabraAPI.Authentication;
 using System.Linq.Expressions;
 using AbracadabraAPI.ViewModels;
+using AbracadabraAPI.Mappers;
 
 namespace AbracadabraAPI.Controllers
 {
@@ -32,9 +33,15 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Subjects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SubjectDTO>>> GetSubjects()
+        public async Task<ActionResult<IEnumerable<SubjectViewModel>>> GetSubjects()
         {
-            return await _context.Subjects.Select(x => SubjectToDTO(x, _context)).ToListAsync();
+            List<Subject> subjects = await _context.Subjects.ToListAsync();
+            List<SubjectViewModel> models = new List<SubjectViewModel>();
+            foreach (Subject subject in subjects)
+            {
+                models.Add(Mapper.SubjectToViewModel(subject));
+            }
+            return models;
         }
 
         // GET: api/Subjects/cooking/searchBar/test
@@ -55,22 +62,32 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Subjects/cooking
         [HttpGet("{slug}")]
-        public async Task<ActionResult<SubjectDTO>> GetSubject(string slug)
+        public async Task<ActionResult<SubjectWithQuestionsViewModel>> GetSubject(string slug)
         {
             var subject = await _context.Subjects.Where(x => x.SubjectName == slug).FirstOrDefaultAsync();
-
             if (subject == null)
             {
                 return NotFound();
             }
+            List<QuestionWithNoAnswersViewModel> questionViewModels = new List<QuestionWithNoAnswersViewModel>();
+            var questions = await _context.Questions.Where(x => x.Category == slug).ToListAsync();
+            foreach (var item in questions)
+            {
+                var user = await userManager.FindByIdAsync(item.UserID);
+                questionViewModels.Add(Mapper.QuestionWithNoAnswersToViewModel(item, user));
+            }
+            var model = Mapper.SubjectWithQuestionsToViewModel(subject, questionViewModels);
+            return model;
 
-            return SubjectToDTO(subject, _context);
+
+
+
         }
 
         // PUT: api/Subjects/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutSubject(int id, SubjectDTO subjectDTO)
+        public async Task<IActionResult> PutSubject(int id, SubjectViewModel subjectDTO)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -113,7 +130,7 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Subjects
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<SubjectDTO>> PostSubject(SubjectDTO subjectDTO)
+        public async Task<ActionResult<SubjectViewModel>> PostSubject(SubjectViewModel subjectDTO)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -129,13 +146,13 @@ namespace AbracadabraAPI.Controllers
             _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetSubject), new { id = subjectDTO.ID }, SubjectToDTO(subject, _context));
+            return CreatedAtAction(nameof(GetSubject), new { id = subjectDTO.ID }, Mapper.SubjectToViewModel(subject));
         }
 
         // DELETE: api/Subjects/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<SubjectDTO>> DeleteSubject(int id)
+        public async Task<ActionResult<SubjectViewModel>> DeleteSubject(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -152,7 +169,7 @@ namespace AbracadabraAPI.Controllers
             _context.Subjects.Remove(subject);
             await _context.SaveChangesAsync();
 
-            return SubjectToDTO(subject, _context);
+            return Mapper.SubjectToViewModel(subject);
         }
 
         private bool SubjectExists(int id)
@@ -160,12 +177,6 @@ namespace AbracadabraAPI.Controllers
             return _context.Questions.Any(e => e.ID == id);
         }
 
-        private static SubjectDTO SubjectToDTO(Subject subject, AbracadabraContext _context) =>
-            new SubjectDTO
-            {
-                ID = subject.ID,
-                SubjectName = subject.SubjectName,
-                Questions = _context.Questions.Where(x => x.SubjectID == subject.ID).ToList()
-            };
+
     }
 }

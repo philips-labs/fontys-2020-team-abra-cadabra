@@ -1,8 +1,19 @@
-import { Container, Row, Col } from "react-bootstrap";
-import Navbar from "src/components/Navbar.js";
-import QuestionBody from "src/components/QuestionBody.js";
-import DefaultErrorPage from "next/error";
-import SubjectService from "src/services/SubjectService";
+import { Container, Row, Col } from 'react-bootstrap';
+import Navbar from 'src/components/Navbar.js';
+import FilerNav from 'src/components/FilterNav';
+import QuestionBody from 'src/components/QuestionBody.js';
+import DefaultErrorPage from 'next/error';
+import SubjectService from 'src/services/SubjectService';
+
+function Subject({ subjectName, response }) {
+
+  const subject = [
+    "How do you dice an onion",
+    "How big is an onion",
+    "what color is an onion",
+    "why is an onion round",
+    "This is a test",
+  ];
 
 function Subject({ subjectName, response }) {
   console.log(response);
@@ -27,7 +38,6 @@ export async function getServerSideProps({ params }) {
   try {
     apiRes = await SubjectService.GetSubjectBySlug(params.subject);
   } catch (err) {
-    //apiRes = err;
     apiRes = err.response?.status;
   }
 
