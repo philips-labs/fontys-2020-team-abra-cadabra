@@ -1,7 +1,5 @@
 import axios from "axios";
 
-// this is bad for security, but the only way it will work on both mac and windows dev env.
-
 const httpdefault = () => {
   const https = require("https");
   return axios.create({
