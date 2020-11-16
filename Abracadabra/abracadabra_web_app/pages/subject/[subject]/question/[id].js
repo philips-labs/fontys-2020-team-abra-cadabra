@@ -15,6 +15,7 @@ import SubjectQuestion from 'src/components/SubjectQuestion';
 //functionality imports
 import QuestionService from 'src/services/QuestionService';
 
+
 function Question({data, subject}) {
 
         // get the subject from router, to pass to the navbar for navigation button and title

@@ -249,3 +249,13 @@ input::-webkit-input-placeholder {
   font-size: 11px;
   text-align: center;
 }
+/* FilterButtons */
+.btn-primary {
+  margin-top: 10px;
+  color: white;
+  background-color: #6C757D;
+  margin-right: 15px;
+  border: none;
+  min-width: 70px;
+
+}

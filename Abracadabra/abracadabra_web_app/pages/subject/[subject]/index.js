@@ -1,10 +1,11 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Navbar from 'src/components/Navbar.js';
-import FilerNav from 'src/components/FilterNav';
+import FilterNav from 'src/components/FilterNav';
 import QuestionBody from 'src/components/QuestionBody.js';
 import DefaultErrorPage from 'next/error';
 import SubjectService from 'src/services/SubjectService';
-import FilterNav from 'src/components/Filternav';
+import FilterButtons from "src/components/FilterButtons"
+
 
 function Subject({ subjectName, response }) {
 
@@ -28,6 +29,7 @@ function Subject({ subjectName, response }) {
     <>
     <body className="BodyQuestion">
       <Navbar subjectTitle={subjectName} />
+      <FilterButtons />
       <QuestionBody question={response.questions} subject={subjectName} />
       </body>
     </>
