@@ -8,14 +8,14 @@ function FilterButtons() {
         <div class="rounded container">
             <Row>
                 <Col md="7">
-                    <Button variant="primary"><FontAwesomeIcon icon={faCertificate} /> New</Button>    
-                    <Button variant="primary"><FontAwesomeIcon icon={faFireAlt} /> Hot</Button>
-                    <Button variant="primary"><FontAwesomeIcon icon={faChartLine} /> Top</Button>
+                    <Button variant="secondary" className="btnSmall"><FontAwesomeIcon icon={faCertificate} /> New</Button>
+                    <Button variant="secondary" className="btnSmall"><FontAwesomeIcon icon={faFireAlt} /> Hot</Button>
+                    <Button variant="secondary" className="btnSmall"><FontAwesomeIcon icon={faChartLine} /> Top</Button>
                 </Col>
                 <Col md="5">
-                    <Button variant="secondary"><FontAwesomeIcon icon={faCommentSlash} /> Unanswered</Button>    
-                    <Button variant="secondary"><FontAwesomeIcon icon={faComment} /> Answered</Button>
-                    <Button variant="secondary"><FontAwesomeIcon icon={faUserGraduate} /> Expert Answered</Button>
+                    <Button variant="secondary" className="btnBig"><FontAwesomeIcon icon={faCommentSlash} /> Unanswered</Button>
+                    <Button variant="secondary" className="btnBig"><FontAwesomeIcon icon={faComment} /> Answered</Button>
+                    <Button variant="secondary" className="btnBig"><FontAwesomeIcon icon={faUserGraduate} /> Expert Answered</Button>
                 </Col>
             </Row>
         </div>
