@@ -12,14 +12,13 @@ export default function Title({ question, subject }) {
     date = date.toUTCString().split(", ");
     date = date[1].slice(0, 17);
 
-    return (date);
+    return date;
   }
 
   function NrOfAnswers(numberOfAnswers) {
     if (numberOfAnswers == 1) {
       return numberOfAnswers + " person responded";
-    }
-    else {
+    } else {
       return numberOfAnswers + " people responded";
     }
   }
@@ -30,9 +29,11 @@ export default function Title({ question, subject }) {
         <div key={question.id}>
           <div className="BoduQuestion-Total">
             <div className="BodyQuestion-CardBody">
-              <div className='row'>
+              <div className="row">
                 <div className="col-sm-10">
-                  <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + question.id}
+                  <a
+                    className="BodyQuestionText"
+                    href={"/subject/" + subject + "/question/" + question.id}
                   >
                     <h4> {question.title} </h4>
                   </a>
@@ -47,9 +48,7 @@ export default function Title({ question, subject }) {
             <div className="row">
               <div className="col-sm-9">
                 <span className="badge badge-info p-1 mr-1">#Cutting</span>
-                <span className="badge badge-info p-1 mr-1">
-                  #Vegetables
-                </span>
+                <span className="badge badge-info p-1 mr-1">#Vegetables</span>
                 <span className="badge badge-info p-1 mr-1">
                   #mise-en-place
                 </span>

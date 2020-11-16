@@ -1,12 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import logo from 'src/images/Abra_Logo_Centered.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faSearch, faTimes, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+//import react-bootstrap navbar parts
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
+//import react bootstrap
+import {
+  Image,
+  Row,
+  Button,
+  InputGroup,
+  FormControl,
+  Col,
+} from "react-bootstrap";
+//nextjs router hook
+import { useRouter } from "next/router";
+//import image
+import Logo from "src/images/Abra_Logo_Centered.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faSearch,
+  faTimes,
+  faUserCircle,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
-function Navbar({ subjectTitle }) {
+export default function NavBar({ subjectTitle }) {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const [searchString, setSearchString] = useState({ searchString: "" });
 
   const handleOpen = () => setOpen(!open);
   const handleClose = () => setOpen(false);
@@ -15,8 +39,7 @@ function Navbar({ subjectTitle }) {
   function handleClick(e) {
     if (!e.target.closest("#dropdown") && open) {
       handleOpen();
-    }
-    else if (!e.target.closest("#dropdown_item") && open) {
+    } else if (!e.target.closest("#dropdown_item") && open) {
       handleOpen();
     }
   }
@@ -28,41 +51,73 @@ function Navbar({ subjectTitle }) {
     };
   });
 
+  const handleChange = (event) => {
+    setSearchString({
+      ...searchString,
+      [event.target.name]: event.target.value,
+    });
+
+    console.log(searchString);
+  };
+
   return (
-    <>
-      <nav className="navbar mr-auto d-flex">
-        <div className="navbarCollapse d-flex mx-auto">
-          <a className="navbar-brand d-flex" href={'/subject/' + subjectTitle}>
-            <img src={logo} className="navbarLogo" />
-            <h1 className="navbarText mt-2">{subjectTitle}</h1>
-          </a>
-          <div className='align-self-center'>
-            <div className="input-group mt-3 mb-3 search-box">
-              <input type="text" placeholder="Search.." aria-label="Search questions" name="search"></input>
-              <div className="input-group-append">
-                <button type="button" className='btn btn-outline-secondary navbarButton'><FontAwesomeIcon icon={faSearch} /></button>
-              </div>
-            </div>
-          </div>
-          <a href={'/subject/' + subjectTitle + '/createquestion'} className="btn btn-outline-secondary navbarButton align-self-center ml-2">Ask a Question</a>
-        </div>
-        {/* </div> */}
-        <a className="navbarHubIconMobile" href="/"><FontAwesomeIcon icon={faHome} /></a>
-        <button className="searchMobile mx-auto" onClick={handleShow} id="mobile_search"><FontAwesomeIcon icon={faSearch} /></button>
-      </nav>
-     
-
-      <Modal centered show={show} onShow={handleClose} onHide={handleShow}>
-        <Modal.Body className="d-flex flex-column">
-          <button className="navbarModalButton ml-auto mb-1 mr-1" onClick={handleShow}><FontAwesomeIcon icon={faTimes} /></button>
-          <form action="">
-            <input className="navbarModalInput" type="text" placeholder="Search.." name="search"></input>
-            <button className="navbarModalSearchButton mt-1" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
-          </form>
-        </Modal.Body>
-      </Modal>
-    </>
-  )
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      variant="dark"
+      className="Default-Navbar"
+    >
+      <Navbar.Brand className="p-0 d-flex">
+        <a href="/">
+          <Image src={Logo} height={60} className="my-auto" />
+        </a>
+        <a href={"/subject/" + subjectTitle} className="my-auto">
+          <h3>{subjectTitle}</h3>
+        </a>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Row className="mr-auto w-100">
+          <Col md={1}></Col>
+          <Col md={4}>
+            <InputGroup className="my-auto">
+              <FormControl
+                placeholder="Search in"
+                aria-label="Search questions"
+                name="searchString"
+                onChange={handleChange}
+              />
+              <InputGroup.Append>
+                <Button
+                  href={
+                    "/subject/" +
+                    subjectTitle +
+                    "/search/" +
+                    searchString.searchString
+                  }
+                  variant="secondary"
+                >
+                  <FontAwesomeIcon icon={faSearch} />
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Col>
+          <Col md={4}></Col>
+          <Col md={2}>
+            <Button href="#" variant="outline-secondary">
+              Ask <FontAwesomeIcon className="ml-1" icon={faQuestionCircle} />
+            </Button>
+          </Col>
+          <Col md={1}></Col>
+        </Row>
+        <Nav>
+          <Row>
+            <Nav.Link href="#" className="ml-3 my-auto mr-2">
+              Username
+            </Nav.Link>
+          </Row>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
 }
-
-export default Navbar
