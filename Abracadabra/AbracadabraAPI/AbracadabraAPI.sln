@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbracadabraAPI", "AbracadabraAPI\AbracadabraAPI.csproj", "{04E8F06A-489D-4DCB-8ED0-0845F570412D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbraCadabraAPITests", "AbraCadabraAPITests\AbraCadabraAPITests.csproj", "{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbraCadabraAPITests", "AbraCadabraAPITests\AbraCadabraAPITests.csproj", "{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
