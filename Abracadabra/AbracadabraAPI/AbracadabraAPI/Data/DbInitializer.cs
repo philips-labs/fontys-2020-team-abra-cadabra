@@ -36,7 +36,7 @@ namespace AbracadabraAPI.Data
                 new Subject
                 {
                     
-                    SubjectName = "Gaming",
+                    SubjectName = "Crafting",
 
                 },
                 };
@@ -55,7 +55,6 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[0],
                     Title="Boil water",
                     Description="How to boil water",
-                    Category="Cooking",
                     SubjectID=1,
                     DateTimeCreated=DateTime.Parse("2020-9-19-11:35"),
                     Upvotes = 150,
@@ -67,7 +66,6 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[1],
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
-                    Category="Crafting",
                     SubjectID=2,
                     DateTimeCreated=DateTime.Parse("2020-10-19-11:35"),
                     Upvotes = 553,
@@ -79,7 +77,6 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[0],
                     Title="Cook lobster",
                     Description="How to cook lobster",
-                    Category="Cooking",
                     SubjectID=1,
                     DateTimeCreated=DateTime.Now,
                     Upvotes = 10,
@@ -89,10 +86,9 @@ namespace AbracadabraAPI.Data
                 new Question
                 {
                     UserID=userIds[2],
-                    Title="Cook risotto",
-                    Description="How do I make risotto?",
-                    Category="Cooking",
-                    SubjectID=1,
+                    Title="Gym crafting question",
+                    Description="How do I make a benchpress at home?",
+                    SubjectID=2,
                     DateTimeCreated=DateTime.Now.AddHours(1),
                     Upvotes = 98,
                     Downvotes = 6,
@@ -103,7 +99,6 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[1],
                     Title="How to dice carrots?",
                     Description="How do I efficiently dice carrots?",
-                    Category="Cooking",
                     SubjectID=1,
                     DateTimeCreated=DateTime.Now.AddHours(2),
                     Upvotes = 991,
@@ -113,10 +108,9 @@ namespace AbracadabraAPI.Data
                 new Question
                 {
                     UserID=userIds[0],
-                    Title="Cook lasagna",
-                    Description="How do I make lasagna?",
-                    Category="Cooking",
-                    SubjectID=1,
+                    Title="Glass Chair",
+                    Description="How can I make a chair from glass?",
+                    SubjectID=2,
                     DateTimeCreated=DateTime.Now.AddHours(3),
                     Upvotes = 45,
                     Downvotes = 40,
@@ -127,7 +121,6 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[2],
                     Title="How to make spaghetti?",
                     Description="How do I make spaghetti?",
-                    Category="Cooking",
                     SubjectID=1,
                     DateTimeCreated=DateTime.Now.AddHours(4),
                     Upvotes = 146,
@@ -137,10 +130,9 @@ namespace AbracadabraAPI.Data
                 new Question
                 {
                     UserID=userIds[0],
-                    Title="How to make scallops",
-                    Description="How do I properly prepare scallops?",
-                    Category="Cooking",
-                    SubjectID=1,
+                    Title="How to not hit my finger while using a hammer",
+                    Description="Guys, I've hit tried getting this nail in the wall but I keep hitting my finger with the hammer what should I do?",
+                    SubjectID=2,
                     DateTimeCreated=DateTime.Now.AddHours(5),
                     Upvotes = 21,
                     Downvotes = 4,

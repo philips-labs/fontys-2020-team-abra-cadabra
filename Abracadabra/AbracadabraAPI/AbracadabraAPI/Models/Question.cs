@@ -17,8 +17,6 @@ namespace AbracadabraAPI.Models
         
         public string Description { get; set; }
 
-        public string Category { get; set; }
-
         public DateTime DateTimeCreated { get; set; }
 
         public long Upvotes { get; set; }
