@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
-    padding: 4rem;
-    width: 55vw;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    width: 50vw;
     background-color: $special-color;
 
     @media (max-width: 1290px) { 
@@ -46,4 +47,33 @@
     .feedback {
         font-size: 1rem;
     }
+    /* tags */
+.tags-input{
+    background: none;
+      color: white;
+      border: none;
+      min-width: 0;
+      width: 50px;
+      font-size: 0.75rem;
+  }
+  .tags-input::placeholder {
+   color:rgba(255, 255, 255, 0.788);
+  }
+  .tags-button-remove {
+    border:none;
+    margin-left: 2px;
+  }
+  .tags-button-plus {
+    border:none;
+    margin-left: 2px;
+    padding-top: 0.55rem !important;
+  }
+  .tags-margin {
+    margin-right: 10px;
+    align-items: center;
+  }
+  /*  Create Question  */
+  .createquestion-title::placeholder {
+    font-size: 1rem;
+   }
 }
