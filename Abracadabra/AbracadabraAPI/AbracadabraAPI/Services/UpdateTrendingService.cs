@@ -45,14 +45,7 @@ namespace AbracadabraAPI.Services
 
                     var order = Math.Log10(Math.Max(Math.Abs(score), 1));
 
-                    //double sign1 = Math.Sign(order);
-                    double sign;
-                    if (score > 0)
-                        sign = 1;
-                    else if (score < 0)
-                        sign = -1;
-                    else
-                        sign = 0;
+                    double sign = Math.Sign(order);
 
                     var dto = new DateTimeOffset(question.DateTimeCreated);
                     var time = dto.ToUnixTimeSeconds();
