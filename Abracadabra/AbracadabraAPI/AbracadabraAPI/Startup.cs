@@ -79,7 +79,7 @@ namespace AbracadabraAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AbracadabraContext context)
         {
             if (env.IsDevelopment())
             {
@@ -96,7 +96,9 @@ namespace AbracadabraAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            MyIdentityDataInitializer.SeedData(userManager, roleManager);
+            MyIdentityDataInitializer.SeedData(userManager, roleManager, context);
+
+            DbInitializer.Initialize(context);
 
             app.UseEndpoints(endpoints =>
             {

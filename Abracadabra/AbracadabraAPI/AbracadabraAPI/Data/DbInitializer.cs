@@ -21,9 +21,9 @@ namespace AbracadabraAPI.Data
             }
             List<string> userIds = new List<string>();
 
-            for (int i = 0; i < context.Users.Count(); i++)
+           foreach(var user in context.Users)
             {
-                userIds.Add(context.Users.Where(x => x.UserName == $"test{i}").FirstOrDefault().Id);
+                userIds.Add(user.Id);
             }
             var subjects = new Subject[]
             {

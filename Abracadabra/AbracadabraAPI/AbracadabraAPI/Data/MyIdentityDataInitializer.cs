@@ -9,13 +9,14 @@ namespace AbracadabraAPI.Data
 {
     public class MyIdentityDataInitializer
     {
-        public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AbracadabraContext context)
         {
+            context.Database.EnsureCreated();
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
 
-        public static void SeedUsers(UserManager<ApplicationUser> userManager)
+        private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
             var hasher = new PasswordHasher<ApplicationUser>();
             if (userManager.FindByNameAsync("test0").Result == null)
@@ -83,8 +84,9 @@ namespace AbracadabraAPI.Data
             }
         }
 
-        public static void SeedRoles (RoleManager<IdentityRole> roleManager)
+        private static void SeedRoles (RoleManager<IdentityRole> roleManager)
         {
+
             if (!roleManager.RoleExistsAsync("User").Result)
             {
                 IdentityRole role = new IdentityRole();
