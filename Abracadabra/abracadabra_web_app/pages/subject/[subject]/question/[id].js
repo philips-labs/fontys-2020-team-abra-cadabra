@@ -45,17 +45,13 @@ function Question({ data, subject }) {
       <Navbar subjectTitle={subject} />
       <SubjectQuestion question={question} />
 
-      <div className="container mt-5">
+      <div className="answerHead mx-auto">
         <h1>A</h1>
-        <div className="border-top">
-          <div className="mt-3">
-            <QuestionCreateAnswer QID={question.id} />
-            {/* Create component for answer tnx */}
-            {answers.map((answer) => (
-              <SubjectAnswer key={answer.id} answer={answer} />
-            ))}
-          </div>
-        </div>
+        <QuestionCreateAnswer QID={question.id} />
+        {/* Create component for answer tnx */}
+        {answers.map((answer) => (
+          <SubjectAnswer key={answer.id} answer={answer} />
+        ))}
       </div>
     </>
   );
