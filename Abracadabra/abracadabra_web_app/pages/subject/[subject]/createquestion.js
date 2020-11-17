@@ -6,19 +6,19 @@ import { Form, Button } from 'react-bootstrap';
 import QuestionService from 'src/services/QuestionService';
 
 function QuestionForm() {
-            // get the subject from router, to pass to the navbar for navigation button and title
-        const router = useRouter();
-        const {subject} = router.query;
+    // get the subject from router, to pass to the navbar for navigation button and title
+    const router = useRouter();
+    const { subject } = router.query;
 
     const [SubjectSlug, setSubjectSlug] = useState();
     const [validated, setValidated] = useState(false);
-    const initialInputState = { title: "", description: "", subjectslug: ""};
+    const initialInputState = { title: "", description: "", subjectslug: "" };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
 
 
     const handleInputChange = e => {
-        setQuestion({ ...question, [e.target.name]: e.target.value, subjectslug: router.query.subject});
+        setQuestion({ ...question, [e.target.name]: e.target.value, subjectslug: router.query.subject });
     };
 
     const handleSubmit = async (event) => {
@@ -30,7 +30,7 @@ function QuestionForm() {
         else {
             event.preventDefault();
             const { subject } = router.query;
-            setQuestion({...question, subjectslug: SubjectSlug});
+            setQuestion({ ...question, subjectslug: SubjectSlug });
             console.log(question);
             var response = await QuestionService.Question(question);
             Router.push('/subject/' + subject + '/question/' + response?.data?.id);
