@@ -87,6 +87,33 @@ namespace AbracadabraAPI.Controllers
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null);
         }
 
+        // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
+        [HttpGet("{subject}/trending")]
+        public async Task<ActionResult<IList<Question>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            if (subject == null)
+            {
+                return BadRequest();
+            }
+
+            // TODO: Category and subject? Why not a subject table with a foreign key relationship to question?
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subjectName)
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .OrderByDescending(x => x.TrendingScore)
+                .ToListAsync();
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var question in questions)
+            {
+                var user = await userManager.Users.Where(x => x.Id == question.UserID).FirstOrDefaultAsync();
+                users.Add(user);
+            }
+
+            return questions;
+        }
+
         // PUT: api/Questions/5
         [HttpPut("{id}")]
         [Authorize]

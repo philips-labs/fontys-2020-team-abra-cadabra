@@ -25,7 +25,7 @@ namespace AbracadabraAPI.Models
 
         public long Downvotes { get; set; }
 
-        public double TrendingScore { get; set; }
+        public double? TrendingScore { get; set; }
 
         public int SubjectID { get; set; }
 
