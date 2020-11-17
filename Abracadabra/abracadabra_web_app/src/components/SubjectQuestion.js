@@ -20,7 +20,8 @@ export default function Question({ question }) {
                 </Col>
                 <Col md={3} className="d-flex justify-content-end">
                   <img
-                    className="questionAvatar rounded-circle"
+                    className="questionAvatar rounded-circle mr-1"
+                    style={{ height: "40px" }}
                     src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                   ></img>
                   <p className="questionUsername">{question.userName}</p>

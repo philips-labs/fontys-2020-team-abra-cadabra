@@ -36,7 +36,8 @@ export default function Answer({ answer }) {
               <Col md={10}>
                 <h6 className="font-weight-bold">
                   <img
-                    className="questionAvatar rounded-circle mb-2"
+                    className="questionAvatar rounded-circle mb-2 mr-1"
+                    style={{ height: "40px" }}
                     src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                   ></img>
                   {answer.userName}

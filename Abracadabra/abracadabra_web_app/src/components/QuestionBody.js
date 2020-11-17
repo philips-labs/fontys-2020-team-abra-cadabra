@@ -25,7 +25,7 @@ export default function Title({ question, subject }) {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container BodyQuestion-Top">
       {questions.map((question) => (
         <div key={question.id} style={{ marginRight: "5px" }}>
           <div className="BoduQuestion-Total">
