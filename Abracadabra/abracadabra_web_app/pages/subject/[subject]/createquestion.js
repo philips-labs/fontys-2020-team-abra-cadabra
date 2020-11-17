@@ -14,7 +14,7 @@ function QuestionForm() {
 
     const [SubjectSlug, setSubjectSlug] = useState();
     const [validated, setValidated] = useState(false);
-    const initialInputState = { title: "", description: "", subjectslug: "" };
+    const initialInputState = { title: "", description: "", subjectslug: "", tags: [] };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
     const [tags, setTags] = useState([{ tag: "" }]);
@@ -46,6 +46,7 @@ function QuestionForm() {
         const list = [...tags];
         list[index][name] = value;
         setTags(list);
+        setQuestion({ ...question, tags: tags });
     };
     const handleRemoveClick = index => {
         const list = [...tags];
