@@ -12,6 +12,11 @@ namespace AbracadabraAPI.Data
         public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AbracadabraContext context)
         {
             context.Database.EnsureCreated();
+            if (context.Users.Any() || context.Roles.Any())
+            {
+                return;
+            }
+
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
