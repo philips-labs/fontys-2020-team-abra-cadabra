@@ -6,3 +6,10 @@ $secondary-color: #6C757D;
 $tertiary-color: #17A2B8;
 $special-color: #343A3E;
 $hover-color: #464B50;
+
+// Bootstrap Mapping
+$theme-colors: (
+  "primary": $primary-color,
+  "secondary": $secondary-color,
+  "info": $tertiary-color,
+);

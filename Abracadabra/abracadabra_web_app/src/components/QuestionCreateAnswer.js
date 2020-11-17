@@ -94,13 +94,12 @@ function QuestionCreateAnwser(questionSendId) {
                 <Row className="justify-content-md-center">
                   <Col md sm="1">
                     <div className="float-md-right">
-                      {" "}
                       <Button
                         disabled={!isloggedin}
                         type="submit"
-                        variant="light"
+                        variant="info"
                       >
-                        Answer Question
+                        Submit Answer
                       </Button>
                     </div>
                   </Col>
