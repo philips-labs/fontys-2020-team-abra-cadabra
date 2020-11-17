@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
 import Router from "next/router";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Container, Form } from "react-bootstrap";
 
 const EditUser = () => {
   const [edituserActive, setEditUserActive] = useState(true);
@@ -13,7 +13,100 @@ const EditUser = () => {
   };
   return (
     <>
-      {edituserActive ? (
+      <Container className="h-75">
+        <Row className="h-100 justify-content-center align-items-center">
+          <Col xl={8} md={11} className="LoginArea pb-3 rounded">
+            <Row>
+              <Col>
+                <h3 style={{ textAlign: "center" }}>
+                  Profile page for verylongusername
+                </h3>
+              </Col>
+            </Row>
+            <Row className="editUserContainer pb-3 rounded">
+              <Col>
+                <Row>
+                  <Col md={6} className="p-3">
+                    <form>
+                      <div className="form-group">
+                        <label>Email address</label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          aria-describedby="emailHelp"
+                          value="Verylongusername@gmail.com"
+                          disabled
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Username</label>
+                        <input
+                          type="Username"
+                          className="form-control"
+                          value="Verylongusername"
+                          disabled
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Password</label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="exampleInputPassword1"
+                          placeholder="Password"
+                          disabled
+                        />
+                      </div>
+                    </form>
+                  </Col>
+                  <Col md={6} className="p-3">
+                    <Row>
+                      <Col md={7} className="mr-auto"></Col>
+                      <Col md={5}>
+                        <img
+                          className="rounded-circle"
+                          style={{ height: "125px" }}
+                          src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
+                        ></img>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={7} className="mr-auto"></Col>
+                      <Col>
+                        <Button
+                          style={{ width: "100%" }}
+                          className="mt-2 btn-info"
+                        >
+                          Change
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}></Col>
+                  <Col md={6}>
+                    <Row>
+                      <Col md={7} className="mr-auto"></Col>
+                      <Col>
+                        <Button
+                          style={{ width: "100%" }}
+                          className="mt-2 btn-info"
+                          onClick={changeToActive}
+                        >
+                          Edit
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+
+      {/* {edituserActive ? (
         <Row>
           <Col md={3}></Col>
           <Col md={6}>
@@ -91,7 +184,6 @@ const EditUser = () => {
               </div>
             </div>
           </Col>
-          <Col md={3}></Col>
         </Row>
       ) : (
         <Row>
@@ -189,7 +281,7 @@ const EditUser = () => {
           </Col>
           <Col md={3}></Col>
         </Row>
-      )}
+      )} */}
     </>
   );
 };

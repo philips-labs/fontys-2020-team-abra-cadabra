@@ -205,27 +205,30 @@ input::-webkit-input-placeholder {
   text-align: center;
 }
 /* tags */
-.tags-input{
+.tags-input {
   background: none;
-    color: white;
-    border: none;
-    min-width: 0;
-    width: 50px;
-    font-size: 0.75rem;
+  color: white;
+  border: none;
+  min-width: 0;
+  width: 50px;
+  font-size: 0.75rem;
 }
 .tags-input::placeholder {
- color:rgba(255, 255, 255, 0.788);
+  color: rgba(255, 255, 255, 0.788);
 }
 .tags-button-remove {
-  border:none;
+  border: none;
   margin-left: 2px;
 }
 .tags-button-plus {
-  border:none;
+  border: none;
   margin-left: 2px;
   padding-top: 0.55rem !important;
 }
 .tags-margin {
   margin-right: 10px;
   align-items: center;
+}
+.editUserContainer {
+  background-color: #373a3c;
 }
