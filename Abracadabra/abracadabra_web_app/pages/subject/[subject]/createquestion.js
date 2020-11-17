@@ -14,7 +14,7 @@ function QuestionForm() {
 
     const [SubjectSlug, setSubjectSlug] = useState();
     const [validated, setValidated] = useState(false);
-    const initialInputState = { title: "", description: "", subjectslug: "" };
+    const initialInputState = { title: "", description: "", subjectslug: "", tags: [] };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
     const [tags, setTags] = useState([{ tag: "" }]);
@@ -46,6 +46,7 @@ function QuestionForm() {
         const list = [...tags];
         list[index][name] = value;
         setTags(list);
+        setQuestion({ ...question, tags: tags });
     };
     const handleRemoveClick = index => {
         const list = [...tags];
@@ -64,7 +65,7 @@ function QuestionForm() {
                 <br />
                 <Form.Group>
                     <Form.Label className="label">Question:</Form.Label>
-                    <Form.Control required className="question" type="text" name="title" onChange={handleInputChange} placeholder="Type Your Question Here" />
+                    <Form.Control required className="question createquestion-title" type="text" name="title" onChange={handleInputChange} placeholder="Type Your Question Here" />
                     <Form.Control.Feedback className="feedback">Question Looks Good!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid" className="feedback">Question is Empty!</Form.Control.Feedback>
                 </Form.Group>
@@ -96,7 +97,6 @@ function QuestionForm() {
                         })}
 
                     <a className="badge badge-info p-2 mr-2 tags-button-plus" onClick={handleAddClick}>+</a>
-                    <div style={{ marginTop: 20 }}>{JSON.stringify(tags)}</div>
 
             
                 </Form.Group>

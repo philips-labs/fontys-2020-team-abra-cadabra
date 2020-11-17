@@ -1,6 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
 import Navbar from "src/components/Navbar.js";
-import FilterNav from "src/components/FilterNav";
 import QuestionBody from "src/components/QuestionBody.js";
 import DefaultErrorPage from "next/error";
 import SubjectService from "src/services/SubjectService";
