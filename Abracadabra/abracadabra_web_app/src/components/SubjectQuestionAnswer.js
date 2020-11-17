@@ -1,5 +1,6 @@
 import { Card, Row, Col } from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp, faChevronDown, faFlag } from '@fortawesome/free-solid-svg-icons';
 
 export default function Answer({ answer }) {
 
@@ -13,14 +14,29 @@ export default function Answer({ answer }) {
 
     return (
         <>
-            <Row className="border-bottom mb-3">
+            <Row>
                 <Col md={11} className="mx-auto">
 
                     <Card className="answerBody">
                         <Card.Body>
-                            <Card.Text>
-                                With supporting text below as a natural lead-in to additional content.
-                            </Card.Text>
+                            <Row>
+                                <Col md={11}>
+                                    <Card.Text>
+                                        Curabitur efficitur ante ut magna pharetra lobortis. Aliquam erat volutpat. Integer sagittis, diam quis maximus mattis, erat quam egestas mauris, sit amet molestie dolor justo in nulla. Fusce molestie dignissim mollis. Maecenas efficitur dolor quis consectetur elementum. Nunc ipsum lorem, pulvinar nec laoreet non, vulputate et leo. Suspendisse suscipit finibus velit id ullamcorper. Aliquam sodales magna arcu, quis gravida justo dignissim vel. Nam ultrices eros et nunc condimentum pellentesque. Duis ante urna, condimentum et eros ut, semper ultricies dolor. Maecenas mi nunc, sodales ac posuere id, placerat imperdiet libero. In quis est aliquet nisi tincidunt venenatis. Mauris lobortis tincidunt mi.
+                                    </Card.Text>
+                                </Col>
+                                <Col md={1} className="votingDiv">
+                                    <FontAwesomeIcon className="votingArrow" icon={faChevronUp} />
+                                    <p>100</p>
+                                    <FontAwesomeIcon className="votingArrow" icon={faChevronDown} />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={11}></Col>
+                                <Col md={1} className="flagDiv">
+                                    <FontAwesomeIcon className="flagIcon" icon={faFlag} />
+                                </Col>
+                            </Row>
                         </Card.Body>
                         <Card.Footer className="answerFooter">
                             <div className="d-flex">
@@ -31,27 +47,6 @@ export default function Answer({ answer }) {
                         </Card.Footer>
                     </Card>
 
-
-                    {/* Answer header */}
-                    {/* <Row>
-                        <Col md={1}>
-                            <img className="questionPageAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                        </Col>
-                        <Col md={7}>
-                            <h6 className="font-weight-bold">{answer.userName}</h6>
-
-                        </Col>
-                        <Col md={4}>
-                            <h6 className="font-weight-bold helpedText">Has Helped: <span>100</span> People</h6>
-                        </Col>
-                    </Row> */}
-                    {/* Answer content */}
-                    {/* <Row>
-                        <Col md={1}></Col>
-                        <Col>
-                            <p className="answerContentText">{answer.answerContent}</p>
-                        </Col>
-                    </Row> */}
                 </Col>
             </Row>
         </>

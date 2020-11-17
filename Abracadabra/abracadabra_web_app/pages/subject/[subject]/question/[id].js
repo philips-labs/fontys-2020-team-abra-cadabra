@@ -49,7 +49,7 @@ function Question({ data, subject }) {
         {answers.map(answer => (
           <SubjectAnswer key={answer.id} answer={answer} />
         ))}
-        <QuestionCreateAnswer QID={question.id} />
+        {/* <QuestionCreateAnswer QID={question.id} /> */}
       </div>
     </>
   );

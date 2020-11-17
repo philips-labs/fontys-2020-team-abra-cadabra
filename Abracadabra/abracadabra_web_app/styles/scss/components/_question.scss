@@ -6,33 +6,36 @@
 }
 
 .questionHead {
-    width: 60vw;
+    width: 80vw;
     margin-top: 0.5rem;
+
+    .questionHeadDiv {
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+        max-height: 80px;
+        border-bottom: 1px solid $secondary-color;
+        margin-bottom: 1rem;
+
+        h1 {
+            color: $tertiary-color;
+            font-weight: bold;
+            font-size: 3.5rem;
+        }
+
+        .flagIcon {
+            cursor: pointer;
+            margin: 2rem 2px 0 0;
+        }
+    }
 
     .questionUsername {
         font-size: 1.5rem;
     }
-
-    h1 {
-        color: $tertiary-color;
-        font-weight: bold;
-        font-size: 3.5rem;
-        overflow: hidden;
-        max-height: 80px;
-    
-        &::after {
-            content:"";
-            display: inline-block;
-            height: 0.5em;
-            vertical-align: top;
-            width: 100%;
-            border-top: 1px solid $secondary-color;
-        } 
-    }
 }
 
 .answerHead{
-    width: 60vw;
+    width: 80vw;
     margin-top: 0.5rem;
 
     h1 {
@@ -54,8 +57,39 @@
 
     .answerBody {
         background-color: $primary-color;
-        width: 55vw;
         margin-bottom: 1rem;
+
+        .votingDiv {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .votingArrow {
+                cursor: pointer;
+                font-size: 1.4rem;
+                margin: 0px 2px;
+            }
+    
+            p {
+                margin: 0px;
+                font-size: 1rem;
+            }
+        }
+
+        .flagDiv {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .flagIcon {
+                cursor: pointer;
+                margin: 2rem 2px 0 0;
+            }
+        }
+
+        p {
+            font-size: 1rem;
+        }
     }
 
     .answerFooter {
