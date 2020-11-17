@@ -57,7 +57,7 @@
 
     .answerBody {
         background-color: $primary-color;
-        margin-bottom: 1rem;
+        // margin-bottom: 1rem;
 
         .votingDiv {
             display: flex;
@@ -108,4 +108,17 @@
             margin-bottom: 0px;
         }
     }
+}
+
+.giveAnAnswer {
+    max-height: 75px;
+    margin-top: 0px;
+}
+
+.giveAnAnswerExtended {
+    margin-top: 0px;
+}
+
+.giveAnAnswerArrows {
+    font-size: 2rem;
 }

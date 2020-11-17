@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import QuestionService from "../services/QuestionService";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 function QuestionCreateAnwser(questionSendId) {
   const [validated, setValidated] = useState(false);
@@ -52,26 +54,24 @@ function QuestionCreateAnwser(questionSendId) {
   return (
     <>
       {answereActive ? (
-        <div className="container mt-5">
-          <div className="BodyQuestion-CardBody" style={{ marginRight: "5px" }}>
-            <div className="rounded container">
+        <Row>
+          <Col md={11} className="mx-auto mb-2">
+            <div className="BodyQuestion-CardBody giveAnAnswerExtended">
               <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Row className="justify-content-md-left">
-                  <Col md="12">
+                <Row>
+                  <Col md={12}>
                     <Form.Group
                       className="textarea"
                       controlId="validationCustom01"
                     >
-                      <Row>
+                      <Row onClick={changeToActive}>
                         <Col md={11}>
                           <Form.Label>
                             <h4>Give an answer</h4>
                           </Form.Label>
                         </Col>
-                        <Col>
-                          <a onClick={changeToActive}>
-                            <h2>▲</h2>
-                          </a>
+                        <Col className="text-right">
+                          <FontAwesomeIcon className="giveAnAnswerArrows" icon={faChevronUp} />
                         </Col>
                       </Row>
                       <Form.Control
@@ -107,31 +107,27 @@ function QuestionCreateAnwser(questionSendId) {
                 </Row>
               </Form>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       ) : (
-        <div className="container mt-5">
-          <div
-            className="BodyQuestion-CardBody"
-            style={{ marginRight: "5px", height: "75px" }}
-          >
-            <div className="rounded container">
-              <Row>
-                <Col md={11}>
-                  <Form.Label>
-                    <h4>Give an answer</h4>
-                  </Form.Label>
-                </Col>
-                <Col>
-                  <a onClick={changeToActive}>
-                    <h2>▼</h2>
-                  </a>
-                </Col>
-              </Row>
-            </div>
-          </div>
-        </div>
-      )}
+          <Row>
+            <Col md={11} className="mx-auto mb-2" onClick={changeToActive}>
+              <div className="BodyQuestion-CardBody giveAnAnswer">
+                <Row>
+                  <Col md={11}>
+                    <Form.Label>
+                      <h4>Give an answer</h4>
+                    </Form.Label>
+                  </Col>
+                  <Col className="text-right">
+                    <FontAwesomeIcon className="giveAnAnswerArrows" icon={faChevronDown} />
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        )
+      }
     </>
   );
 }
