@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
 
 export default function Title({ question, subject }) {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     setQuestions(question);
-  }, [])
+  }, []);
 
   function HumanDateTime(dateAndTime) {
     var date = new Date(dateAndTime + "Z");
@@ -26,7 +27,7 @@ export default function Title({ question, subject }) {
   return (
     <div className="container BodyQuestion-Top">
       {questions.map((question) => (
-        <div key={question.id}>
+        <div key={question.id} style={{ marginRight: "5px" }}>
           <div className="BoduQuestion-Total">
             <div className="BodyQuestion-CardBody">
               <div className="row">

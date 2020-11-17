@@ -4,7 +4,7 @@
 html,
 body,
 body > div:first-child,
-div#__next{
+div#__next {
   height: 100%;
 }
 #__next-prerender-indicator {
@@ -12,7 +12,7 @@ div#__next{
 }
 
 .LandingLogo {
-    max-height: 250px;
+  max-height: 250px;
 }
 
 .h-95 {
@@ -37,99 +37,97 @@ div#__next{
 }
 
 #myVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-  }
-
-.bg {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg);
-  background-size: cover;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-.central_text{
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+/* .bg {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg);
+  background-size: cover;
+} */
+
+.central_text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   position: absolute;
   color: white;
 }
 
-.moon_container{
-	position: absolute;
-	left: 50%; /* can be used to center the circle around mid image */
-	top: 50%;
-	width: 20%;
+.moon_container {
+  position: absolute;
+  left: 50%; /* can be used to center the circle around mid image */
+  top: 50%;
+  width: 20%;
   transform: translate(-50%, -50%);
   color: white;
 }
 
 .moon_container > a:hover {
-    text-decoration: none; /* no underline */
+  text-decoration: none; /* no underline */
 }
 
-.moon{
-	width: 100%;
-	height: auto;
-	position: relative;
+.moon {
+  width: 100%;
+  height: auto;
+  position: relative;
   left: 175%;
 }
 
-.moon_container.moon1{
-	transform: translate(-50%, -50%);
+.moon_container.moon1 {
+  transform: translate(-50%, -50%);
 }
-.moon_container.moon2{
-	transform: translate(-50%, -50%) rotate(45deg);
+.moon_container.moon2 {
+  transform: translate(-50%, -50%) rotate(45deg);
 }
-.moon_container.moon3{
-	transform: translate(-50%, -50%) rotate(90deg);
+.moon_container.moon3 {
+  transform: translate(-50%, -50%) rotate(90deg);
 }
-.moon_container.moon4{
-	transform: translate(-50%, -50%) rotate(135deg);
+.moon_container.moon4 {
+  transform: translate(-50%, -50%) rotate(135deg);
 }
-.moon_container.moon5{
-	transform: translate(-50%, -50%) rotate(180deg);
+.moon_container.moon5 {
+  transform: translate(-50%, -50%) rotate(180deg);
 }
-.moon_container.moon6{
-	transform: translate(-50%, -50%) rotate(225deg);
+.moon_container.moon6 {
+  transform: translate(-50%, -50%) rotate(225deg);
 }
-.moon_container.moon7{
-	transform: translate(-50%, -50%) rotate(270deg);
+.moon_container.moon7 {
+  transform: translate(-50%, -50%) rotate(270deg);
 }
-.moon_container.moon8{
-	transform: translate(-50%, -50%) rotate(315deg);
-}
-
-.moon.moon2{
-	transform: rotate(-45deg);
-}
-.moon.moon3{
-	transform: rotate(-90deg);
-}
-.moon.moon4{
-	transform: rotate(-135deg);
-}
-.moon.moon5{
-	transform: rotate(-180deg);
-}
-.moon.moon6{
-	transform: rotate(-225deg);
-}
-.moon.moon7{
-	transform: rotate(-270deg);
-}
-.moon.moon8{
-	transform: rotate(-315deg);
+.moon_container.moon8 {
+  transform: translate(-50%, -50%) rotate(315deg);
 }
 
+.moon.moon2 {
+  transform: rotate(-45deg);
+}
+.moon.moon3 {
+  transform: rotate(-90deg);
+}
+.moon.moon4 {
+  transform: rotate(-135deg);
+}
+.moon.moon5 {
+  transform: rotate(-180deg);
+}
+.moon.moon6 {
+  transform: rotate(-225deg);
+}
+.moon.moon7 {
+  transform: rotate(-270deg);
+}
+.moon.moon8 {
+  transform: rotate(-315deg);
+}
 
 .SubjectTitle {
   font-size: 2rem;
   font-weight: 600;
 }
-
 
 /*Subject titles*/
 #MediumSubject {
@@ -151,18 +149,18 @@ div#__next{
 @media only screen and (max-width: 600px) {
   .LandingLogo {
     max-height: 150px;
-}
-.moon_container{
-  position: absolute;
-  left: 50%;
-	top: 50%;
-	width: 20%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 0.8rem;
-}
-.SubjectTitle {
-  font-size: unset;
-  font-weight: 600;
-}
+  }
+  .moon_container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.8rem;
+  }
+  .SubjectTitle {
+    font-size: unset;
+    font-weight: 600;
+  }
 }

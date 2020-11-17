@@ -22,7 +22,7 @@ export default function Answer({ answer }) {
                             <Row>
                                 <Col md={11}>
                                     <Card.Text>
-                                        Curabitur efficitur ante ut magna pharetra lobortis. Aliquam erat volutpat. Integer sagittis, diam quis maximus mattis, erat quam egestas mauris, sit amet molestie dolor justo in nulla. Fusce molestie dignissim mollis. Maecenas efficitur dolor quis consectetur elementum. Nunc ipsum lorem, pulvinar nec laoreet non, vulputate et leo. Suspendisse suscipit finibus velit id ullamcorper. Aliquam sodales magna arcu, quis gravida justo dignissim vel. Nam ultrices eros et nunc condimentum pellentesque. Duis ante urna, condimentum et eros ut, semper ultricies dolor. Maecenas mi nunc, sodales ac posuere id, placerat imperdiet libero. In quis est aliquet nisi tincidunt venenatis. Mauris lobortis tincidunt mi.
+                                        {answer.answerContent}
                                     </Card.Text>
                                 </Col>
                                 <Col md={1} className="votingDiv">

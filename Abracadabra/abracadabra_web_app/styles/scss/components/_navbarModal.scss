@@ -1,39 +1,43 @@
 .navbarModalButton {
-    color: black;
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
+  color: black;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
 
-    &:hover {
-        color: #707070;
-      }
-    &:after {
-        color: #707070;
-    }
-    &:focus {
-        color: #707070;
-    }
+  &:hover {
+    color: #707070;
+  }
+  &:after {
+    color: #707070;
+  }
+  &:focus {
+    color: #707070;
+  }
 }
 .navbarModalInput {
-    width: 100%;
-    padding: 6px;
+  width: 100%;
+  padding: 6px;
 }
 .navbarModalSearchButton {
-    padding: 0.26rem;
-    margin-left: -28px;
-    background-color: transparent;
-    color: black;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
+  padding: 0.26rem;
+  margin-left: -28px;
+  background-color: transparent;
+  color: black;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
 
-    &:hover {
-        color: #676767;
-      }
-    &:after {
-        color: #676767;
-    }
-    &:focus {
-        color: #676767;
-    }
+  &:hover {
+    color: #676767;
+  }
+  &:after {
+    color: #676767;
+  }
+  &:focus {
+    color: #676767;
+  }
+}
+
+.NavbarMarginLeft {
+  margin-left: 20px;
 }

@@ -78,11 +78,10 @@ export default function NavBar({ subjectTitle }) {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Row className="mr-auto w-100">
-          <Col md={1}></Col>
           <Col md={4}>
-            <InputGroup className="my-auto">
+            <InputGroup className="my-auto NavbarMarginLeft">
               <FormControl
-                placeholder="Search in"
+                placeholder="Search.."
                 aria-label="Search questions"
                 name="searchString"
                 onChange={handleChange}
@@ -102,13 +101,12 @@ export default function NavBar({ subjectTitle }) {
               </InputGroup.Append>
             </InputGroup>
           </Col>
-          <Col md={4}></Col>
+          <Col md={6}></Col>
           <Col md={2}>
             <Button href="#" variant="outline-secondary">
               Ask <FontAwesomeIcon className="ml-1" icon={faQuestionCircle} />
             </Button>
           </Col>
-          <Col md={1}></Col>
         </Row>
         <Nav>
           <Row>
