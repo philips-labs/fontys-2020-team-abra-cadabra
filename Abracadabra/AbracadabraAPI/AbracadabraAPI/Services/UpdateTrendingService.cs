@@ -36,26 +36,33 @@ namespace AbracadabraAPI.Services
 
         private void UpdateTrending(object state)
         {
-            using (var scope = _scopeFactory.CreateScope())
+            try
             {
-                var context = scope.ServiceProvider.GetRequiredService<AbracadabraContext>();
-                foreach (var question in context.Questions)
+                using (var scope = _scopeFactory.CreateScope())
                 {
-                    var score = question.Upvotes - question.Downvotes;
+                    var context = scope.ServiceProvider.GetRequiredService<AbracadabraContext>();
+                    foreach (var question in context.Questions)
+                    {
+                        var score = question.Upvotes - question.Downvotes;
 
-                    var order = Math.Log10(Math.Max(Math.Abs(score), 1));
+                        var order = Math.Log10(Math.Max(Math.Abs(score), 1));
 
-                    double sign = Math.Sign(order);
+                        double sign = Math.Sign(order);
 
-                    var dto = new DateTimeOffset(question.DateTimeCreated);
-                    var time = dto.ToUnixTimeSeconds();
-                    var seconds = time - _originalTime;
+                        var dto = new DateTimeOffset(question.DateTimeCreated);
+                        var time = dto.ToUnixTimeSeconds();
+                        var seconds = time - _originalTime;
 
-                    question.TrendingScore = Math.Round(sign * order + seconds / 45000, 7);
+                        question.TrendingScore = Math.Round(sign * order + seconds / 45000, 7);
+                    }
+
+                    context.SaveChanges();
+                    _logger.LogInformation("Updated trending scores.");
                 }
-
-                context.SaveChanges();
-                _logger.LogInformation("Updated trending scores.");
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Database has not initialized!");
             }
         }
 
