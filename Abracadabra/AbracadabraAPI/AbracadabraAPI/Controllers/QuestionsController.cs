@@ -33,18 +33,26 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IList<QuestionViewModel>>> GetQuestions()
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestions([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            List<ApplicationUser> users = await userManager.Users.ToListAsync();
 
-            List<Question> questions = await _context.Questions.ToListAsync();
 
-            List<QuestionViewModel> models = new List<QuestionViewModel>();
+            List<Question> questions = await _context.Questions.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+
+                users.Add(auser);
+            }
+            
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
 
 
             foreach (Question question in questions)
             {
-                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), null, null));
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
             return models;
@@ -57,6 +65,7 @@ namespace AbracadabraAPI.Controllers
             var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
 
             var user = await userManager.FindByIdAsync(question.UserID);
+            List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
 
@@ -65,7 +74,7 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            foreach (Answer answer in _context.Answers)
+            foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
                 if (answer.QuestionID == question.ID)
@@ -177,43 +186,63 @@ namespace AbracadabraAPI.Controllers
             return Mapper.QuestionToViewModel(question, user, null, null);
         }
 
-        // GET: api/Questions/Cooking/new
+        // GET: api/Questions/Cooking/new[?pagesize=5]
         [HttpGet("{subject}/new")]
-        public async Task<ActionResult<IList<QuestionViewModel>>> GetQuestionsSortedByDate(string subject)
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByDate(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
             if (subjects == null)
             {
                 return BadRequest();
             }
-            List<ApplicationUser> users = await userManager.Users.ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
 
-            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).ToListAsync();
-
-            List<QuestionViewModel> models = new List<QuestionViewModel>();
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
 
 
             foreach (Question question in questions)
             {
-                List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
-
-                foreach (Answer answer in _context.Answers)
-                {
-
-                    var answerUser = await userManager.FindByIdAsync(answer.UserID);
-                    if (answer.QuestionID == question.ID)
-                    {
-                        answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
-                    }
-                }
-                models.Add(Mapper.QuestionToViewModel(question, users.Find(user => user.Id == question.UserID), answerViewModels, null));
-                models.Sort((x, y) => DateTime.Compare(y.DateTimeCreated, x.DateTimeCreated));
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
             return models;
         }
-    
-    
+
+        // GET: api/Questions/Cooking/unanswered[?pagesize=5]
+        [HttpGet("{subject}/unanswered")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        {
+            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
+            if (subjects == null)
+            {
+                return BadRequest();
+            }
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
+
+            foreach (Question question in questions)
+            {
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
+            }
+
+            return models;
+        }
+
 
         private bool QuestionExists(int id)
         {

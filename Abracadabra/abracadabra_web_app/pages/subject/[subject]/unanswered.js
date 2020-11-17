@@ -1,4 +1,3 @@
-import { Container, Row, Col } from 'react-bootstrap';
 import Navbar from 'src/components/Navbar.js';
 import FilterButtons from 'src/components/FilterButtons';
 import QuestionBody from 'src/components/QuestionBody.js';
@@ -39,13 +38,15 @@ export async function getServerSideProps({ params }) {
 
     if (apiRes?.data?.subjectName != null) {
 
-        const filter = "new";
+        const filter = "unanswered";
         let rspns = null;
         try {
             rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);
         } catch (err) {
             rspns = err.response?.status;
         }
+        console.log(rspns.data);
+
         const response = JSON.parse(JSON.stringify(rspns.data));
 
         return {

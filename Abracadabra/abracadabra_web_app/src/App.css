@@ -3,13 +3,11 @@
     "Times New Roman", serif;
   text-decoration: none;
 } */
-
 /* NAVBAR */
 nav {
   width: 100vw;
-  background-color: transparent;
-  border: 2px solid #707070;
-  padding: 0px 20px;
+  background-color: #373A3C;
+  padding: 0px 10px;
 }
 nav input[type="text"] {
   padding: 6px;
@@ -37,7 +35,7 @@ nav .search-container button:before, button:after, button:focus {
   align-self: center;
   font-weight: normal;
   font-size: 40px;
-  color: #707070;
+  color: #FFFFFF;
 }
 .navbarButton {
   font-size: 1.3rem;
@@ -88,6 +86,7 @@ nav .search-container button:before, button:after, button:focus {
   border: 2px solid #707070;
   border-top: none;
   border-radius: 0px 0px 6px 6px;
+  background-color: #373A3C;
 }
 .dropdownText {
   font-size: 1.2rem;
@@ -95,6 +94,7 @@ nav .search-container button:before, button:after, button:focus {
 .dropdownText:hover {
   background-color: #ccc;
 }
+
 .searchMobile {
   display: none;
   font-size: 35px;
@@ -157,15 +157,38 @@ nav .search-container button:before, button:after, button:focus {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
-  padding-left: 7%;
+  padding-left: 2%;
+  margin-top: 15px; 
+  background-color: #373A3C;
+  color: #FFFFFF;
+}
+.mt-5{
+  margin-top: 20px !important;
+}
+.BodyQuestionText {
+  font-weight: "bold";
+  color: #FFFFFF;
+}
+.BodyQuestion-hastag {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding-left: 2%;
+  padding-top: 1%;
+  color: #FFFFFF;
+  background-color: #6C757D;
+}
+.badge-secondary {
+  color: #fff;
+  background-color: #17A2B8;
+}
+.BodyQuestion-CardBody {
+  background-color:#373A3C;
+}
+.BodyQuestion {
+  background-color: #2A2B2D;
 }
 
-.BodyQuestion-hastag {
-  border: 1px solid black;
-  padding: 1px;
-  text-align: center;
-  height: 30px;
-}
 /* QuestionHead */
 .wrap-text {
   word-wrap: break-word;
@@ -174,7 +197,9 @@ nav .search-container button:before, button:after, button:focus {
 textarea {
   resize: none;
 }
-
+.answertext{
+  color: #FFFFFF;
+}
 /* Register Login */
 h1.title {
   font-size: 50px;

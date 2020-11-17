@@ -26,10 +26,10 @@ export default function FilterNav({ subjectTitle }) {
                 <Nav.Link eventKey="new" href={'/subject/' + subjectTitle + '/new'}>New</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="answeredByExpert" href={'/subject/' + subjectTitle + '/answredByExpert'}>Answered by an Expert</Nav.Link>
+                <Nav.Link eventKey="answeredByExpert" href={'/subject/' + subjectTitle + '/answeredByExpert'}>Answered by an Expert</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="unanswered" href={'/subject/' + subjectTitle + '/unasnwered'}>Unasnwered</Nav.Link>
+                <Nav.Link eventKey="unanswered" href={'/subject/' + subjectTitle + '/unanswered'}>Unanswered</Nav.Link>
             </Nav.Item>
         </Nav>
     )
