@@ -5,6 +5,7 @@ import QuestionService from "../services/QuestionService";
 function QuestionCreateAnwser(questionSendId) {
   const [validated, setValidated] = useState(false);
   const [isloggedin, setIsLoggedIn] = useState(false);
+  const [answereActive, setAnswerActive] = useState(false);
 
   const [Answer, setAnswer] = useState({
     answercontent: "",
@@ -44,51 +45,94 @@ function QuestionCreateAnwser(questionSendId) {
     setAnswer({ ...Answer, [event.target.name]: event.target.value });
   };
 
-  const [showResults, setShowResults] = React.useState(false);
-  const onClick = () => setShowResults(true);
+  const changeToActive = () => {
+    setAnswerActive(!answereActive);
+  };
 
   return (
-    <div className="container mt-5">
-      <div className="BodyQuestion-CardBody" style={{ marginRight: "5px" }}>
-        <div className="rounded container">
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Row className="justify-content-md-left">
-              <Col md="12">
-                <Form.Group className="textarea" controlId="validationCustom01">
+    <>
+      {answereActive ? (
+        <div className="container mt-5">
+          <div className="BodyQuestion-CardBody" style={{ marginRight: "5px" }}>
+            <div className="rounded container">
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Row className="justify-content-md-left">
+                  <Col md="12">
+                    <Form.Group
+                      className="textarea"
+                      controlId="validationCustom01"
+                    >
+                      <Row>
+                        <Col md={11}>
+                          <Form.Label>
+                            <h4>Give an answer</h4>
+                          </Form.Label>
+                        </Col>
+                        <Col>
+                          <a onClick={changeToActive}>
+                            <h2>▲</h2>
+                          </a>
+                        </Col>
+                      </Row>
+                      <Form.Control
+                        required
+                        as="textarea"
+                        rows="2"
+                        disabled={!isloggedin}
+                        placeholder="You know the answer, fill it in here!"
+                        name="answercontent"
+                        value={Answer.answercontent}
+                        onChange={handleChange}
+                        style={{ height: "100px" }}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please insert an answer
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                  <Col md sm="1">
+                    <div className="float-md-right">
+                      {" "}
+                      <Button
+                        disabled={!isloggedin}
+                        type="submit"
+                        variant="light"
+                      >
+                        Answer Question
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="container mt-5">
+          <div
+            className="BodyQuestion-CardBody"
+            style={{ marginRight: "5px", height: "75px" }}
+          >
+            <div className="rounded container">
+              <Row>
+                <Col md={11}>
                   <Form.Label>
                     <h4>Give an answer</h4>
                   </Form.Label>
-                  <Form.Control
-                    required
-                    as="textarea"
-                    rows="2"
-                    disabled={!isloggedin}
-                    placeholder="You know the answer, fill it in here!"
-                    name="answercontent"
-                    value={Answer.answercontent}
-                    onChange={handleChange}
-                    style={{ height: "100px" }}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please insert an answer
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row className="justify-content-md-center">
-              <Col md sm="1">
-                <div className="float-md-right">
-                  {" "}
-                  <Button disabled={!isloggedin} type="submit" variant="light">
-                    Answer Question
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-          </Form>
+                </Col>
+                <Col>
+                  <a onClick={changeToActive}>
+                    <h2>▼</h2>
+                  </a>
+                </Col>
+              </Row>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
