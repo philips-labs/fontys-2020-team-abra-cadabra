@@ -17,6 +17,11 @@
     position: absolute;
     bottom: 0;
     left: 2%;
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 4vw;
+    }
 }
 
 .BoxTitleLink {
@@ -31,6 +36,10 @@
         color: darken($text-color, 25%);
         cursor: pointer;
     }
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 2vw;
+    }
 }
 
 .BoxContentLink {
@@ -42,9 +51,23 @@
         color: darken($text-color, 25%);
         cursor: pointer;
     }
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 2vw;
+    }
 }
 
 .BoxContentText {
+    font-size: 1vw;
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 3vw;
+    }
+}
+
+.CarouselTitle {
     font-size: 1vw;
 }
 
@@ -55,6 +78,11 @@
 .HotCarousel {
     .carousel-inner {
         height: 100%;
+
+        @media (max-width: 767px) {
+            // on mobile
+            height: 150px;
+        }
     }
     .carousel-caption {
         position: absolute;
@@ -72,6 +100,11 @@
 
 .CarouselQuestions {
     font-size: 0.6vw;
+
+    @media (max-width: 767px) {
+        // on mobile
+       font-size: 1.5vw;
+    }
 }
 
 .accept {

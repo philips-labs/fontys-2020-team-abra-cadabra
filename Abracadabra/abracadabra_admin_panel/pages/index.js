@@ -1,6 +1,9 @@
 //react
 import React from 'react';
 import {useEffect} from 'react';
+import { signIn, signOut, useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 //bootstrap
 import { Container, Row, Col, Carousel} from 'react-bootstrap';
 //components
@@ -9,94 +12,36 @@ import SideBar from 'src/components/SideBar'
 import Dashboard_SubjectCard from 'src/components/Dashboard/Dashboard_SubjectCard';
 import Dashboard_ExpertCard from 'src/components/Dashboard/Dashboard_ExpertCard';
 import Dashboard_HotCarousel from 'src/components/Dashboard/Dashboard_HotCarousel';
-//Bar chart
-import {Bar, Chart} from 'react-chartjs-2';
-import 'chartjs-plugin-datalabels';
+import Dashboard_BarChart from 'src/components/Dashboard/Dashboard_BarChart';
+import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
 
-const data = {
-  labels: ['Cooking', 'Gaming', 'Subject', 'Subject', 'Subject', 'Subject', 'Subject', 'Subject'],
-  datasets: [
-    {
-      label: 'Hot topics', 
-      backgroundColor: '#17A2B8',
-      data: [90, 85, 65, 59, 80, 81, 56, 55]
-    }
-  ]
-};
 
-const BarOptions = {
-  tooltips: {
-    enabled: false
-  },
-  plugins: {
-    datalabels: {
-       display: true,
-       color: 'white',
-       anchor: 'end',
-       align: 'top'
-    }
- },
-  legend: {
-    display: false,
-    labels: {
-        fontSize: 10,
-        fontStyle: 'bold',
-        fontFamily: 'Roboto',
-    },
- },
-  scales: {
-      yAxes: [{
-          display: false,
-          ticks: {
-              suggestedMin: 0, // minimum will be 0, unless there is a lower value.
-              suggestedMax: 110,   //heighest value + a little bit 
-              // OR //
-              beginAtZero: true,   // minimum value will be 0.
-              stepSize: 2
-          }
-      }],
-      xAxes: [{
-        gridLines: {
-          display: false,
-        },
-        ticks: {
-            fontColor: "white",
-            fontSize: 12,
-            stepSize: 1,
-            beginAtZero: true
-        }
-    }]
-  }
-};
+
 
 export default function Dashboard() {
-
-    //register color plugin for chart
-    useEffect(() => {
-      Chart.plugins.register({
-        beforeDraw: function(chartInstance, easing) {
-          var ctx = chartInstance.chart.ctx;
-          ctx.fillStyle = '#6C757D'; // your color here
-      
-          var chartArea = chartInstance.chartArea;
-          ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
-        }
-      });
-    });
-
-  Chart.plugins.register({
-    beforeDraw: function(chartInstance, easing) {
-      var ctx = chartInstance.chart.ctx;
-      ctx.fillStyle = 'red'; // your color here
+    const [ session, loading ] = useSession();
+    const router = useRouter();
+    const { date, time, wish } = useDate();
+    
   
-      var chartArea = chartInstance.chartArea;
-      ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
-    }
-  });
-
+    if (loading) return (
+      <>
+      <NavBar/>
+      <Container fluid className="h-100">
+      <Row className="h-100">
+        {/* Sidebar col xl={2} md={3} */}
+        <SideBar />
+        </Row>
+        </Container>
+      </>
+    )
+  
+    if (!loading && !session) signIn('Credentials')
+  
+    if (!loading && session) {
   return (
     <>
-      <NavBar />
+      <NavBar/>
       <Container fluid className="h-100">
       <Row className="h-100">
         {/* Sidebar col xl={2} md={3} */}
@@ -105,9 +50,9 @@ export default function Dashboard() {
           <Col xl={9} md={9} className="mx-auto">
               {/* Greetings + time */}
               <Row className="mt-4">
-                <Col md={5}><h3 className="WelcomingText">Welcome admin@adminemail.com</h3></Col>
-                <Col md={3}></Col>
-                <Col md={4}><h3 className="WelcomingText">11 november 2020 15:33</h3></Col>
+                <Col md={6}><h3 className="WelcomingText">{wish} {session.user.name}</h3></Col>
+                <Col md={2}></Col>
+                <Col md={4}><h3 className="WelcomingText text-right">{date} {time}</h3></Col>
               </Row>
               {/* Push */}
               <Row className="mt-2 mb-4">
@@ -165,7 +110,7 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="mx-auto">
                     {/* Barchart of hot data */}
-                    <Col className="mt-2 p-0"><Bar data={data} options={BarOptions} width={250} height={120}/></Col>
+                    <Col className="mt-2 p-0"><Dashboard_BarChart /></Col>
                   </Row>
                 </Col>
 
@@ -196,4 +141,5 @@ export default function Dashboard() {
       </Container>
     </>
   )
+  }
 }

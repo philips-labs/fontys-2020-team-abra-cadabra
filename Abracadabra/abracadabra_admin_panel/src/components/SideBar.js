@@ -1,10 +1,11 @@
 //react
-import {useRouter} from 'next/router'
+import {useRouter} from 'next/router';
+import Link from 'next/link';
 //bootstrap
 import { Container, Row, Col, Nav, NavItem, NavLink, Navbar } from 'react-bootstrap';
 //components
 import NavBar from 'src/components/NavBar';
-import {FaHome, FaUserGraduate, FaFlag, FaChartBar, FaUsers, FaNewspaper} from 'react-icons/fa'
+import {FaHome, FaUserGraduate, FaFlag, FaChartBar, FaUsers, FaNewspaper} from 'react-icons/fa';
 
 export default function Dashboard() {
 
@@ -20,62 +21,64 @@ const router = useRouter();
                   {/* a is used for the */}
 
                   {/* Dashboard */}
-                  <a href="/" className="w-100 wrap">
+                  <Link href="/"><a className="w-100 wrap">
                   <Row className={router.pathname == "/" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaHome className="my-auto ml-2 Nav-color"/>
                   <p className="Nav-color p-2 my-auto">
                      Dashboard
                     </p>
                     </Row>
-                  </a>
+                  </a></Link>
 
                   {/* Expert verification */}
-                  <a href="/expertverification" className="w-100 wrap">
+                  <Link href="/expertverification"><a className="w-100 wrap">
                     <Row className={router.pathname == "/expertverification" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaUserGraduate className="my-auto ml-2 Nav-color"/>
                     <p className="Nav-color p-2 my-auto">
                      Expert verification
                     </p>
                     </Row>
-                    </a>
+                    </a></Link>
+
                     {/* Reports */}
-                    <a href="/reports" className="w-100 wrap">
+                    <Link href="/reports"><a className="w-100 wrap">
                     <Row className={router.pathname == "/reports" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaFlag className="my-auto ml-2 Nav-color"/>
                     <p href="#" className="Nav-color p-2 my-auto">
                     Reports
                     </p>
                     </Row>
-                    </a>
+                    </a></Link>
 
                   {/* Detailed statistics */}
-                    <a href="/statistics" className="w-100 wrap">
+                    <Link href="/statistics"><a className="w-100 wrap">
                     <Row className={router.pathname == "/statistics" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaChartBar className="my-auto ml-2 Nav-color"/>
                   <p href="#" className="Nav-color p-2 my-auto">
                      Detailed statistics
                     </p>
                     </Row>
-                    </a>
+                    </a></Link>
+
                     {/* User management */}
-                    <a href="/usermanagement" className="w-100 wrap">
+                    <Link href="/usermanagement"><a className="w-100 wrap">
                     <Row className={router.pathname == "/usermanagement" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaUsers className="my-auto ml-2 Nav-color"/>
                   <p href="#" className="Nav-color p-2 my-auto">
                      User management
                     </p>
                     </Row>
-                    </a>
+                    </a></Link>
 
                     {/* Subject management */}
-                    <a href="/subjectmanagement" className="w-100 wrap">
+                    <Link href="/subjectmanagement"><a className="w-100 wrap">
                     <Row className={router.pathname == "/subjectmanagement" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaNewspaper className="my-auto ml-2 Nav-color"/>
                   <p href="#" className="Nav-color p-2 my-auto">
                      Subject management
                     </p>
                     </Row>   
-                    </a>
+                    </a></Link>
                 </Nav>
             </Nav>
           </Col>

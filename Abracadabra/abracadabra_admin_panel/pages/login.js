@@ -1,5 +1,6 @@
 //react
-
+import React from 'react';
+import { csrfToken } from 'next-auth/client';
 //bootstrap
 import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 //components
@@ -7,7 +8,7 @@ import BlankNavBar from 'src/components/BlankNavBar';
 
 import {} from 'react-icons/fa'
 
-export default function Reports() {
+export default function Login({ csrfToken }) {
 
   return (
     <>
@@ -25,17 +26,18 @@ export default function Reports() {
                 </Row>
                 <Row className="justify-content-center mb-2">
                     <Col md={8}>
-                    <Form>
-                        <Form.Group controlId="Accountname" className="mb-4">
-                            <Form.Label className="font-weight-bold">Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                    <Form method="POST" action='/api/auth/callback/credentials'>
+                        <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
+                        <Form.Group controlId="username" className="mb-4">
+                            <Form.Label className="font-weight-bold">Username</Form.Label>
+                            <Form.Control type="text" placeholder="Enter username" name="username" />
                         </Form.Group>
-                        <Form.Group controlId="Password" className="mb-4">
+                        <Form.Group controlId="password" className="mb-4">
                             <Form.Label className="font-weight-bold">Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" name="password" />
                         </Form.Group>
                         <Form.Group controlId="LoginButton" className="mb-4">
-                           <Button variant="info" className="btn-block">Login</Button>
+                           <Button type="submit" variant="info" className="btn-block">Login</Button>
                         </Form.Group>
                     </Form>
                     </Col>
@@ -46,3 +48,9 @@ export default function Reports() {
     </>
   )
 }
+
+Login.getInitialProps = async (context) => {
+    return {
+      csrfToken: await csrfToken(context)
+    }
+  }

@@ -16,13 +16,13 @@ const Login = () => {
     event.preventDefault();
 
     AccountService.Login(login)
-      .then((res) => {
-        Router.push("/");
-        localStorage.setItem("Token", res.data.token);
-      })
-      .catch((error) => {
-        setMessage("Account information does not match");
-      });
+      // .then((res) => {
+      //   Router.push("/");
+      //   localStorage.setItem("Token", res.data.token);
+      // })
+      // .catch((error) => {
+      //   setMessage("Account information does not match");
+      // });
   };
   return (
     <div className="main-login main-center">
@@ -35,7 +35,7 @@ const Login = () => {
               <FontAwesomeIcon icon={faEnvelope} />
             </span>
           </div>
-          <input
+          <input data-testid="login-input-email"
             onChange={handleChange}
             name="email"
             className="form-control"
@@ -52,7 +52,7 @@ const Login = () => {
               <FontAwesomeIcon icon={faLock} />
             </span>
           </div>
-          <input
+          <input data-testid="login-input-password"
             onChange={handleChange}
             name="password"
             className="form-control"
@@ -62,7 +62,7 @@ const Login = () => {
           />
         </div>
         <div className="form-group ">
-          <button
+          <button data-testid="login-input-submit"
             type="submit"
             className="btn btn-primary btn-lg btn-block login-button"
           >
