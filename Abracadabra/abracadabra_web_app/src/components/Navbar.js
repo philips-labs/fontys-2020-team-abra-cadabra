@@ -45,7 +45,8 @@ function Navbar({ subjectTitle }) {
 
   return (
     <>
-      <nav className="navbar mr-auto d-flex">
+      <nav className="navbar mr-auto d-flex" data-testid="navbar">
+        <a className="navbarHubIcon" href="/"><FontAwesomeIcon icon={faHome} /></a>
         <div className="navbarCollapse d-flex mx-auto">
           <a className="navbar-brand d-flex" href={"/subject/" + subjectTitle}>
             <img src={logo} className="navbarLogo" />

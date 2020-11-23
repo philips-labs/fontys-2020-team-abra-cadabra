@@ -35,7 +35,7 @@ const Login = () => {
               <FontAwesomeIcon icon={faEnvelope} />
             </span>
           </div>
-          <input
+          <input data-testid="login-input-email"
             onChange={handleChange}
             name="email"
             className="form-control"
@@ -52,7 +52,7 @@ const Login = () => {
               <FontAwesomeIcon icon={faLock} />
             </span>
           </div>
-          <input
+          <input data-testid="login-input-password"
             onChange={handleChange}
             name="password"
             className="form-control"
@@ -62,7 +62,7 @@ const Login = () => {
           />
         </div>
         <div className="form-group ">
-          <button
+          <button data-testid="login-input-submit"
             type="submit"
             className="btn btn-primary btn-lg btn-block login-button"
           >
