@@ -84,7 +84,7 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="mx-auto">
                     {/* Subjects */}
-                    {Subjects.map((s) => <Dashboard_SubjectCard SubjectName={s.subjectName} />)}
+                    {Subjects.map((s) => <Dashboard_SubjectCard SubjectName={s.subjectName} SubjectID={s.id} />)}
                                       
                   </Row>
                 </Col>
