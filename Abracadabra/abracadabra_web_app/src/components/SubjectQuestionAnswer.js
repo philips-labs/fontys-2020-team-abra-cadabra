@@ -9,11 +9,16 @@ import {
 
 export default function Answer({ answer }) {
   const [voted, setVoted] = useState()
-  const [vote, setVote] = useState()
+  const [vote, setVote] = useState({
+    questionid: "",
+    vote: ""
+  })
+  const handleClick = (amount) => {
+    setVote({ ...comment, vote: amount })
+  }
   
   
-  const handleClick = () => {
-      if (voted == true){
+  const handlePost = () => {
       VotesService.PostVoteAnswer(vote).then((res) => {
           console.log(res);
           console.log(res.data);
@@ -21,7 +26,6 @@ export default function Answer({ answer }) {
           .catch((error) => {
               console.log(error.response.data);
           });
-    }
   };
   return (
     <>
