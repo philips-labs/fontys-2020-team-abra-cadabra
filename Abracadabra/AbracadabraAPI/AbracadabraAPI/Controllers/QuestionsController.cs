@@ -223,12 +223,12 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{subject}/new")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByDate(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
+            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).FirstAsync();
             if (subjects == null)
             {
                 return BadRequest();
             }
-            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subjects.ID).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
@@ -285,7 +285,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return BadRequest();
             }
-            List<Question> questions = await _context.Questions.Where(x => x.Category == subjects.SubjectName).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subjects.ID).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             List<AnswerViewModel> answers = new List<AnswerViewModel>();
             List<QuestionViewModel> models = new List<QuestionViewModel>();
@@ -297,7 +297,7 @@ namespace AbracadabraAPI.Controllers
                 {
                     var buser = await userManager.Users.Where(x => x.Id == ans.UserID).FirstAsync();
                     var roles = await userManager.GetRolesAsync(buser);
-                    if(roles.Contains("expert"))
+                    if(roles.Contains("Expert"))
                     {
                         foreach (var ans2 in answer)
                         {
