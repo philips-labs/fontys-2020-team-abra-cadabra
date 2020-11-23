@@ -16,13 +16,13 @@ const Login = () => {
     event.preventDefault();
 
     AccountService.Login(login)
-      // .then((res) => {
-      //   Router.push("/");
-      //   localStorage.setItem("Token", res.data.token);
-      // })
-      // .catch((error) => {
-      //   setMessage("Account information does not match");
-      // });
+      .then((res) => {
+        Router.push("/");
+        localStorage.setItem("Token", res.data.token);
+      })
+      .catch((error) => {
+        setMessage("Account information does not match");
+      });
   };
   return (
     <div className="main-login main-center">
