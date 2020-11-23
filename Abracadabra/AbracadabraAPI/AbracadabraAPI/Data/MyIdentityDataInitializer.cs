@@ -19,7 +19,7 @@ namespace AbracadabraAPI.Data
         private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
             var hasher = new PasswordHasher<ApplicationUser>();
-            if (userManager.FindByNameAsync("test0").Result == null)
+            if (userManager.FindByNameAsync("user").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
                 user.UserName = "user";

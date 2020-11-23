@@ -33,13 +33,13 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/<DashboardController>
         [HttpGet]
-        public async Task<IEnumerable<SubjectWithThreeQuestions>> GetTopFiveSubjects()
+        public async Task<IEnumerable<SubjectWithThreeQuestions>> GetTopFourSubjects()
         {
             List<Question> questions = await _context.Questions.ToListAsync();
 
             List<Subject> subjectsOrderedByAmountofQuestions = await _context.Subjects
                 .OrderByDescending(x => x.Questions.Count)
-                .Take(5)
+                .Take(4)
                 .ToListAsync();
 
             List<QuestionTitleViewModel> questioViewModels = new List<QuestionTitleViewModel>();

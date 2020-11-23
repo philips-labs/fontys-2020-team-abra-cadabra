@@ -1,6 +1,6 @@
 //react
 import React from 'react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { signIn, signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -14,14 +14,26 @@ import Dashboard_ExpertCard from 'src/components/Dashboard/Dashboard_ExpertCard'
 import Dashboard_HotCarousel from 'src/components/Dashboard/Dashboard_HotCarousel';
 import Dashboard_BarChart from 'src/components/Dashboard/Dashboard_BarChart';
 import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
-
-
-
+import DashboardService from 'src/services/DashboardService';
 
 export default function Dashboard() {
     const [ session, loading ] = useSession();
-    const router = useRouter();
+    // const router = useRouter();
     const { date, time, wish } = useDate();
+    const [Subjects, setSubjects] = useState([]);
+
+    useEffect(() => {
+      //Api call
+      DashboardService.Get()
+      .then((res) => {
+        console.log(res);
+        setSubjects(res.data);
+      })
+      .catch((error) => {
+         console.log(error);
+      });
+
+    }, []);
   
     if (loading) return null
     // (
@@ -72,10 +84,8 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="mx-auto">
                     {/* Subjects */}
-                    <Dashboard_SubjectCard SubjectName={"Cooking"} />
-                    <Dashboard_SubjectCard SubjectName={"Gaming"} />
-                    <Dashboard_SubjectCard SubjectName={"Subject"} />
-                    <Dashboard_SubjectCard SubjectName={"Subject"} />
+                    {Subjects.map((s) => <Dashboard_SubjectCard SubjectName={s.subjectName} />)}
+                                      
                   </Row>
                 </Col>
                 <Col md={6} xs={12} className="mb-4 pl-auto">
@@ -91,7 +101,7 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="CarouselRow mx-auto">
                     {/* Hot carousel */}
-                    <Dashboard_HotCarousel />
+                    <Dashboard_HotCarousel Subject1={Subjects[0]} Subject2={Subjects[1]} Subject3={Subjects[2]}/>
                   </Row>
                 </Col>
               </Row>

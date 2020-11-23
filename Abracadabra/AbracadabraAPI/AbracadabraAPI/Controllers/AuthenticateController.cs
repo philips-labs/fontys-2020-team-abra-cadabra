@@ -71,6 +71,9 @@ namespace AbracadabraAPI.Controllers
 
                 return Ok(new
                 {
+                    id = user.Id,
+                    email = user.Email,
+                    role = userRoles[0],
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
