@@ -96,8 +96,6 @@ namespace AbracadabraAPI.Controllers
                 return BadRequest();
             }
 
-            // TODO: Category and subject? Why not a subject table with a foreign key relationship to question?
-            //Completed TODO - Kristian
             List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
@@ -262,7 +260,6 @@ namespace AbracadabraAPI.Controllers
             }
 
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
-
 
             foreach (Question question in questions)
             {
