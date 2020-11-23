@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using WebMotions.Fake.Authentication.JwtBearer;
 
+
 namespace AbraCadabraAPITests
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
@@ -27,6 +28,7 @@ namespace AbraCadabraAPITests
                     options.DefaultChallengeScheme = FakeJwtBearerDefaults.AuthenticationScheme;
                 }).AddFakeJwtBearer();
 
+
                 if (descriptor != null)
                 {
                     services.Remove(descriptor);
@@ -36,6 +38,7 @@ namespace AbraCadabraAPITests
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
+
 
 
                 var sp = services.BuildServiceProvider();
@@ -60,5 +63,6 @@ namespace AbraCadabraAPITests
                 }
             });
         }
+
     }
 }

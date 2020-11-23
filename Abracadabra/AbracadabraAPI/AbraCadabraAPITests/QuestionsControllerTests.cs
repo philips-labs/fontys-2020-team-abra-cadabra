@@ -64,8 +64,8 @@ namespace AbraCadabraAPITests
         public async Task Get_Request_Should_Return_Ok_One()
         {
             var response = await _client.GetAsync("api/Questions/1");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var question = JsonConvert.DeserializeObject<Question>(await response.Content.ReadAsStringAsync());
+            Assert.Equal(1, question.ID);
         }
         [Fact]
         public async Task Get_Request_Wrong_ID()
