@@ -67,33 +67,35 @@ namespace AbracadabraAPI.Controllers
         }
 
 
-        //WARNING: PUT MAY NOT BE 'ETHICAL'
+        // PUT: api/Users/5
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModel userViewModel)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        // PUT: api/Questions/5
-        //[HttpPut("{id}")]
-        //[Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> PutQuestion(string id, ApplicationUser passedUser)
-        //{
-        //    var user = await userManager.FindByIdAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+            await userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin"});
 
-        //    user.UserName = passedUser.UserName;
-        //    user.Email = passedUser.Email;
+            user.UserName = userViewModel.Username;
+            user.Email = userViewModel.Email;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException ex)
-        //    {
-        //        throw ex;
-        //    }
+            await userManager.AddToRoleAsync(user, userViewModel.Role);
 
-        //    return NoContent();
-        //}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
+
+            return NoContent();
+        }
 
         // DELETE api/Users/5
         [HttpDelete("{id}")]
