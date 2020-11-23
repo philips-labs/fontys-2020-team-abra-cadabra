@@ -256,3 +256,21 @@ input::-webkit-input-placeholder {
   background-color: #4c4c50;
   color: #ffffff;
 }
+
+.nav-pills {
+  top: 40px;
+  position: fixed;
+  margin-left: 2.5%;
+}
+
+.sidenavcol {
+  background-color: #2a2b2d;
+}
+
+.navbar-textcolor {
+  color: #17a2b8;
+  font-size: 2vh;
+}
+.navbar-textcolor:hover {
+  color: #4c4c50;
+}
