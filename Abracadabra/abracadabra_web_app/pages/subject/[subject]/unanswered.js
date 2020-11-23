@@ -7,11 +7,11 @@ import QuestionService from 'src/services/QuestionService';
 
 function Subject({ subjectName, response }) {
 
-    if (response === 404 || response == "failure" || response === 400) {
-        return (
-            <DefaultErrorPage statusCode={404} />
-        );
-    }
+    // if (response === 404 || response == "failure" || response === 400) {
+    //     return (
+    //         <DefaultErrorPage statusCode={404} />
+    //     );
+    // }
 
     return (
         <>
@@ -29,7 +29,7 @@ export async function getServerSideProps({ params }) {
     // Fetch necessary data for the blog post using params.id
     let apiRes = null;
     try {
-        apiRes = await SubjectService.GetSubjectByID(params.subject);
+        apiRes = await SubjectService.GetSubjectBySlug(params.subject);
     } catch (err) {
         apiRes = err.response?.status;
     }

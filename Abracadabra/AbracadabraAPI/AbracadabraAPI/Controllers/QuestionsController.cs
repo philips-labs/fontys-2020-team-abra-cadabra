@@ -88,16 +88,16 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
         [HttpGet("{subject}/trending")]
-        public async Task<ActionResult<IList<Question>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        public async Task<ActionResult<IList<Question>>> GetQuestionsSortedByTrending(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
-            if (subject == null)
+            var insertSubject = await _context.Subjects.Where(x => x.SubjectName == subject).FirstOrDefaultAsync();
+            if (insertSubject == null)
             {
                 return BadRequest();
             }
 
             // TODO: Category and subject? Why not a subject table with a foreign key relationship to question?
-            List<Question> questions = await _context.Questions.Where(x => x.Category == subjectName)
+            List<Question> questions = await _context.Questions.Where(x => x.Category == subject)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
                 .OrderByDescending(x => x.TrendingScore)

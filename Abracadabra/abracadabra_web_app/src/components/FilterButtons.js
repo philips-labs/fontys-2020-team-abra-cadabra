@@ -9,8 +9,8 @@ function FilterButtons({ subjectTitle }) {
             <Row>
                 <Col md="7">
                     <Button variant="secondary" className="btnSmall" href={'/subject/' + subjectTitle + '/new'}><FontAwesomeIcon icon={faCertificate} /> New</Button>
-                    <Button variant="secondary" className="btnSmall" href={'/subject/' + subjectTitle + "/trending"} active><FontAwesomeIcon icon={faFireAlt} /> Hot</Button>
-                    <Button variant="secondary" className="btnSmall" href={'/subject/' + subjectTitle + '/top'}><FontAwesomeIcon icon={faChartLine} /> Top</Button>
+                    <Button variant="secondary" className="btnSmall" href={'/subject/' + subjectTitle + "/trending"}><FontAwesomeIcon icon={faFireAlt} /> Trending</Button>
+                    <Button variant="secondary" className="btnSmall" ><FontAwesomeIcon icon={faChartLine} /> Top</Button>
                 </Col>
                 <Col md="5">
                     <Button variant="secondary" className="btnBig" href={'/subject/' + subjectTitle + '/unanswered'}><FontAwesomeIcon icon={faCommentSlash} /> Unanswered</Button>
