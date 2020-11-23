@@ -71,14 +71,6 @@ namespace AbracadabraAPI.Controllers
 
             return subjectViewModels;
         }
-
-        // GET api/<DashboardController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-   
+  
     }
 }
