@@ -37,7 +37,6 @@ namespace AbracadabraAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserViewModel>>> GetUsers([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var users1 = await userManager.Users.ToListAsync();
             var users = await userManager.Users.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<UserViewModel> viewModels = new List<UserViewModel>();
 

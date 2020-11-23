@@ -18,27 +18,49 @@ namespace AbracadabraAPI.Mappers
             ID = question.ID,
             Title = question.Title,
             Description = question.Description,
-            Category = question.Category,
             UserName = user.UserName,
             SubjectSlug = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
         };
+        public static QuestionWithNoAnswersViewModel QuestionWithNoAnswersToViewModel(Question question, IdentityUser user) =>
+        new QuestionWithNoAnswersViewModel
+         {
+            ID = question.ID,
+            Title = question.Title,
+            Description = question.Description,
+            UserName = user.UserName,
+            DateTimeCreated = question.DateTimeCreated,
+        };
+        public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
+        new QuestionWithAnswerCount
+        {
+            ID = question.ID,
+            Title = question.Title,
+            Description = question.Description,
+            UserName = user.UserName,
+            DateTimeCreated = question.DateTimeCreated,
+            numberOfAnswers = number,
+        };
+       public static QuestionTitleViewModel QuestionToQuestionTitleViewModel(Subject subject, Question question) =>
+       new QuestionTitleViewModel
+       {
+           Title = question.Title,
+           TrendingScore = question.TrendingScore,
+           SubjectID = subject.ID
+       };
 
         public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user) =>
         new AnswerViewModel
         {
-             ID = answer.ID,
-             AnswerContent = answer.AnswerContent,
-             UserName = user.UserName,
-             DateTimeCreated = answer.DateTimeCreated,
-             QuestionID = answer.QuestionID
+            ID = answer.ID,
+            AnswerContent = answer.AnswerContent,
+            UserName = user.UserName,
+            DateTimeCreated = answer.DateTimeCreated,
+            QuestionID = answer.QuestionID
         };
-
-        public static UserViewModel UserToViewModel(ApplicationUser user, string role) {
-
-            //var roles = await userManager.GetRolesAsync(user);
-
+        public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
+        {
            return new UserViewModel
             {
                 ID = user.Id,
@@ -50,5 +72,26 @@ namespace AbracadabraAPI.Mappers
                 DateTimeCreated = user.DateTimeCreated
             };
         }
+        public static SubjectViewModel SubjectToViewModel(Subject subject) =>
+        new SubjectViewModel
+        {
+             ID = subject.ID,
+             SubjectName = subject.SubjectName,
+        };
+        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
+        new SubjectWithQuestionsViewModel
+         {
+             ID = subject.ID,
+             SubjectName = subject.SubjectName,
+             Questions= viewModels,
+        };
+        public static SubjectWithThreeQuestions SubjectWithThreeQuestionsToViewModel(Subject subject, List<string> titles) =>
+        new SubjectWithThreeQuestions
+        {
+            ID = subject.ID,
+            SubjectName = subject.SubjectName,
+            QuestionTitles = titles,
+        };
+
     }
 }

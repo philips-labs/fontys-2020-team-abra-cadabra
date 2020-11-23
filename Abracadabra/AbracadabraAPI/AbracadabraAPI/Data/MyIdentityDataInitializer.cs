@@ -9,22 +9,23 @@ namespace AbracadabraAPI.Data
 {
     public class MyIdentityDataInitializer
     {
-        public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AbracadabraContext context)
         {
+            context.Database.EnsureCreated();
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
 
-        public static void SeedUsers(UserManager<ApplicationUser> userManager)
+        private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
             var hasher = new PasswordHasher<ApplicationUser>();
             if (userManager.FindByNameAsync("test0").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.UserName = "test0";
-                user.NormalizedUserName = "TEST0";
-                user.Email = "test0@gmail.com";
-                user.NormalizedEmail = "test0@gmail.com".ToUpper();
+                user.UserName = "user";
+                user.NormalizedUserName = "user";
+                user.Email = "user@gmail.com";
+                user.NormalizedEmail = "user@gmail.com".ToUpper();
                 user.EmailConfirmed = false;
                 user.LastLoggedIn = DateTime.Now;
                 user.DateTimeCreated = DateTime.Now;
@@ -40,13 +41,13 @@ namespace AbracadabraAPI.Data
             }
 
 
-            if (userManager.FindByNameAsync("test1").Result == null)
+            if (userManager.FindByNameAsync("admin").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.UserName = "test1";
-                user.NormalizedUserName = "TEST1";
-                user.Email = "test1@gmail.com";
-                user.NormalizedEmail = "test1@gmail.com".ToUpper();
+                user.UserName = "admin";
+                user.NormalizedUserName = "admin";
+                user.Email = "admin@gmail.com";
+                user.NormalizedEmail = "admin@gmail.com".ToUpper();
                 user.EmailConfirmed = false;
                 user.LastLoggedIn = DateTime.Now;
                 user.DateTimeCreated = DateTime.Now;
@@ -61,13 +62,13 @@ namespace AbracadabraAPI.Data
                 }
             }
 
-            if (userManager.FindByNameAsync("test2").Result == null)
+            if (userManager.FindByNameAsync("expert").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.UserName = "test2";
-                user.NormalizedUserName = "TEST2";
-                user.Email = "test2@gmail.com";
-                user.NormalizedEmail = "test2@gmail.com".ToUpper();
+                user.UserName = "expert";
+                user.NormalizedUserName = "expert";
+                user.Email = "expert@gmail.com";
+                user.NormalizedEmail = "expert@gmail.com".ToUpper();
                 user.EmailConfirmed = false;
                 user.LastLoggedIn = DateTime.Now;
                 user.DateTimeCreated = DateTime.Now;
@@ -83,8 +84,9 @@ namespace AbracadabraAPI.Data
             }
         }
 
-        public static void SeedRoles (RoleManager<IdentityRole> roleManager)
+        private static void SeedRoles (RoleManager<IdentityRole> roleManager)
         {
+
             if (!roleManager.RoleExistsAsync("User").Result)
             {
                 IdentityRole role = new IdentityRole();

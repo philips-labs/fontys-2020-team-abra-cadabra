@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
-using AbracadabraAPI.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AbracadabraAPI.ViewModels
 {
-    public class QuestionViewModel
+    public class QuestionWithAnswerCount
     {
         [Key]
         public int ID { get; set; }
@@ -15,12 +15,13 @@ namespace AbracadabraAPI.ViewModels
 
         public string Description { get; set; }
 
+        public string Category { get; set; }
         public string SubjectSlug { get; set; }
 
         public string UserName { get; set; }
 
         public DateTime DateTimeCreated { get; set; }
 
-        public List<AnswerViewModel> AnswerViewModels { get; set; }
+        public int numberOfAnswers { get; set; }
     }
 }
