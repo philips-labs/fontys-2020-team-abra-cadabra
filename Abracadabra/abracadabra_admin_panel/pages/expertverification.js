@@ -12,18 +12,8 @@ import {} from 'react-icons/fa'
 export default function Expertverification() {
   const [ session, loading ] = useSession();
 
-  if (loading) return (
-    <>
-    <NavBar/>
-    <Container fluid className="h-100">
-    <Row className="h-100">
-      {/* Sidebar col xl={2} md={3} */}
-      <SideBar />
-      </Row>
-      </Container>
-    </>
-  )
-
+  if (loading) return null
+  
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {

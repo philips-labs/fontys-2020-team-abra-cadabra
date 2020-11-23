@@ -1,14 +1,34 @@
 //react
 import React from 'react';
 import { csrfToken } from 'next-auth/client';
+import { useRouter } from 'next/router';
 //bootstrap
-import { Container, Row, Col, Form, Button} from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
 //components
 import BlankNavBar from 'src/components/BlankNavBar';
 
 import {} from 'react-icons/fa'
 
 export default function Login({ csrfToken }) {
+
+    const router = useRouter();
+    const {error} = router.query;
+    let erroralert = null;
+
+    if(error)
+    {
+       erroralert = 
+       <Col md={8} className="mx-auto my-auto text-center">  
+            <Alert variant={"danger"}>
+            {error}
+            </Alert>
+        </Col>;    
+    }
+    else {
+        erroralert = null;
+    }
+
+
 
   return (
     <>
@@ -28,9 +48,9 @@ export default function Login({ csrfToken }) {
                     <Col md={8}>
                     <Form method="POST" action='/api/auth/callback/credentials'>
                         <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
-                        <Form.Group controlId="username" className="mb-4">
-                            <Form.Label className="font-weight-bold">Username</Form.Label>
-                            <Form.Control type="text" placeholder="Enter username" name="username" />
+                        <Form.Group controlId="email" className="mb-4">
+                            <Form.Label className="font-weight-bold">Email</Form.Label>
+                            <Form.Control type="text" placeholder="Enter username" name="email" />
                         </Form.Group>
                         <Form.Group controlId="password" className="mb-4">
                             <Form.Label className="font-weight-bold">Password</Form.Label>
@@ -41,6 +61,9 @@ export default function Login({ csrfToken }) {
                         </Form.Group>
                     </Form>
                     </Col>
+                </Row>
+                <Row>
+                    {erroralert}
                 </Row>
             </Col>
         </Row>
