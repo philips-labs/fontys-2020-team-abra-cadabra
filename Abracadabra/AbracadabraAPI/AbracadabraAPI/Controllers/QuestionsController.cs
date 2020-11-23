@@ -63,16 +63,17 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionViewModel>> GetQuestion(int id)
         {
             var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
+            if (question == null)
+            {
+                return NotFound();
+            }
 
             var user = await userManager.FindByIdAsync(question.UserID);
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
 
-            if (question == null)
-            {
-                return NotFound();
-            }
+ 
 
             foreach (Answer answer in answers)
             {
@@ -161,18 +162,22 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Questions
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<QuestionViewModel>> PostQuestion(QuestionViewModel questionViewModel)
+        public async Task<ActionResult<QuestionViewModel>> PostQuestion(Question questionViewModel)
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var user = await userManager.FindByIdAsync(questionViewModel.UserID);
             if (user == null)
             {
+                user = await userManager.FindByNameAsync(User.Identity.Name);
+                if(user == null)
+                {
                 return Unauthorized();
+                }
             }
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectSlug).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.Category).FirstOrDefaultAsync();
 
             var question = new Question
             {
-                UserID = user.Id,
+                UserID = user.Id.ToString(),
                 Title = questionViewModel.Title,
                 Description = questionViewModel.Description,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
@@ -188,15 +193,16 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
+ 
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
+            
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
@@ -206,6 +212,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+       
+
 
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
@@ -242,7 +250,7 @@ namespace AbracadabraAPI.Controllers
             return models;
         }
 
-        // GET: api/Questions/Cooking/unanswered[?pagesize=5]
+        // GET: api/Questions/Cooking/unanswered[?pagesize=10&index=1]
         [HttpGet("{subject}/unanswered")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {

@@ -8,6 +8,7 @@ using System.Net.Http;
 using AbracadabraAPI.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+using WebMotions.Fake.Authentication.JwtBearer;
 
 namespace AbraCadabraAPITests
 {
@@ -20,6 +21,11 @@ namespace AbraCadabraAPITests
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
                         typeof(DbContextOptions<AbracadabraContext>));
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = FakeJwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = FakeJwtBearerDefaults.AuthenticationScheme;
+                }).AddFakeJwtBearer();
 
                 if (descriptor != null)
                 {

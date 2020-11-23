@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbracadabraAPI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,10 @@ namespace AbracadabraAPI.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    NrOfTimesReported = table.Column<int>(nullable: false),
+                    DateTimeCreated = table.Column<DateTime>(nullable: false),
+                    LastLoggedIn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,18 +50,16 @@ namespace AbracadabraAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForumThread",
+                name: "Subject",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    SubjectName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ForumThread", x => x.Id);
+                    table.PrimaryKey("PK_Subject", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -167,6 +168,60 @@ namespace AbracadabraAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Question",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Category = table.Column<string>(nullable: true),
+                    DateTimeCreated = table.Column<DateTime>(nullable: false),
+                    Upvotes = table.Column<long>(nullable: false),
+                    Downvotes = table.Column<long>(nullable: false),
+                    TrendingScore = table.Column<double>(nullable: true),
+                    SubjectID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Question", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Question_Subject_SubjectID",
+                        column: x => x.SubjectID,
+                        principalTable: "Subject",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Answer",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<string>(nullable: true),
+                    AnswerContent = table.Column<string>(nullable: true),
+                    DateTimeCreated = table.Column<DateTime>(nullable: false),
+                    QuestionID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answer", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Answer_Question_QuestionID",
+                        column: x => x.QuestionID,
+                        principalTable: "Question",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answer_QuestionID",
+                table: "Answer",
+                column: "QuestionID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -205,10 +260,18 @@ namespace AbracadabraAPI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Question_SubjectID",
+                table: "Question",
+                column: "SubjectID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Answer");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -225,13 +288,16 @@ namespace AbracadabraAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ForumThread");
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Subject");
         }
     }
 }
