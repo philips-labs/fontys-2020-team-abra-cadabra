@@ -104,15 +104,18 @@ export default function NavBar({ subjectTitle }) {
           </Col>
           <Col md={6}></Col>
           <Col md={2}>
-            <Button href="#" variant="outline-secondary">
+            <Button
+              href={"/subject/" + subjectTitle + "/createquestion"}
+              variant="outline-secondary"
+            >
               Ask <FontAwesomeIcon className="ml-1" icon={faQuestionCircle} />
             </Button>
           </Col>
         </Row>
         <Nav>
           <Row>
-            <Nav.Link href="#" className="ml-3 my-auto mr-2">
-              Username
+            <Nav.Link href="/loginpage" className="ml-5 my-auto mr-2">
+              Login
             </Nav.Link>
           </Row>
         </Nav>
