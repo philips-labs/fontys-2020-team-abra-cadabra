@@ -80,6 +80,7 @@ namespace AbracadabraAPI.Data
                 new Question
                 {
                     UserID=userIds[1],
+                    IsAnsweredByExpert = true,
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     SubjectID=2,

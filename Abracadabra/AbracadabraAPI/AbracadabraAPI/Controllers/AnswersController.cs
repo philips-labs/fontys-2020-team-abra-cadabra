@@ -101,6 +101,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+            var roles = await userManager.GetRolesAsync(user);
 
             var answer = new Answer
             {
@@ -109,6 +110,12 @@ namespace AbracadabraAPI.Controllers
                 AnswerContent = answerViewModel.AnswerContent,
                 QuestionID = answerViewModel.QuestionID
             };
+
+            if (roles[0] == "Expert")
+            {
+                var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
+                question.IsAnsweredByExpert = true;
+            }
 
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();

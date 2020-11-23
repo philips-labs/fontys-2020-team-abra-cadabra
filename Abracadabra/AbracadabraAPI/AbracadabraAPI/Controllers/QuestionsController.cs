@@ -278,6 +278,33 @@ namespace AbracadabraAPI.Controllers
 
             return models;
         }
+        [HttpGet("{subjectName}/expert")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> SortingQuestionByExpert(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            if (subject == null)
+            {
+                return BadRequest();
+            }
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID && x.IsAnsweredByExpert == true).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
+
+            foreach (Question question in questions)
+            {
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
+            }
+
+            return models;
+        }
 
         private bool QuestionExists(int id)
         {
