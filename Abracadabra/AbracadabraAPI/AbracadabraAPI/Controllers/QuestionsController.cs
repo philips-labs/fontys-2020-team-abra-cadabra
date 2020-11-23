@@ -162,20 +162,18 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Questions
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<QuestionViewModel>> PostQuestion(Question questionViewModel)
+        public async Task<ActionResult<QuestionViewModel>> PostQuestion(QuestionViewModel questionViewModel)
         {
-            var user = await userManager.FindByIdAsync(questionViewModel.UserID);
-            if (user == null)
-            {
-                user = await userManager.FindByNameAsync(User.Identity.Name);
+
+              var  user = await userManager.FindByNameAsync(User.Identity.Name);
                 if(user == null)
                 {
                 return Unauthorized();
                 }
-            }
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.Category).FirstOrDefaultAsync();
 
-            var question = new Question
+            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectSlug).FirstOrDefaultAsync();
+
+            var questionToPost = new Question
             {
                 UserID = user.Id.ToString(),
                 Title = questionViewModel.Title,
@@ -185,10 +183,10 @@ namespace AbracadabraAPI.Controllers
                 Category = subject.SubjectName,
             };
 
-            _context.Questions.Add(question);
+            _context.Questions.Add(questionToPost);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null, subject));
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(questionToPost, user, null, subject));
         }
 
         // DELETE: api/Questions/5

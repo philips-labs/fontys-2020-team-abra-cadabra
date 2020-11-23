@@ -122,7 +122,7 @@ namespace AbraCadabraAPITests
         }
         //Please somebody fix this, I give up -Snechar
         [Fact]
-        public async Task Delete_Succeed_Internship()
+        public async Task Delete_Succeed_Question()
         {
             //System.Diagnostics.Debugger.Launch();
             string data = JsonConvert.SerializeObject(new
