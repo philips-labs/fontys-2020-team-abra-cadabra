@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/router";
 //import image
 import Logo from "src/images/Abra_Logo_Centered.png";
+import cookingLogo from "../images/logo_cooking_wip.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -24,6 +25,8 @@ import {
   faUserCircle,
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { Modal } from "react-bootstrap";
+import { search } from "__mocks__/fileMock";
 
 export default function NavBar({ subjectTitle }) {
   const router = useRouter();
@@ -43,14 +46,6 @@ export default function NavBar({ subjectTitle }) {
       handleOpen();
     }
   }
-
-  useEffect(() => {
-    document.addEventListener("click", handleClick);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  });
-
   const handleChange = (event) => {
     setSearchString({
       ...searchString,
@@ -60,6 +55,12 @@ export default function NavBar({ subjectTitle }) {
     console.log(searchString);
   };
 
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
   return (
     <Navbar
       collapseOnSelect

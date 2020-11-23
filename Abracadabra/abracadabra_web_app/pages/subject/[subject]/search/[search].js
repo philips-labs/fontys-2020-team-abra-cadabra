@@ -3,10 +3,14 @@ import Navbar from "src/components/Navbar.js";
 import QuestionBody from "src/components/QuestionBody.js";
 import DefaultErrorPage from "next/error";
 import SubjectService from "src/services/SubjectService";
-import FilterButtons from "src/components/FilterButtons";
+import { useRouter } from "next/router";
+import { search } from "__mocks__/fileMock";
 
 function Subject({ subjectName, response }) {
-  console.log(response);
+  const router = useRouter();
+  const { subject, search } = router.query;
+
+  console.log(subjectName);
 
   if (response === 404 || response == "failure" || response === 400) {
     return <DefaultErrorPage statusCode={404} />;
@@ -15,8 +19,12 @@ function Subject({ subjectName, response }) {
   return (
     <>
       <Navbar subjectTitle={subjectName} />
-      <FilterButtons subjectTitle={subjectName} />
-      <QuestionBody question={response.questions} subject={subjectName} />
+      <QuestionBody
+        question={response.questions}
+        subject={subjectName}
+        search={search}
+        searchLength={search.length}
+      />
     </>
   );
 }
@@ -24,12 +32,17 @@ function Subject({ subjectName, response }) {
 export default Subject;
 
 export async function getServerSideProps({ params }) {
-  console.log("test");
+  const searchData = {
+    subject: params.subject,
+    search: params.search,
+  };
+
   // Fetch necessary data for the blog post using params.id
   let apiRes = null;
   try {
-    apiRes = await SubjectService.GetSubjectBySlug(params.subject);
+    apiRes = await SubjectService.GetQuestionBySearch(searchData);
   } catch (err) {
+    //apiRes = err;
     apiRes = err.response?.status;
   }
 

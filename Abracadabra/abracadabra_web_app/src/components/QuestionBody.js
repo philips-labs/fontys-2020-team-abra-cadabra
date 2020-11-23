@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
+import { slice } from "__mocks__/fileMock";
 
-export default function Title({ question, subject }) {
+function Title({ question, subject, search, searchLength }) {
+  const [message, setMessage] = useState("");
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     setQuestions(question);
+    if (searchLength > 0) {
+      setMessage("Results for: " + search);
+    }
   }, []);
 
   function HumanDateTime(dateAndTime) {
@@ -24,43 +29,53 @@ export default function Title({ question, subject }) {
     }
   }
 
-  return (
-    <div className="container BodyQuestion-Top">
-      {questions.map((question) => (
-        <div key={question.id} style={{ marginRight: "5px" }}>
-          <div className="BoduQuestion-Total">
-            <div className="BodyQuestion-CardBody">
+  if (question.length > 0) {
+    return (
+      <div className="container BodyQuestion-Top">
+        <h1>{message}</h1>
+        {question.map((question) => (
+          <div key={question.id} style={{ marginRight: "5px" }}>
+            <div className="BoduQuestion-Total">
+              <div className="BodyQuestion-CardBody">
+                <div className="row">
+                  <div className="col-sm-10">
+                    <a
+                      className="BodyQuestionText"
+                      href={"/subject/" + subject + "/question/" + question.id}
+                    >
+                      <h4> {question.title} </h4>
+                    </a>
+                  </div>
+                  <div className="col-sm-2">
+                    {NrOfAnswers(question.numberOfAnswers)}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="BodyQuestion-hastag">
               <div className="row">
-                <div className="col-sm-10">
-                  <a
-                    className="BodyQuestionText"
-                    href={"/subject/" + subject + "/question/" + question.id}
-                  >
-                    <h4> {question.title} </h4>
-                  </a>
+                <div className="col-sm-9">
+                  <span className="badge badge-info p-1 mr-1">#Cutting</span>
+                  <span className="badge badge-info p-1 mr-1">#Vegetables</span>
+                  <span className="badge badge-info p-1 mr-1">
+                    #mise-en-place
+                  </span>
                 </div>
-                <div className="col-sm-2">
-                  {NrOfAnswers(question.numberOfAnswers)}
+                <div className="col-sm-3">
+                  <p>Posted on: {HumanDateTime(question.dateTimeCreated)}</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="BodyQuestion-hastag">
-            <div className="row">
-              <div className="col-sm-9">
-                <span className="badge badge-info p-1 mr-1">#Cutting</span>
-                <span className="badge badge-info p-1 mr-1">#Vegetables</span>
-                <span className="badge badge-info p-1 mr-1">
-                  #mise-en-place
-                </span>
-              </div>
-              <div className="col-sm-3">
-                <p>Posted on: {HumanDateTime(question.dateTimeCreated)}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  } else {
+    return (
+      <div className="container mt-5">
+        <h1>No results for: {search}</h1>
+      </div>
+    );
+  }
 }
+export default Title;

@@ -28,8 +28,6 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
-  console.log(data);
-
   useEffect(() => {
     //GetQuestion();
     setQuestion(data);
