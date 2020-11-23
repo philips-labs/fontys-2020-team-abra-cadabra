@@ -67,7 +67,6 @@ function Title({ question, subject, search, searchLength }) {
               </div>
             </div>
           </div>
-        </div>
         ))}
       </div>
     );

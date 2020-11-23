@@ -1,5 +1,6 @@
 import { Card, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from "react";
 import {
   faChevronUp,
   faChevronDown,
