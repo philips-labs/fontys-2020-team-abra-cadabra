@@ -27,16 +27,18 @@
     }
 
     .buttonSubmit {
-        font-size: 1.5rem;
-        padding: 0.7rem;
-        background: #fff;
-        border: 1px solid #707070;
-        border-radius: 4px;
-        color: #707070;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        background: $tertiary-color;
+        color: white;
+        border: none;
+        width: 40vh;
+ 
+
     
       &:hover {
-        color: #707070;
-        background: #ccc;
+         color: rgba(255, 255, 255, 0.445);
+         background: #266670;
       }
     }
 

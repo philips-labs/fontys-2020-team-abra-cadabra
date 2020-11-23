@@ -100,7 +100,10 @@ function QuestionForm() {
 
             
                 </Form.Group>
-                <Button className="buttonSubmit" type="submit">Submit Question</Button>
+               <div>
+                <Button className="buttonSubmit float-right" type="submit">Submit Question</Button>
+                </div>
+               
             </Form>
         </>
     );
