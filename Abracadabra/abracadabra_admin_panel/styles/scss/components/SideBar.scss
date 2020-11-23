@@ -1,0 +1,23 @@
+.Default-Sidebar {
+    background-color: $secondary-color;
+    color: $text-color;
+    height: 100%;
+   a.wrap {
+       color: $text-color;
+       :hover {
+        //    color: darken($text-color, 5%);
+           background-color: $special-color;
+       }
+       .active {
+        background-color: $hover-color;
+       }
+       .Nav-color:hover {
+        color: $text-color;
+        background-color: transparent;
+    }
+   }
+
+    .Nav-color {
+        color: $text-color;
+    }
+}

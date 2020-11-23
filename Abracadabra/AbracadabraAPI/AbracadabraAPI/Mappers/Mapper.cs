@@ -18,7 +18,6 @@ namespace AbracadabraAPI.Mappers
             ID = question.ID,
             Title = question.Title,
             Description = question.Description,
-            Category = question.Category,
             UserName = user.UserName,
             SubjectSlug = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
@@ -29,17 +28,22 @@ namespace AbracadabraAPI.Mappers
 
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
         new QuestionWithAnswerCount
-            {
-                ID = question.ID,
-                Title = question.Title,
-                Description = question.Description,
-                Category = question.Category,
-                UserName = user.UserName,
-                DateTimeCreated = question.DateTimeCreated,
-                NumberOfAnswers = number,
-                Upvotes = question.Upvotes,
-                Downvotes = question.Downvotes
-            };
+        {
+            ID = question.ID,
+            Title = question.Title,
+            Description = question.Description,
+            UserName = user.UserName,
+            DateTimeCreated = question.DateTimeCreated,
+            NumberOfAnswers = number,
+        };
+
+        public static QuestionTitleViewModel QuestionToQuestionTitleViewModel(Subject subject, Question question) =>
+        new QuestionTitleViewModel
+        {
+            Title = question.Title,
+            TrendingScore = question.TrendingScore,
+            SubjectID = subject.ID
+        };
 
         public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user) =>
         new AnswerViewModel
@@ -66,13 +70,20 @@ namespace AbracadabraAPI.Mappers
                DateTimeCreated = user.DateTimeCreated
            };
         }
-
         public static SubjectViewModel SubjectToViewModel(Subject subject) =>
-            new SubjectViewModel
-            {
-                ID = subject.ID,
-                SubjectName = subject.SubjectName,
-            };
+        new SubjectViewModel
+        {
+             ID = subject.ID,
+             SubjectName = subject.SubjectName,
+        };
+
+        public static SubjectWithThreeQuestions SubjectWithThreeQuestionsToViewModel(Subject subject, List<string> titles) =>
+        new SubjectWithThreeQuestions
+        {
+            ID = subject.ID,
+            SubjectName = subject.SubjectName,
+            QuestionTitles = titles,
+        };
 
         public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
             new SubjectWithQuestionsViewModel

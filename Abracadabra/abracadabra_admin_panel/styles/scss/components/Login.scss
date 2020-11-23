@@ -1,0 +1,22 @@
+.LoginArea {
+    background-color: $primary-color;
+    color: $text-color;
+}
+
+.LoginLink {
+    text-decoration: underline;
+    cursor: pointer;
+    color: $text-color;
+    &:hover {
+        color: darken($text-color, 25%);
+    }
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 2.3vw;
+    }
+}
+
+.LoginContainer {
+    height: 80%;
+}
