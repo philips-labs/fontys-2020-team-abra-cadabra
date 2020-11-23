@@ -15,8 +15,8 @@ export default function Dashboard_SubjectCard({SubjectName, SubjectID}) {
                 <Card.Body className="pl-1 pr-1 p-0 d-flex">
                     <Image src={"/images/Abra_Logo_Centered.png"} height={35} className="my-auto" />
                     <h5 className="my-auto mr-auto BoxContentText">{SubjectName}</h5>
-                    <Link href={"/subjectmanagement/" + subjectID}><a className="my-auto BoxContentLink mr-2">View details</a></Link>
-                    <Link href={"/subjectmanagement/" + subjectID + "/edit"}><a className="my-auto"><FaEdit /></a></Link>
+                    <Link href={"/subjectmanagement/" + SubjectID}><a className="my-auto BoxContentLink mr-2">View details</a></Link>
+                    <Link href={"/subjectmanagement/" + SubjectID + "/edit"}><a className="my-auto"><FaEdit /></a></Link>
                 </Card.Body>
             </Card>
         </>
