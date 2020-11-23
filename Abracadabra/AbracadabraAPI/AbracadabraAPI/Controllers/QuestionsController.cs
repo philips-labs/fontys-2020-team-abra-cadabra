@@ -88,7 +88,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
-        [HttpGet("{subject}/trending")]
+        [HttpGet("{subjectName}/trending")]
         public async Task<ActionResult<IList<Question>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
@@ -98,7 +98,8 @@ namespace AbracadabraAPI.Controllers
             }
 
             // TODO: Category and subject? Why not a subject table with a foreign key relationship to question?
-            List<Question> questions = await _context.Questions.Where(x => x.Category == subjectName)
+            //Completed TODO - Kristian
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
                 .OrderByDescending(x => x.TrendingScore)
@@ -180,7 +181,6 @@ namespace AbracadabraAPI.Controllers
                 Description = questionViewModel.Description,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
                 SubjectID = subject.ID,
-                Category = subject.SubjectName,
             };
 
             _context.Questions.Add(questionToPost);
@@ -220,15 +220,16 @@ namespace AbracadabraAPI.Controllers
         }
 
         // GET: api/Questions/Cooking/new[?pagesize=5]
-        [HttpGet("{subject}/new")]
-        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByDate(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        [HttpGet("{subjectName}/new")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByDate(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).FirstAsync();
-            if (subjects == null)
+            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            if (subject == null)
             {
                 return BadRequest();
             }
-            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subjects.ID).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
@@ -248,16 +249,18 @@ namespace AbracadabraAPI.Controllers
             return models;
         }
 
-        // GET: api/Questions/Cooking/unanswered[?pagesize=10&index=1]
-        [HttpGet("{subject}/unanswered")]
-        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
+        // GET: api/Questions/Cooking/unanswered[?pagesize=5]
+        [HttpGet("{subjectName}/unanswered")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
         {
-            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
-            if (subjects == null)
+            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            if (subject == null)
             {
                 return BadRequest();
             }
-            List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
@@ -275,48 +278,6 @@ namespace AbracadabraAPI.Controllers
 
             return models;
         }
-
-        // GET: api/Questions/Cooking/expert[?pagesize=10&index=1]
-        [HttpGet("{subject}/expert")]
-        public async Task<ActionResult<IList<QuestionViewModel>>> GetQuestionsSortedByExpertAnswer(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
-        {
-            var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).FirstAsync();
-            if (subjects == null)
-            {
-                return BadRequest();
-            }
-            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subjects.ID).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
-            List<ApplicationUser> users = new List<ApplicationUser>();
-            List<AnswerViewModel> answers = new List<AnswerViewModel>();
-            List<QuestionViewModel> models = new List<QuestionViewModel>();
-            foreach (var item in questions)
-            {
-                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
-                List<Answer> answer = await _context.Answers.Where(x => x.QuestionID == item.ID).ToListAsync();
-                foreach (var ans in answer)
-                {
-                    var buser = await userManager.Users.Where(x => x.Id == ans.UserID).FirstAsync();
-                    var roles = await userManager.GetRolesAsync(buser);
-                    if(roles.Contains("Expert"))
-                    {
-                        foreach (var ans2 in answer)
-                        {
-                            var ansuser = await userManager.Users.Where(x => x.Id == ans2.UserID).FirstAsync();
-                            answers.Add(Mapper.AnswerToViewModel(ans2, ansuser));
-                           models.Add(Mapper.QuestionToViewModel(item, buser, answers, subjects));
-                        }
-                    }
-
-                }
-              
-            }
-
-            
-
-
-            return models;
-        }
-
 
         private bool QuestionExists(int id)
         {

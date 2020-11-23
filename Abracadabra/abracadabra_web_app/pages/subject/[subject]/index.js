@@ -4,18 +4,9 @@ import FilterNav from 'src/components/FilterNav';
 import QuestionBody from 'src/components/QuestionBody.js';
 import DefaultErrorPage from 'next/error';
 import SubjectService from 'src/services/SubjectService';
-import FilterButtons from "src/components/FilterButtons"
+import FilterButtons from "src/components/FilterButtons";
 
 
-function Subject({ subjectName, response }) {
-
-  const subject = [
-    "How do you dice an onion",
-    "How big is an onion",
-    "what color is an onion",
-    "why is an onion round",
-    "This is a test",
-  ];
 
 function Subject({ subjectName, response }) {
   console.log(response);

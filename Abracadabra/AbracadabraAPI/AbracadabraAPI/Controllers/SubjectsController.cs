@@ -54,7 +54,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return NotFound();
             }
-            List<Question> questions = await _context.Questions.Where(x => x.Category == slug).ToListAsync();
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
