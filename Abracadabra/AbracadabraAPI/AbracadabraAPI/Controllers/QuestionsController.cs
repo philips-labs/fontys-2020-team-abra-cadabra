@@ -90,8 +90,8 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{subjectName}/trending")]
         public async Task<ActionResult<IList<Question>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var insertSubject = await _context.Subjects.Where(x => x.SubjectName == subject).FirstOrDefaultAsync();
-            if (insertSubject == null)
+            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            if (subject == null)
             {
                 return BadRequest();
             }
