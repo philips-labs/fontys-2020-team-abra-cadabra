@@ -1,8 +1,23 @@
 import {Container, Row, Col} from 'react-bootstrap';
+import VotesService from "../services/VotesService";
 
 
 export default function Answer({answer}) {
-
+    const [voted, setVoted] = useState()
+    const [vote, setVote] = useState()
+    
+    
+    const handleClick = () => {
+        if (voted == true){
+        VotesService.PostVoteAnswer(vote).then((res) => {
+            console.log(res);
+            console.log(res.data);
+        })
+            .catch((error) => {
+                console.log(error.response.data);
+            });
+      }
+    };
     return (
         <>
             <Row className="border-bottom mb-3">
