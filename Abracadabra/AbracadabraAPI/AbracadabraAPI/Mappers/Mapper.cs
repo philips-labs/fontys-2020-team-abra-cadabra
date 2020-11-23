@@ -18,7 +18,6 @@ namespace AbracadabraAPI.Mappers
             ID = question.ID,
             Title = question.Title,
             Description = question.Description,
-            Category = question.Category,
             UserName = user.UserName,
             SubjectSlug = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
@@ -30,7 +29,6 @@ namespace AbracadabraAPI.Mappers
                 ID = question.ID,
                 Title = question.Title,
                 Description = question.Description,
-                Category = question.Category,
                 UserName = user.UserName,
                 DateTimeCreated = question.DateTimeCreated,
             };
@@ -40,7 +38,6 @@ namespace AbracadabraAPI.Mappers
                 ID = question.ID,
                 Title = question.Title,
                 Description = question.Description,
-                Category = question.Category,
                 UserName = user.UserName,
                 DateTimeCreated = question.DateTimeCreated,
                 numberOfAnswers = number,
