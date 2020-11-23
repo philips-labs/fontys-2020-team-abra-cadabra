@@ -1,50 +1,66 @@
-import {Container, Row, Col} from 'react-bootstrap';
-import VotesService from "../services/VotesService";
+import { Card, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronUp,
+  faChevronDown,
+  faFlag,
+} from "@fortawesome/free-solid-svg-icons";
 
-
-export default function Answer({answer}) {
-    const [voted, setVoted] = useState()
-    const [vote, setVote] = useState()
-    
-    
-    const handleClick = () => {
-        if (voted == true){
-        VotesService.PostVoteAnswer(vote).then((res) => {
-            console.log(res);
-            console.log(res.data);
-        })
-            .catch((error) => {
-                console.log(error.response.data);
-            });
-      }
-    };
-    return (
-        <>
-            <Row className="border-bottom mb-3">
-                <Col md={10} className="mx-auto">
-                    {/* Answer header */}
-                    <Row>
-                        <Col md={1}>
-                            <img className="questionAvatar" src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"></img>
-                        </Col>
-                        <Col md={7}>
-                            <h6 className="font-weight-bold">{answer.userName}</h6>
-
-                        </Col>
-                        <Col md={4}>
-                            <h6 className="font-weight-bold helpedText">Has Helped: <span>100</span> People</h6>
-                        </Col>
-                    </Row>
-                    {/* Answer content */}
-                    <Row>
-                        <Col md={1}></Col>
-                        <Col>
-                            <p className="answerContentText">{answer.answerContent}</p>
-                        </Col>
-                    </Row>
+export default function Answer({ answer }) {
+  const [voted, setVoted] = useState()
+  const [vote, setVote] = useState()
+  
+  
+  const handleClick = () => {
+      if (voted == true){
+      VotesService.PostVoteAnswer(vote).then((res) => {
+          console.log(res);
+          console.log(res.data);
+      })
+          .catch((error) => {
+              console.log(error.response.data);
+          });
+    }
+  };
+  return (
+    <>
+      <Row>
+        <Col md={11} className="mx-auto">
+          <Card className="answerBody">
+            <Card.Body>
+              <Row>
+                <Col md={11}>
+                  <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
-            </Row>
-        </>
-    );
-
+                <Col md={1} className="votingDiv">
+                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} />
+                  <p>100</p>
+                  <FontAwesomeIcon
+                    className="votingArrow"
+                    icon={faChevronDown}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={11}></Col>
+                <Col md={1} className="flagDiv">
+                  <FontAwesomeIcon className="flagIcon" icon={faFlag} />
+                </Col>
+              </Row>
+            </Card.Body>
+            <Card.Footer className="answerFooter">
+              <div className="d-flex">
+                <img
+                  className="questionPageAvatar"
+                  src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
+                ></img>
+                <p className="answerUsername">{answer.userName}</p>
+              </div>
+              <p>Posted on: {answer.dateTimeCreated}</p>
+            </Card.Footer>
+          </Card>
+        </Col>
+      </Row>
+    </>
+  );
 }

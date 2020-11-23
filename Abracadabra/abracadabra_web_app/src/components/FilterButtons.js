@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
-import { faChartLine, faFireAlt, faCertificate, faComment, faCommentSlash, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { Button, Row, Col } from "react-bootstrap";
+import {
+  faChartLine,
+  faFireAlt,
+  faCertificate,
+  faComment,
+  faCommentSlash,
+  faUserGraduate,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function FilterButtons({ subjectTitle }) {
     return (
