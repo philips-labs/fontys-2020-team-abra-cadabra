@@ -18,5 +18,9 @@ namespace AbracadabraAPI.Models
         public DateTime DateTimeCreated { get; set; }
 
         public int QuestionID { get; set; }
+
+        public long Upvotes { get; set; }
+
+        public long Downvotes { get; set; }
     }
 }

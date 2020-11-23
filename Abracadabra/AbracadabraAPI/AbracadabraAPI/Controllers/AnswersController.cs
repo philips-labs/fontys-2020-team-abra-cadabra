@@ -107,7 +107,9 @@ namespace AbracadabraAPI.Controllers
                 UserID = user.Id,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
                 AnswerContent = answerViewModel.AnswerContent,
-                QuestionID = answerViewModel.QuestionID
+                QuestionID = answerViewModel.QuestionID,
+                Upvotes = 0,
+                Downvotes = 0
             };
 
             _context.Answers.Add(answer);
@@ -147,6 +149,5 @@ namespace AbracadabraAPI.Controllers
         {
             return _context.Answers.Any(e => e.ID == id);
         }
-
     }
 }

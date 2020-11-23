@@ -39,7 +39,7 @@ namespace AbracadabraAPI.Data
                     SubjectName = "Gaming",
 
                 },
-                };
+            };
 
             foreach (Subject subject in subjects)
             {

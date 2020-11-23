@@ -20,6 +20,8 @@ namespace AbracadabraAPI.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<QuestionVote> QuestionVotes { get; set; }
+        public DbSet<AnswerVote> AnswerVotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +29,8 @@ namespace AbracadabraAPI.Data
             modelBuilder.Entity<Question>().ToTable("Question");
             modelBuilder.Entity<Answer>().ToTable("Answer");
             modelBuilder.Entity<Subject>().ToTable("Subject");
+            modelBuilder.Entity<QuestionVote>().ToTable("QuestionVote");
+            modelBuilder.Entity<AnswerVote>().ToTable("AnswerVote");
         }
     }
 }

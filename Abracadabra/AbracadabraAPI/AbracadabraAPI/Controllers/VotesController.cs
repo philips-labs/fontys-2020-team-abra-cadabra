@@ -1,0 +1,317 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AbracadabraAPI.Authentication;
+using AbracadabraAPI.Data;
+using AbracadabraAPI.Models;
+using AbracadabraAPI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace AbracadabraAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class VotesController : Controller
+    {
+        private readonly AbracadabraContext _context;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+
+        public VotesController(AbracadabraContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            _context = context;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+        }
+
+        // POST: api/votes/question
+        [HttpPost("question")]
+        [Authorize]
+        public async Task<IActionResult> PostQuestionVote(QuestionVoteViewModel model)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var question = await _context.Questions.Where(x => x.ID == model.QuestionId).FirstOrDefaultAsync();
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == model.QuestionId).FirstOrDefaultAsync();
+            if (vote != null)
+            {
+                return BadRequest("Question has already been voted on.");
+            }
+
+            var questionVote = new QuestionVote
+            {
+                QuestionId = model.QuestionId,
+                UserId = model.UserId,
+                Vote = model.Vote
+            };
+
+            _context.QuestionVotes.Add(questionVote);
+
+            if (model.Vote == 1)
+            {
+                question.Upvotes += 1;
+            }
+            else
+            {
+                question.Downvotes += 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PUT: api/votes/question
+        [HttpPut("question")]
+        [Authorize]
+        public async Task<IActionResult> PutQuestionVote(QuestionVoteViewModel model)
+        {
+            if (model.Vote != 1 && model.Vote != -1)
+            {
+                return BadRequest();
+            }
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var question = await _context.Questions.Where(x => x.ID == model.QuestionId).FirstOrDefaultAsync();
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == model.QuestionId).FirstOrDefaultAsync();
+            if (vote == null)
+            {
+                return NotFound("Question has not been voted on yet.");
+            }
+
+            if (vote.UserId != user.Id)
+            {
+                return Unauthorized();
+            }
+            
+            if (vote.Vote == model.Vote)
+            {
+                return BadRequest($"The vote already is {vote.Vote}");
+            }
+
+            var previousVote = vote.Vote;
+
+            vote.Vote = model.Vote;
+
+            if (previousVote == 1)
+            {
+                question.Upvotes -= 1;
+                question.Downvotes += 1;
+            }
+            else
+            {
+                question.Upvotes += 1;
+                question.Downvotes -= 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/votes/question
+        [HttpDelete("question")]
+        [Authorize]
+        public async Task<IActionResult> DeleteQuestionVote(QuestionVoteViewModel model)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var answer = await _context.Questions.Where(x => x.ID == model.QuestionId).FirstOrDefaultAsync();
+            if (answer == null)
+            {
+                return NotFound();
+            }
+
+            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == model.QuestionId).FirstOrDefaultAsync();
+            if (vote == null)
+            {
+                return NotFound();
+            }
+
+            _context.QuestionVotes.Remove(vote);
+
+            if (vote.Vote == 1)
+            {
+                answer.Upvotes -= 1;
+            }
+            else
+            {
+                answer.Downvotes -= 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // POST: api/votes/answer
+        [HttpPost("answer")]
+        [Authorize]
+        public async Task<IActionResult> PostAnswerVote(AnswerVoteViewModel model)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var answer = await _context.Answers.Where(x => x.ID == model.AnswerId).FirstOrDefaultAsync();
+            if (answer == null)
+            {
+                return NotFound();
+            }
+
+            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == model.AnswerId).FirstOrDefaultAsync();
+            if (vote != null)
+            {
+                return BadRequest("Answer has already been voted on.");
+            }
+
+            var answerVote = new AnswerVote
+            {
+                AnswerId = model.AnswerId,
+                UserId = model.UserId,
+                Vote = model.Vote
+            };
+
+            _context.AnswerVotes.Add(answerVote);
+
+            if (model.Vote == 1)
+            {
+                answer.Upvotes += 1;
+            }
+            else
+            {
+                answer.Downvotes += 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PUT: api/votes/answer
+        [HttpPut("answer")]
+        [Authorize]
+        public async Task<IActionResult> PutAnswerVote(AnswerVoteViewModel model)
+        {
+            if (model.Vote != 1 && model.Vote != -1)
+            {
+                return BadRequest();
+            }
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var answer = await _context.Answers.Where(x => x.ID == model.AnswerId).FirstOrDefaultAsync();
+            if (answer == null)
+            {
+                return NotFound();
+            }
+
+            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == model.AnswerId).FirstOrDefaultAsync();
+            if (vote == null)
+            {
+                return NotFound("Answer has not been voted on yet.");
+            }
+
+            if (vote.UserId != user.Id)
+            {
+                return Unauthorized();
+            }
+            
+            if (vote.Vote == model.Vote)
+            {
+                return BadRequest($"The vote already is {vote.Vote}");
+            }
+
+            var previousVote = vote.Vote;
+
+            vote.Vote = model.Vote;
+
+            if (previousVote == 1)
+            {
+                answer.Upvotes -= 1;
+                answer.Downvotes += 1;
+            }
+            else
+            {
+                answer.Upvotes += 1;
+                answer.Downvotes -= 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/votes/answer
+        [HttpDelete("answer")]
+        [Authorize]
+        public async Task<IActionResult> DeleteVote(AnswerVoteViewModel model)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var answer = await _context.Answers.Where(x => x.ID == model.AnswerId).FirstOrDefaultAsync();
+            if (answer == null)
+            {
+                return NotFound();
+            }
+
+            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == model.AnswerId).FirstOrDefaultAsync();
+            if (vote == null)
+            {
+                return NotFound();
+            }
+
+            _context.AnswerVotes.Remove(vote);
+
+            if (vote.Vote == 1)
+            {
+                answer.Upvotes -= 1;
+            }
+            else
+            {
+                answer.Downvotes -= 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+    }
+}

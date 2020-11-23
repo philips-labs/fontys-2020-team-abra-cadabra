@@ -178,6 +178,8 @@ namespace AbracadabraAPI.Controllers
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
                 SubjectID = subject.ID,
                 Category = subject.SubjectName,
+                Upvotes = 0,
+                Downvotes = 0
             };
 
             _context.Questions.Add(question);
@@ -188,7 +190,7 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -244,7 +246,7 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Questions/Cooking/unanswered[?pagesize=5]
         [HttpGet("{subject}/unanswered")]
-        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnanswered(string subject, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             var subjects = await _context.Subjects.Where(x => x.SubjectName == subject).ToListAsync();
             if (subjects == null)
@@ -269,7 +271,6 @@ namespace AbracadabraAPI.Controllers
 
             return models;
         }
-
 
         private bool QuestionExists(int id)
         {

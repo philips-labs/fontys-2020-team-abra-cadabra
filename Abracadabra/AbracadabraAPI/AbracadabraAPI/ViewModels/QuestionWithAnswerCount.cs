@@ -22,6 +22,10 @@ namespace AbracadabraAPI.ViewModels
 
         public DateTime DateTimeCreated { get; set; }
 
-        public int numberOfAnswers { get; set; }
+        public long Upvotes { get; set; }
+
+        public long Downvotes { get; set; }
+
+        public int NumberOfAnswers { get; set; }
     }
 }
