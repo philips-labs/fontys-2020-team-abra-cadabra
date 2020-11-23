@@ -1,65 +1,145 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+//react
+import React from 'react';
+import {useEffect} from 'react';
+import { signIn, signOut, useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+//bootstrap
+import { Container, Row, Col, Carousel} from 'react-bootstrap';
+//components
+import NavBar from 'src/components/NavBar';
+import SideBar from 'src/components/SideBar'
+import Dashboard_SubjectCard from 'src/components/Dashboard/Dashboard_SubjectCard';
+import Dashboard_ExpertCard from 'src/components/Dashboard/Dashboard_ExpertCard';
+import Dashboard_HotCarousel from 'src/components/Dashboard/Dashboard_HotCarousel';
+import Dashboard_BarChart from 'src/components/Dashboard/Dashboard_BarChart';
+import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
 
-export default function Home() {
+
+
+
+export default function Dashboard() {
+    const [ session, loading ] = useSession();
+    const router = useRouter();
+    const { date, time, wish } = useDate();
+  
+    if (loading) return null
+    // (
+    //   <>
+    //   <NavBar/>
+    //   <Container fluid className="h-100">
+    //   <Row className="h-100">
+    //     {/* Sidebar col xl={2} md={3} */}
+    //     <SideBar />
+    //     </Row>
+    //     </Container>
+    //   </>
+    // )
+  
+    if (!loading && !session) signIn('Credentials')
+  
+    if (!loading && session) {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      <NavBar/>
+      <Container fluid className="h-100">
+      <Row className="h-100">
+        {/* Sidebar col xl={2} md={3} */}
+        <SideBar />
+        {/*Dashboard Content */}
+          <Col xl={9} md={9} className="mx-auto">
+              {/* Greetings + time */}
+              <Row className="mt-4">
+                <Col md={6}><h3 className="WelcomingText">{wish} {session.user.name}</h3></Col>
+                <Col md={2}></Col>
+                <Col md={4}><h3 className="WelcomingText text-right">{date} {time}</h3></Col>
+              </Row>
+              {/* Push */}
+              <Row className="mt-2 mb-4">
+                </Row>
+              {/* Subjects & Hot right now */}
+              <Row className="mx-auto mb-4">
+                <Col md={6} xs={12} className="mb-4 pr-auto">
+                  {/* Title */}
+                  <Row className="mb-2 mx-auto">
+                    <Col>
+                      <Row className="border-bottom border-secondary Box">
+                        <Col md={8} className=""><h3 className="BoxTitle mb-1">Subjects</h3></Col>
+                        <Col md={4} className=""><a className="BoxTitleLink">see all</a></Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  {/* Content */}
+                  <Row className="mx-auto">
+                    {/* Subjects */}
+                    <Dashboard_SubjectCard SubjectName={"Cooking"} />
+                    <Dashboard_SubjectCard SubjectName={"Gaming"} />
+                    <Dashboard_SubjectCard SubjectName={"Subject"} />
+                    <Dashboard_SubjectCard SubjectName={"Subject"} />
+                  </Row>
+                </Col>
+                <Col md={6} xs={12} className="mb-4 pl-auto">
+                  {/* Title */}
+                  <Row className="mb-2 mx-auto">
+                    <Col>
+                      <Row className="border-bottom border-secondary Box">
+                        <Col md={8} className=""><h3 className="BoxTitle mb-1">Hot right now</h3></Col>
+                        <Col md={4} className=""><a className="BoxTitleLink">definition of hot</a></Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  {/* Content */}
+                  <Row className="CarouselRow mx-auto">
+                    {/* Hot carousel */}
+                    <Dashboard_HotCarousel />
+                  </Row>
+                </Col>
+              </Row>
+              {/* Hot by data & Expert verify */}
+              <Row className="mx-auto mb-4">
+                <Col md={6} xs={12} className="mb-4 pr-auto">
+                  {/* Title */}
+                  <Row className="mb-2 mx-auto">
+                    <Col>
+                      <Row className="border-bottom border-secondary Box">
+                        <Col md={8} className=""><h3 className="BoxTitle mb-1">Hot by data</h3></Col>
+                        <Col md={4} className=""><a className="BoxTitleLink">about this graph</a></Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  {/* Content */}
+                  <Row className="mx-auto">
+                    {/* Barchart of hot data */}
+                    <Col className="mt-2 p-0"><Dashboard_BarChart /></Col>
+                  </Row>
+                </Col>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+                <Col md={6} xs={12} className="mb-4 pl-auto">
+                  {/* Title */}
+                  <Row className="mb-2 mx-auto">
+                    <Col>
+                      <Row className="border-bottom border-secondary Box">
+                        <Col md={9} className=""><h3 className="BoxTitle mb-1">Experts awaiting verification</h3></Col>
+                        <Col md={3} className=""><a className="BoxTitleLink">View all</a></Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  {/* Content */}
+                  <Row className="mx-auto">
+                    {/* Experts to verify */}
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
+                  </Row>
+                </Col>
+              </Row>
+          </Col>
+      </Row>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+      </Container>
+    </>
   )
+  }
 }

@@ -1,6 +1,8 @@
 const { interopDefault } = require("next/dist/next-server/server/load-components");
-const subjectRouting = require('pages/subject/[subject]/index');
+const SubjectRouting = require('pages/subject/[subject]/index');
 
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import SubjectService from 'src/services/SubjectService';
 
 jest.mock('src/services/SubjectService');
@@ -16,7 +18,7 @@ describe("Subject routing tests", () => {
           });
 
         const params = {  };
-        const received = await subjectRouting.getServerSideProps({ params });
+        const received = await SubjectRouting.getServerSideProps({ params });
         expect(received.props.response).toEqual(404);
     });
 
@@ -33,7 +35,13 @@ describe("Subject routing tests", () => {
           });
 
         const params = { subject: 'cooking' };
-        const received = await subjectRouting.getServerSideProps({ params });
+        const received = await SubjectRouting.getServerSideProps({ params });
         expect(received.props.response.subjectName).toEqual('cooking');
     });
+
+    // it.only('Test if Navbar renders with subject name in it.', async () => { 
+    //     render(<subjectRouting />);
+    //     await waitFor( () => expect(screen.getByTestId("navbar")).toBeInTheDocument()  );
+    // });
+
 });

@@ -1,0 +1,124 @@
+.WelcomingText {
+    font-size: 1.6vw;
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 4vw;
+    }
+}
+
+.Box {
+    height: 2.5vw;
+}
+
+.BoxTitle {
+    color: $text-color;
+    font-size: 1.8vw;
+    position: absolute;
+    bottom: 0;
+    left: 2%;
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 4vw;
+    }
+}
+
+.BoxTitleLink {
+    color: $text-color;
+    text-decoration: underline;
+    font-size: 1vw;
+    position: absolute;
+    bottom: 0;
+    right: 2%;
+
+    &:hover {
+        color: darken($text-color, 25%);
+        cursor: pointer;
+    }
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 2vw;
+    }
+}
+
+.BoxContentLink {
+    color: $text-color;
+    text-decoration: underline;
+    font-size: 0.8vw;
+
+    &:hover {
+        color: darken($text-color, 25%);
+        cursor: pointer;
+    }
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 2vw;
+    }
+}
+
+.BoxContentText {
+    font-size: 1vw;
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 3vw;
+    }
+}
+
+.CarouselTitle {
+    font-size: 1vw;
+}
+
+.CarouselRow {
+    height: 75%;
+}
+
+.HotCarousel {
+    .carousel-inner {
+        height: 100%;
+
+        @media (max-width: 767px) {
+            // on mobile
+            height: 150px;
+        }
+    }
+    .carousel-caption {
+        position: absolute;
+        right: 15%;
+        bottom: 0;
+        left: 15%;
+        z-index: 10;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        color: #fff;
+        text-align: center;
+        font-size: 0.5vw;
+    }
+}
+
+.CarouselQuestions {
+    font-size: 0.6vw;
+
+    @media (max-width: 767px) {
+        // on mobile
+       font-size: 1.5vw;
+    }
+}
+
+.accept {
+    color: #28A745;
+    &:hover {
+        color: darken(#28A745, 5%);
+        cursor: pointer;
+    }
+}
+
+.decline {
+    color: #DC3545;
+    &:hover {
+        color: darken(#DC3545, 5%);
+        cursor: pointer;
+    }
+}
