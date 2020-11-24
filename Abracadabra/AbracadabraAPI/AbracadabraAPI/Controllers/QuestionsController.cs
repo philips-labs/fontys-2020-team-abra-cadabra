@@ -63,16 +63,17 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionViewModel>> GetQuestion(int id)
         {
             var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
+            if (question == null)
+            {
+                return NotFound();
+            }
 
             var user = await userManager.FindByIdAsync(question.UserID);
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
 
-            if (question == null)
-            {
-                return NotFound();
-            }
+ 
 
             foreach (Answer answer in answers)
             {
@@ -165,16 +166,18 @@ namespace AbracadabraAPI.Controllers
         [Authorize]
         public async Task<ActionResult<QuestionViewModel>> PostQuestion(QuestionViewModel questionViewModel)
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null)
-            {
+
+              var  user = await userManager.FindByNameAsync(User.Identity.Name);
+                if(user == null)
+                {
                 return Unauthorized();
-            }
+                }
+
             var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectSlug).FirstOrDefaultAsync();
 
-            var question = new Question
+            var questionToPost = new Question
             {
-                UserID = user.Id,
+                UserID = user.Id.ToString(),
                 Title = questionViewModel.Title,
                 Description = questionViewModel.Description,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
@@ -183,12 +186,12 @@ namespace AbracadabraAPI.Controllers
                 Downvotes = 0
             };
 
-            _context.Questions.Add(question);
+            _context.Questions.Add(questionToPost);
             await _context.SaveChangesAsync();
 
             var roles = await userManager.GetRolesAsync(user);
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null, subject, roles[0]));
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(questionToPost, user, null, subject, roles[0]));
         }
 
         // DELETE: api/Questions/5
@@ -196,12 +199,13 @@ namespace AbracadabraAPI.Controllers
         [Authorize]
         public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
+ 
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
+            
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
@@ -211,6 +215,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+       
+
 
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
@@ -230,6 +236,7 @@ namespace AbracadabraAPI.Controllers
                 return BadRequest();
             }
             List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {
@@ -249,9 +256,11 @@ namespace AbracadabraAPI.Controllers
             return models;
         }
 
+
         // GET: api/Questions/Cooking/unanswered[?pagesize=5]
         [HttpGet("{subjectName}/unanswered")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
         {
             var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
             if (subject == null)
@@ -275,6 +284,36 @@ namespace AbracadabraAPI.Controllers
             foreach (Question question in questions)
             {
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
+            }
+
+            return models;
+        }
+
+        // GET: api/Questions/Cooking/expert[?pagesize=5]
+        [HttpGet("{subjectName}/expert")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> SortingQuestionByExpert(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            if (subject == null)
+            {
+                return BadRequest();
+            }
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID && x.IsAnsweredByExpert == true).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
+
+            foreach (Question question in questions)
+            {
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
             return models;

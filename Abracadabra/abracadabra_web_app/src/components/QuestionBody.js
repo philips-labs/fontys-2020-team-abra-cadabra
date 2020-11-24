@@ -34,15 +34,12 @@ function Title({ question, subject, search, searchLength }) {
       <div className="container BodyQuestion-Top">
         <h1>{message}</h1>
         {question.map((question) => (
-          <div key={question.id} style={{ marginRight: "5px" }}>
+          <div key={question.id}>
             <div className="BoduQuestion-Total">
               <div className="BodyQuestion-CardBody">
-                <div className="row">
+                <div className='row'>
                   <div className="col-sm-10">
-                    <a
-                      className="BodyQuestionText"
-                      href={"/subject/" + subject + "/question/" + question.id}
-                    >
+                    <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + question.id}>
                       <h4> {question.title} </h4>
                     </a>
                   </div>
@@ -70,10 +67,17 @@ function Title({ question, subject, search, searchLength }) {
         ))}
       </div>
     );
-  } else {
+  } else if ({ search } != undefined) {
     return (
       <div className="container mt-5">
         <h1>No results for: {search}</h1>
+      </div>
+    );
+  }
+  else {
+    return (
+      <div className="container mt-5">
+        <h1>Pepega</h1>
       </div>
     );
   }
