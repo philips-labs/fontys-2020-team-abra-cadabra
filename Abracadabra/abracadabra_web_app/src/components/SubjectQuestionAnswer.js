@@ -36,7 +36,6 @@ export default function Answer({ answer }) {
 
     return date;
   }
-
   return (
     <>
       <Row>

@@ -87,7 +87,6 @@ namespace AbracadabraAPI.Mappers
             SubjectName = subject.SubjectName,
             QuestionTitles = titles,
         };
-
         public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
             new SubjectWithQuestionsViewModel
             {
