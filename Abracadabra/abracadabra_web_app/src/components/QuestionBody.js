@@ -38,7 +38,7 @@ function Title({ question, subject, search, searchLength }) {
             <div className="BoduQuestion-Total">
               <div className="BodyQuestion-CardBody">
                 <div className='row'>
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + q.id}>
                       <h4> {q.title} </h4>
                     </a>
@@ -46,6 +46,9 @@ function Title({ question, subject, search, searchLength }) {
                   <div className="col-sm-2">
                     {NrOfAnswers(q.numberOfAnswers)}
                   </div>
+                  <div className="col-sm-1">
+                  <p>{q.upvotes - q.downvotes}</p>
+              </div> 
                 </div>
               </div>
             </div>
