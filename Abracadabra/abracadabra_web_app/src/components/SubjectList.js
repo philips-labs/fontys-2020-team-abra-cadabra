@@ -9,6 +9,13 @@ import { Container, Row, Col } from "react-bootstrap";
 import ListItem from "src/components/SubjectListItem";
 
 const SubjectList = () => {
+
+  useEffect(() => {
+      //Get subjects
+  }, []);
+
+
+
   return (
     <>
       <div className="row h-5 m-0 pt-3">

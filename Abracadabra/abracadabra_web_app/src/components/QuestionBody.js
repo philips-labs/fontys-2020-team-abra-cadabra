@@ -33,18 +33,18 @@ function Title({ question, subject, search, searchLength }) {
     return (
       <div className="container BodyQuestion-Top">
         <h1>{message}</h1>
-        {question.map((question) => (
-          <div key={question.id}>
+        {questions.map((q) => (
+          <div key={q.id}>
             <div className="BoduQuestion-Total">
               <div className="BodyQuestion-CardBody">
                 <div className='row'>
                   <div className="col-sm-10">
-                    <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + question.id}>
-                      <h4> {question.title} </h4>
+                    <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + q.id}>
+                      <h4> {q.title} </h4>
                     </a>
                   </div>
                   <div className="col-sm-2">
-                    {NrOfAnswers(question.numberOfAnswers)}
+                    {NrOfAnswers(q.numberOfAnswers)}
                   </div>
                 </div>
               </div>
@@ -59,7 +59,7 @@ function Title({ question, subject, search, searchLength }) {
                   </span>
                 </div>
                 <div className="col-sm-3">
-                  <p>Posted on: {HumanDateTime(question.dateTimeCreated)}</p>
+                  <p>Posted on: {HumanDateTime(q.dateTimeCreated)}</p>
                 </div>
               </div>
             </div>
