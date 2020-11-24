@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:44343";
+
 const httpdefault = () => {
   return axios.create({
-    baseURL: " https://localhost:44343/api",
+    baseURL: url + "/api",
     headers: {
       "Content-type": "application/json",
     },
@@ -11,7 +13,7 @@ const httpdefault = () => {
 const httptoken = () => {
   const token = localStorage.getItem("Token");
   return axios.create({
-    baseURL: " https://localhost:44343/api",
+    baseURL: url + "/api",
     headers: {
       "Content-type": "application/json",
       Authorization: `Bearer ${token}`,

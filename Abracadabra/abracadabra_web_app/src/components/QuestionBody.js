@@ -29,7 +29,7 @@ function Title({ question, subject, search, searchLength }) {
     }
   }
 
-  if (question.length > 0) {
+  if (questions.length > 0) {
     return (
       <div className="container BodyQuestion-Top">
         <h1>{message}</h1>
