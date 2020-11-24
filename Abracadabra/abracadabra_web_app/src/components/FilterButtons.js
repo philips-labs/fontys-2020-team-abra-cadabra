@@ -21,15 +21,15 @@ function FilterButtons({ subjectTitle }) {
         <Col md="7">
           <Button
             variant="secondary"
-            className={route == undefined ? "btnSmall active" : "btnSmall"}
-            href={"/subject/" + subjectTitle}
+            className={route == "/trending" ? "btnSmall active" : "btnSmall"}
+            href={"/subject/" + subjectTitle + "/trending"}
           >
             <FontAwesomeIcon icon={faFireAlt} /> Hot
           </Button>
           <Button
             variant="secondary"
-            className={route == "new" ? "btnSmall active" : "btnSmall"}
-            href={"/subject/" + subjectTitle + "/new"}
+            className={route == undefined ? "btnSmall active" : "btnSmall"}
+            href={"/subject/" + subjectTitle + "/"}
           >
             <FontAwesomeIcon icon={faCertificate} /> New
           </Button>
