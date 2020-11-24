@@ -92,7 +92,7 @@ namespace AbracadabraAPI.Controllers
 
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
         [HttpGet("{subjectName}/trending")]
-        public async Task<ActionResult<IList<Question>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
             if (subject == null)
@@ -113,7 +113,14 @@ namespace AbracadabraAPI.Controllers
                 users.Add(user);
             }
 
-            return questions;
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+            foreach (var question in questions)
+            {
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
+            }
+
+            return models;
         }
 
         // PUT: api/Questions/5
