@@ -44,6 +44,32 @@ namespace AbracadabraAPI.Controllers
             return models;
         }
 
+        // GET: api/Subjects/cooking/searchBar/test
+        [HttpGet("{slug}/searchBar")]
+        public async Task<ActionResult<SubjectWithQuestionsViewModel>> GetSubjectBySearch([FromQuery] SearchViewModel searchViewModel)
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName == searchViewModel.subject).FirstOrDefaultAsync();
+            var questions = await _context.Questions.Where(x => x.SubjectID == subject.ID && x.Title.Contains(searchViewModel.search)).ToListAsync();
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> questionViewModels = new List<QuestionWithAnswerCount>();
+
+
+            foreach (Question question in questions)
+            {
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                questionViewModels.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
+            }
+
+            var model = Mapper.SubjectWithQuestionsToViewModel(subject, questionViewModels);
+            return model;
+        }
 
         // GET: api/Subjects/cooking
         [HttpGet("{slug}")]
@@ -54,7 +80,11 @@ namespace AbracadabraAPI.Controllers
             {
                 return NotFound();
             }
+
+            //List<Question> questions = await _context.Questions.Where(x => x.Category == slug).ToListAsync();
+
             List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).ToListAsync();
+
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {

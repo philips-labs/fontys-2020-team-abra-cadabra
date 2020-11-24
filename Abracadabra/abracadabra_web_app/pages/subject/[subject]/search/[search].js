@@ -4,10 +4,13 @@ import QuestionBody from "src/components/QuestionBody.js";
 import DefaultErrorPage from "next/error";
 import SubjectService from "src/services/SubjectService";
 import { useRouter } from "next/router";
+import { search } from "__mocks__/fileMock";
 
 function Subject({ subjectName, response }) {
   const router = useRouter();
   const { subject, search } = router.query;
+
+  console.log(subjectName);
 
   if (response === 404 || response == "failure" || response === 400) {
     return <DefaultErrorPage statusCode={404} />;
