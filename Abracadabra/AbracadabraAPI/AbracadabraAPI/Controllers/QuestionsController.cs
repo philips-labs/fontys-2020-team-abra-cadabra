@@ -103,7 +103,7 @@ namespace AbracadabraAPI.Controllers
             List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
-                .OrderByDescending(x => x.TrendingScore)
+                .OrderBy(x => x.TrendingScore)
                 .ToListAsync();
 
             List<ApplicationUser> users = new List<ApplicationUser>();
