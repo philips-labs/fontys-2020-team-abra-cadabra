@@ -17,6 +17,7 @@
     "bootstrap": "^4.5.3",
     "jest": "^26.6.1",
     "mdbreact": "^4.27.0",
+    "moment": "^2.29.1",
     "newsapi": "^2.4.1",
     "next": "^9.5.5",
     "next-compose-plugins": "^2.2.0",

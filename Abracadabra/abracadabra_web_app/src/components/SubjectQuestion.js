@@ -12,7 +12,7 @@ export default function Question({ question }) {
   function HumanDateTime(dateAndTime) {
     var date = new Date(dateAndTime + "Z");
     date = date.toUTCString().split(", ");
-    date = date[1].slice(0, 17);
+    date = date[1]?.slice(0, 17);
 
     return date;
   }
