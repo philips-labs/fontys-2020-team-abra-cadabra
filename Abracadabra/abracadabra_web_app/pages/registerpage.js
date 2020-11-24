@@ -1,10 +1,10 @@
 import Register from "../src/components/Register.js";
-import Navbar from "../src/components/Navbar.js";
+import BlankNavBar from 'src/components/BlankNavBar';
 
 function RegisterPage() {
   return (
     <>
-      <Navbar />
+        <BlankNavBar />
       <Register />
     </>
   );
