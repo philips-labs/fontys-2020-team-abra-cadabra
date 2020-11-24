@@ -1,32 +1,79 @@
 import { Card, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, onClick } from "react";
 import {
   faChevronUp,
   faChevronDown,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
+import VotesService from "../services/VotesService"
 
 export default function Answer({ answer }) {
-  const [voted, setVoted] = useState()
+  const [totalvotes, setTotalVotes] = useState(answer.upvotes + answer.downvotes)
+  const [voted, setVoted] = useState(false)
   const [vote, setVote] = useState({
     questionid: "",
     vote: ""
   })
-  const handleClick = (amount) => {
-    setVote({ ...comment, vote: amount })
+
+  const firstClick = (amount) => {
+    if (vote.vote == null) {
+      setVote({ ...vote, vote: amount })
+    }
+    else {
+      handleClick(amount)
+    }
   }
-  
-  
+  const handleClick = (amount) => {
+    if (vote.vote == amount) {
+      handleVoteDelete()
+    }
+    else {
+      setVote({ ...vote, vote: amount })
+    }
+  }
+
+
+  useEffect(() => {
+    if (voted == false){
+    handlePost()
+    setVoted(true)
+    }
+    else {
+      handleVotePut()
+    }
+  }, [vote.vote]);
+
   const handlePost = () => {
-      VotesService.PostVoteAnswer(vote).then((res) => {
-          console.log(res);
-          console.log(res.data);
-      })
-          .catch((error) => {
-              console.log(error.response.data);
-          });
+    VotesService.PostVoteAnswer(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
   };
+
+  const handleVoteDelete = () => {
+    VotesService.DeleteVoteAnswer(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+  const handleVotePut = () => {
+    VotesService.PutVoteAnswer(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
+
   return (
     <>
       <Row>
@@ -38,11 +85,12 @@ export default function Answer({ answer }) {
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
-                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} />
-                  <p>100</p>
+                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} />
+                  <p>{totalvotes}</p>
                   <FontAwesomeIcon
                     className="votingArrow"
                     icon={faChevronDown}
+                    onClick={() => firstClick(-1)}
                   />
                 </Col>
               </Row>
