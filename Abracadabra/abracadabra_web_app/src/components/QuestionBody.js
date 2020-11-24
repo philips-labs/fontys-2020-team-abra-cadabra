@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { slice } from "__mocks__/fileMock";
 
 function Title({ question, subject, search, searchLength }) {
@@ -44,7 +46,21 @@ function Title({ question, subject, search, searchLength }) {
                     </a>
                   </div>
                   <div className="col-sm-2">
-                    {NrOfAnswers(q.numberOfAnswers)}
+                    <div className="d-flex flex-column">
+                      {NrOfAnswers(q.numberOfAnswers)}
+                      {q.isAnsweredByExpert ?
+                        <OverlayTrigger
+                          placement='bottom'
+                          overlay={
+                            <Tooltip>
+                              Answered by an Expert
+                            </Tooltip>
+                          }
+                        >
+                          <FontAwesomeIcon className="questionExpertTick" icon={faCheck} />
+                        </OverlayTrigger>
+                        : <></>}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -67,7 +83,7 @@ function Title({ question, subject, search, searchLength }) {
         ))}
       </div>
     );
-  } else if ({ search } != undefined) {
+  } else if (search != undefined) {
     return (
       <div className="container mt-5">
         <h1>No results for: {search}</h1>
@@ -77,7 +93,7 @@ function Title({ question, subject, search, searchLength }) {
   else {
     return (
       <div className="container mt-5">
-        <h1>Pepega</h1>
+        <h1>No Questions with that Filter</h1>
       </div>
     );
   }

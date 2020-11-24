@@ -35,6 +35,7 @@ namespace AbracadabraAPI.Mappers
             Description = question.Description,
             UserName = user.UserName,
             DateTimeCreated = question.DateTimeCreated,
+            IsAnsweredByExpert = question.IsAnsweredByExpert,
             NumberOfAnswers = number,
         };
 

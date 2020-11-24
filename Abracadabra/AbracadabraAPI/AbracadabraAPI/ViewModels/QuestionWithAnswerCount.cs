@@ -28,6 +28,8 @@ namespace AbracadabraAPI.ViewModels
 
         public long Downvotes { get; set; }
 
+        public bool IsAnsweredByExpert { get; set; }
+
         public int NumberOfAnswers { get; set; }
     }
 }

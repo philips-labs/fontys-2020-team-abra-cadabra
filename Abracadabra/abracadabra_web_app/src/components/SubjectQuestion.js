@@ -1,7 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
-import moment from "moment";
 import {
   faChevronUp,
   faChevronDown,
@@ -51,8 +50,8 @@ export default function Question({ question }) {
                       icon={faCheck}
                     />
                   ) : (
-                    <></>
-                  )}
+                      <></>
+                    )}
                 </p>
               </Col>
             </Row>
