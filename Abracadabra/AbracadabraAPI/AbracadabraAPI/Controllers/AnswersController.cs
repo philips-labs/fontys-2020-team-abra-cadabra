@@ -124,8 +124,6 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            var roles = await userManager.GetRolesAsync(user);
-
             return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, roles[0]));
         }
 
