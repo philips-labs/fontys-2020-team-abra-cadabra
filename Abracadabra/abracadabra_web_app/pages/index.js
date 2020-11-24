@@ -25,9 +25,11 @@ function HomePage() {
               />
             </div>
             <div className="moon_container moon1">
-              <div className="moon moon1 box leftSideTalk" id="BigSubject">
-                Big Subject
-              </div>
+              <a href="subject/crafting">
+                <div className="moon moon1 box leftSideTalk" id="BigSubject">
+                  Crafting
+                </div>
+              </a>
             </div>
             <div className="moon_container moon2">
               <a href="subject/cooking">
@@ -41,9 +43,14 @@ function HomePage() {
             </div>{" "}
             {/*h2 className='SubjectTitle'></h3> */}
             <div className="moon_container moon3">
-              <div className="moon moon3 box topMiddleTalk2" id="MediumSubject">
-                Medium Subject
-              </div>
+              <a href="subject/designing">
+                <div
+                  className="moon moon3 box topMiddleTalk2"
+                  id="MediumSubject"
+                >
+                  Designing
+                </div>
+              </a>
             </div>
             <div className="moon_container moon4">
               <a href="subject/gaming">
@@ -51,16 +58,24 @@ function HomePage() {
               </a>
             </div>
             <div className="moon_container moon5">
-              <div className="moon moon5 box rightSideTalk">Subject</div>
+              <a href="subject/maths">
+                <div className="moon moon5 box rightSideTalk">Maths</div>
+              </a>
             </div>
             <div className="moon_container moon6">
-              <div className="moon moon6 box rightBottomTalk">Subject</div>
+              <a href="subject/geography">
+                <div className="moon moon6 box rightBottomTalk">Geography</div>
+              </a>
             </div>
             <div className="moon_container moon7">
-              <div className="moon moon7 box bottomMiddleTalk">Subject</div>
+              <a href="subject/history">
+                <div className="moon moon7 box bottomMiddleTalk">History</div>
+              </a>
             </div>
             <div className="moon_container moon8">
-              <div className="moon moon8 box bottomMiddleTalk">Subject</div>
+              <a href="subject/cinema">
+                <div className="moon moon8 box bottomMiddleTalk">Cinema</div>
+              </a>
             </div>
           </div>
         </div>

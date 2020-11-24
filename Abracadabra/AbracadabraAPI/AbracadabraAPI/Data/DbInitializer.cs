@@ -137,6 +137,7 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[2],
                     Title="How to make spaghetti?",
                     Description="How do I make spaghetti?",
+                    IsAnsweredByExpert = true,
                     SubjectID=1,
                     DateTimeCreated=DateTime.Now.AddHours(4),
                     Upvotes = 146,
@@ -353,23 +354,23 @@ namespace AbracadabraAPI.Data
             {
                 new Answer
                 {
-                    UserID=userIds[0],
+                    UserID=userIds[2],
                     QuestionID=1,
-                    AnswerContent="Post content 1",
+                    AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
                     DateTimeCreated=DateTime.Parse("2020-09-18 17:12"),
                 },
                 new Answer
                 {
                     UserID=userIds[1],
                     QuestionID=1,
-                    AnswerContent="Post content 2",
+                    AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
                     DateTimeCreated=DateTime.Parse("2020-10-01 12:56"),
                 },
                 new Answer
                 {
                     UserID=userIds[2],
                     QuestionID=2,
-                    AnswerContent="Post content 1",
+                    AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
                     DateTimeCreated=DateTime.Parse("2020-9-19-12:00"),
                 },
             };

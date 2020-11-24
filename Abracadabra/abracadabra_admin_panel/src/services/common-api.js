@@ -1,7 +1,7 @@
 //process.env.APP_URL
 import axios from "axios";
 
-const url = process.env.NEXT_PUBLIC_API_URL || "http://10.211.55.3:45455";
+const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:44343/";
 
 const httpdefault = () => {
   const https = require("https");
@@ -13,14 +13,14 @@ const httpdefault = () => {
   });
 };
 const httptoken = () => {
-  const token = localStorage.getItem('Token');
+  const token = localStorage.getItem("Token");
   return axios.create({
     baseURL: process.env.API_URL + "/api",
     headers: {
       "Content-type": "application/json",
-      'Authorization': `Bearer ${token}` 
-  }
-})
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export default {
