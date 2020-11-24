@@ -278,6 +278,8 @@ namespace AbracadabraAPI.Controllers
 
             return models;
         }
+
+        // GET: api/Questions/Cooking/expert[?pagesize=5]
         [HttpGet("{subjectName}/expert")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> SortingQuestionByExpert(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
 
@@ -300,7 +302,8 @@ namespace AbracadabraAPI.Controllers
 
             foreach (Question question in questions)
             {
-                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
             return models;

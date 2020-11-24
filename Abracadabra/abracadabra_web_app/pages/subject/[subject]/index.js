@@ -17,11 +17,11 @@ function Subject({ subjectName, response }) {
 
   return (
     <>
-      <body className="BodyQuestion">
+      <div className="BodyQuestion">
         <Navbar subjectTitle={subjectName} />
         <FilterButtons subjectTitle={subjectName} />
         <QuestionBody question={response.questions} subject={subjectName} />
-      </body>
+      </div>
     </>
   );
 }

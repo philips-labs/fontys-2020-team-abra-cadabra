@@ -80,7 +80,6 @@ namespace AbracadabraAPI.Data
                 new Question
                 {
                     UserID=userIds[1],
-                    IsAnsweredByExpert = true,
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     SubjectID=2,
@@ -314,6 +313,7 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[2],
                     Title="The 'King' title",
                     Description="Where did the title 'King' originate from?",
+                    IsAnsweredByExpert = true,
                     SubjectID=6,
                     DateTimeCreated=DateTime.Now.AddHours(4),
                     Upvotes = 426,

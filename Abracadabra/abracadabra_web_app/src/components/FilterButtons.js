@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function FilterButtons({ subjectTitle }) {
     return (
-        <div class="rounded container">
+        <div className="rounded container">
             <Row>
                 <Col md="7">
                     <Button variant="secondary" className="btnSmall" href={'/subject/' + subjectTitle + '/new'}><FontAwesomeIcon icon={faCertificate} /> New</Button>
@@ -15,7 +15,7 @@ function FilterButtons({ subjectTitle }) {
                 <Col md="5">
                     <Button variant="secondary" className="btnBig" href={'/subject/' + subjectTitle + '/unanswered'}><FontAwesomeIcon icon={faCommentSlash} /> Unanswered</Button>
                     <Button variant="secondary" className="btnBig"><FontAwesomeIcon icon={faComment} /> Answered</Button>
-                    <Button variant="secondary" className="btnBig"><FontAwesomeIcon icon={faUserGraduate} /> Expert Answered</Button>
+                    <Button variant="secondary" className="btnBig" href={'/subject/' + subjectTitle + '/expert'}><FontAwesomeIcon icon={faUserGraduate} /> Expert Answered</Button>
                 </Col>
             </Row>
         </div>

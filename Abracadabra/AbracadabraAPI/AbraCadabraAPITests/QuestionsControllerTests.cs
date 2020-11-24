@@ -74,7 +74,7 @@ namespace AbraCadabraAPITests
             var response = await _client.GetAsync("api/Questions/3");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
-      
+
         [Fact]
         public async Task Get_Request_Order_By_New_Unanswered()
         {
@@ -104,7 +104,6 @@ namespace AbraCadabraAPITests
                 Description = "How do I  prepare scallops?",
                 DateTimeCreated = DateTime.Parse("2020-11-19-12:00"),
                 SubjectID = 1,
-                Category = "Cooking",
 
             }), Encoding.UTF8, "application/json"));
 
@@ -114,7 +113,7 @@ namespace AbraCadabraAPITests
         [Fact]
         public async Task Get_Request_Order_By_New()
         {
-            
+
             var response = await _client.GetAsync("api/Questions/Cooking/new");
             var questions = JsonConvert.DeserializeObject<Question[]>(await response.Content.ReadAsStringAsync());
 
@@ -127,7 +126,7 @@ namespace AbraCadabraAPITests
             //System.Diagnostics.Debugger.Launch();
             string data = JsonConvert.SerializeObject(new
             {
-                
+
                 Email = "admin@gmail.com",
                 Password = "Password@1",
             });
@@ -139,7 +138,7 @@ namespace AbraCadabraAPITests
             var login = await _client.PostAsync("api/authenticate/login", content);
 
 
-        
+
 
             var response = await _client.DeleteAsync("api/Questions/1");
 
