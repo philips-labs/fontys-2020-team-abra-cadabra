@@ -18,17 +18,17 @@ function FilterButtons({ subjectTitle }) {
   return (
     <div className="rounded container">
       <Row>
-        <Col md="7">
+        <Col md="5">
           <Button
             variant="secondary"
-            className={route == "/trending" ? "btnSmall active" : "btnSmall"}
+            className={route == "/trending" ? "btnSmall active mr-2" : "btnSmall mr-2"}
             href={"/subject/" + subjectTitle + "/trending"}
           >
             <FontAwesomeIcon icon={faFireAlt} /> Hot
           </Button>
           <Button
             variant="secondary"
-            className={route == undefined ? "btnSmall active" : "btnSmall"}
+            className={route == undefined ? "btnSmall active mr-2" : "btnSmall mr-2"}
             href={"/subject/" + subjectTitle + "/"}
           >
             <FontAwesomeIcon icon={faCertificate} /> New
@@ -41,17 +41,17 @@ function FilterButtons({ subjectTitle }) {
             <FontAwesomeIcon icon={faChartLine} /> Top
           </Button>
         </Col>
-        <Col md="5">
+        <Col md="7" className="d-flex justify-content-end">
           <Button
             variant="secondary"
-            className={route == "unanswered" ? "btnBig active" : "btnBig"}
+            className={route == "unanswered" ? "btnBig active mr-2" : "btnBig mr-2"}
             href={"/subject/" + subjectTitle + "/unanswered"}
           >
             <FontAwesomeIcon icon={faCommentSlash} /> Unanswered
           </Button>
           <Button
             variant="secondary"
-            className={route == "answered" ? "btnBig active" : "btnBig"}
+            className={route == "answered" ? "btnBig active mr-2" : "btnBig mr-2"}
           >
             <FontAwesomeIcon icon={faComment} /> Answered
           </Button>

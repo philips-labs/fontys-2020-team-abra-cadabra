@@ -1,11 +1,10 @@
-import { Nav } from "react-bootstrap";
 import Login from "../src/components/Login.js";
-import Navbar from "../src/components/Navbar.js";
+import BlankNavBar from 'src/components/BlankNavBar';
 
 function LoginPage() {
   return (
     <>
-      <Navbar />
+        <BlankNavBar />
       <Login />
     </>
   );
