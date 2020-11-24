@@ -23,7 +23,8 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
             Upvotes = question.Upvotes,
-            Downvotes = question.Downvotes
+            Downvotes = question.Downvotes,
+            UserRole = question
         };
 
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
@@ -70,6 +71,7 @@ namespace AbracadabraAPI.Mappers
                DateTimeCreated = user.DateTimeCreated
            };
         }
+
         public static SubjectViewModel SubjectToViewModel(Subject subject) =>
         new SubjectViewModel
         {
