@@ -45,11 +45,11 @@ function Question({ data, subject }) {
 
       <div className="answerHead mx-auto">
         <h1>A</h1>
+        <QuestionCreateAnswer QID={question.id} />
         {/* Create component for answer tnx */}
         {answers.map((answer) => (
           <SubjectAnswer key={answer.id} answer={answer} />
         ))}
-        <QuestionCreateAnswer QID={question.id} />
       </div>
     </>
   );

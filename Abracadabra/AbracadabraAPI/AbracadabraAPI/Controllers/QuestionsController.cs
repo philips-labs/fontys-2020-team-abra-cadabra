@@ -251,7 +251,11 @@ namespace AbracadabraAPI.Controllers
             {
                 return BadRequest();
             }
+
+            //List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
             List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
             {

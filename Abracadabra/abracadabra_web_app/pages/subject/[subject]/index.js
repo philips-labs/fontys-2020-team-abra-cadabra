@@ -1,12 +1,9 @@
-import { Container, Row, Col } from 'react-bootstrap';
-import Navbar from 'src/components/Navbar.js';
-import FilterNav from 'src/components/FilterNav';
-import QuestionBody from 'src/components/QuestionBody.js';
-import DefaultErrorPage from 'next/error';
-import SubjectService from 'src/services/SubjectService';
+import { Container, Row, Col } from "react-bootstrap";
+import Navbar from "src/components/Navbar.js";
+import QuestionBody from "src/components/QuestionBody.js";
+import DefaultErrorPage from "next/error";
+import SubjectService from "src/services/SubjectService";
 import FilterButtons from "src/components/FilterButtons";
-
-
 
 function Subject({ subjectName, response }) {
   console.log(response);
@@ -17,11 +14,9 @@ function Subject({ subjectName, response }) {
 
   return (
     <>
-      <body className="BodyQuestion">
-        <Navbar subjectTitle={subjectName} />
-        <FilterButtons subjectTitle={subjectName} />
-        <QuestionBody question={response.questions} subject={subjectName} />
-      </body>
+      <Navbar subjectTitle={subjectName} />
+      <FilterButtons subjectTitle={subjectName} />
+      <QuestionBody question={response.questions} subject={subjectName} />
     </>
   );
 }
@@ -29,6 +24,7 @@ function Subject({ subjectName, response }) {
 export default Subject;
 
 export async function getServerSideProps({ params }) {
+  console.log("test");
   // Fetch necessary data for the blog post using params.id
   let apiRes = null;
   try {

@@ -92,6 +92,5 @@ namespace AbracadabraAPI.Mappers
             SubjectName = subject.SubjectName,
             QuestionTitles = titles,
         };
-
     }
 }

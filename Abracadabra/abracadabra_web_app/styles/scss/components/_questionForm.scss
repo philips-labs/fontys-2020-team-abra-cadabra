@@ -1,0 +1,81 @@
+.questionForm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    width: 50vw;
+    background-color: $special-color;
+
+    @media (max-width: 1290px) { 
+        width: 60vw;
+    }
+
+    @media (max-width: 991.98px) { 
+        width: 80vw;
+        padding: 2rem;
+    }
+
+    @media (max-width: 767.98px) { 
+        width: 90vw;
+        padding: 1rem;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .buttonSubmit {
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        background: $tertiary-color;
+        color: white;
+        border: none;
+        width: 40vh;
+ 
+
+    
+      &:hover {
+         color: rgba(255, 255, 255, 0.445);
+         background: #266670;
+      }
+    }
+
+    .label {
+        font-size: 1.3rem;
+    }
+
+    .feedback {
+        font-size: 1rem;
+    }
+    /* tags */
+.tags-input{
+    background: none;
+      color: white;
+      border: none;
+      min-width: 0;
+      width: 50px;
+      font-size: 0.75rem;
+  }
+  .tags-input::placeholder {
+   color:rgba(255, 255, 255, 0.788);
+  }
+  .tags-button-remove {
+    border:none;
+    margin-left: 2px;
+  }
+  .tags-button-plus {
+    border:none;
+    margin-left: 2px;
+    padding-top: 0.55rem !important;
+  }
+  .tags-margin {
+    margin-right: 10px;
+    align-items: center;
+  }
+  /*  Create Question  */
+  .createquestion-title::placeholder {
+    font-size: 1rem;
+   }
+}

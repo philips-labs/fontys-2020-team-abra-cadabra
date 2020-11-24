@@ -5,7 +5,7 @@
 
 .box {
   border-radius: 30px;
-  background: #00bfb6;
+  background: #17a2b8;
   padding: 10%;
   text-align: center;
   font-weight: 600;
@@ -19,7 +19,7 @@
 }
 
 .box > h3 {
-    margin: 0;
+  margin: 0;
 }
 
 .box > h1 {
@@ -29,9 +29,9 @@
 .rightSideTalk:before {
   content: "";
   position: absolute;
-  border-left: 10px solid #00bfb6;
+  border-left: 10px solid #17a2b8;
   border-right: 10px solid transparent;
-  border-top: 10px solid #00bfb6;
+  border-top: 10px solid #17a2b8;
   border-bottom: 10px solid transparent;
   right: -8px;
   top: 6px;
@@ -45,13 +45,13 @@
   border-bottom: 10px solid transparent;
   right: -8px;
   top: 6px;
-} 
+}
 .leftSideTalk:before {
   content: "";
   position: absolute;
   border-left: 10px solid transparent;
-  border-right: 10px solid #00bfb6;
-  border-top: 10px solid #00bfb6;
+  border-right: 10px solid #17a2b8;
+  border-top: 10px solid #17a2b8;
   border-bottom: 10px solid transparent;
   left: -8px;
   top: 6px;
@@ -69,9 +69,9 @@
 .leftBottomTalk:before {
   content: "";
   position: absolute;
-  border-left: 10px solid #00bfb6;
+  border-left: 10px solid #17a2b8;
   border-right: 10px solid transparent;
-  border-top: 10px solid #00bfb6;
+  border-top: 10px solid #17a2b8;
   border-bottom: 10px solid transparent;
   left: 16px;
   bottom: -17px;
@@ -90,8 +90,8 @@
   content: "";
   position: absolute;
   border-left: 10px solid transparent;
-  border-right: 10px solid #00bfb6;
-  border-top: 10px solid #00bfb6;
+  border-right: 10px solid #17a2b8;
+  border-top: 10px solid #17a2b8;
   border-bottom: 10px solid transparent;
   right: 16px;
   bottom: -17px;
@@ -111,9 +111,9 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-right: 10px solid #00bfb6;
+  border-right: 10px solid #17a2b8;
   border-left: 10px solid transparent;
-  border-bottom: 10px solid #00bfb6;
+  border-bottom: 10px solid #17a2b8;
   border-top: 10px solid transparent;
   left: 50%;
   top: -17px;
@@ -135,9 +135,9 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 10px solid #00bfb6;
+  border-left: 10px solid #17a2b8;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid #00bfb6;
+  border-bottom: 10px solid #17a2b8;
   border-top: 10px solid transparent;
   left: 50%;
   top: -17px;
@@ -159,9 +159,9 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 10px solid #00bfb6;
+  border-left: 10px solid #17a2b8;
   border-right: 10px solid transparent;
-  border-top: 10px solid #00bfb6;
+  border-top: 10px solid #17a2b8;
   border-bottom: 10px solid transparent;
   left: 50%;
   bottom: -17px;
@@ -182,15 +182,15 @@
 /* VeryBigsSubject talk arrows */
 #VeryBigSubject.rightSideTalk {
   &:before {
-  content: "";
-  position: absolute;
-  border-left: 20px solid #00bfb6;
-  border-right: 20px solid transparent;
-  border-top: 20px solid #00bfb6;
-  border-bottom: 20px solid transparent;
-  right: -16px;
-  top: 6px;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    border-left: 20px solid #17a2b8;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #17a2b8;
+    border-bottom: 20px solid transparent;
+    right: -16px;
+    top: 6px;
+    z-index: -1;
   }
   &:hover:before {
     border-left: 20px solid rgba(0, 191, 210, 1);
@@ -201,15 +201,15 @@
 }
 #VeryBigSubject.leftSideTalk {
   &:before {
-  content: "";
-  position: absolute;
-  border-left: 20px solid transparent;
-  border-right: 20px solid #00bfb6;
-  border-top: 20px solid #00bfb6;
-  border-bottom: 20px solid transparent;
-  left: -16px;
-  top: 6px;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    border-left: 20px solid transparent;
+    border-right: 20px solid #17a2b8;
+    border-top: 20px solid #17a2b8;
+    border-bottom: 20px solid transparent;
+    left: -16px;
+    top: 6px;
+    z-index: -1;
   }
 
   &:hover:before {
@@ -221,15 +221,15 @@
 }
 #VeryBigSubject.leftBottomTalk {
   &:before {
-  content: "";
-  position: absolute;
-  border-left: 20px solid #00bfb6;
-  border-right: 20px solid transparent;
-  border-top: 20px solid #00bfb6;
-  border-bottom: 20px solid transparent;
-  left: 16px;
-  bottom: -25px;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    border-left: 20px solid #17a2b8;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #17a2b8;
+    border-bottom: 20px solid transparent;
+    left: 16px;
+    bottom: -25px;
+    z-index: -1;
   }
   &:hover:before {
     border-left: 20px solid rgba(0, 191, 210, 1);
@@ -237,18 +237,18 @@
     border-top: 20px solid rgba(0, 191, 210, 1);
     border-bottom: 20px solid transparent;
   }
-} 
+}
 #VeryBigSubject.rightBottomTalk {
   &:before {
-  content: "";
-  position: absolute;
-  border-left: 20px solid transparent;
-  border-right: 20px solid #00bfb6;
-  border-top: 20px solid #00bfb6;
-  border-bottom: 20px solid transparent;
-  right: 16px;
-  bottom: -25px;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    border-left: 20px solid transparent;
+    border-right: 20px solid #17a2b8;
+    border-top: 20px solid #17a2b8;
+    border-bottom: 20px solid transparent;
+    right: 16px;
+    bottom: -25px;
+    z-index: -1;
   }
   &:hover:before {
     border-left: 20px solid transparent;
@@ -259,17 +259,17 @@
 }
 #VeryBigSubject.topMiddleTalk {
   &:before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-right: 20px solid #00bfb6;
-  border-left: 20px solid transparent;
-  border-bottom: 20px solid #00bfb6;
-  border-top: 20px solid transparent;
-  left: 50%;
-  top: -25px;
-  z-index: -1;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-right: 20px solid #17a2b8;
+    border-left: 20px solid transparent;
+    border-bottom: 20px solid #17a2b8;
+    border-top: 20px solid transparent;
+    left: 50%;
+    top: -25px;
+    z-index: -1;
   }
   &:hover:before {
     border-right: 20px solid rgba(0, 191, 210, 1);
@@ -280,17 +280,17 @@
 }
 #VeryBigSubject.topMiddleTalk2 {
   &:before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 20px solid #00bfb6;
-  border-right: 20px solid transparent;
-  border-bottom: 20px solid #00bfb6;
-  border-top: 20px solid transparent;
-  left: 50%;
-  top: -25px;
-  z-index: -1;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 20px solid #17a2b8;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid #17a2b8;
+    border-top: 20px solid transparent;
+    left: 50%;
+    top: -25px;
+    z-index: -1;
   }
   &:hover:before {
     border-left: 20px solid rgba(0, 191, 210, 1);
@@ -301,17 +301,17 @@
 }
 #VeryBigSubject.bottomMiddleTalk {
   &:before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 20px solid #00bfb6;
-  border-right: 20px solid transparent;
-  border-top: 20px solid #00bfb6;
-  border-bottom: 20px solid transparent;
-  left: 50%;
-  bottom: -25px;
-  z-index: -1;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 20px solid #17a2b8;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #17a2b8;
+    border-bottom: 20px solid transparent;
+    left: 50%;
+    bottom: -25px;
+    z-index: -1;
   }
   &:hover:before {
     border-left: 20px solid rgba(0, 191, 210, 1);
@@ -321,143 +321,143 @@
   }
 }
 
-  /* BigSubject talk arrows */
-  #BigSubject.rightSideTalk {
-    &:before {
+/* BigSubject talk arrows */
+#BigSubject.rightSideTalk {
+  &:before {
     content: "";
     position: absolute;
-    border-left: 14px solid #00bfb6;
+    border-left: 14px solid #17a2b8;
     border-right: 14px solid transparent;
-    border-top: 14px solid #00bfb6;
+    border-top: 14px solid #17a2b8;
     border-bottom: 14px solid transparent;
     right: -12px;
     top: 6px;
     z-index: -1;
-    }
-    &:hover:before {
-      border-left: 14px solid rgba(0, 191, 210, 1);
-      border-right: 14px solid transparent;
-      border-top: 14px solid rgba(0, 191, 210, 1);
-      border-bottom: 14px solid transparent;
-    }
   }
-  #BigSubject.leftSideTalk {
-    &:before {
+  &:hover:before {
+    border-left: 14px solid rgba(0, 191, 210, 1);
+    border-right: 14px solid transparent;
+    border-top: 14px solid rgba(0, 191, 210, 1);
+    border-bottom: 14px solid transparent;
+  }
+}
+#BigSubject.leftSideTalk {
+  &:before {
     content: "";
     position: absolute;
     border-left: 14px solid transparent;
-    border-right: 14px solid #00bfb6;
-    border-top: 14px solid #00bfb6;
+    border-right: 14px solid #17a2b8;
+    border-top: 14px solid #17a2b8;
     border-bottom: 14px solid transparent;
     left: -12px;
     top: 6px;
     z-index: -1;
-    }
-    &:hover:before {
-      border-left: 14px solid transparent;
-      border-right: 14px solid rgba(0, 191, 210, 1);
-      border-top: 14px solid rgba(0, 191, 210, 1);
-      border-bottom: 14px solid transparent;
-    }
-  }   
-  #BigSubject.leftBottomTalk {
-    &:before {
+  }
+  &:hover:before {
+    border-left: 14px solid transparent;
+    border-right: 14px solid rgba(0, 191, 210, 1);
+    border-top: 14px solid rgba(0, 191, 210, 1);
+    border-bottom: 14px solid transparent;
+  }
+}
+#BigSubject.leftBottomTalk {
+  &:before {
     content: "";
     position: absolute;
-    border-left: 14px solid #00bfb6;
+    border-left: 14px solid #17a2b8;
     border-right: 14px solid transparent;
-    border-top: 14px solid #00bfb6;
+    border-top: 14px solid #17a2b8;
     border-bottom: 14px solid transparent;
     left: 16px;
     bottom: -20px;
     z-index: -1;
-    }
-    &:hover:before {
-      border-left: 14px solid rgba(0, 191, 210, 1);
-      border-right: 14px solid transparent;
-      border-top: 14px solid rgba(0, 191, 210, 1);
-      border-bottom: 14px solid transparent;
-    }
-  }    
-  #BigSubject.rightBottomTalk {
-    &:before {
+  }
+  &:hover:before {
+    border-left: 14px solid rgba(0, 191, 210, 1);
+    border-right: 14px solid transparent;
+    border-top: 14px solid rgba(0, 191, 210, 1);
+    border-bottom: 14px solid transparent;
+  }
+}
+#BigSubject.rightBottomTalk {
+  &:before {
     content: "";
     position: absolute;
     border-left: 14px solid transparent;
-    border-right: 14px solid #00bfb6;
-    border-top: 14px solid #00bfb6;
+    border-right: 14px solid #17a2b8;
+    border-top: 14px solid #17a2b8;
     border-bottom: 14px solid transparent;
     right: 16px;
     bottom: -20px;
     z-index: -1;
-    }
-    &:hover:before {
-      border-left: 14px solid transparent;
-      border-right: 14px solid rgba(0, 191, 210, 1);
-      border-top: 14px solid rgba(0, 191, 210, 1);
-      border-bottom: 14px solid transparent;
-    }
   }
-  #BigSubject.topMiddleTalk {
-    &:before {
-    content: "";
-    width: 0px;
-    height: 0px;
-    position: absolute;
-    border-right: 14px solid #00bfb6;
+  &:hover:before {
     border-left: 14px solid transparent;
-    border-bottom: 14px solid #00bfb6;
-    border-top: 14px solid transparent;
-    left: 50%;
-    top: -20px;
-    z-index: -1;
-    }
-    &:hover:before {
-      border-right: 14px solid rgba(0, 191, 210, 1);
-      border-left: 14px solid transparent;
-      border-bottom: 14px solid rgba(0, 191, 210, 1);
-      border-top: 14px solid transparent;
-    }
+    border-right: 14px solid rgba(0, 191, 210, 1);
+    border-top: 14px solid rgba(0, 191, 210, 1);
+    border-bottom: 14px solid transparent;
   }
-  #BigSubject.topMiddleTalk2 {
-    &:before {
+}
+#BigSubject.topMiddleTalk {
+  &:before {
     content: "";
     width: 0px;
     height: 0px;
     position: absolute;
-    border-left: 14px solid #00bfb6;
-    border-right: 14px solid transparent;
-    border-bottom: 14px solid #00bfb6;
+    border-right: 14px solid #17a2b8;
+    border-left: 14px solid transparent;
+    border-bottom: 14px solid #17a2b8;
     border-top: 14px solid transparent;
     left: 50%;
     top: -20px;
     z-index: -1;
-    }
-    &:hover:before {
-      border-left: 14px solid rgba(0, 191, 210, 1);
-      border-right: 14px solid transparent;
-      border-bottom: 14px solid rgba(0, 191, 210, 1);
-      border-top: 14px solid transparent;
-    }
   }
-  #BigSubject.bottomMiddleTalk {
-    &:before {
+  &:hover:before {
+    border-right: 14px solid rgba(0, 191, 210, 1);
+    border-left: 14px solid transparent;
+    border-bottom: 14px solid rgba(0, 191, 210, 1);
+    border-top: 14px solid transparent;
+  }
+}
+#BigSubject.topMiddleTalk2 {
+  &:before {
     content: "";
     width: 0px;
     height: 0px;
     position: absolute;
-    border-left: 14px solid #00bfb6;
+    border-left: 14px solid #17a2b8;
     border-right: 14px solid transparent;
-    border-top: 14px solid #00bfb6;
+    border-bottom: 14px solid #17a2b8;
+    border-top: 14px solid transparent;
+    left: 50%;
+    top: -20px;
+    z-index: -1;
+  }
+  &:hover:before {
+    border-left: 14px solid rgba(0, 191, 210, 1);
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid rgba(0, 191, 210, 1);
+    border-top: 14px solid transparent;
+  }
+}
+#BigSubject.bottomMiddleTalk {
+  &:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 14px solid #17a2b8;
+    border-right: 14px solid transparent;
+    border-top: 14px solid #17a2b8;
     border-bottom: 14px solid transparent;
     left: 50%;
     bottom: -20px;
     z-index: -1;
-    }
-    &:hover:before {
-      border-left: 14px solid rgba(0, 191, 210, 1);
-      border-right: 14px solid transparent;
-      border-top: 14px solid rgba(0, 191, 210, 1);
-      border-bottom: 14px solid transparent;
-    }
   }
+  &:hover:before {
+    border-left: 14px solid rgba(0, 191, 210, 1);
+    border-right: 14px solid transparent;
+    border-top: 14px solid rgba(0, 191, 210, 1);
+    border-bottom: 14px solid transparent;
+  }
+}

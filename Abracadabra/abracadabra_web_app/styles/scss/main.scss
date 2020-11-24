@@ -1,0 +1,14 @@
+// Variables
+@import "./variables";
+
+//styles
+@import "./components/NavBar";
+@import "./components/SideBar";
+@import "./components/bubbles";
+@import "./components/navbarModal";
+@import "./components/question";
+@import "./components/questionForm";
+@import './components/filterButtons';
+
+//global style
+@import "./custom";
