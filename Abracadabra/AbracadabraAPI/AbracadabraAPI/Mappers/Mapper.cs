@@ -12,7 +12,7 @@ namespace AbracadabraAPI.Mappers
 {
     public static class Mapper
     {
-        public static QuestionViewModel QuestionToViewModel(Question question, ApplicationUser user, List<AnswerViewModel> viewModels, Subject subject) =>
+        public static QuestionViewModel QuestionToViewModel(Question question, ApplicationUser user, List<AnswerViewModel> viewModels, Subject subject, string role) =>
         new QuestionViewModel
         {
             ID = question.ID,
@@ -24,7 +24,7 @@ namespace AbracadabraAPI.Mappers
             AnswerViewModels = viewModels,
             Upvotes = question.Upvotes,
             Downvotes = question.Downvotes,
-            UserRole = question
+            UserRole = role
         };
 
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
@@ -46,7 +46,7 @@ namespace AbracadabraAPI.Mappers
             SubjectID = subject.ID
         };
 
-        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user) =>
+        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user, string role) =>
         new AnswerViewModel
         {
             ID = answer.ID,
@@ -55,7 +55,8 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = answer.DateTimeCreated,
             QuestionID = answer.QuestionID,
             Upvotes = answer.Upvotes,
-            Downvotes = answer.Downvotes
+            Downvotes = answer.Downvotes,
+            UserRole = role
         };
 
         public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
