@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
   faChevronUp,
@@ -9,13 +10,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Question({ question }) {
-  function HumanDateTime(dateAndTime) {
-    var date = new Date(dateAndTime + "Z");
+  const [date, setDate] = useState();
+
+  function HumanDateTime(dates) {
+    var date = new Date(dates + "Z");
     date = date.toUTCString().split(", ");
     date = date[1].slice(0, 17);
-
-    return date;
+    setDate(date);
   }
+
+  useEffect(() => {
+    if (question.dateTimeCreated != undefined) {
+      HumanDateTime(question.dateTimeCreated);
+    }
+  }, [question]);
+
   return (
     <>
       <div className="questionHead mx-auto">
@@ -52,7 +61,7 @@ export default function Question({ question }) {
                 <p>{question.description}</p>
               </Col>
               <Col md={3} className="text-right">
-                <p>Posted on: {HumanDateTime(question.dateTimeCreated)}</p>
+                <p>Posted on: {date}</p>
               </Col>
             </Row>
           </Col>
