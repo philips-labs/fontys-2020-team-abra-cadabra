@@ -62,7 +62,7 @@ namespace AbracadabraAPI.Services
             }
             catch(Exception ex)
             {
-                _logger.LogError("Database has not initialized!");
+                _logger.LogError("Database has not initialized!"+ex);
             }
         }
 

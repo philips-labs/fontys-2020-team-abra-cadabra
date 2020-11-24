@@ -57,7 +57,8 @@ function FilterButtons({ subjectTitle }) {
           </Button>
           <Button
             variant="secondary"
-            className={route == "expertAnswered" ? "btnBig active" : "btnBig"}
+            className={route == "expert" ? "btnBig active" : "btnBig"}
+            href={'/subject/' + subjectTitle + '/expert'}
           >
             <FontAwesomeIcon icon={faUserGraduate} /> Expert Answered
           </Button>

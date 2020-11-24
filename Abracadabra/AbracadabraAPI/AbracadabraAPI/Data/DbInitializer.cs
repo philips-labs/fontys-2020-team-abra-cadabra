@@ -21,7 +21,7 @@ namespace AbracadabraAPI.Data
             }
             List<string> userIds = new List<string>();
 
-           foreach(var user in context.Users)
+            foreach (var user in context.Users)
             {
                 userIds.Add(user.Id);
             }
@@ -62,8 +62,8 @@ namespace AbracadabraAPI.Data
                 context.Subjects.Add(subject);
             }
             context.SaveChanges();
-        
-        
+
+
             var questions = new Question[]
             {
                 new Question
@@ -313,6 +313,7 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[2],
                     Title="The 'King' title",
                     Description="Where did the title 'King' originate from?",
+                    IsAnsweredByExpert = true,
                     SubjectID=6,
                     DateTimeCreated=DateTime.Now.AddHours(4),
                     Upvotes = 426,

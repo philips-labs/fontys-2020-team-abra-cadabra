@@ -25,6 +25,8 @@ namespace AbracadabraAPI.Models
 
         public double? TrendingScore { get; set; }
 
+        public bool IsAnsweredByExpert { get; set; } = false;
+
         public int SubjectID { get; set; }
 
         public virtual List<Answer> Answers { get; set; }

@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200922123353_Initial.cs" />
     <Compile Remove="Migrations\20200922123353_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200922125533_Initial.cs" />
+    <Compile Remove="Migrations\20200922125533_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
