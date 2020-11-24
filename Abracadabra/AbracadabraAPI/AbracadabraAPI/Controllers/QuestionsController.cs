@@ -80,11 +80,14 @@ namespace AbracadabraAPI.Controllers
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
                 if (answer.QuestionID == question.ID)
                 {
-                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
+                    var rolesAnswer = await userManager.GetRolesAsync(answerUser);
+                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
                 }
             }
 
-            return Mapper.QuestionToViewModel(question, user, answerViewModels, null);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
         }
 
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
@@ -97,8 +100,6 @@ namespace AbracadabraAPI.Controllers
                 return BadRequest();
             }
 
-            // TODO: Category and subject? Why not a subject table with a foreign key relationship to question?
-            //Completed TODO - Kristian
             List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
@@ -181,12 +182,16 @@ namespace AbracadabraAPI.Controllers
                 Description = questionViewModel.Description,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
                 SubjectID = subject.ID,
+                Upvotes = 0,
+                Downvotes = 0
             };
 
             _context.Questions.Add(questionToPost);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(questionToPost, user, null, subject));
+            var roles = await userManager.GetRolesAsync(user);
+
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(questionToPost, user, null, subject, roles[0]));
         }
 
         // DELETE: api/Questions/5
@@ -216,7 +221,9 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return Mapper.QuestionToViewModel(question, user, null, null);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.QuestionToViewModel(question, user, null, null, roles[0]);
         }
 
         // GET: api/Questions/Cooking/new[?pagesize=5]
@@ -273,7 +280,6 @@ namespace AbracadabraAPI.Controllers
             }
 
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
-
 
             foreach (Question question in questions)
             {

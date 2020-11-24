@@ -20,8 +20,14 @@ namespace AbracadabraAPI.ViewModels
 
         public string UserName { get; set; }
 
+        public string UserRole { get; set; }
+
         public DateTime DateTimeCreated { get; set; }
 
-        public int numberOfAnswers { get; set; }
+        public long Upvotes { get; set; }
+
+        public long Downvotes { get; set; }
+
+        public int NumberOfAnswers { get; set; }
     }
 }

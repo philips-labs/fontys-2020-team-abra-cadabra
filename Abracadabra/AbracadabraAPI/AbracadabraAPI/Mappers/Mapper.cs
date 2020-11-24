@@ -12,7 +12,7 @@ namespace AbracadabraAPI.Mappers
 {
     public static class Mapper
     {
-        public static QuestionViewModel QuestionToViewModel(Question question, ApplicationUser user, List<AnswerViewModel> viewModels, Subject subject) =>
+        public static QuestionViewModel QuestionToViewModel(Question question, ApplicationUser user, List<AnswerViewModel> viewModels, Subject subject, string role) =>
         new QuestionViewModel
         {
             ID = question.ID,
@@ -22,16 +22,11 @@ namespace AbracadabraAPI.Mappers
             SubjectSlug = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
+            Upvotes = question.Upvotes,
+            Downvotes = question.Downvotes,
+            UserRole = role
         };
-        public static QuestionWithNoAnswersViewModel QuestionWithNoAnswersToViewModel(Question question, IdentityUser user) =>
-        new QuestionWithNoAnswersViewModel
-         {
-            ID = question.ID,
-            Title = question.Title,
-            Description = question.Description,
-            UserName = user.UserName,
-            DateTimeCreated = question.DateTimeCreated,
-        };
+
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
         new QuestionWithAnswerCount
         {
@@ -40,51 +35,51 @@ namespace AbracadabraAPI.Mappers
             Description = question.Description,
             UserName = user.UserName,
             DateTimeCreated = question.DateTimeCreated,
-            numberOfAnswers = number,
+            NumberOfAnswers = number,
         };
-       public static QuestionTitleViewModel QuestionToQuestionTitleViewModel(Subject subject, Question question) =>
-       new QuestionTitleViewModel
-       {
-           Title = question.Title,
-           TrendingScore = question.TrendingScore,
-           SubjectID = subject.ID
-       };
 
-        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user) =>
+        public static QuestionTitleViewModel QuestionToQuestionTitleViewModel(Subject subject, Question question) =>
+        new QuestionTitleViewModel
+        {
+            Title = question.Title,
+            TrendingScore = question.TrendingScore,
+            SubjectID = subject.ID
+        };
+
+        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user, string role) =>
         new AnswerViewModel
         {
             ID = answer.ID,
             AnswerContent = answer.AnswerContent,
             UserName = user.UserName,
             DateTimeCreated = answer.DateTimeCreated,
-            QuestionID = answer.QuestionID
+            QuestionID = answer.QuestionID,
+            Upvotes = answer.Upvotes,
+            Downvotes = answer.Downvotes,
+            UserRole = role
         };
+
         public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
         {
            return new UserViewModel
-            {
-                ID = user.Id,
-                Username = user.UserName,
-                Email = user.Email,
-                Role = role,
-                NrOfTimesReported = user.NrOfTimesReported,
-                LastLoggedIn = user.LastLoggedIn,
-                DateTimeCreated = user.DateTimeCreated
-            };
+           {
+               ID = user.Id,
+               Username = user.UserName,
+               Email = user.Email,
+               Role = role,
+               NrOfTimesReported = user.NrOfTimesReported,
+               LastLoggedIn = user.LastLoggedIn,
+               DateTimeCreated = user.DateTimeCreated
+           };
         }
+
         public static SubjectViewModel SubjectToViewModel(Subject subject) =>
         new SubjectViewModel
         {
              ID = subject.ID,
              SubjectName = subject.SubjectName,
         };
-        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
-        new SubjectWithQuestionsViewModel
-         {
-             ID = subject.ID,
-             SubjectName = subject.SubjectName,
-             Questions= viewModels,
-        };
+
         public static SubjectWithThreeQuestions SubjectWithThreeQuestionsToViewModel(Subject subject, List<string> titles) =>
         new SubjectWithThreeQuestions
         {
@@ -92,5 +87,12 @@ namespace AbracadabraAPI.Mappers
             SubjectName = subject.SubjectName,
             QuestionTitles = titles,
         };
+        public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
+            new SubjectWithQuestionsViewModel
+            {
+                ID = subject.ID,
+                SubjectName = subject.SubjectName,
+                Questions= viewModels,
+            };
     }
 }

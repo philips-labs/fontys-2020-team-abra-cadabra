@@ -1,12 +1,41 @@
 import { Card, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from "react";
 import {
   faChevronUp,
   faChevronDown,
   faFlag,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Answer({ answer }) {
+  const [voted, setVoted] = useState();
+  const [vote, setVote] = useState({
+    questionid: "",
+    vote: "",
+  });
+  const handleClick = (amount) => {
+    setVote({ ...comment, vote: amount });
+  };
+
+  const handlePost = () => {
+    VotesService.PostVoteAnswer(vote)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
+  function HumanDateTime(dateAndTime) {
+    var date = new Date(dateAndTime + "Z");
+    date = date.toUTCString().split(", ");
+    date = date[1].slice(0, 17);
+
+    return date;
+  }
   return (
     <>
       <Row>
@@ -39,9 +68,19 @@ export default function Answer({ answer }) {
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                 ></img>
-                <p className="answerUsername">{answer.userName}</p>
+                <p className="answerUsername">
+                  {answer.userName}
+                  {answer.userRole === "Expert" ? (
+                    <FontAwesomeIcon
+                      className="checkIcon ml-2"
+                      icon={faCheck}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </p>
               </div>
-              <p>Posted on: {answer.dateTimeCreated}</p>
+              <p>Posted on: {HumanDateTime(answer.dateTimeCreated)}</p>
             </Card.Footer>
           </Card>
         </Col>

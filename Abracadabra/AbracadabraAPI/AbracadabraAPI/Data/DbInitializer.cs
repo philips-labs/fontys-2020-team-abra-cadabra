@@ -55,7 +55,7 @@ namespace AbracadabraAPI.Data
                 {
                     SubjectName = "Cinema",
                 },
-                };
+            };
 
             foreach (Subject subject in subjects)
             {

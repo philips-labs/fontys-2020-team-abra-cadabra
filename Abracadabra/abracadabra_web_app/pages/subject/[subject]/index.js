@@ -25,6 +25,7 @@ function Subject({ subjectName, response }) {
 export default Subject;
 
 export async function getServerSideProps({ params }) {
+  console.log("test");
   // Fetch necessary data for the blog post using params.id
   let apiRes = null;
   try {
