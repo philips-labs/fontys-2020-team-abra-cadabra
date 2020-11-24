@@ -5,28 +5,31 @@ import {
   faChevronUp,
   faChevronDown,
   faFlag,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Answer({ answer }) {
-  const [voted, setVoted] = useState()
+  const [voted, setVoted] = useState();
   const [vote, setVote] = useState({
     questionid: "",
-    vote: ""
-  })
+    vote: "",
+  });
   const handleClick = (amount) => {
-    setVote({ ...comment, vote: amount })
-  }
-  
-  
-  const handlePost = () => {
-      VotesService.PostVoteAnswer(vote).then((res) => {
-          console.log(res);
-          console.log(res.data);
-      })
-          .catch((error) => {
-              console.log(error.response.data);
-          });
+    setVote({ ...comment, vote: amount });
   };
+
+  const handlePost = () => {
+    VotesService.PostVoteAnswer(vote)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+  if (answer.UserRole === Expert) {
+  }
   return (
     <>
       <Row>
@@ -59,7 +62,10 @@ export default function Answer({ answer }) {
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                 ></img>
-                <p className="answerUsername">{answer.userName}</p>
+                <p className="answerUsername">
+                  {answer.userName}
+                  <FontAwesomeIcon className="checkIcon ml-2" icon={faCheck} />
+                </p>
               </div>
               <p>Posted on: {answer.dateTimeCreated}</p>
             </Card.Footer>
