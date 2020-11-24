@@ -11,12 +11,14 @@ import VotesService from "../services/VotesService"
 export default function Answer({ answer }) {
   const [totalvotes, setTotalVotes] = useState(answer.upvotes + answer.downvotes)
   const [voted, setVoted] = useState(false)
+  const [rendered, setRendered] = useState(false)
   const [vote, setVote] = useState({
-    questionid: "",
+    AnswerId: answer.id,
     vote: ""
   })
 
   const firstClick = (amount) => {
+    setRendered(true)
     if (vote.vote == null) {
       setVote({ ...vote, vote: amount })
     }
@@ -35,6 +37,7 @@ export default function Answer({ answer }) {
 
 
   useEffect(() => {
+    if (rendered == true){
     if (voted == false){
     handlePost()
     setVoted(true)
@@ -42,6 +45,7 @@ export default function Answer({ answer }) {
     else {
       handleVotePut()
     }
+  }
   }, [vote.vote]);
 
   const handlePost = () => {
