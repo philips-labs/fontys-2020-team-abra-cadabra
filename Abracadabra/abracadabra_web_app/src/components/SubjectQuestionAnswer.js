@@ -28,8 +28,7 @@ export default function Answer({ answer }) {
         console.log(error.response.data);
       });
   };
-  if (answer.UserRole === Expert) {
-  }
+
   return (
     <>
       <Row>
@@ -64,7 +63,14 @@ export default function Answer({ answer }) {
                 ></img>
                 <p className="answerUsername">
                   {answer.userName}
-                  <FontAwesomeIcon className="checkIcon ml-2" icon={faCheck} />
+                  {answer.userRole === "Expert" ? (
+                    <FontAwesomeIcon
+                      className="checkIcon ml-2"
+                      icon={faCheck}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </p>
               </div>
               <p>Posted on: {answer.dateTimeCreated}</p>
