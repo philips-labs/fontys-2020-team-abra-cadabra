@@ -29,6 +29,14 @@ export default function Answer({ answer }) {
       });
   };
 
+  function HumanDateTime(dateAndTime) {
+    var date = new Date(dateAndTime + "Z");
+    date = date.toUTCString().split(", ");
+    date = date[1].slice(0, 17);
+
+    return date;
+  }
+
   return (
     <>
       <Row>
@@ -73,7 +81,7 @@ export default function Answer({ answer }) {
                   )}
                 </p>
               </div>
-              <p>Posted on: {answer.dateTimeCreated}</p>
+              <p>Posted on: {HumanDateTime(answer.dateTimeCreated)}</p>
             </Card.Footer>
           </Card>
         </Col>

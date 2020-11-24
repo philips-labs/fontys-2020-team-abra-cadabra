@@ -114,7 +114,7 @@ export default function NavBar({ subjectTitle }) {
         </Row>
         <Nav>
           <Row>
-            <Nav.Link href="/loginpage" className="ml-5 my-auto mr-2">
+            <Nav.Link href="/loginpage" className="ml-2 mr-5">
               Login
             </Nav.Link>
           </Row>

@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
 import {
   faChevronUp,
   faChevronDown,
@@ -8,6 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Question({ question }) {
+  function HumanDateTime(dateAndTime) {
+    var date = new Date(dateAndTime + "Z");
+    date = date.toUTCString().split(", ");
+    date = date[1].slice(0, 17);
+
+    return date;
+  }
   return (
     <>
       <div className="questionHead mx-auto">
@@ -44,7 +52,7 @@ export default function Question({ question }) {
                 <p>{question.description}</p>
               </Col>
               <Col md={3} className="text-right">
-                <p>Posted on: {question.dateTimeCreated}</p>
+                <p>Posted on: {HumanDateTime(question.dateTimeCreated)}</p>
               </Col>
             </Row>
           </Col>
