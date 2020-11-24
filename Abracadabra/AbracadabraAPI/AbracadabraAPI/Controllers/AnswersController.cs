@@ -43,7 +43,9 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            return Mapper.AnswerToViewModel(answer, user);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
         // PUT: api/Answers/5
@@ -115,7 +117,9 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user));
+            var roles = await userManager.GetRolesAsync(user);
+
+            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, roles[0]));
         }
 
         // DELETE: api/Answers/5
@@ -142,7 +146,9 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return Mapper.AnswerToViewModel(answer, user);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
         private bool AnswerExists(int id)

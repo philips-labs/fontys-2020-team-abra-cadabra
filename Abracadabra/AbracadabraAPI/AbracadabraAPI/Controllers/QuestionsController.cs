@@ -79,11 +79,14 @@ namespace AbracadabraAPI.Controllers
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
                 if (answer.QuestionID == question.ID)
                 {
-                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser));
+                    var rolesAnswer = await userManager.GetRolesAsync(answerUser);
+                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
                 }
             }
 
-            return Mapper.QuestionToViewModel(question, user, answerViewModels, null);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
         }
 
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
@@ -183,7 +186,9 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null, subject));
+            var roles = await userManager.GetRolesAsync(user);
+
+            return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(question, user, null, subject, roles[0]));
         }
 
         // DELETE: api/Questions/5
@@ -210,7 +215,9 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return Mapper.QuestionToViewModel(question, user, null, null);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.QuestionToViewModel(question, user, null, null, roles[0]);
         }
 
         // GET: api/Questions/Cooking/new[?pagesize=5]
