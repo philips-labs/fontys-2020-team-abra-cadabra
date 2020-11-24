@@ -54,7 +54,7 @@ namespace AbracadabraAPI.Controllers
             var questionVote = new QuestionVote
             {
                 QuestionId = model.QuestionId,
-                UserId = model.UserId,
+                UserId = user.Id,
                 Vote = model.Vote
             };
 
@@ -197,7 +197,7 @@ namespace AbracadabraAPI.Controllers
             var answerVote = new AnswerVote
             {
                 AnswerId = model.AnswerId,
-                UserId = model.UserId,
+                UserId = user.Id,
                 Vote = model.Vote
             };
 
