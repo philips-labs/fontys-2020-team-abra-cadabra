@@ -70,12 +70,16 @@ namespace AbracadabraAPI.Controllers
         // PUT: api/Users/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModel userViewModel)
+        public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModelWithPassword userViewModel)
         {
             var user = await userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
+            }
+            if(await userManager.CheckPasswordAsync(user, userViewModel.Password) == false)
+            {
+                return Unauthorized();
             }
 
             await userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin"});
