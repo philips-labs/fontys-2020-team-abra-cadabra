@@ -51,7 +51,7 @@ namespace AbracadabraAPI.Controllers
 
         // GET api/Users/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<UserViewModel>> GetUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
