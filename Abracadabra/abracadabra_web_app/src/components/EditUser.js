@@ -206,21 +206,33 @@ const EditUser = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col md={6}></Col>
                     <Col md={6}>
                       <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col>
+                        <Col md={8}>
+                          <Button
+                            style={{ width: "100%" }}
+                            className="mt-2 btn-secondary"
+                            href="/editpasswordpage"
+                          >
+                            Edit Password
+                          </Button>
+                        </Col>
+                        <Col md={4} className="mr-auto"></Col>
+                      </Row>
+                      <Row>
+                        <Col md={8}>
                           <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                             onClick={changeToActive}
                           >
-                            Edit
+                            Edit Account
                           </Button>
                         </Col>
+                        <Col md={4} className="mr-auto"></Col>
                       </Row>
                     </Col>
+                    <Col md={6}></Col>
                   </Row>
                 </Col>
               </Row>
