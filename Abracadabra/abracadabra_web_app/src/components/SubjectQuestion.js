@@ -57,12 +57,21 @@ export default function Question({ question }) {
               </Col>
             </Row>
             <Row className="ml-1">
-              <Col md={9}>
+              <Col md={8}>
                 <p>{question.description}</p>
               </Col>
               <Col md={3} className="text-right">
                 <p>Posted on: {date}</p>
               </Col>
+              <Col md={1} className="votingDiv">
+                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} />
+                  <p>1</p>
+                  <FontAwesomeIcon
+                    className="votingArrow"
+                    icon={faChevronDown}
+                    onClick={() => firstClick(-1)}
+                  />
+                </Col>
             </Row>
           </Col>
         </Row>

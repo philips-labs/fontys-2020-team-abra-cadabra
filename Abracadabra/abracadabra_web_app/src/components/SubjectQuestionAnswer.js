@@ -131,7 +131,7 @@ export default function Answer({ answer }) {
                   )}
                 </p>
               </div>
-              <p>Posted on: {HumanDateTime(answer.dateTimeCreated)}</p>
+              <p>Posted on: {answer.dateTimeCreated}</p>
             </Card.Footer>
           </Card>
         </Col>
