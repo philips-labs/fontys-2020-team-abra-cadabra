@@ -84,5 +84,51 @@ namespace AbracadabraAPI.Controllers
 
             return NoContent();
         }
+
+        // DELETE: api/FlaggedQuestions
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> UnflagQuestion(int questionId)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var flaggedQuestion = await _context.FlaggedQuestions.FindAsync(questionId);
+            if (flaggedQuestion == null)
+            {
+                return NotFound();
+            }
+
+            _context.FlaggedQuestions.Remove(flaggedQuestion);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/FlaggedAnswers
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> UnflagAnswer(int answerId)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var flaggedAnswer = await _context.FlaggedAnswers.FindAsync(answerId);
+            if (flaggedAnswer == null)
+            {
+                return NotFound();
+            }
+
+            _context.FlaggedAnswers.Remove(flaggedAnswer);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
