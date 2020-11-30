@@ -69,17 +69,13 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        [Authorize]
-        public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModelWithPassword userViewModel)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModel userViewModel)
         {
             var user = await userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
-            }
-            if(await userManager.CheckPasswordAsync(user, userViewModel.Password) == false)
-            {
-                return Unauthorized();
             }
 
             await userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin"});
@@ -88,6 +84,32 @@ namespace AbracadabraAPI.Controllers
             user.Email = userViewModel.Email;
 
             await userManager.AddToRoleAsync(user, userViewModel.Role);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/Users/Edit/5
+        [HttpPut("Edit/{id}")]
+        [Authorize]
+        public async Task<ActionResult<UserViewModel>> EditUserDetails(string id, UserViewModelWithPassword userViewModel)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.UserName = userViewModel.Username;
+            user.Email = userViewModel.Email;
 
             try
             {
