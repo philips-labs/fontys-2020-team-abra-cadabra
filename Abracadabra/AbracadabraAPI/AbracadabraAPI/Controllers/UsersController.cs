@@ -21,14 +21,14 @@ namespace AbracadabraAPI.Controllers
     public class UsersController : ControllerBase
     {
 
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AbracadabraContext _context;
 
         public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AbracadabraContext context)
         {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
             _context = context;
         }
 
@@ -37,12 +37,12 @@ namespace AbracadabraAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserViewModel>>> GetUsers([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var users = await userManager.Users.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            var users = await _userManager.Users.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<UserViewModel> viewModels = new List<UserViewModel>();
 
             foreach(ApplicationUser user in users)
             {
-                var roles = await userManager.GetRolesAsync(user);
+                var roles = await _userManager.GetRolesAsync(user);
                 viewModels.Add(Mapper.UserToViewModel(user, roles[0]));
             }
 
@@ -54,14 +54,14 @@ namespace AbracadabraAPI.Controllers
         [Authorize]
         public async Task<ActionResult<UserViewModel>> GetUser(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            var roles = await userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
 
             return Mapper.UserToViewModel(user, roles[0]);
         }
@@ -72,18 +72,18 @@ namespace AbracadabraAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModel userViewModel)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            await userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin"});
+            await _userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin"});
 
             user.UserName = userViewModel.Username;
             user.Email = userViewModel.Email;
 
-            await userManager.AddToRoleAsync(user, userViewModel.Role);
+            await _userManager.AddToRoleAsync(user, userViewModel.Role);
 
             try
             {
@@ -102,10 +102,14 @@ namespace AbracadabraAPI.Controllers
         [Authorize]
         public async Task<ActionResult<UserViewModel>> EditUserDetails(string id, UserViewModelWithPassword userViewModel)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
+            }
+            if (await _userManager.CheckPasswordAsync(user, userViewModel.Password) == false)
+            {
+                return Unauthorized();
             }
 
             user.UserName = userViewModel.Username;
@@ -128,13 +132,13 @@ namespace AbracadabraAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserViewModel>> DeleteUser(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            var roles = await userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
