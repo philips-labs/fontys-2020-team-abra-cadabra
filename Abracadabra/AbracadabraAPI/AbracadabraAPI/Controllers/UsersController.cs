@@ -108,6 +108,11 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
+            if (await userManager.CheckPasswordAsync(user, userViewModel.Password) == false)
+            {
+                return Unauthorized();
+            }
+
             user.UserName = userViewModel.Username;
             user.Email = userViewModel.Email;
 

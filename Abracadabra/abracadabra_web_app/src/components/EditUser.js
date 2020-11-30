@@ -111,21 +111,23 @@ const EditUser = () => {
       return;
     }
 
-    AccountService.editUser(editUser).then((response) => {
-      console.log(response);
-      setEditUserActive(!edituserActive);
-    });
+    AccountService.editUser(editUser)
+      .then((response) => {
+        console.log(response);
+        setEditUserActive(!edituserActive);
+      })
+      .catch((error) => {
+        setMessage("Credentials did not match");
+      });
   };
 
   const getUser = async () => {
     let userId = sessionStorage.getItem("UserId");
-    await AccountService.getUser(JSON.parse(JSON.stringify(userId)))
-      .then((response) => {
+    AccountService.getUser(JSON.parse(JSON.stringify(userId))).then(
+      (response) => {
         setEditUser(response.data);
-      })
-      .catch((err) => {
-        setMessage(err);
-      });
+      }
+    );
   };
 
   useEffect(() => {
