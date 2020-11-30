@@ -16,6 +16,14 @@ export default function Answer({ answer }) {
     AnswerId: answer.id,
     vote: ""
   })
+  useEffect(() => {
+    if (answer.vote != null)
+    {
+      setVoted(true)
+    }
+    
+  }, []);
+
 
   const firstClick = (amount) => {
     setRendered(true)
@@ -39,8 +47,7 @@ export default function Answer({ answer }) {
   useEffect(() => {
     if (rendered == true){
     if (voted == false){
-    handlePost()
-    setVoted(true)
+    submitPost()
     }
     else {
       handleVotePut()
@@ -48,7 +55,7 @@ export default function Answer({ answer }) {
   }
   }, [vote.vote]);
 
-  const handlePost = () => {
+  const submitPost = () => {
     VotesService.PostVoteAnswer(vote).then((res) => {
       console.log(res);
       console.log(res.data);
