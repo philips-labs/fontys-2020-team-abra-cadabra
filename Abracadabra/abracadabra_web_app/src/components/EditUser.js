@@ -19,6 +19,13 @@ const EditUser = () => {
     email: "",
     password: "",
   });
+
+  const [userName, setUserName] = useState({
+    id: "",
+    username: "",
+    email: "",
+    password: "",
+  });
   const [message, setMessage] = useState("");
   const [messagePassword, setMessagePassword] = useState([]);
   const [messageUserName, setMessageUserName] = useState([]);
@@ -81,6 +88,7 @@ const EditUser = () => {
     }
     //check if password is between 8 and 200 characters
     if (
+      editUser.password === undefined ||
       editUser.password.length < 8 ||
       editUser.password.length > 200 ||
       editUser.password.length === 0
@@ -109,6 +117,16 @@ const EditUser = () => {
       setMessageEmail(emailErrorList);
       return;
     }
+
+    AccountService.editUser(editUser)
+      .then((response) => {
+        console.log(response);
+        setEditUserActive(!edituserActive);
+        getUser();
+      })
+      .catch((error) => {
+        setMessage("Credentials did not match");
+      });
   };
 
   const getUser = async () => {
@@ -116,15 +134,9 @@ const EditUser = () => {
     AccountService.getUser(JSON.parse(JSON.stringify(userId))).then(
       (response) => {
         setEditUser(response.data);
-        // console.log(editUser);
+        setUserName(response.data);
       }
     );
-  };
-
-  const saveChanges = async () => {
-    AccountService.editUser(editUser).then((response) => {
-      console.log(response);
-    });
   };
 
   useEffect(() => {
@@ -139,7 +151,7 @@ const EditUser = () => {
               <Row>
                 <Col>
                   <h3 style={{ textAlign: "center" }}>
-                    Profile page for {editUser.username}
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
@@ -183,12 +195,12 @@ const EditUser = () => {
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
                         <Col>
-                          <Button
+                          {/* <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                           >
                             Change
-                          </Button>
+                          </Button> */}
                         </Col>
                       </Row>
                     </Col>
@@ -222,7 +234,7 @@ const EditUser = () => {
               <Row>
                 <Col>
                   <h3 style={{ textAlign: "center" }}>
-                    Profile page for {editUser.username}
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
@@ -309,7 +321,7 @@ const EditUser = () => {
                             <Button
                               style={{ width: "100%" }}
                               className="mt-2 btn-info"
-                              onClick={saveChanges}
+                              onClick={handleSubmit}
                               type="sumbit"
                             >
                               Save changes
@@ -324,6 +336,15 @@ const EditUser = () => {
                               Close
                             </Button>
                           </Col>
+                        </Row>
+                        <Row>
+                          <div
+                            className="text-danger mt-2 ml-3"
+                            role="alert"
+                            style={{ textAlign: "center" }}
+                          >
+                            {message}
+                          </div>
                         </Row>
                       </form>
                     </Col>
@@ -341,12 +362,12 @@ const EditUser = () => {
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
                         <Col>
-                          <Button
+                          {/* <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                           >
                             Change
-                          </Button>
+                          </Button> */}
                         </Col>
                       </Row>
                     </Col>

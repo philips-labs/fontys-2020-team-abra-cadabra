@@ -15,7 +15,7 @@ const getUser = (data) => {
 };
 
 const editUser = (data) => {
-  return http.httptoken().put("/users/" + data.id, data);
+  return http.httptoken().put("/users/edit/" + data.id, data);
 };
 
 export default {
