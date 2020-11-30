@@ -37,10 +37,6 @@ const EditUser = () => {
     console.log(editUser.id);
   };
 
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
   const handleSubmit = (event) => {
     var isValid = true;
     var passwordErrorList = [];
@@ -81,11 +77,6 @@ const EditUser = () => {
       isValid = false;
     }
 
-    //check if passwords match
-    if (confirmPassword !== editUser.password) {
-      passwordErrorList.push("Passwords don't match");
-      isValid = false;
-    }
     //check if password is between 8 and 200 characters
     if (
       editUser.password === undefined ||
