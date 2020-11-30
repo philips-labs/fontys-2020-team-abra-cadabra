@@ -29,7 +29,7 @@ return (
     <Row className="h-100">
       {/* Sidebar col xl={2} md={3} */}
       <SideBar />
-        {/*Dashboard Content */}
+        {/*Report Content */}
         <Col xl={9} md={9} className="mx-auto">
               {/* Greetings + time */}
               <Row className="mt-4">
