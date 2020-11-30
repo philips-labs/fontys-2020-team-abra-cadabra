@@ -21,6 +21,7 @@ export default function Dashboard() {
     // const router = useRouter();
     const { date, time, wish } = useDate();
     const [Subjects, setSubjects] = useState([]);
+    const Subject = {Name: "Cooking"};
 
     useEffect(() => {
       //Api call
@@ -137,11 +138,11 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="mx-auto">
                     {/* Experts to verify */}
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} />
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
+                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
                   </Row>
                 </Col>
               </Row>
