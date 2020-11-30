@@ -5,6 +5,7 @@ import {
   faChevronUp,
   faChevronDown,
   faFlag,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import VotesService from "../services/VotesService"
 
@@ -118,9 +119,19 @@ export default function Answer({ answer }) {
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                 ></img>
-                <p className="answerUsername">{answer.userName}</p>
+                <p className="answerUsername">
+                  {answer.userName}
+                  {answer.userRole === "Expert" ? (
+                    <FontAwesomeIcon
+                      className="checkIcon ml-2"
+                      icon={faCheck}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </p>
               </div>
-              <p>Posted on: {answer.dateTimeCreated}</p>
+              <p>Posted on: {HumanDateTime(answer.dateTimeCreated)}</p>
             </Card.Footer>
           </Card>
         </Col>

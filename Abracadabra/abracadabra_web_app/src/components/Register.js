@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUsers } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
 import Router from "next/router";
+//bootstrap
+import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
+//components
 
 const Register = () => {
   const [register, setRegister] = useState({
@@ -109,26 +112,26 @@ const Register = () => {
       });
   };
   return (
-    <div className=" container-fluid h-100">
-      <div className="row main my-auto">
-        <div className="main-login main-center">
-          <h2 className="text-center">Register</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text" style={{ width: "45px" }}>
-                  {" "}
-                  <FontAwesomeIcon icon={faUsers} />
-                </span>
-                <input
-                  onChange={handleChange}
-                  name="username"
-                  className="form-control"
-                  placeholder="Username"
-                  type="text"
-                />
-              </div>
-              <div>
+<>
+<Container className="LoginContainer">
+    <Row className="h-100 justify-content-center align-items-center">
+        <Col xl={6} md={8} className="LoginArea pb-3 rounded">
+            <Row className="mb-1 p-3">
+                <Col className="pl-0">
+                    <h4 className="font-weight-bold">Register</h4>
+                </Col>
+                <Col md={8} xs={6} className="text-right">
+                <a className="LoginLink" href="/loginpage">Already have an account? Login!</a>
+                </Col>
+            </Row>
+            <Row className="justify-content-center mb-2">
+                <Col md={8}>
+                <Form onSubmit={handleSubmit}>   
+                <Form.Group controlId="email" className="mb-4">
+                        <Form.Label className="font-weight-bold">Email</Form.Label>
+                        <Form.Control type="text" placeholder="Enter username"  onChange={handleChange} name="username" required/>
+                    </Form.Group>               
+                <div>
                 {messageUserName.map((message, index) => (
                   <div key={index}>
                     <small className="help-block text-danger">{message}</small>{" "}
@@ -136,22 +139,11 @@ const Register = () => {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text" style={{ width: "45px" }}>
-                  {" "}
-                  <FontAwesomeIcon icon={faEnvelope} />
-                </span>
-                <input
-                  onChange={handleChange}
-                  name="email"
-                  className="form-control"
-                  placeholder="Email"
-                />
-              </div>
-              <div>
+                    <Form.Group controlId="email" className="mb-4">
+                        <Form.Label className="font-weight-bold">Email</Form.Label>
+                        <Form.Control type="text" placeholder="Enter email" name="email" onChange={handleChange} required/>
+                    </Form.Group>
+                    <div>
                 {messageEmail.map((message, index) => (
                   <div key={index}>
                     <small className="help-block text-danger">{message}</small>{" "}
@@ -159,23 +151,11 @@ const Register = () => {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text" style={{ width: "45px" }}>
-                  {" "}
-                  <FontAwesomeIcon icon={faLock} />
-                </span>
-                <input
-                  onChange={handleChange}
-                  name="password"
-                  className="form-control"
-                  placeholder="Password"
-                  type="password"
-                />
-              </div>
-              <div>
+                    <Form.Group controlId="password" className="mb-4">
+                        <Form.Label className="font-weight-bold">Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter password" name="password" onChange={handleChange} required/>
+                    </Form.Group>
+                    <div>
                 {messagePassword.map((message, index) => (
                   <div key={index}>
                     <small className="help-block text-danger">{message}</small>{" "}
@@ -183,45 +163,29 @@ const Register = () => {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text" style={{ width: "45px" }}>
-                  {" "}
-                  <FontAwesomeIcon icon={faLock} />
-                </span>
-              </div>
-              <input
-                onChange={handleConfirmPasswordChange}
-                name="confirmPassword"
-                className="form-control"
-                placeholder="Confirm password"
-                type="password"
-              />
-            </div>
-            <div className="form-group ">
-              <button
-                type="sumbit"
-                className="btn btn-primary btn-lg btn-block login-button"
-              >
-                Register
-              </button>
-            </div>
-            <div className="login-register">
-              <a href="/loginpage">Login</a>
-            </div>
+                    <Form.Group controlId="password" className="mb-4">
+                        <Form.Label className="font-weight-bold">Repeat-Password</Form.Label>
+                        <Form.Control type="password" placeholder="Repeat password" onChange={handleConfirmPasswordChange} name="confirmPassword" required/>
+                    </Form.Group>
+                    <Form.Group controlId="LoginButton" className="mb-4">
+                       <Button type="submit" variant="info" className="btn-block">Register</Button>
+                    </Form.Group>
+                </Form>
+                </Col>
+            </Row>
+            <Row>
             <div
-              className="text-danger"
-              role="alert"
-              style={{ textAlign: "center" }}
-            >
-              {message}
-            </div>
-          </form>
+          className="text-danger mx-auto"
+          role="alert"
+          style={{ textAlign: "center" }}
+        >
+          {message}
         </div>
-      </div>
-    </div>
+            </Row>
+        </Col>
+    </Row>
+</Container>
+</>
   );
 };
 

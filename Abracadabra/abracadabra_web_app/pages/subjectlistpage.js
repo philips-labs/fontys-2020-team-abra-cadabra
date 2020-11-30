@@ -1,4 +1,3 @@
-import { Nav } from "react-bootstrap";
 import SubjectOverView from "../src/components/SubjectList.js";
 
 function SubjectListPage() {

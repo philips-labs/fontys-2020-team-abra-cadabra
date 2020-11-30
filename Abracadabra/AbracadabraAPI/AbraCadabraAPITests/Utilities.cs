@@ -38,7 +38,7 @@ namespace AbraCadabraAPITests
         {
             return new List<ApplicationUser>()
             {
-             new ApplicationUser(){Id = "1", UserName = "Ricardo", Email="Ricardo@gmail.com", PasswordHash="123123"},
+             new ApplicationUser(){Id = "1", UserName = "Ricardo", Email="Ricardo@gmail.com", PasswordHash="123123",},
              new ApplicationUser(){Id = "2", UserName = "Miloso", Email="Miloso@gmail.com", PasswordHash="123123"},
              new ApplicationUser(){Id = "3", UserName = "Henry", Email="Henry@gmail.com", PasswordHash="123123"},
             };

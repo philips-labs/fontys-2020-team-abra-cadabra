@@ -10,7 +10,7 @@ import {
   faArrowAltCircleUp,
   faArrowAltCircleDown,
   faAward,
-  faPencilAlt,
+  faPencilAlt, 
 } from "@fortawesome/free-solid-svg-icons";
 //component imports
 import Navbar from "src/components/Navbar.js";

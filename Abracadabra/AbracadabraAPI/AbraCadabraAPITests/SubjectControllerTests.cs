@@ -14,6 +14,8 @@ using AbracadabraAPI.Models;
 using FluentAssertions;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.Authorization.Policy;
 
 namespace AbraCadabraAPITests
 {
@@ -26,9 +28,16 @@ namespace AbraCadabraAPITests
         CustomWebApplicationFactory<Startup> factory)
         {
             _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            _client = factory.WithWebHostBuilder(builder =>
             {
-                AllowAutoRedirect = false
+                builder.ConfigureTestServices(services =>
+                {
+                    services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
+                });
+            }).CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false,
+
             });
         }
 
