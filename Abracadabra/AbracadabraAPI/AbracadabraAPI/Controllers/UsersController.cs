@@ -69,7 +69,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<UserViewModel>> PutUser(string id, UserViewModel userViewModel)
         {
             var user = await userManager.FindByIdAsync(id);

@@ -10,11 +10,17 @@ const Register = (data) => {
   return http.httpdefault().post("/authenticate/Register", data);
 };
 
-const Register = (data) => {
-  return http.httpdefault().post("/authenticate/Register", data);
+const getUser = (data) => {
+  return http.httptoken().get("/users/" + data);
+};
+
+const editUser = (data) => {
+  return http.httptoken().put("/users/" + data.id, data);
 };
 
 export default {
   Login,
   Register,
+  getUser,
+  editUser,
 };
