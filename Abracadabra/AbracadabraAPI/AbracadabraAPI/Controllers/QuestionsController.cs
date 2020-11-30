@@ -56,39 +56,6 @@ namespace AbracadabraAPI.Controllers
             return models;
         }
 
-        // GET: api/Questions/authorized
-        [HttpGet("authorized")]
-        [Authorize]
-        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsAuthorized([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
-        {
-            List<Question> questions = await _context.Questions.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
-
-            List<ApplicationUser> users = new List<ApplicationUser>();
-            foreach (var item in questions)
-            {
-                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
-
-                users.Add(auser);
-            }
-            
-            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            foreach (Question question in questions)
-            {
-                var questionVote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == question.ID).FirstOrDefaultAsync();
-                int vote;
-                if (questionVote != null)
-                    vote = questionVote.Vote;
-                else
-                    vote = 0;
-
-                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
-                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr, vote));
-            }
-
-            return models;
-        }
-
         // GET: api/Questions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<QuestionViewModel>> GetQuestion(int id)
@@ -103,22 +70,57 @@ namespace AbracadabraAPI.Controllers
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
-
- 
-
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
-                if (answer.QuestionID == question.ID)
-                {
-                    var rolesAnswer = await userManager.GetRolesAsync(answerUser);
-                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
-                }
+                var rolesAnswer = await userManager.GetRolesAsync(answerUser);
+                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
             }
 
             var roles = await userManager.GetRolesAsync(user);
 
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
+        }
+
+        // GET: api/Questions/authorized/5
+        [HttpGet("authorized/{id}")]
+        [Authorize]
+        public async Task<ActionResult<QuestionViewModel>> GetQuestionAuthorized(int id)
+        {
+            var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            var user = await userManager.FindByIdAsync(question.UserID);
+
+            var questionVote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == question.ID).FirstOrDefaultAsync();
+            int questionVoteByUser;
+            if (questionVote != null)
+                questionVoteByUser = questionVote.Vote;
+            else
+                questionVoteByUser = 0;
+
+            List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
+            List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+            foreach (Answer answer in answers)
+            {
+                var answerVote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == answer.ID).FirstOrDefaultAsync();
+                int answerVoteByUser;
+                if (answerVote != null)
+                    answerVoteByUser = answerVote.Vote;
+                else
+                    answerVoteByUser = 0;
+
+                var answerUser = await userManager.FindByIdAsync(answer.UserID);
+                var rolesAnswer = await userManager.GetRolesAsync(answerUser);
+                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0], answerVoteByUser));
+            }
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0], questionVoteByUser);
         }
 
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
