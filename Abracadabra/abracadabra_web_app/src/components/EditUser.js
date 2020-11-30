@@ -19,6 +19,13 @@ const EditUser = () => {
     email: "",
     password: "",
   });
+
+  const [userName, setUserName] = useState({
+    id: "",
+    username: "",
+    email: "",
+    password: "",
+  });
   const [message, setMessage] = useState("");
   const [messagePassword, setMessagePassword] = useState([]);
   const [messageUserName, setMessageUserName] = useState([]);
@@ -115,6 +122,7 @@ const EditUser = () => {
       .then((response) => {
         console.log(response);
         setEditUserActive(!edituserActive);
+        getUser();
       })
       .catch((error) => {
         setMessage("Credentials did not match");
@@ -126,6 +134,7 @@ const EditUser = () => {
     AccountService.getUser(JSON.parse(JSON.stringify(userId))).then(
       (response) => {
         setEditUser(response.data);
+        setUserName(response.data);
       }
     );
   };
@@ -142,7 +151,7 @@ const EditUser = () => {
               <Row>
                 <Col>
                   <h3 style={{ textAlign: "center" }}>
-                    Profile page for {editUser.username}
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
@@ -225,7 +234,7 @@ const EditUser = () => {
               <Row>
                 <Col>
                   <h3 style={{ textAlign: "center" }}>
-                    Profile page for {editUser.username}
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
