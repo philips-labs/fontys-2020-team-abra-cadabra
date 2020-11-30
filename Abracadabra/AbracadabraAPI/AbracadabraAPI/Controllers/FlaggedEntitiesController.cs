@@ -96,13 +96,17 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var flaggedQuestion = await _context.FlaggedQuestions.FindAsync(questionId);
-            if (flaggedQuestion == null)
+            List<FlaggedQuestion> flaggedQuestions = await _context.FlaggedQuestions.Where(x => x.QuestionId == questionId).ToListAsync();
+            if (flaggedQuestions == null)
             {
                 return NotFound();
             }
 
-            _context.FlaggedQuestions.Remove(flaggedQuestion);
+            foreach (FlaggedQuestion question in flaggedQuestions)
+            {
+                _context.FlaggedQuestions.Remove(question);
+            }
+
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -119,13 +123,17 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var flaggedAnswer = await _context.FlaggedAnswers.FindAsync(answerId);
-            if (flaggedAnswer == null)
+            List<FlaggedAnswer> flaggedAnswers = await _context.FlaggedAnswers.Where(x => x.AnswerId == answerId).ToListAsync();
+            if (flaggedAnswers == null)
             {
                 return NotFound();
             }
 
-            _context.FlaggedAnswers.Remove(flaggedAnswer);
+            foreach (FlaggedAnswer answer in flaggedAnswers)
+            {
+                _context.FlaggedAnswers.Remove(answer);
+            }
+
             await _context.SaveChangesAsync();
 
             return NoContent();
