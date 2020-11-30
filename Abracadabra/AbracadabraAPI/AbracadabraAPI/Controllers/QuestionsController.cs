@@ -82,47 +82,6 @@ namespace AbracadabraAPI.Controllers
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
         }
 
-        // GET: api/Questions/authorized/5
-        [HttpGet("authorized/{id}")]
-        [Authorize]
-        public async Task<ActionResult<QuestionViewModel>> GetQuestionAuthorized(int id)
-        {
-            var question = await _context.Questions.Where(x => x.ID == id).FirstOrDefaultAsync();
-            if (question == null)
-            {
-                return NotFound();
-            }
-
-            var user = await userManager.FindByIdAsync(question.UserID);
-
-            var questionVote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == question.ID).FirstOrDefaultAsync();
-            int questionVoteByUser;
-            if (questionVote != null)
-                questionVoteByUser = questionVote.Vote;
-            else
-                questionVoteByUser = 0;
-
-            List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
-            List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
-            foreach (Answer answer in answers)
-            {
-                var answerVote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == answer.ID).FirstOrDefaultAsync();
-                int answerVoteByUser;
-                if (answerVote != null)
-                    answerVoteByUser = answerVote.Vote;
-                else
-                    answerVoteByUser = 0;
-
-                var answerUser = await userManager.FindByIdAsync(answer.UserID);
-                var rolesAnswer = await userManager.GetRolesAsync(answerUser);
-                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0], answerVoteByUser));
-            }
-
-            var roles = await userManager.GetRolesAsync(user);
-
-            return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0], questionVoteByUser);
-        }
-
         // GET: api/Questions/[subject]/trending[?pageSize=5&pageIndex=0]
         [HttpGet("{subjectName}/trending")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)

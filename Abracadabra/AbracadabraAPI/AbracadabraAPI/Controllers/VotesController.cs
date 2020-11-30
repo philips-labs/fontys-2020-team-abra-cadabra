@@ -28,6 +28,20 @@ namespace AbracadabraAPI.Controllers
             this.roleManager = roleManager;
         }
 
+        // GET: api/votes/question/{questionId}
+        [HttpGet("question/{questionId}")]
+        [Authorize]
+        public async Task<ActionResult<QuestionVote>> GetQuestionVote(int questionId)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var questionVote = await _context.QuestionVotes.Where(x => x.QuestionId == questionId && x.UserId == user.Id).FirstOrDefaultAsync();
+            if (questionVote == null)
+            {
+                return NotFound();
+            }
+            return questionVote;
+        }
+
         // POST: api/votes/question
         [HttpPost("question")]
         [Authorize]
@@ -169,6 +183,20 @@ namespace AbracadabraAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // GET: api/votes/answer/{answerId}
+        [HttpGet("answer/{answerId}")]
+        [Authorize]
+        public async Task<ActionResult<AnswerVote>> GetAnswerVote(int answerId)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var answerVote = await _context.AnswerVotes.Where(x => x.AnswerId == answerId && x.UserId == user.Id).FirstOrDefaultAsync();
+            if (answerVote == null)
+            {
+                return NotFound();
+            }
+            return answerVote;
         }
 
         // POST: api/votes/answer
