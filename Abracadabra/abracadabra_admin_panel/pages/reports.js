@@ -15,7 +15,6 @@ export default function Reports() {
   const [ session, loading ] = useSession();
   // const router = useRouter();
   const { date, time, wish } = useDate();
-  const [Subjects, setSubjects] = useState([]);
 
   if (loading) return null
 
