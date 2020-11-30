@@ -10,7 +10,7 @@ import {
   faArrowAltCircleUp,
   faArrowAltCircleDown,
   faAward,
-  faPencilAlt, 
+  faPencilAlt,
 } from "@fortawesome/free-solid-svg-icons";
 //component imports
 import Navbar from "src/components/Navbar.js";
@@ -20,6 +20,7 @@ import SubjectAnswer from "src/components/SubjectQuestionAnswer";
 import SubjectQuestion from "src/components/SubjectQuestion";
 //functionality imports
 import QuestionService from "src/services/QuestionService";
+import VotesService from "src/services/VotesService";
 
 function Question({ data, subject }) {
   // get the subject from router, to pass to the navbar for navigation button and title
@@ -27,11 +28,24 @@ function Question({ data, subject }) {
   // const { subject, id } = router.query
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
+  const [isloggedin, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const tokenExist = localStorage.getItem("Token");
+    if (tokenExist) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isloggedin == true) {
+      answers.forEach((item) => VotesService.GetAnswerVote(item.id));
+      const questionVotes = VotesService.GetQuestionVote(data.id);
+    }
     //GetQuestion();
     setQuestion(data);
     setAnswers(data.answerViewModels);
+
   }, [data.answerViewModels]);
 
   if (data === 404 || data == "failure" || data === 400) {

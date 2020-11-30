@@ -9,13 +9,20 @@ const DeleteVoteAnswer = (data) => {
 const PutVoteAnswer = (data) => {
   return http.httptoken().put("/votes/answer", data);
 };
-
+const GetAnswerVote = (data) => {
+  return http.httptoken().get("/votes/answer/" + data);
+};
+const GetQuestionVote = (data) => {
+  return http.httptoken().get("/votes/question/" + data);
+};
 
 
 
 export default {
   PostVoteAnswer,
   DeleteVoteAnswer,
-  PutVoteAnswer
+  PutVoteAnswer,
+  GetAnswerVote,
+  GetQuestionVote,
 };
 
