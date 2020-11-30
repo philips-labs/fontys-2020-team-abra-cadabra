@@ -22,6 +22,8 @@ namespace AbracadabraAPI.Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<QuestionVote> QuestionVotes { get; set; }
         public DbSet<AnswerVote> AnswerVotes { get; set; }
+        public DbSet<FlaggedQuestion> FlaggedQuestions { get; set; }
+        public DbSet<FlaggedAnswer> FlaggedAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +33,8 @@ namespace AbracadabraAPI.Data
             modelBuilder.Entity<Subject>().ToTable("Subject");
             modelBuilder.Entity<QuestionVote>().ToTable("QuestionVote");
             modelBuilder.Entity<AnswerVote>().ToTable("AnswerVote");
+            modelBuilder.Entity<FlaggedQuestion>().ToTable("FlaggedQuestion");
+            modelBuilder.Entity<FlaggedAnswer>().ToTable("FlaggedAnswer");
         }
     }
 }
