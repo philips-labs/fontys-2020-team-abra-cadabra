@@ -32,8 +32,8 @@ export default function Report_Card({ReportText, ReportID, type}) {
                     <Container className="p-3">
                          {/* Header */}
                         <Row className="mb-2">
-                            <Col><h4>Report details</h4></Col>  
-                            <Col className="justify-content-end d-flex"><FaTimes color="white" className="LogoButton" onClick={handleClose} /></Col>
+                            <Col md={10}><h4>Report details</h4></Col>  
+                            <Col md={2} className="justify-content-end d-flex"><FaTimes color="white" className="LogoButton" onClick={handleClose} /></Col>
                         </Row>
                         {/* Body */}
                         <Row className="mb-4">
