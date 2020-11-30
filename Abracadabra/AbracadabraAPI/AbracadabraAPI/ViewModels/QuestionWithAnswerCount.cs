@@ -29,7 +29,5 @@ namespace AbracadabraAPI.ViewModels
         public long Downvotes { get; set; }
 
         public int NumberOfAnswers { get; set; }
-
-        public int? VoteByUser { get; set; }
     }
 }
