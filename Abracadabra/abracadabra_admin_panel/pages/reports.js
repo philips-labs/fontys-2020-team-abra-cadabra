@@ -11,6 +11,8 @@ import {} from 'react-icons/fa'
 
 export default function Reports() {
   const [ session, loading ] = useSession();
+  // const router = useRouter();
+  const { date, time, wish } = useDate();
 
   if (loading) return null
 
