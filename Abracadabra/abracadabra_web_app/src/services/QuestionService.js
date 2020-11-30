@@ -13,14 +13,14 @@ const GetQuestion = (data) => {
 };
 
 const GetFilteredQuestions = (subject, filter) => {
-  return http.httpdefault().get("/questions/" + subject + "/" + filter, { timeout: 5000 });
+  return http
+    .httpdefault()
+    .get("/questions/" + subject + "/" + filter, { timeout: 5000 });
 };
-
 
 export default {
   Question,
   QuestionAnswer,
   GetQuestion,
-  GetFilteredQuestions
+  GetFilteredQuestions,
 };
-
