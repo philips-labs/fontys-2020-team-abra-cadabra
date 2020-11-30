@@ -294,3 +294,10 @@ sketch
 Abracadabra/abracadabra_web_app/package-lock.json
 Abracadabra/abracadabra_web_app/.next/
 .test/
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+

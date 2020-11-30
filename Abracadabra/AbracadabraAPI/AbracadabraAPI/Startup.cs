@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using AbracadabraAPI.Models;
 using AbracadabraAPI.Data;
 using AbracadabraAPI.Authentication;
+using AbracadabraAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -73,10 +74,12 @@ namespace AbracadabraAPI
 
             // NOTE: Re-enable CORS when deploying
             services.AddCors();
+
+            services.AddHostedService<UpdateTrendingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AbracadabraContext context)
         {
             if (env.IsDevelopment())
             {
@@ -92,6 +95,10 @@ namespace AbracadabraAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            MyIdentityDataInitializer.SeedData(userManager, roleManager, context);
+
+            DbInitializer.Initialize(context);
 
             app.UseEndpoints(endpoints =>
             {

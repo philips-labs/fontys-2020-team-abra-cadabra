@@ -1,55 +1,88 @@
 import React, { useState, useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
+import { slice } from "__mocks__/fileMock";
 
-function Title({question, subject}) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+function Title({ question, subject, search, searchLength }) {
+  const [message, setMessage] = useState("");
+  const [questions, setQuestions] = useState([]);
+
   useEffect(() => {
-    const results = question.filter((question) =>
-      question.title.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
-  return (
-    <div className="container mt-5">
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={handleChange}
-        className="form-control"
-        hidden //hidden because we are gonna build it in the navbar
-      />
-      {searchResults.map((question) => (
-        <div className="card mt-1" key={question.id}>
-          <div className="BodyQuestion-CardBody">
+    setQuestions(question);
+    if (searchLength > 0) {
+      setMessage("Results for: " + search);
+    }
+  }, []);
 
-            <a href={subject + '/question/' + question.id}
-              style={{ color: "black", fontWeight: "bold", fontSize: "25px" }}
-            >
-              {question.title}
-            </a>
-            <div className="d-flex row mr-auto">
-              <div className="col-sm-8">
-                <span className="badge badge-secondary p-1 mr-1">#Cutting</span>
-                <span className="badge badge-secondary p-1 mr-1">
-                  #Vegetables
-                </span>
-                <span className="badge badge-secondary p-1 mr-1">
-                  #mise-en-place
-                </span>
+  function HumanDateTime(dateAndTime) {
+    var date = new Date(dateAndTime + "Z");
+    date = date.toUTCString().split(", ");
+    date = date[1].slice(0, 17);
+
+    return date;
+  }
+
+  function NrOfAnswers(numberOfAnswers) {
+    if (numberOfAnswers == 1) {
+      return numberOfAnswers + " person responded";
+    } else {
+      return numberOfAnswers + " people responded";
+    }
+  }
+
+  if (questions.length > 0) {
+    return (
+      <div className="container BodyQuestion-Top">
+        <h1>{message}</h1>
+        {questions.map((q) => (
+          <div key={q.id}>
+            <div className="BoduQuestion-Total">
+              <div className="BodyQuestion-CardBody">
+                <div className='row'>
+                  <div className="col-sm-9">
+                    <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + q.id}>
+                      <h4> {q.title} </h4>
+                    </a>
+                  </div>
+                  <div className="col-sm-2">
+                    {NrOfAnswers(q.numberOfAnswers)}
+                  </div>
+                  <div className="col-sm-1">
+                  <p>{q.upvotes - q.downvotes}</p>
+              </div> 
+                </div>
               </div>
-              <div className="col-sm-4">
-              <p>Question created on: {question.dateTimeCreated}</p>
+            </div>
+            <div className="BodyQuestion-hastag">
+              <div className="row">
+                <div className="col-sm-9">
+                  <span className="badge badge-info p-1 mr-1">#Cutting</span>
+                  <span className="badge badge-info p-1 mr-1">#Vegetables</span>
+                  <span className="badge badge-info p-1 mr-1">
+                    #mise-en-place
+                  </span>
+                </div>
+                <div className="col-sm-3">
+                  <p>Posted on: {HumanDateTime(q.dateTimeCreated)}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  } else if ({ search } != undefined) {
+    return (
+      <div className="container mt-5">
+        <h1>No results for: {search}</h1>
+      </div>
+    );
+  }
+  else {
+    return (
+      <div className="container mt-5">
+        <h1>Pepega</h1>
+      </div>
+    );
+  }
 }
-
 export default Title;

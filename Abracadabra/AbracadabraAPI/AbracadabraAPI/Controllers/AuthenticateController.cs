@@ -12,6 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using AbracadabraAPI.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace AbracadabraAPI.Controllers
 {
@@ -21,12 +24,14 @@ namespace AbracadabraAPI.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly AbracadabraContext _context;
         private readonly IConfiguration _configuration;
 
-        public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, AbracadabraContext context)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            _context = context;
             _configuration = configuration;
         }
 
@@ -60,8 +65,15 @@ namespace AbracadabraAPI.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
+                user.LastLoggedIn = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
                 return Ok(new
                 {
+                    id = user.Id,
+                    email = user.Email,
+                    role = userRoles[0],
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
@@ -95,6 +107,14 @@ namespace AbracadabraAPI.Controllers
                 foreach (IdentityError error in result.Errors)
                     errors.Add(error.Description);
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Messages = errors });
+            }
+
+            if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+            if (await roleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await userManager.AddToRoleAsync(user, UserRoles.User);
             }
 
             return Ok(new Response { Status = "Success", Messages = new List<string>() { "User created successfully!" } });

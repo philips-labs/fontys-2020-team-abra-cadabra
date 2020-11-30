@@ -43,7 +43,9 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            return Mapper.AnswerToViewModel(answer, user);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
         // PUT: api/Answers/5
@@ -94,26 +96,35 @@ namespace AbracadabraAPI.Controllers
         // POST: api/Answers
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<AnswerDTO>> PostAnswer(AnswerViewModel answerViewModel)
+        public async Task<ActionResult<AnswerViewModel>> PostAnswer(AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
             {
                 return Unauthorized();
             }
+            var roles = await userManager.GetRolesAsync(user);
 
             var answer = new Answer
             {
                 UserID = user.Id,
                 DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
                 AnswerContent = answerViewModel.AnswerContent,
-                QuestionID = answerViewModel.QuestionID
+                QuestionID = answerViewModel.QuestionID,
+                Upvotes = 0,
+                Downvotes = 0
             };
+
+            if (roles[0] == "Expert")
+            {
+                var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
+                question.IsAnsweredByExpert = true;
+            }
 
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user));
+            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, roles[0]));
         }
 
         // DELETE: api/Answers/5
@@ -140,13 +151,14 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return Mapper.AnswerToViewModel(answer, user);
+            var roles = await userManager.GetRolesAsync(user);
+
+            return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
         private bool AnswerExists(int id)
         {
             return _context.Answers.Any(e => e.ID == id);
         }
-
     }
 }

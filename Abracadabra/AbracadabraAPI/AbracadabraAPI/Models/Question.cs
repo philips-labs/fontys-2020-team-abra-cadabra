@@ -17,9 +17,16 @@ namespace AbracadabraAPI.Models
         
         public string Description { get; set; }
 
-        public string Category { get; set; }
-
         public DateTime DateTimeCreated { get; set; }
+
+        public long Upvotes { get; set; } = 0;
+
+        public long Downvotes { get; set; } = 0;
+
+        public double? TrendingScore { get; set; }
+
+        public bool IsAnsweredByExpert { get; set; } = false;
+
         public int SubjectID { get; set; }
 
         public virtual List<Answer> Answers { get; set; }

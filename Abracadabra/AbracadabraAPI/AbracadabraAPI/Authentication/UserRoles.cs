@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AbracadabraAPI.Authentication
+﻿namespace AbracadabraAPI.Authentication
 {
     public static class UserRoles
     {
