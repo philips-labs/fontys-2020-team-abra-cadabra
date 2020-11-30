@@ -6,8 +6,9 @@ import { signIn, signOut, useSession } from 'next-auth/client';
 import { Container, Row, Col } from 'react-bootstrap';
 //components
 import NavBar from 'src/components/NavBar';
-import SideBar from 'src/components/SideBar'
-import {} from 'react-icons/fa'
+import SideBar from 'src/components/SideBar';
+import {} from 'react-icons/fa';
+import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
 
 export default function Reports() {
   const [ session, loading ] = useSession();

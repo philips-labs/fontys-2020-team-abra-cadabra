@@ -4,3 +4,8 @@ body {
   background-color: $body-bg-color;
 }
 
+// default modal background color. bootstrap bg-dark
+.modal .modal-content {
+  background-color: #343A3F;
+}
+
