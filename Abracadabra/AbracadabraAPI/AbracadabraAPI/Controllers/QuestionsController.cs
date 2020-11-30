@@ -35,8 +35,6 @@ namespace AbracadabraAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestions([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-
-
             List<Question> questions = await _context.Questions.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
@@ -53,6 +51,39 @@ namespace AbracadabraAPI.Controllers
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
+            }
+
+            return models;
+        }
+
+        // GET: api/Questions/authorized
+        [HttpGet("authorized")]
+        [Authorize]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsAuthorized([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        {
+            List<Question> questions = await _context.Questions.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+
+                users.Add(auser);
+            }
+            
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            foreach (Question question in questions)
+            {
+                var questionVote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == question.ID).FirstOrDefaultAsync();
+                int vote;
+                if (questionVote != null)
+                    vote = questionVote.Vote;
+                else
+                    vote = 0;
+
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr, vote));
             }
 
             return models;
