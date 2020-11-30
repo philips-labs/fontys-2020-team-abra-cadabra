@@ -284,13 +284,16 @@ const EditUser = () => {
                             </div>
                           ))}
                         </div>
+                        <hr
+                          style={{ borderTop: "1px solid #ccc", width: "100%" }}
+                        />
                         <div className="form-group">
-                          <label>Password</label>
+                          <label>Current password</label>
                           <input
                             type="password"
                             className="form-control"
                             id="exampleInputPassword1"
-                            placeholder="Password"
+                            placeholder="Current password"
                             onChange={handleChange}
                             name="password"
                           />
@@ -304,17 +307,6 @@ const EditUser = () => {
                               <br></br>
                             </div>
                           ))}
-                        </div>
-                        <div className="form-group">
-                          <label>Confirm password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
-                            onChange={handleConfirmPasswordChange}
-                            name="confirmPassword"
-                          />
                         </div>
                         <Row>
                           <Col md={9}>
