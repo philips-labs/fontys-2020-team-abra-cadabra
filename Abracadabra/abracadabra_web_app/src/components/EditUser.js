@@ -81,6 +81,7 @@ const EditUser = () => {
     }
     //check if password is between 8 and 200 characters
     if (
+      editUser.password === undefined ||
       editUser.password.length < 8 ||
       editUser.password.length > 200 ||
       editUser.password.length === 0
@@ -109,22 +110,22 @@ const EditUser = () => {
       setMessageEmail(emailErrorList);
       return;
     }
+
+    AccountService.editUser(editUser).then((response) => {
+      console.log(response);
+      setEditUserActive(!edituserActive);
+    });
   };
 
   const getUser = async () => {
     let userId = sessionStorage.getItem("UserId");
-    AccountService.getUser(JSON.parse(JSON.stringify(userId))).then(
-      (response) => {
+    await AccountService.getUser(JSON.parse(JSON.stringify(userId)))
+      .then((response) => {
         setEditUser(response.data);
-        // console.log(editUser);
-      }
-    );
-  };
-
-  const saveChanges = async () => {
-    AccountService.editUser(editUser).then((response) => {
-      console.log(response);
-    });
+      })
+      .catch((err) => {
+        setMessage(err);
+      });
   };
 
   useEffect(() => {
@@ -183,12 +184,12 @@ const EditUser = () => {
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
                         <Col>
-                          <Button
+                          {/* <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                           >
                             Change
-                          </Button>
+                          </Button> */}
                         </Col>
                       </Row>
                     </Col>
@@ -309,7 +310,7 @@ const EditUser = () => {
                             <Button
                               style={{ width: "100%" }}
                               className="mt-2 btn-info"
-                              onClick={saveChanges}
+                              onClick={handleSubmit}
                               type="sumbit"
                             >
                               Save changes
@@ -324,6 +325,15 @@ const EditUser = () => {
                               Close
                             </Button>
                           </Col>
+                        </Row>
+                        <Row>
+                          <div
+                            className="text-danger mt-2 ml-3"
+                            role="alert"
+                            style={{ textAlign: "center" }}
+                          >
+                            {message}
+                          </div>
                         </Row>
                       </form>
                     </Col>
@@ -341,12 +351,12 @@ const EditUser = () => {
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
                         <Col>
-                          <Button
+                          {/* <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                           >
                             Change
-                          </Button>
+                          </Button> */}
                         </Col>
                       </Row>
                     </Col>
