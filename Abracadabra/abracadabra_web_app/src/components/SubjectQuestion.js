@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import VotesService from "../services/VotesService"
 import {
   faChevronUp,
   faChevronDown,
@@ -11,6 +12,124 @@ import {
 
 export default function Question({ question }) {
   const [date, setDate] = useState();
+  const [isloggedin, setIsLoggedIn] = useState(false);
+  const [totalvotes, setTotalVotes] = useState(question.upvotes + question.downvotes)
+  const [voted, setVoted] = useState(false)
+  const [rendered, setRendered] = useState(false)
+  const [vote, setVote] = useState({
+    QuestionId: question.id,
+    vote: ""
+  })
+
+  useEffect(() => {
+    setVote({ ...vote, QuestionId: question.id })
+    const tokenExist = localStorage.getItem("Token");
+    if (tokenExist) {
+      setIsLoggedIn(true);
+
+       VotesService.GetQuestionVote(question.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        if (res.data.vote == 1|-1){
+        setVote({ ...vote, vote: res.data.vote })
+        }
+        setVoted(true)
+      })
+        .catch(() => {
+        });
+
+    }
+  }, [question.id]);
+  const firstClick = (amount) => {
+    setRendered(true)
+    if (vote.vote == null) {
+      setVote({ ...vote, vote: amount })
+    }
+    else {
+      handleClick(amount)
+    }
+  }
+  const handleClick = (amount) => {
+    if (vote.vote == amount) {
+      handleVoteDelete()
+    }
+    else {
+      setVote({ ...vote, vote: amount })
+    }
+  }
+
+
+  useEffect(() => {
+    if (rendered == true) {
+      if (voted == false) {
+        submitPost()
+      }
+      else {
+        handleVotePut()
+      }
+    }
+  }, [vote.vote]);
+
+  const submitPost = () => {
+    VotesService.PostVoteQuestion(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+      .catch(() => {
+      });
+  };
+
+  const handleVoteDelete = () => {
+    VotesService.DeleteVoteQuestion(question.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+      .catch((error) => {
+      });
+  };
+  const handleVotePut = () => {
+    VotesService.PutVoteQuestion(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+      .catch((error) => {
+      });
+  };
+
+  const ShowUpvoted = () => {
+     return (
+    <div>
+      {(() => {
+        if (vote.vote == 1) {
+          return (
+            <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+          )
+        } else {
+          return (
+            <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+          )
+        } 
+      })()}
+    </div>
+  )
+  }
+   const ShowDownvoted = () => {
+     return (
+    <div>
+      {(() => {
+        if (vote.vote == -1) {
+          return (
+            <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+          )
+        } else {
+          return (
+            <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+          )
+        } 
+      })()}
+    </div>
+  )
+  }
 
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
@@ -64,13 +183,9 @@ export default function Question({ question }) {
                 <p>Posted on: {date}</p>
               </Col>
               <Col md={1} className="votingDiv">
-                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} />
-                  <p>1</p>
-                  <FontAwesomeIcon
-                    className="votingArrow"
-                    icon={faChevronDown}
-                    onClick={() => firstClick(-1)}
-                  />
+                  <ShowUpvoted />
+                  <p>{question.downvotes + question.downvotes}</p>
+                 <ShowDownvoted />
                 </Col>
             </Row>
           </Col>

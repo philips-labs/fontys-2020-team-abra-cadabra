@@ -85,7 +85,6 @@ export default function Answer({ answer }) {
       console.log(res.data);
     })
       .catch((error) => {
-        console.log(error.response.data);
       });
   };
   const handleVotePut = () => {
@@ -131,23 +130,6 @@ export default function Answer({ answer }) {
     </div>
   )
   }
-//   const ShowUpvoted = () => {
-//      return (
-//     if (answer.vote == 1){
-//       return(<div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>)
-//     }
-//     else {
-//       return(<div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>)
-//     }   
-// }
-// const ShowDownvoted = () => {
- 
-//     return(<div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>)
-//   }   
-//   else {
-//     return(<div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(-1)} /></div>)
-//   }   
-// }
 
 
   return (
