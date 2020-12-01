@@ -87,7 +87,7 @@ export default function Answer({ answer }) {
   };
 
   const handleVoteDelete = () => {
-    VotesService.DeleteVoteAnswer(vote).then((res) => {
+    VotesService.DeleteVoteAnswer(answer.id).then((res) => {
       console.log(res);
       console.log(res.data);
     })
