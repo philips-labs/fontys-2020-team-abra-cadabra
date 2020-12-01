@@ -18,7 +18,7 @@ const ExpertApplication = () => {
   });
   const [subjects, setSubjcts] = useState([]);
   const [apply, setApply] = useState({
-    userId: "742a6d6c-63d0-4f2c-bd9b-8944b082b21a",
+    userId: "bda67d6c-4568-46ee-8d03-1912a1cc30ab",
     subjectName: "Cooking",
     motivation: "",
   });
@@ -31,6 +31,7 @@ const ExpertApplication = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("foutje");
     ExpertService.applyExpert(apply)
       .then((res) => {
         console.log(res);
@@ -162,15 +163,19 @@ const ExpertApplication = () => {
                         <div
                           className="expertPendingBox"
                           key={pendings.subjectName}
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title={
+                            "Created on: " +
+                            HumanDateTime(pendings.dateTimeCreated)
+                          }
                         >
                           <Row>
                             <Col md={5}>
                               <p>{pendings.subjectName}</p>
                             </Col>
                             <Col md={7}>
-                              <p className="float-right">
-                                {HumanDateTime(pendings.dateTimeCreated)}
-                              </p>
+                              <p className="float-right">{pendings.status}</p>
                             </Col>
                           </Row>
                         </div>
