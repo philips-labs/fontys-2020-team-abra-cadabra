@@ -112,13 +112,37 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            if (await userManager.CheckPasswordAsync(user, userViewModel.Password) == false)
+            user.UserName = userViewModel.Username;
+            user.Email = userViewModel.Email;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/Users/Edit/Password/5
+        [HttpPut("Edit/Password/{id}")]
+        [Authorize]
+        public async Task<ActionResult<UserViewModel>> EditUserPassword(string id, UserChangePasswordViewModel userViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (await _userManager.CheckPasswordAsync(user, userViewModel.CurrentPassword) == false)
             {
                 return Unauthorized();
             }
 
-            user.UserName = userViewModel.Username;
-            user.Email = userViewModel.Email;
+            await _userManager.ChangePasswordAsync(user, userViewModel.CurrentPassword, userViewModel.Password);
 
             try
             {

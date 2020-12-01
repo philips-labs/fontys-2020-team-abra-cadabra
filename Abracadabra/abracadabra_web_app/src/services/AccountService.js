@@ -18,9 +18,14 @@ const editUser = (data) => {
   return http.httptoken().put("/users/edit/" + data.id, data);
 };
 
+const editPassword = (data) => {
+  return http.httptoken().put("/users/edit/password/" + data.id, data);
+};
+
 export default {
   Login,
   Register,
   getUser,
   editUser,
+  editPassword,
 };
