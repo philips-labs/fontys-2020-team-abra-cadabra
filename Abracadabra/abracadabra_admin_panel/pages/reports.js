@@ -9,18 +9,61 @@ import NavBar from 'src/components/NavBar';
 import SideBar from 'src/components/SideBar';
 import {} from 'react-icons/fa';
 import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
-import Report_Card from 'src/components/Report_Card';
+import Report_CardAnswer from 'src/components/Report_CardAnswer';
+import Report_CardQuestion from 'src/components/Report_CardQuestion';
+//services
+import ReportService from 'src/services/ReportService';
 
 export default function Reports() {
   const [ session, loading ] = useSession();
   // const router = useRouter();
   const { date, time, wish } = useDate();
+  const [QuestionReports, setQuestionReports] = useState([]);
+  const [AnswerReports, setAnswerReports] = useState([]);
+
+  function RemoveFlaggedAnswer(id){
+    console.log(id);
+    let answers = AnswerReports;
+    const arr = answers.filter((item) => item.answerId !== id);
+    setAnswerReports(arr);
+  };
+
+  function RemoveFlaggedQuestions(id){
+    console.log(id);
+    let answers = QuestionReports;
+    const arr = answers.filter((item) => item.questionId !== id);
+    setQuestionReports(arr);
+  };
+
+  useEffect(() => {
+    //Api call questions
+    ReportService.GetFlaggedQuestions()
+    .then((res) => {
+      console.log(res);
+      setQuestionReports(res.data);
+    })
+    .catch((error) => {
+       console.log(error);
+    });
+    //Api call answers
+    ReportService.GetFlaggedAnswers()
+    .then((res) => {
+      console.log(res);
+      setAnswerReports(res.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+  }, []);
 
   if (loading) return null
 
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {
+    localStorage.setItem("Token", session.user.image);
+
 return (
     <>
     <NavBar/>
@@ -56,12 +99,7 @@ return (
                   <Row className="mx-auto">
                     {/* Reports */}
                     {/* Map the reports */}
-                    <Report_Card ReportText={"This question is inappropiate and was reported?"} ReportID={1} type={"Question"}/>  
-                    <Report_Card ReportText={"This question is inappropiate and was reported?"} ReportID={1} type={"Question"}/>  
-                    <Report_Card ReportText={"This question is inappropiate and was reported?"} ReportID={1} type={"Question"}/>  
-                    <Report_Card ReportText={"This question is inappropiate and was reported?"} ReportID={1} type={"Question"}/>  
-                    <Report_Card ReportText={"This question is inappropiate and was reported?"} ReportID={1} type={"Question"}/>  
-                    <Report_Card ReportText={"This question is inappropiate and was reported?"} ReportID={1} type={"Question"}/>  
+                    {QuestionReports.map((qr) => <Report_CardQuestion key={qr.questionId} ReportData={qr.question} Count={qr.count} type={"Question"} RemoveFunc={RemoveFlaggedQuestions}/>)}                
                   </Row>
                 </Col>
               </Row>
@@ -81,12 +119,7 @@ return (
                   <Row className="mx-auto">
                     {/* Reports */}
                    {/* Map the reports */}
-                   <Report_Card ReportText={"This answer needs reporting and the text should probably be cut off after a certain amount of characters"} ReportID={1} type={"Answer"}/>    
-                   <Report_Card ReportText={"This answer needs reporting and the text should probably be cut off after a certain amount of characters"} ReportID={1} type={"Answer"}/>
-                   <Report_Card ReportText={"This answer needs reporting and the text should probably be cut off after a certain amount of characters"} ReportID={1} type={"Answer"}/>
-                   <Report_Card ReportText={"This answer needs reporting and the text should probably be cut off after a certain amount of characters"} ReportID={1} type={"Answer"}/>
-                   <Report_Card ReportText={"This answer needs reporting and the text should probably be cut off after a certain amount of characters"} ReportID={1} type={"Answer"}/>
-                   <Report_Card ReportText={"This answer needs reporting and the text should probably be cut off after a certain amount of characters"} ReportID={1} type={"Answer"}/>        
+                   {AnswerReports.map((ar) => <Report_CardAnswer key={ar.answerId} ReportData={ar.answer} Count={ar.count} type={"Answer"} RemoveFunc={RemoveFlaggedAnswer}/>)}     
       
                   </Row>
                 </Col>
