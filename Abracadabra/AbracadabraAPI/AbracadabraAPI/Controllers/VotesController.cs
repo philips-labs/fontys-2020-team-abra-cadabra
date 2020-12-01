@@ -146,10 +146,10 @@ namespace AbracadabraAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/votes/question
-        [HttpDelete("question")]
+        // DELETE: api/votes/question/{questionId}
+        [HttpDelete("question/{questionId}")]
         [Authorize]
-        public async Task<IActionResult> DeleteQuestionVote(QuestionVoteViewModel model)
+        public async Task<IActionResult> DeleteQuestionVote(int questionId)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -157,13 +157,13 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var answer = await _context.Questions.Where(x => x.ID == model.QuestionId).FirstOrDefaultAsync();
+            var answer = await _context.Questions.Where(x => x.ID == questionId).FirstOrDefaultAsync();
             if (answer == null)
             {
                 return NotFound();
             }
 
-            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == model.QuestionId).FirstOrDefaultAsync();
+            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == questionId).FirstOrDefaultAsync();
             if (vote == null)
             {
                 return NotFound();
