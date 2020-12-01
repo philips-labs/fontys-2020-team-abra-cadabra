@@ -306,7 +306,7 @@ namespace AbracadabraAPI.Controllers
         // DELETE: api/votes/answer
         [HttpDelete("answer")]
         [Authorize]
-        public async Task<IActionResult> DeleteVote(AnswerVoteViewModel model)
+        public async Task<IActionResult> DeleteVote([FromBody]AnswerVoteViewModel model)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
