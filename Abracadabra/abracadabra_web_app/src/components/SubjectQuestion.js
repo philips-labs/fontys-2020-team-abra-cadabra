@@ -58,7 +58,6 @@ export default function Question({ question }) {
     }
   }
 
-
   useEffect(() => {
     if (rendered == true) {
       if (voted == false) {
@@ -154,10 +153,10 @@ export default function Question({ question }) {
         <Row>
           <Col md={11} className="mx-auto">
             <Row>
-              <Col md={9}>
+              <Col md={10}>
                 <h3>{question.title}</h3>
               </Col>
-              <Col md={3} className="d-flex justify-content-end">
+              <Col md={1} className="d-flex justify-content-end">
                 <img
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
@@ -174,19 +173,19 @@ export default function Question({ question }) {
                   )}
                 </p>
               </Col>
-            </Row>
-            <Row className="ml-1">
-              <Col md={8}>
-                <p>{question.description}</p>
-              </Col>
-              <Col md={3} className="text-right">
-                <p>Posted on: {date}</p>
-              </Col>
               <Col md={1} className="votingDiv">
                   <ShowUpvoted />
                   <p>{question.downvotes + question.downvotes}</p>
                  <ShowDownvoted />
                 </Col>
+            </Row>
+            <Row className="ml-1">
+              <Col md={9}>
+                <p>{question.description}</p>
+              </Col>
+              <Col md={3} className="text-right">
+                <p>Posted on: {date}</p>
+              </Col>
             </Row>
           </Col>
         </Row>

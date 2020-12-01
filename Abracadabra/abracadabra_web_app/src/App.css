@@ -286,3 +286,8 @@ input::-webkit-input-placeholder {
   margin: 0px 2px;
   color: red;
 }
+.votingDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
