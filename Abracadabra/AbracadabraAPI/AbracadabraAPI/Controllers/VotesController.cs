@@ -303,7 +303,7 @@ namespace AbracadabraAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/votes/answer
+        // DELETE: api/votes/answer/{answerId]
         [HttpDelete("answer/{answerId}")]
         [Authorize]
         public async Task<IActionResult> DeleteVote(int answerId)
