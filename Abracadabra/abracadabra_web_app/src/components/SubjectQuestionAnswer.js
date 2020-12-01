@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import VotesService from "../services/VotesService"
 
-export default function Answer({ answer }) {
+export default function Answer({ answer, UpdateVoteAnswers }) {
   const [date, setDate] = useState();
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
@@ -152,7 +152,7 @@ export default function Answer({ answer }) {
                 </Col>
                 <Col md={1} className="votingDiv">
                   <ShowUpvoted />
-                  <p>{totalvotes}</p>
+                  <p>{UpdateVoteAnswers(answer.id)}</p>
                   <ShowDownvoted />
                 </Col>
               </Row>

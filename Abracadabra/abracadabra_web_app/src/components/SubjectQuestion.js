@@ -18,7 +18,7 @@ export default function Question({ question }) {
   const [rendered, setRendered] = useState(false)
 
   const [vote, setVote] = useState({
-    QuestionId: question.id,
+    QuestionId: "",
     vote: ""
   })
 
@@ -34,6 +34,7 @@ export default function Question({ question }) {
         console.log(res.data);
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
+        setVote({ ...vote, QuestionId: res.data.questionId })
         setVoted(true)
         }
       })
@@ -76,6 +77,7 @@ export default function Question({ question }) {
     VotesService.PostVoteQuestion(vote).then((res) => {
       console.log(res);
       console.log(res.data);
+      setVoted(true)
     })
       .catch(() => {
       });
