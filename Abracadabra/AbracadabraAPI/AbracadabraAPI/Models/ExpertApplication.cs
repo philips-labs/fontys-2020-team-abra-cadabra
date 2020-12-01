@@ -18,7 +18,7 @@ namespace AbracadabraAPI.Models
         public string ReviewedBy { get; set; } = null;
 
         public DateTime DateTimeCreated { get; set; }
-        
+
         public DateTime ReviewedOn { get; set; }
 
         public int SubjectId { get; set; }

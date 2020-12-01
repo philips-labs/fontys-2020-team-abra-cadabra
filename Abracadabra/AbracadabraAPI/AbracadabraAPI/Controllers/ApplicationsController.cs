@@ -72,7 +72,7 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            var subject = await _context.Subjects.Where(x => x.SubjectName == applicationViewModel.SubjectName).FirstAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName == applicationViewModel.SubjectName).FirstOrDefaultAsync();
             if(subject == null)
             {
                 return NotFound("Subject not found");
@@ -86,14 +86,68 @@ namespace AbracadabraAPI.Controllers
                 UserId = user.Id,
             };
 
+            //Checks if the user has an pending application for the subject he is applying in
+
+            List<ExpertApplication> expertApplications = await _context.ExpertApplications.Where(x => x.UserId == user.Id).ToListAsync();
+
+            if (expertApplications.Count != 0)
+            {
+                foreach (var userApplication in expertApplications)
+                {
+                    if (userApplication.SubjectId == application.SubjectId && userApplication.Status == 0)
+                    {
+                        return StatusCode(400, "You already has an active request for this subject!");
+                    }
+                }
+            }
+
             _context.ExpertApplications.Add(application);
             await _context.SaveChangesAsync();
 
-            return StatusCode(200);
+            return StatusCode(200, "Application for " + applicationViewModel.SubjectName + " has been submitted");
         }
 
         // PUT api/<ApplicationsController>/5
-        //[HttpPut("{id}")]
+        [HttpPut("{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PutQuestion(string userId, ApplicationViewModel applicationViewModel)
+        {
+            var admin = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var associatedsubject = await _context.Subjects.Where(x => x.SubjectName == applicationViewModel.SubjectName).FirstOrDefaultAsync();
+
+            var application = await _context.ExpertApplications.Where(x => x.SubjectId == associatedsubject.ID && user.Id == x.UserId).FirstOrDefaultAsync();
+            
+            if(application == null)
+            {
+                return StatusCode(404, "No such application exists!");
+            }
+
+            switch (applicationViewModel.Status)
+            {
+                case ApplicationStatus.Approved: application.Status = ApplicationStatus.Approved; break;
+                case ApplicationStatus.Denied: application.Status = ApplicationStatus.Denied; break;
+            }
+            application.ReviewedBy = admin.Id;
+            application.ReviewedOn = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"));
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(500);
+            }
+
+            return NoContent();
+        }
 
         // DELETE api/<ApplicationsController>/5
         //[HttpDelete("{id}")]
