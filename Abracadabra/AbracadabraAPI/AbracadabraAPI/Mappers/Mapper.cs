@@ -97,7 +97,7 @@ namespace AbracadabraAPI.Mappers
         public static ShortApplicationViewModel ApplicationToShortViewModel(ExpertApplication application, Subject subject) =>
         new ShortApplicationViewModel
         {
-            isApproved = application.isApproved,
+            Status = application.Status.ToString(),
             DateTimeCreated = application.DateTimeCreated,
             SubjectName = subject.SubjectName
         };

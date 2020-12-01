@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AbracadabraAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace AbracadabraAPI.ViewModels
     {
         public string Motivation { get; set; }
 
-        public bool isApproved { get; set; } = false;
+        public ApplicationStatus Status { get; set; }
 
         public DateTime DateTimeCreated { get; set; }
 

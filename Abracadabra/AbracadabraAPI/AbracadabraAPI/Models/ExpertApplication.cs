@@ -13,9 +13,13 @@ namespace AbracadabraAPI.Models
 
         public string Motivation { get; set; }
 
-        public bool isApproved { get; set; } = false;
+        public ApplicationStatus Status { get; set; } = ApplicationStatus.Pending;
+
+        public string ReviewedBy { get; set; } = null;
 
         public DateTime DateTimeCreated { get; set; }
+        
+        public DateTime ReviewedOn { get; set; }
 
         public int SubjectId { get; set; }
 
