@@ -4,7 +4,7 @@ import { faEnvelope, faLock, faUsers } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
 import Router from "next/router";
 //bootstrap
-import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 //components
 
 const Register = () => {
@@ -112,80 +112,120 @@ const Register = () => {
       });
   };
   return (
-<>
-<Container className="LoginContainer">
-    <Row className="h-100 justify-content-center align-items-center">
-        <Col xl={6} md={8} className="LoginArea pb-3 rounded">
+    <>
+      <Container className="LoginContainer">
+        <Row className="h-100 justify-content-center align-items-center">
+          <Col xl={6} md={8} className="LoginArea pb-3 rounded">
             <Row className="mb-1 p-3">
-                <Col className="pl-0">
-                    <h4 className="font-weight-bold">Register</h4>
-                </Col>
-                <Col md={8} xs={6} className="text-right">
-                <a className="LoginLink" href="/loginpage">Already have an account? Login!</a>
-                </Col>
+              <Col className="pl-0">
+                <h4 className="font-weight-bold">Register</h4>
+              </Col>
+              <Col md={8} xs={6} className="text-right">
+                <a className="LoginLink" href="/loginpage">
+                  Already have an account? Login!
+                </a>
+              </Col>
             </Row>
             <Row className="justify-content-center mb-2">
-                <Col md={8}>
-                <Form onSubmit={handleSubmit}>   
-                <Form.Group controlId="email" className="mb-4">
-                        <Form.Label className="font-weight-bold">Email</Form.Label>
-                        <Form.Control type="text" placeholder="Enter username"  onChange={handleChange} name="username" required/>
-                    </Form.Group>               
-                <div>
-                {messageUserName.map((message, index) => (
-                  <div key={index}>
-                    <small className="help-block text-danger">{message}</small>{" "}
-                    <br></br>
+              <Col md={8}>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="email" className="mb-4">
+                    <Form.Label className="font-weight-bold">
+                      Username
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter username"
+                      onChange={handleChange}
+                      name="username"
+                      required
+                    />
+                  </Form.Group>
+                  <div>
+                    {messageUserName.map((message, index) => (
+                      <div key={index}>
+                        <small className="help-block text-danger">
+                          {message}
+                        </small>{" "}
+                        <br></br>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-                    <Form.Group controlId="email" className="mb-4">
-                        <Form.Label className="font-weight-bold">Email</Form.Label>
-                        <Form.Control type="text" placeholder="Enter email" name="email" onChange={handleChange} required/>
-                    </Form.Group>
-                    <div>
-                {messageEmail.map((message, index) => (
-                  <div key={index}>
-                    <small className="help-block text-danger">{message}</small>{" "}
-                    <br></br>
+                  <Form.Group controlId="email" className="mb-4">
+                    <Form.Label className="font-weight-bold">Email</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter email"
+                      name="email"
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                  <div>
+                    {messageEmail.map((message, index) => (
+                      <div key={index}>
+                        <small className="help-block text-danger">
+                          {message}
+                        </small>{" "}
+                        <br></br>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-                    <Form.Group controlId="password" className="mb-4">
-                        <Form.Label className="font-weight-bold">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Enter password" name="password" onChange={handleChange} required/>
-                    </Form.Group>
-                    <div>
-                {messagePassword.map((message, index) => (
-                  <div key={index}>
-                    <small className="help-block text-danger">{message}</small>{" "}
-                    <br></br>
+                  <Form.Group controlId="password" className="mb-4">
+                    <Form.Label className="font-weight-bold">
+                      Password
+                    </Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Enter password"
+                      name="password"
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                  <div>
+                    {messagePassword.map((message, index) => (
+                      <div key={index}>
+                        <small className="help-block text-danger">
+                          {message}
+                        </small>{" "}
+                        <br></br>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-                    <Form.Group controlId="password" className="mb-4">
-                        <Form.Label className="font-weight-bold">Repeat-Password</Form.Label>
-                        <Form.Control type="password" placeholder="Repeat password" onChange={handleConfirmPasswordChange} name="confirmPassword" required/>
-                    </Form.Group>
-                    <Form.Group controlId="LoginButton" className="mb-4">
-                       <Button type="submit" variant="info" className="btn-block">Register</Button>
-                    </Form.Group>
+                  <Form.Group controlId="password" className="mb-4">
+                    <Form.Label className="font-weight-bold">
+                      Repeat-Password
+                    </Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Repeat password"
+                      onChange={handleConfirmPasswordChange}
+                      name="confirmPassword"
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="LoginButton" className="mb-4">
+                    <Button type="submit" variant="info" className="btn-block">
+                      Register
+                    </Button>
+                  </Form.Group>
                 </Form>
-                </Col>
+              </Col>
             </Row>
             <Row>
-            <div
-          className="text-danger mx-auto"
-          role="alert"
-          style={{ textAlign: "center" }}
-        >
-          {message}
-        </div>
+              <div
+                className="text-danger mx-auto"
+                role="alert"
+                style={{ textAlign: "center" }}
+              >
+                {message}
+              </div>
             </Row>
-        </Col>
-    </Row>
-</Container>
-</>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

@@ -8,11 +8,7 @@ const Question = (data) => {
   return http.httptoken().post("/questions", data);
 };
 
-
-
-
 export default {
   PostVoteAnswer,
-  Question
+  Question,
 };
-
