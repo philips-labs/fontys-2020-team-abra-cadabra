@@ -10,6 +10,7 @@ import {
 import VotesService from "../services/VotesService"
 
 export default function Answer({ answer }) {
+  const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes + answer.downvotes)
   const [voted, setVoted] = useState(false)
   const [rendered, setRendered] = useState(false)
@@ -18,12 +19,29 @@ export default function Answer({ answer }) {
     vote: ""
   })
   useEffect(() => {
-    if (answer.vote != null)
-    {
-      setVoted(true)
+    const tokenExist = localStorage.getItem("Token");
+    if (tokenExist) {
+      setIsLoggedIn(true);
+
+      const userVote = VotesService.GetAnswerVote(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setVote({ ...vote, vote: res.data.vote })
+        setVoted(true)
+      })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+
     }
-    
+    // setExistingVote()
   }, []);
+
+  // const setExistingVote = () => {
+  //   if (answer.vote != null) {
+  //     setVoted(true)
+  //   }
+  // }
 
 
   const firstClick = (amount) => {
@@ -46,14 +64,14 @@ export default function Answer({ answer }) {
 
 
   useEffect(() => {
-    if (rendered == true){
-    if (voted == false){
-    submitPost()
+    if (rendered == true) {
+      if (voted == false) {
+        submitPost()
+      }
+      else {
+        handleVotePut()
+      }
     }
-    else {
-      handleVotePut()
-    }
-  }
   }, [vote.vote]);
 
   const submitPost = () => {
@@ -127,8 +145,8 @@ export default function Answer({ answer }) {
                       icon={faCheck}
                     />
                   ) : (
-                    <></>
-                  )}
+                      <></>
+                    )}
                 </p>
               </div>
               <p>Posted on: {answer.dateTimeCreated}</p>

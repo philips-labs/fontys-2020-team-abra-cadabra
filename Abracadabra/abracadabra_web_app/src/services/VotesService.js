@@ -4,16 +4,16 @@ const PostVoteAnswer = (data) => {
   return http.httptoken().post("/votes/answer", data);
 };
 const DeleteVoteAnswer = (data) => {
-  return http.httptoken().delete("/votes/answer", data);
+  return http.httptoken().delete("/votes/answer", data, { timeout: 5000 });
 };
 const PutVoteAnswer = (data) => {
   return http.httptoken().put("/votes/answer", data);
 };
 const GetAnswerVote = (data) => {
-  return http.httptoken().get("/votes/answer/" + data);
+  return http.httptoken().get("/votes/answer/" + data, { timeout: 5000 });
 };
 const GetQuestionVote = (data) => {
-  return http.httptoken().get("/votes/question/" + data);
+  return http.httptoken().get("/votes/question/" + data, { timeout: 5000 });
 };
 
 

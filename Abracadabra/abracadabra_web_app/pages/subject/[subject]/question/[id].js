@@ -28,20 +28,10 @@ function Question({ data, subject }) {
   // const { subject, id } = router.query
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
-  const [isloggedin, setIsLoggedIn] = useState(false);
+
+
 
   useEffect(() => {
-    const tokenExist = localStorage.getItem("Token");
-    if (tokenExist) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isloggedin == true) {
-      answers.forEach((item) => VotesService.GetAnswerVote(item.id));
-      const questionVotes = VotesService.GetQuestionVote(data.id);
-    }
     //GetQuestion();
     setQuestion(data);
     setAnswers(data.answerViewModels);
