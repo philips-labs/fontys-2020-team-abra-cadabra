@@ -26,7 +26,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // POST: api/FlaggedQuestions
-        [HttpPost("{id}")]
+        [HttpPost("question/{questionId}")]
         [Authorize]
         public async Task<ActionResult> FlagQuestion(int questionId)
         {
@@ -56,7 +56,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // POST: api/FlaggedAnswers
-        [HttpPost("{id}")]
+        [HttpPost("answer/{answerId}")]
         [Authorize]
         public async Task<ActionResult> FlagAnswer(int answerId)
         {
@@ -86,7 +86,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // DELETE: api/FlaggedQuestions
-        [HttpDelete("{id}")]
+        [HttpDelete("question/{questionId}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UnflagQuestion(int questionId)
         {
@@ -113,7 +113,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // DELETE: api/FlaggedAnswers
-        [HttpDelete("{id}")]
+        [HttpDelete("answer/{answerId}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UnflagAnswer(int answerId)
         {
