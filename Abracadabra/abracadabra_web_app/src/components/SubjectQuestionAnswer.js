@@ -16,18 +16,19 @@ export default function Answer({ answer }) {
   const [rendered, setRendered] = useState(false)
   const [vote, setVote] = useState({
     AnswerId: answer.id,
-    vote: ""
+    Vote: ""
   })
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
 
-      const userVote = VotesService.GetAnswerVote(answer.id).then((res) => {
+       VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
+        // setVote({ ...vote, id: res.data.id })
         }
         setVoted(true)
       })
@@ -86,7 +87,7 @@ export default function Answer({ answer }) {
   };
 
   const handleVoteDelete = () => {
-    VotesService.DeleteVoteAnswer(vote2).then((res) => {
+    VotesService.DeleteVoteAnswer(answer.id).then((res) => {
       console.log(res);
       console.log(res.data);
     })
