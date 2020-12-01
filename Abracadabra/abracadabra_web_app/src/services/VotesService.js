@@ -4,7 +4,7 @@ const PostVoteAnswer = (data) => {
   return http.httptoken().post("/votes/answer", data);
 };
 const DeleteVoteAnswer = (data) => {
-  return http.httptoken().delete("/votes/answer", data, { timeout: 5000 });
+  return http.httptoken().delete("/votes/answer/" + data, { timeout: 5000 });
 };
 const PutVoteAnswer = (data) => {
   return http.httptoken().put("/votes/answer", data);

@@ -18,6 +18,7 @@ export default function Answer({ answer }) {
     AnswerId: answer.id,
     Vote: ""
   })
+
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
@@ -36,14 +37,7 @@ export default function Answer({ answer }) {
         });
 
     }
-    // setExistingVote()
   }, []);
-
-  // const setExistingVote = () => {
-  //   if (answer.vote != null) {
-  //     setVoted(true)
-  //   }
-  // }
 
 
   const firstClick = (amount) => {
@@ -81,8 +75,7 @@ export default function Answer({ answer }) {
       console.log(res);
       console.log(res.data);
     })
-      .catch((error) => {
-        console.log(error.response.data);
+      .catch(() => {
       });
   };
 
