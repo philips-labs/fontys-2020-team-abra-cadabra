@@ -24,7 +24,7 @@ export default function Question({ question }) {
 
   useEffect(() => {
     setTotalVotes(question.upvotes - question.downvotes)
-    setVote((prevState) => ({ ...prevState, QuestionId: question.id }));
+    setVote({ ...vote, QuestionId: question.id })
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
@@ -32,7 +32,6 @@ export default function Question({ question }) {
        VotesService.GetQuestionVote(question.id).then((res) => {
         console.log(res);
         console.log(res.data);
-        setVote((prevState) => ({ ...prevState, QuestionId: res.data.questionid }));
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
         setVoted(true)
