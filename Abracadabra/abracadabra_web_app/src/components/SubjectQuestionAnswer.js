@@ -10,26 +10,25 @@ import {
 import VotesService from "../services/VotesService"
 
 export default function Answer({ answer }) {
+  const [date, setDate] = useState();
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes + answer.downvotes)
   const [voted, setVoted] = useState(false)
   const [rendered, setRendered] = useState(false)
   const [vote, setVote] = useState({
     AnswerId: answer.id,
-    Vote: ""
+    vote: ""
   })
 
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
-
        VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
-        // setVote({ ...vote, id: res.data.id })
         }
         setVoted(true)
       })
@@ -38,7 +37,6 @@ export default function Answer({ answer }) {
 
     }
   }, []);
-
 
   const firstClick = (amount) => {
     setRendered(true)
@@ -57,7 +55,6 @@ export default function Answer({ answer }) {
       setVote({ ...vote, vote: amount })
     }
   }
-
 
   useEffect(() => {
     if (rendered == true) {
@@ -93,7 +90,6 @@ export default function Answer({ answer }) {
       console.log(res.data);
     })
       .catch((error) => {
-        console.log(error.response.data);
       });
   };
   const ShowUpvoted = () => {
@@ -130,6 +126,18 @@ export default function Answer({ answer }) {
     </div>
   )
   }
+  function HumanDateTime(dates) {
+    var date = new Date(dates + "Z");
+    date = date.toUTCString().split(", ");
+    date = date[1].slice(0, 17);
+    setDate(date);
+  }
+
+  useEffect(() => {
+    if (answer.dateTimeCreated != undefined) {
+      HumanDateTime(answer.dateTimeCreated);
+    }
+  }, [answer]);
 
 
   return (
@@ -173,7 +181,7 @@ export default function Answer({ answer }) {
                     )}
                 </p>
               </div>
-              <p>Posted on: {answer.dateTimeCreated}</p>
+              <p>Posted on: {date}</p>
             </Card.Footer>
           </Card>
         </Col>
