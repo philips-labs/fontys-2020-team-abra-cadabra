@@ -304,9 +304,9 @@ namespace AbracadabraAPI.Controllers
         }
 
         // DELETE: api/votes/answer
-        [HttpDelete("answer")]
+        [HttpDelete("answer/{answerId}")]
         [Authorize]
-        public async Task<IActionResult> DeleteVote(AnswerVoteViewModel model)
+        public async Task<IActionResult> DeleteVote(int answerId)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -314,13 +314,13 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var answer = await _context.Answers.Where(x => x.ID == model.AnswerId).FirstOrDefaultAsync();
+            var answer = await _context.Answers.Where(x => x.ID == answerId).FirstOrDefaultAsync();
             if (answer == null)
             {
                 return NotFound();
             }
 
-            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == model.AnswerId).FirstOrDefaultAsync();
+            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == answerId).FirstOrDefaultAsync();
             if (vote == null)
             {
                 return NotFound();
