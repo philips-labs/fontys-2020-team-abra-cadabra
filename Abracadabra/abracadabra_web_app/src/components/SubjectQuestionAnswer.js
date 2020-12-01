@@ -26,11 +26,12 @@ export default function Answer({ answer }) {
       const userVote = VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
+        if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
+        }
         setVoted(true)
       })
-        .catch((error) => {
-          console.log(error.response.data);
+        .catch(() => {
         });
 
     }
@@ -85,7 +86,7 @@ export default function Answer({ answer }) {
   };
 
   const handleVoteDelete = () => {
-    VotesService.DeleteVoteAnswer(vote).then((res) => {
+    VotesService.DeleteVoteAnswer(vote2).then((res) => {
       console.log(res);
       console.log(res.data);
     })
@@ -102,6 +103,57 @@ export default function Answer({ answer }) {
         console.log(error.response.data);
       });
   };
+  const ShowUpvoted = () => {
+     return (
+    <div>
+      {(() => {
+        if (vote.vote == 1) {
+          return (
+            <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+          )
+        } else {
+          return (
+            <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+          )
+        } 
+      })()}
+    </div>
+  )
+  }
+   const ShowDownvoted = () => {
+     return (
+    <div>
+      {(() => {
+        if (vote.vote == -1) {
+          return (
+            <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+          )
+        } else {
+          return (
+            <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+          )
+        } 
+      })()}
+    </div>
+  )
+  }
+//   const ShowUpvoted = () => {
+//      return (
+//     if (answer.vote == 1){
+//       return(<div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>)
+//     }
+//     else {
+//       return(<div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>)
+//     }   
+// }
+// const ShowDownvoted = () => {
+ 
+//     return(<div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>)
+//   }   
+//   else {
+//     return(<div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(-1)} /></div>)
+//   }   
+// }
 
 
   return (
@@ -115,13 +167,9 @@ export default function Answer({ answer }) {
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
-                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} />
+                  <ShowUpvoted />
                   <p>{totalvotes}</p>
-                  <FontAwesomeIcon
-                    className="votingArrow"
-                    icon={faChevronDown}
-                    onClick={() => firstClick(-1)}
-                  />
+                  <ShowDownvoted />
                 </Col>
               </Row>
               <Row>
