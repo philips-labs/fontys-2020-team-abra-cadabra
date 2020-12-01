@@ -13,16 +13,18 @@ import {
 export default function Question({ question }) {
   const [date, setDate] = useState();
   const [isloggedin, setIsLoggedIn] = useState(false);
-  const [totalvotes, setTotalVotes] = useState(question.upvotes + question.downvotes)
+  const [totalvotes, setTotalVotes] = useState(question.upvotes - question.downvotes)
   const [voted, setVoted] = useState(false)
   const [rendered, setRendered] = useState(false)
+
   const [vote, setVote] = useState({
     QuestionId: question.id,
     vote: ""
   })
 
   useEffect(() => {
-    setVote({ ...vote, QuestionId: question.id })
+    setTotalVotes(question.upvotes - question.downvotes)
+    setVote((prevState) => ({ ...prevState, QuestionId: question.id }));
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
@@ -30,13 +32,15 @@ export default function Question({ question }) {
        VotesService.GetQuestionVote(question.id).then((res) => {
         console.log(res);
         console.log(res.data);
+        setVote((prevState) => ({ ...prevState, QuestionId: res.data.questionid }));
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
-        }
         setVoted(true)
+        }
       })
         .catch(() => {
         });
+     
 
     }
   }, [question.id]);
@@ -175,7 +179,7 @@ export default function Question({ question }) {
               </Col>
               <Col md={1} className="votingDiv">
                   <ShowUpvoted />
-                  <p>{question.downvotes + question.downvotes}</p>
+                  <p>{totalvotes}</p>
                  <ShowDownvoted />
                 </Col>
             </Row>

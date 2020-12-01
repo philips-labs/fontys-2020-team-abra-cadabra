@@ -12,7 +12,7 @@ import VotesService from "../services/VotesService"
 export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [isloggedin, setIsLoggedIn] = useState(false);
-  const [totalvotes, setTotalVotes] = useState(answer.upvotes + answer.downvotes)
+  const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
   const [rendered, setRendered] = useState(false)
   const [vote, setVote] = useState({
