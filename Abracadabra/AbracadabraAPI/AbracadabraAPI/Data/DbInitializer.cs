@@ -394,8 +394,23 @@ namespace AbracadabraAPI.Data
                 },
                 new FlaggedQuestion
                 {
+                    UserId=userIds[0],
+                    QuestionId=1,
+                },
+                new FlaggedQuestion
+                {
                     UserId=userIds[2],
                     QuestionId=2,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[1],
+                    QuestionId=2,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[2],
+                    QuestionId=3,
                 },
             };
             foreach (FlaggedQuestion fq in flaggedQuestions)
@@ -418,8 +433,23 @@ namespace AbracadabraAPI.Data
                 },
                 new FlaggedAnswer
                 {
+                    UserId=userIds[0],
+                    AnswerId=1,
+                },
+                new FlaggedAnswer
+                {
                     UserId=userIds[2],
                     AnswerId=2,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[1],
+                    AnswerId=2,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[2],
+                    AnswerId=3,
                 },
             };
             foreach (FlaggedAnswer fa in flaggedAnswers)

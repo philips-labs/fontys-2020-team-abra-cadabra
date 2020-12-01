@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AbracadabraAPI.Authentication;
 using AbracadabraAPI.Data;
 using AbracadabraAPI.Models;
+using AbracadabraAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,73 @@ namespace AbracadabraAPI.Controllers
         {
             _context = context;
             this._userManager = userManager;
+        }
+
+        // GET: api/FlaggedQuestions
+        [HttpGet("question")]
+        public async Task<ActionResult<IList<FlaggedQuestionViewModel>>> GetFlaggedQuestions()
+        {
+            List<FlaggedQuestionViewModel> models = new List<FlaggedQuestionViewModel>();
+
+            foreach (var flaggedQuestion in _context.FlaggedQuestions)
+            {
+                bool isMatched = false;
+
+                foreach (var model in models)
+                {
+                    if (flaggedQuestion.QuestionId == model.QuestionId)
+                    {
+                        model.Count++;
+                        isMatched = true;
+                        break;
+                    }
+                }
+                if (!isMatched)
+                {
+                    var question = await _context.Questions.Where(x => x.ID == flaggedQuestion.QuestionId).FirstOrDefaultAsync();
+                    models.Add(new FlaggedQuestionViewModel()
+                    {
+                        QuestionId = flaggedQuestion.QuestionId,
+                        Count = 1,
+                        Question = question,
+                    });
+                }
+            }
+
+            return models;
+        }
+
+        // GET: api/FlaggedAnswers
+        [HttpGet("answer")]
+        public async Task<ActionResult<IList<FlaggedAnswerViewModel>>> GetFlaggedAnswers()
+        {
+            List<FlaggedAnswerViewModel> models = new List<FlaggedAnswerViewModel>();
+
+            foreach (var flaggedAnswer in _context.FlaggedAnswers)
+            {
+                bool isMatched = false;
+
+                foreach (var model in models)
+                {
+                    if (flaggedAnswer.AnswerId == model.AnswerId)
+                    {
+                        model.Count++;
+                        isMatched = true;
+                        break;
+                    }
+                }
+                if(!isMatched)
+                {
+                    var answer = await _context.Answers.Where(x => x.ID == flaggedAnswer.AnswerId).FirstOrDefaultAsync();
+                    models.Add(new FlaggedAnswerViewModel() {
+                        AnswerId = flaggedAnswer.AnswerId,
+                        Count = 1,
+                        Answer = answer,
+                    });
+                }
+            }
+
+            return models;
         }
 
         // POST: api/FlaggedQuestions
