@@ -274,3 +274,21 @@ input::-webkit-input-placeholder {
 .navbar-textcolor:hover {
   color: #4c4c50;
 }
+
+.expertPendingBox {
+  background-color: #4c4c50;
+  padding-top: 0.4rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 5px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.expertPendingBox:hover {
+  background-color: #414142;
+  padding-top: 0.4rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 5px;
+}
