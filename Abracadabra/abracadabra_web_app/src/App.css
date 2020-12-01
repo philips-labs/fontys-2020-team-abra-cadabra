@@ -275,19 +275,3 @@ input::-webkit-input-placeholder {
   color: #4c4c50;
 }
 
-.votingArrow {
-  cursor: pointer;
-  font-size: 1.4rem;
-  margin: 0px 2px;
-}
-.votingArrowVoted {
-  cursor: pointer;
-  font-size: 1.4rem;
-  margin: 0px 2px;
-  color: red;
-}
-.votingDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
