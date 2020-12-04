@@ -8,6 +8,8 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import VotesService from "../services/VotesService"
+import QuestionService from "../services/QuestionService"
+import AnswerService from "../services/AnswerService"
 
 export default function Answer({ answer, UpdateVoteAnswers }) {
   const [date, setDate] = useState();
@@ -19,6 +21,16 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
     AnswerId: answer.id,
     vote: ""
   })
+  
+  const UpdateVotesAnswers2 = () => {
+    AnswerService.GetAnswer(answer.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setTotalVotes(res.data.upvotes - res.data.downvotes)
+    })
+      .catch(() => {
+      });
+  }
 
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
@@ -29,8 +41,8 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
         console.log(res.data);
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
-        }
         setVoted(true)
+        }
       })
         .catch(() => {
         });
@@ -67,27 +79,34 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
     }
   }, [vote.vote]);
 
-  const submitPost = () => {
+  const submitPost =  () => {
     VotesService.PostVoteAnswer(vote).then((res) => {
       console.log(res);
       console.log(res.data);
+      setVoted(true)
+     UpdateVotesAnswers2()
     })
       .catch(() => {
       });
   };
 
-  const handleVoteDelete = () => {
+  const handleVoteDelete =  () => {
     VotesService.DeleteVoteAnswer(answer.id).then((res) => {
       console.log(res);
       console.log(res.data);
+     UpdateVotesAnswers2()
+     setVoted(false)
+     setRendered(false)
+     setVote({ ...vote, vote: null })
     })
       .catch((error) => {
       });
   };
-  const handleVotePut = () => {
+  const handleVotePut =  () => {
     VotesService.PutVoteAnswer(vote).then((res) => {
       console.log(res);
       console.log(res.data);
+    UpdateVotesAnswers2()
     })
       .catch((error) => {
       });
@@ -152,7 +171,7 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
                 </Col>
                 <Col md={1} className="votingDiv">
                   <ShowUpvoted />
-                  <p>{UpdateVoteAnswers(answer.id)}</p>
+                  <p>{totalvotes}</p>
                   <ShowDownvoted />
                 </Col>
               </Row>
