@@ -29,15 +29,6 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
-const UpdateVotesAnswers = (id) => {
-  QuestionService.GetQuestion(id).then((res) => {
-    console.log(res);
-    console.log(res.data);
-    return(res.data.upvotes - res.data.downvotes)
-  })
-    .catch(() => {
-    });
-}
 
   useEffect(() => {
     //GetQuestion();
@@ -60,7 +51,7 @@ const UpdateVotesAnswers = (id) => {
         <QuestionCreateAnswer QID={question.id} />
         {/* Create component for answer tnx */}
         {answers.map((answer) => (
-          <SubjectAnswer key={answer.id} answer={answer} UpdateVoteAnswers={UpdateVotesAnswers} />
+          <SubjectAnswer key={answer.id} answer={answer} />
         ))}
       </div>
     </>

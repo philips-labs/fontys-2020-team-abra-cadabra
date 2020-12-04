@@ -47,7 +47,6 @@ export default function Question({ question }) {
         console.log(res.data);
         if (res.data.vote == 1|-1){
         setVote({ ...vote, vote: res.data.vote })
-        setVote({ ...vote, QuestionId: res.data.questionId })
         setVoted(true)
         }
       })

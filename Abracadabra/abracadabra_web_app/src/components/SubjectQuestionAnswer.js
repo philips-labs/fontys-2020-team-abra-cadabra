@@ -11,7 +11,7 @@ import VotesService from "../services/VotesService"
 import QuestionService from "../services/QuestionService"
 import AnswerService from "../services/AnswerService"
 
-export default function Answer({ answer, UpdateVoteAnswers }) {
+export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
@@ -22,7 +22,7 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
     vote: ""
   })
   
-  const UpdateVotesAnswers2 = () => {
+  const UpdateVotesAnswers = () => {
     AnswerService.GetAnswer(answer.id).then((res) => {
       console.log(res);
       console.log(res.data);
@@ -84,7 +84,7 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
       console.log(res);
       console.log(res.data);
       setVoted(true)
-     UpdateVotesAnswers2()
+     UpdateVotesAnswers()
     })
       .catch(() => {
       });
@@ -94,7 +94,7 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
     VotesService.DeleteVoteAnswer(answer.id).then((res) => {
       console.log(res);
       console.log(res.data);
-     UpdateVotesAnswers2()
+     UpdateVotesAnswers()
      setVoted(false)
      setRendered(false)
      setVote({ ...vote, vote: null })
@@ -106,7 +106,7 @@ export default function Answer({ answer, UpdateVoteAnswers }) {
     VotesService.PutVoteAnswer(vote).then((res) => {
       console.log(res);
       console.log(res.data);
-    UpdateVotesAnswers2()
+    UpdateVotesAnswers()
     })
       .catch((error) => {
       });
