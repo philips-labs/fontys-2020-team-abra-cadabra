@@ -13,6 +13,7 @@ import AnswerService from "../services/AnswerService"
 
 export default function Answer({ answer }) {
   const [date, setDate] = useState();
+  const [error, setError] = useState();
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
@@ -21,7 +22,7 @@ export default function Answer({ answer }) {
     AnswerId: answer.id,
     vote: ""
   })
-  
+
   const UpdateVotesAnswers = () => {
     AnswerService.GetAnswer(answer.id).then((res) => {
       console.log(res);
@@ -36,12 +37,12 @@ export default function Answer({ answer }) {
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
-       VotesService.GetAnswerVote(answer.id).then((res) => {
+      VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data.vote == 1|-1){
-        setVote({ ...vote, vote: res.data.vote })
-        setVoted(true)
+        if (res.data.vote == 1 | -1) {
+          setVote({ ...vote, vote: res.data.vote })
+          setVoted(true)
         }
       })
         .catch(() => {
@@ -79,71 +80,77 @@ export default function Answer({ answer }) {
     }
   }, [vote.vote]);
 
-  const submitPost =  () => {
+  const submitPost = () => {
     VotesService.PostVoteAnswer(vote).then((res) => {
       console.log(res);
       console.log(res.data);
+      setError(null)
       setVoted(true)
-     UpdateVotesAnswers()
+      UpdateVotesAnswers()
     })
-      .catch(() => {
+      .catch((error) => {
+        setError("Error submitting, please try again")
       });
   };
 
-  const handleVoteDelete =  () => {
+  const handleVoteDelete = () => {
     VotesService.DeleteVoteAnswer(answer.id).then((res) => {
       console.log(res);
       console.log(res.data);
-     UpdateVotesAnswers()
-     setVoted(false)
-     setRendered(false)
-     setVote({ ...vote, vote: null })
+      setError(null)
+      UpdateVotesAnswers()
+      setVoted(false)
+      setRendered(false)
+      setVote({ ...vote, vote: null })
     })
       .catch((error) => {
+        setError("Error deleting, please try again")
       });
   };
-  const handleVotePut =  () => {
+  const handleVotePut = () => {
     VotesService.PutVoteAnswer(vote).then((res) => {
       console.log(res);
       console.log(res.data);
-    UpdateVotesAnswers()
+      setError(null)
+      UpdateVotesAnswers()
     })
       .catch((error) => {
+        setError("Error channging vote, please try again")
       });
   };
   const ShowUpvoted = () => {
-     return (
-    <div>
-      {(() => {
-        if (vote.vote == 1) {
-          return (
-            <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
-          )
-        } else {
-          return (
-            <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
-          )
-        } 
-      })()}
-    </div>
-  )
+    return (
+      <div>
+        {(() => {
+          if (vote.vote == 1) {
+            return (
+              <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+            )
+          } else {
+            return (
+              <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+            )
+          }
+        })()}
+      </div>
+    )
   }
-   const ShowDownvoted = () => {
-     return (
-    <div>
-      {(() => {
-        if (vote.vote == -1) {
-          return (
-            <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
-          )
-        } else {
-          return (
-            <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
-          )
-        } 
-      })()}
-    </div>
-  )
+  const ShowDownvoted = () => {
+    return (
+      <div>
+        {(() => {
+          if (vote.vote == -1) {
+            return (
+              <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+            )
+          } else {
+            return (
+              <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+            )
+          }
+        })()}
+      </div>
+    )
   }
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
@@ -167,6 +174,8 @@ export default function Answer({ answer }) {
             <Card.Body>
               <Row>
                 <Col md={11}>
+                {error &&
+              <h6 className="errorVoting"> {error} </h6>}
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">

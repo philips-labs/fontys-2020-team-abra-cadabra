@@ -9,6 +9,10 @@
   width: 71vw;
   margin-top: 0.5rem;
 
+  .errorVoting {
+    color: red;
+  }
+
   .questionHeadDiv {
     display: flex;
     justify-content: space-between;
@@ -44,6 +48,8 @@
       margin: 0px 2px;
       color: red;
     }
+   
+   
 
     p {
       padding-top: 5px;
@@ -51,6 +57,7 @@
       font-size: 1rem;
     }
   }
+
 
   .questionUsername {
     font-size: 1.5rem;
@@ -104,6 +111,9 @@
         margin-right: 8px;
         font-size: 1rem;
       }
+    }
+    .errorVoting {
+      color: red;
     }
 
     .flagDiv {
