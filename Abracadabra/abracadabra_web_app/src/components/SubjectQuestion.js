@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import VotesService from "../services/VotesService"
+import QuestionService from "../services/QuestionService"
 import {
   faChevronUp,
   faChevronDown,
@@ -21,6 +22,18 @@ export default function Question({ question }) {
     QuestionId: "",
     vote: ""
   })
+
+
+
+  const UpdateVotesQuestion = () => {
+    QuestionService.GetQuestion(question.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setTotalVotes(res.data.upvotes - res.data.downvotes)
+    })
+      .catch(() => {
+      });
+  }
 
   useEffect(() => {
     setTotalVotes(question.upvotes - question.downvotes)
@@ -78,6 +91,7 @@ export default function Question({ question }) {
       console.log(res);
       console.log(res.data);
       setVoted(true)
+      UpdateVotesQuestion()
     })
       .catch(() => {
       });
@@ -87,6 +101,10 @@ export default function Question({ question }) {
     VotesService.DeleteVoteQuestion(question.id).then((res) => {
       console.log(res);
       console.log(res.data);
+      setVoted(false)
+      setRendered(false)
+      setVote({ ...vote, vote: null })
+      UpdateVotesQuestion()
     })
       .catch((error) => {
       });
@@ -95,6 +113,7 @@ export default function Question({ question }) {
     VotesService.PutVoteQuestion(vote).then((res) => {
       console.log(res);
       console.log(res.data);
+      UpdateVotesQuestion()
     })
       .catch((error) => {
       });
