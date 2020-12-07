@@ -14,9 +14,11 @@ import AnswerService from "../services/AnswerService"
 import ReportService from 'src/services/ReportService';
 
 
+
 export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [error, setError] = useState();
+  const [endorsed, setEndorsed] = useState(false)
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
@@ -84,6 +86,14 @@ export default function Answer({ answer }) {
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
+      AnswerService.GetAnswerEndorsement().then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setEndorsed(true)
+      })
+      .catch((error) => {
+        console.log(error.response.status)
+      });
       VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
@@ -171,6 +181,28 @@ export default function Answer({ answer }) {
         setError("Error channging vote, please try again")
       });
   };
+  const HandleEndorseClick = () => {
+    if (endorsed == false) {
+    AnswerService.PostAnswerEndorsement(answer.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setEndorsed(true)
+    })
+    .catch((error) => {
+      setError("Error posting endorsement, please try again")
+    });
+  }
+  else {
+    AnswerService.DeleteAnswerEndorsement(answer.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setEndorsed(false)
+    })
+    .catch((error) => {
+      setError("Error deleting endorsement, please try again")
+    });
+  }
+  }
   const ShowUpvoted = () => {
     return (
       <div>
@@ -219,6 +251,25 @@ export default function Answer({ answer }) {
       </div>
     )
   }
+  const ShowEndorse = () => {
+    return (
+      <div>
+        {(() => {
+           if (isloggedin == true) {
+          if (endorsed == true) {
+            return (
+              <div><FontAwesomeIcon className="endorseIconSelected"  icon={faCheck} onClick={HandleEndorseClick} /></div>
+            )
+          } else {
+            return (
+              <div><FontAwesomeIcon className="endorseIcon"  icon={faCheck} onClick={HandleEndorseClick} /></div>
+            )
+          }
+        }
+        })()}
+      </div>
+    )
+  }
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
     date = date.toUTCString().split(", ");
@@ -254,7 +305,8 @@ export default function Answer({ answer }) {
               <Row>
                 <Col md={11}></Col>
                 <Col md={1} className="flagDiv">
-                  <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleAnswerFlagClick} />
+                <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faCheck} onClick={HandleAnswerFlagClick} />
+                <FontAwesomeIcon className="endorseIcon WhiteLinks" icon={faFlag} onClick={HandleEndorseClick} />
                 </Col>
               </Row>
             </Card.Body>

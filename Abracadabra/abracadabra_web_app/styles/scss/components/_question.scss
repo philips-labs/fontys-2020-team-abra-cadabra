@@ -135,7 +135,14 @@
 
       .flagIcon {
         cursor: pointer;
-        margin: 2rem 2px 0 0;
+     //   margin: 2rem 2px 0 0;
+      }
+      .endorseIcon {
+        cursor: pointer;
+      }
+      .endorseIconSelected {
+        cursor: pointer;
+        color: red;
       }
     }
 
