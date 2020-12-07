@@ -48,7 +48,7 @@ export default function Usermanagement() {
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {
-    localStorage.setItem("Token", session.user.image);
+    localStorage.setItem("AdminToken", session.user.image);
 return (
     <>
     <NavBar/>

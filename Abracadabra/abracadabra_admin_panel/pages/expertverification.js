@@ -26,7 +26,7 @@ export default function Expertverification() {
   };
 
   useEffect(() => {
-    //Api call questions
+    //Api call applications
     ExpertService.GetApplications()
     .then((res) => {
       console.log(res);
@@ -42,7 +42,7 @@ export default function Expertverification() {
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {
-    localStorage.setItem("Token", session.user.image);
+    localStorage.setItem("AdminToken", session.user.image);
 return (
     <>
     <NavBar/>

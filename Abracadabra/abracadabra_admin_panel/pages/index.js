@@ -15,14 +15,21 @@ import Dashboard_HotCarousel from 'src/components/Dashboard/Dashboard_HotCarouse
 import Dashboard_BarChart from 'src/components/Dashboard/Dashboard_BarChart';
 import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
 import DashboardService from 'src/services/DashboardService';
+import ExpertService from 'src/services/ExpertService';
 
 export default function Dashboard() {
     const [ session, loading ] = useSession();
     // const router = useRouter();
     const { date, time, wish } = useDate();
     const [Subjects, setSubjects] = useState([]);
-    const Subject = {Name: "Cooking"};
+    const [ExpertApplications, setExpertApplications] = useState([]);
 
+    function RemoveApplication(id){
+      console.log(id);
+      let apps = ExpertApplications;
+      const arr = apps.filter((item) => item.applicationId !== id);
+      setExpertApplications(arr);
+    };
     useEffect(() => {
       //Api call
       DashboardService.Get()
@@ -33,7 +40,15 @@ export default function Dashboard() {
       .catch((error) => {
          console.log(error);
       });
-
+      //Api call applications
+      ExpertService.GetApplications()
+      .then((res) => {
+        console.log(res);
+        setExpertApplications(res.data);
+      })
+      .catch((error) => {
+          console.log(error);
+      });
     }, []);
   
     if (loading) return null
@@ -52,7 +67,7 @@ export default function Dashboard() {
     if (!loading && !session) signIn('Credentials')
   
     if (!loading && session) {
-      localStorage.setItem("Token", session.user.image);
+      localStorage.setItem("AdminToken", session.user.image);
   return (
     <>
       <NavBar/>
@@ -139,11 +154,7 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="mx-auto">
                     {/* Experts to verify */}
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
-                    <Dashboard_ExpertCard Username={"Verylonglongusername"} Subject={Subject}/>
+                    {ExpertApplications.length > 0 ? ExpertApplications.map((ea) => <Dashboard_ExpertCard key={ea.applicationId} Username={ea.userName} Subject={ea.subjectName} data={ea} RemoveFunc={RemoveApplication}/>) : <h4>No applications at the moment.</h4>}
                   </Row>
                 </Col>
               </Row>
