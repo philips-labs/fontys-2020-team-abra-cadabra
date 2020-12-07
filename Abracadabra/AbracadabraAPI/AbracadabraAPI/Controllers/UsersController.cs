@@ -66,11 +66,7 @@ namespace AbracadabraAPI.Controllers
             {
                 var roles = await _userManager.GetRolesAsync(user);
 
-                //dont add if the user is banned already
-                if (roles[0] != "Banned")
-                {
-                    viewModels.Add(Mapper.UserToViewModel(user, roles[0]));
-                }
+                 viewModels.Add(Mapper.UserToViewModel(user, roles[0]));
             }
 
             return viewModels;

@@ -28,26 +28,14 @@ export default function User_Card({UserRole, Username, UserID, RemoveFunc}) {
                 <Card.Body className="p-1 d-flex">
                     <Image src="https://via.placeholder.com/150" height={35} className="my-auto mr-1" roundedCircle />
                     <h5 className="my-auto mr-auto BoxContentText">{UserRole} | {Username}</h5>
-                    <OverlayTrigger
-                        placement={"right"}
-                        overlay={
-                            <Tooltip>
-                            <b>Unban user</b>
-                            </Tooltip>
-                        }
-                        >                      
-                        <a onClick={unbanUser} className="my-auto mr-1 accept"><FaLockOpen /></a>
+                    {UserRole == "Banned" ? 
+                        <OverlayTrigger placement={"right"} overlay={<Tooltip><b>Unban user</b></Tooltip>}>                                         
+                            <a onClick={unbanUser} className="my-auto mr-1 accept"><FaLockOpen /></a>
                         </OverlayTrigger>  
-                    <OverlayTrigger
-                        placement={"right"}
-                        overlay={
-                            <Tooltip>
-                            <b>Ban user</b>
-                            </Tooltip>
-                        }
-                        >                      
+                    : <></>}
+                    <OverlayTrigger placement={"right"} overlay={<Tooltip><b>Ban user</b></Tooltip>}>                      
                         <a onClick={deleteUser} className="my-auto mr-1 decline"><FaBan /></a>
-                        </OverlayTrigger>    
+                    </OverlayTrigger>    
                 </Card.Body>
             </Card>
         </>
