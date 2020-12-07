@@ -4,8 +4,8 @@ const applyExpert = (data) => {
   return http.httptoken().post("/applications", data);
 };
 
-const getPending = (data) => {
-  return http.httptoken().get("/applications/" + data);
+const getPending = () => {
+  return http.httptoken().get("/applications");
 };
 
 export default {

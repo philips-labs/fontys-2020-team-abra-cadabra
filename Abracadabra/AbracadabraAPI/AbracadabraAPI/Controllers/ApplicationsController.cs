@@ -31,7 +31,7 @@ namespace AbracadabraAPI.Controllers
             this._roleManager = roleManager;
         }
 
-        //GET: api/Applications/{userId}
+        //GET: api/Applications
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<IEnumerable<ShortApplicationViewModel>>> GetShortApplicationsForSpecificUser()
