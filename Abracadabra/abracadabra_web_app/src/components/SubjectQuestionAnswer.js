@@ -5,7 +5,7 @@ import {
   faChevronUp,
   faChevronDown,
   faFlag,
-  faCheck,
+  faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 
 import VotesService from "../services/VotesService"
@@ -25,46 +25,43 @@ export default function Answer({ answer }) {
     AnswerId: answer.id,
     vote: ""
   })
-  
-    //#region FlaggingQuestion
+
+  //#region FlaggingQuestion
   const [showToast, setShowToast] = useState(false);
   const [toastText, setToastText] = useState("");
   const [toastColor, setToastColor] = useState("");
 
   const HandleAnswerFlagClick = async () => {
     ReportService.FlagAnswer(answer.id)
-    .then(res => {
-      //console.log(res);
-      setToastText("Answer successfully reported");
-      setToastColor("bg-success");
-      setShowToast(true);
-    })
-    .catch(err => {
-      //console.log(err);
-      try {
-      if(err.response.status == 400)
-      {
-        setToastText(err.response.data);
-        setToastColor("bg-warning");
-      }
-      else if(err.response.status == 401)
-      {
-        setToastText("You need to be logged in to report an answer!");
-        setToastColor("bg-warning");
-      }
-      else 
-      {
-        setToastText("Oops! Something went wrong with the API, try again later.");
-        setToastColor("bg-danger");
-      }
-      setShowToast(true);
-    }
-    catch {
-      setToastText("Oops! couldn't reach the report API, try again later.");
-      setToastColor("bg-danger");
-      setShowToast(true);
-    }
-    });
+      .then(res => {
+        //console.log(res);
+        setToastText("Answer successfully reported");
+        setToastColor("bg-success");
+        setShowToast(true);
+      })
+      .catch(err => {
+        //console.log(err);
+        try {
+          if (err.response.status == 400) {
+            setToastText(err.response.data);
+            setToastColor("bg-warning");
+          }
+          else if (err.response.status == 401) {
+            setToastText("You need to be logged in to report an answer!");
+            setToastColor("bg-warning");
+          }
+          else {
+            setToastText("Oops! Something went wrong with the API, try again later.");
+            setToastColor("bg-danger");
+          }
+          setShowToast(true);
+        }
+        catch {
+          setToastText("Oops! couldn't reach the report API, try again later.");
+          setToastColor("bg-danger");
+          setShowToast(true);
+        }
+      });
   };
   //#endregion
 
@@ -188,7 +185,7 @@ export default function Answer({ answer }) {
           }
           else {
             return (
-              <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp}  /></div></a>
+              <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp} /></div></a>
             )
           }
         })()}
@@ -199,22 +196,22 @@ export default function Answer({ answer }) {
     return (
       <div>
         {(() => {
-           if (isloggedin == true) {
-          if (vote.vote == -1) {
+          if (isloggedin == true) {
+            if (vote.vote == -1) {
+              return (
+                <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+              )
+            } else {
+              return (
+                <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+              )
+            }
+          }
+          else {
             return (
-              <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
-            )
-          } else {
-            return (
-              <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+              <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
             )
           }
-        }
-        else {
-          return (
-            <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
-          )
-        }
         })()}
       </div>
     )
@@ -235,7 +232,7 @@ export default function Answer({ answer }) {
 
   return (
     <>
-      <Row>
+      <Row className="mb-2">
         <Col md={11} className="mx-auto">
           <Card className="answerBody">
             <Card.Body>
@@ -264,17 +261,17 @@ export default function Answer({ answer }) {
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                 ></img>
-                <p className="answerUsername">
+                <a href={"/profile/" + answer.userName} className="answerUsername">
                   {answer.userName}
                   {answer.userRole === "Expert" ? (
                     <FontAwesomeIcon
                       className="checkIcon ml-2"
-                      icon={faCheck}
+                      icon={faUserGraduate}
                     />
                   ) : (
                       <></>
                     )}
-                </p>
+                </a>
               </div>
               <p>Posted on: {date}</p>
             </Card.Footer>
@@ -282,16 +279,16 @@ export default function Answer({ answer }) {
         </Col>
       </Row>
       <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide className="bg-dark" style={{
-      position: 'fixed',
-      top: 10,
-      right: 10,
-    }}>
-          <Toast.Header className={toastColor + " text-white"}>
-            <strong className="mr-auto">Report</strong>
-            <small>just now</small>
-          </Toast.Header>
-          <Toast.Body>{toastText}</Toast.Body>
-        </Toast>
+        position: 'fixed',
+        top: 10,
+        right: 10,
+      }}>
+        <Toast.Header className={toastColor + " text-white"}>
+          <strong className="mr-auto">Report</strong>
+          <small>just now</small>
+        </Toast.Header>
+        <Toast.Body>{toastText}</Toast.Body>
+      </Toast>
     </>
   );
 }

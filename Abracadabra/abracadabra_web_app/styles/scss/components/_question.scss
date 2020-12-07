@@ -66,7 +66,15 @@
 
 
   .questionUsername {
+    color: $text-color;
+    text-decoration: none;
     font-size: 1.5rem;
+    margin-bottom: 0px;
+
+    &:hover {
+      cursor: pointer;
+      color: $secondary-color;
+    }
   }
 }
 
@@ -151,8 +159,15 @@
     justify-content: space-between;
 
     .answerUsername {
+      color: $text-color;
+      text-decoration: none;
       font-size: 1.7rem;
       margin-bottom: 0px;
+
+      &:hover {
+        cursor: pointer;
+        color: $hover-color;
+      }
     }
 
     .answerPosted {
