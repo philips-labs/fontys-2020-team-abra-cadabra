@@ -21,7 +21,7 @@ export default function Expertverification() {
   function RemoveApplication(id){
     console.log(id);
     let apps = ExpertApplications;
-    const arr = apps.filter((item) => item.userId !== id);
+    const arr = apps.filter((item) => item.applicationId !== id);
     setExpertApplications(arr);
   };
 
@@ -77,9 +77,8 @@ return (
                   {/* List of users awaiting verification */}
                   <Row className="mx-auto">
                     {/* Possible experts */}
-                    {/* Map the users waiting for verification */}
-                      
-                      {ExpertApplications > 0 ? ExpertApplications.map((ea) => <Dashboard_ExpertCard Username={ea.user} Subject={ea.Subject} data={ea} RemoveFunc={RemoveApplication}/>) : <h4>No applications at the moment.</h4>}
+                    {/* Map the users waiting for verification */} 
+                      {ExpertApplications.length > 0 ? ExpertApplications.map((ea) => <Dashboard_ExpertCard key={ea.applicationId} Username={ea.userName} Subject={ea.subjectName} data={ea} RemoveFunc={RemoveApplication}/>) : <h4>No applications at the moment.</h4>}
                   </Row>
                 </Col>
               </Row>

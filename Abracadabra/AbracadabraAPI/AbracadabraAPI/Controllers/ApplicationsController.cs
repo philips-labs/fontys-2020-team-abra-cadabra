@@ -60,8 +60,8 @@ namespace AbracadabraAPI.Controllers
             return shortApplicationViewModels;
         }
 
-        //GET: api/Dashboard/Applications
-        [HttpGet("Dashboard")]
+        //GET: api/Applications/all
+        [HttpGet("all")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<ApplicationViewModel>>> GetApplicationsForDashboard()
         {
@@ -83,7 +83,7 @@ namespace AbracadabraAPI.Controllers
             foreach (var application in expertApplications)
             {
                 if (application.Status == ApplicationStatus.Pending) {
-                    applicationViewModels.Add(Mapper.ApplicationToViewModel(application, await _context.Subjects.Where(x => x.ID == application.SubjectId).FirstOrDefaultAsync(), application.UserId));
+                    applicationViewModels.Add(Mapper.ApplicationToViewModel(application, await _context.Subjects.Where(x => x.ID == application.SubjectId).FirstOrDefaultAsync(), await  _userManager.FindByIdAsync(application.UserId)));
                 };
             }
 

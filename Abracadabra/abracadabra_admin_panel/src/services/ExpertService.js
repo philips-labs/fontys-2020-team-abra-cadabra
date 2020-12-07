@@ -1,17 +1,17 @@
 import http from "./common-api";
 
 const GetApplications = () => {
-    return http.httptoken().get("/applications", { timeout: 3000 });
+    return http.httptoken().get("/applications/all", { timeout: 3000 });
   };
 
-  const AcceptApplication = (userID, data) => {
-      data.Status = 1;
-    return http.httptoken().put("/applications/" + userID, data, { timeout: 3000 });
+  const AcceptApplication = (data) => {
+      data.status = 1;
+    return http.httptoken().put("/applications/" + data.userId, data, { timeout: 3000 });
   };
 
-  const DenyApplication = (userID, data) => {
-    data.Status = 2;
-  return http.httptoken().put("/applications/" + userID, data, { timeout: 3000 });
+  const DenyApplication = (data) => {
+    data.status = 2;
+  return http.httptoken().put("/applications/" + data.userId, data, { timeout: 3000 });
 };
 
   export default {

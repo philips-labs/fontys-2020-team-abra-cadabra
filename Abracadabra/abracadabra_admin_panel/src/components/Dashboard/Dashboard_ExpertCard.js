@@ -16,11 +16,11 @@ export default function Dashboard_SubjectCard({Username, Subject, data, RemoveFu
     const handleShow = () => setExpertModal(true);
     const acceptRequest = () => {
         ExpertService.AcceptApplication(data).then(res => {handleClose();}).catch(err => {});
-        RemoveFunc(data.userId);
+        RemoveFunc(data.applicationId);
     };
     const denyRequest = () => {
         ExpertService.DenyApplication(data).then(res => {handleClose();}).catch(err => {});
-        RemoveFunc(data.userId);
+        RemoveFunc(data.applicationId);
     };
 
     return (
@@ -55,7 +55,7 @@ export default function Dashboard_SubjectCard({Username, Subject, data, RemoveFu
                                 <Col><h6 className="font-weight-bold">Reasoning:</h6></Col>
                             </Row>
                             <Row>
-                                <Col><h6>Extra info</h6></Col>
+                                <Col><h6>{data?.motivation}</h6></Col>
                             </Row>
                         </Col>
                     </Row>
