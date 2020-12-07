@@ -129,6 +129,18 @@ namespace AbracadabraAPI.Controllers
                     {
                         return StatusCode(400, "You already have an active request for this subject!");
                     }
+                    if (userApplication.ReviewedBy != null)
+                    {
+                        if (DateTime.Compare(userApplication.ReviewedOn, DateTime.Now.AddSeconds(60)) > 0 && userApplication.SubjectId == application.SubjectId && userApplication.Status == ApplicationStatus.Denied)
+                        {
+                            userApplication.Status = ApplicationStatus.Pending;
+                            userApplication.ReviewedBy = null;
+                            await _context.SaveChangesAsync();
+
+                            return StatusCode(200, "Your application for " + applicationViewModel.SubjectName + " has been set to Pending");
+                        }
+                         return StatusCode(400, "You have applied for this subject already or have been approved! Apply again in 60 seconds! ");
+                    }
                 }
             }
 
