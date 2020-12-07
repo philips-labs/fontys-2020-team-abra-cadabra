@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AbracadabraAPI.Authentication;
 using AbracadabraAPI.Data;
 using AbracadabraAPI.Models;
+using AbracadabraAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,31 @@ namespace AbracadabraAPI.Controllers
         {
             _context = context;
             this._userManager = userManager;
+        }
+
+        // GET: api/EndorsedAnswers
+        [HttpGet("{answerId}")]
+        public async Task<ActionResult<EndorsedAnswerViewModel>> GetEndorsedAnswer(int answerId)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            EndorsedAnswer endorsedAnswer = await _context.EndorsedAnswers.Where(x => x.AnswerId == answerId && x.UserId == user.Id).FirstOrDefaultAsync();
+            if (endorsedAnswer == null)
+            {
+                return NotFound();
+            }
+
+            return new EndorsedAnswerViewModel
+            {
+                Id = endorsedAnswer.Id,
+                AnswerId = endorsedAnswer.AnswerId,
+                UserId = endorsedAnswer.UserId,
+            };
         }
 
         // POST: api/EndorsedAnswers
