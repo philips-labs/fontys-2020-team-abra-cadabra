@@ -73,7 +73,7 @@ export default function NavBar({ subjectTitle }) {
           <Image src={Logo} height={60} className="my-auto" />
         </a>
         <a href={"/subject/" + subjectTitle} className="my-auto">
-          <h3>{subjectTitle}</h3>
+          <h3 className="text-capitalize">{subjectTitle}</h3>
         </a>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
