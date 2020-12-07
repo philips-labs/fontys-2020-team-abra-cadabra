@@ -10,13 +10,32 @@ import SideBar from 'src/components/SideBar';
 import {} from 'react-icons/fa';
 import {useDate} from 'src/components/Dashboard/Dashboard_Greeting';
 import Dashboard_ExpertCard from 'src/components/Dashboard/Dashboard_ExpertCard';
+import ExpertService from 'src/services/ExpertService';
 
 export default function Expertverification() {
   const [ session, loading ] = useSession();
   // const router = useRouter();
   const { date, time, wish } = useDate();
-  const Subject = {Name: "Cooking"};
+  const [ExpertApplications, setExpertApplications] = useState([]);
 
+  function RemoveApplication(id){
+    console.log(id);
+    let apps = ExpertApplications;
+    const arr = apps.filter((item) => item.userId !== id);
+    setExpertApplications(arr);
+  };
+
+  useEffect(() => {
+    //Api call questions
+    ExpertService.GetApplications()
+    .then((res) => {
+      console.log(res);
+      setExpertApplications(res.data);
+    })
+    .catch((error) => {
+       console.log(error);
+    });
+  }, []);
 
   if (loading) return null
   
@@ -59,7 +78,8 @@ return (
                   <Row className="mx-auto">
                     {/* Possible experts */}
                     {/* Map the users waiting for verification */}
-                      <Dashboard_ExpertCard Username={"User123556644"} Subject={Subject}/>
+                      
+                      {ExpertApplications > 0 ? ExpertApplications.map((ea) => <Dashboard_ExpertCard Username={ea.user} Subject={ea.Subject} data={ea} RemoveFunc={RemoveApplication}/>) : <h4>No applications at the moment.</h4>}
                   </Row>
                 </Col>
               </Row>

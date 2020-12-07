@@ -5,22 +5,30 @@ import Link from 'next/link';
 //bootstrap
 import {Card, Image, Modal, Button, Container, Row, Col } from 'react-bootstrap';
 import {FaCheck, FaTimes } from 'react-icons/fa';
+import ExpertService from 'src/services/ExpertService';
 
 // Get Verification info with api call
 
-export default function Dashboard_SubjectCard({Username, Subject, VerificationID}) {
+export default function Dashboard_SubjectCard({Username, Subject, data, RemoveFunc}) {
     const [ExpertModal, setExpertModal] = useState(false);
 
     const handleClose = () => setExpertModal(false);
     const handleShow = () => setExpertModal(true);
-    const acceptRequest = () => {};
-    const denyRequest = () => {};
+    const acceptRequest = () => {
+        ExpertService.AcceptApplication(data).then(res => {handleClose();}).catch(err => {});
+        RemoveFunc(data.userId);
+    };
+    const denyRequest = () => {
+        ExpertService.DenyApplication(data).then(res => {handleClose();}).catch(err => {});
+        RemoveFunc(data.userId);
+    };
+
     return (
         <>
             <Card bg="secondary" className="mb-2 w-100">
                 <Card.Body className="p-1 d-flex">
                     <Image src="https://via.placeholder.com/150" height={35} className="my-auto mr-1" roundedCircle />
-                    <h5 className="my-auto mr-auto BoxContentText">{Username} - {Subject.Name}</h5>
+                    <h5 className="my-auto mr-auto BoxContentText">{Username} - {Subject}</h5>
                     <a onClick={handleShow} className="my-auto BoxContentLink mr-2">View request details</a>
                     <a onClick={acceptRequest} className="my-auto mr-1 accept"><FaCheck /></a>
                     <a onClick={denyRequest} className="my-auto mr-1 decline"><FaTimes /></a>
@@ -41,7 +49,7 @@ export default function Dashboard_SubjectCard({Username, Subject, VerificationID
                                 <Col><h6 className="font-weight-bold">Subject:</h6></Col>
                             </Row>
                             <Row>
-                            <Col><p>{Subject.Name}</p></Col>
+                            <Col><p>{Subject}</p></Col>
                             </Row>
                             <Row>
                                 <Col><h6 className="font-weight-bold">Reasoning:</h6></Col>
@@ -54,11 +62,11 @@ export default function Dashboard_SubjectCard({Username, Subject, VerificationID
                     {/* Footer */}
                     <Row>
                         <Col className="justify-content-end d-flex">
-                            <Button variant="danger" onClick={handleClose} className="mr-2">
+                            <Button variant="danger" onClick={denyRequest} className="mr-2">
                                 Deny request
                             </Button>
     
-                            <Button variant="success" onClick={handleClose}>
+                            <Button variant="success" onClick={acceptRequest}>
                                 Approve request
                             </Button>
                         </Col>

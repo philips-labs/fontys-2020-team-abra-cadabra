@@ -110,8 +110,10 @@ namespace AbracadabraAPI.Controllers
         // PUT api/<ApplicationsController>/5
         [HttpPut("{userId}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutQuestion(string userId, ApplicationViewModel applicationViewModel)
+        public async Task<IActionResult> Put(string userId, ApplicationViewModel applicationViewModel)
         {
+            //1 approve 2//deny
+
             var admin = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var user = await _userManager.FindByIdAsync(userId);
