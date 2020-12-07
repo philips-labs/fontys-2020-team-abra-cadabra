@@ -19,6 +19,7 @@ export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [error, setError] = useState();
   const [endorsed, setEndorsed] = useState(false)
+  const [isexpert, setIsExpert] = useState(false)
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
@@ -90,9 +91,13 @@ export default function Answer({ answer }) {
       console.log(res);
       console.log(res.data);
       setEndorsed(true)
+      setIsExpert(true)
       })
       .catch((error) => {
         console.log(error.response.status)
+        if (error.response.status == 401) {
+          setIsExpert(false)
+        }
       });
       VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
@@ -306,7 +311,7 @@ export default function Answer({ answer }) {
                 <Col md={11}></Col>
                 <Col md={1} className="flagDiv">
                 <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faCheck} onClick={HandleAnswerFlagClick} />
-                <FontAwesomeIcon className="endorseIcon WhiteLinks" icon={faFlag} onClick={HandleEndorseClick} />
+                { isexpert ? <ShowEndorse /> : null }
                 </Col>
               </Row>
             </Card.Body>
