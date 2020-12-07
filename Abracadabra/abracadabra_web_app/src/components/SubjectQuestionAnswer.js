@@ -1,25 +1,32 @@
 import { Card, Row, Col, Toast } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, onClick, Link } from "react";
 import {
   faChevronUp,
   faChevronDown,
   faFlag,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+
+import VotesService from "../services/VotesService"
+import QuestionService from "../services/QuestionService"
+import AnswerService from "../services/AnswerService"
 import ReportService from 'src/services/ReportService';
 
-export default function Answer({ answer }) {
-  const [voted, setVoted] = useState();
-  const [vote, setVote] = useState({
-    questionid: "",
-    vote: "",
-  });
-  const handleClick = (amount) => {
-    setVote({ ...comment, vote: amount });
-  };
 
-  //#region FlaggingQuestion
+export default function Answer({ answer }) {
+  const [date, setDate] = useState();
+  const [error, setError] = useState();
+  const [isloggedin, setIsLoggedIn] = useState(false);
+  const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
+  const [voted, setVoted] = useState(false)
+  const [rendered, setRendered] = useState(false)
+  const [vote, setVote] = useState({
+    AnswerId: answer.id,
+    vote: ""
+  })
+  
+    //#region FlaggingQuestion
   const [showToast, setShowToast] = useState(false);
   const [toastText, setToastText] = useState("");
   const [toastColor, setToastColor] = useState("");
@@ -61,24 +68,171 @@ export default function Answer({ answer }) {
   };
   //#endregion
 
-  const handlePost = () => {
-    VotesService.PostVoteAnswer(vote)
-      .then((res) => {
+
+  const UpdateVotesAnswers = () => {
+    AnswerService.GetAnswer(answer.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setTotalVotes(res.data.upvotes - res.data.downvotes)
+    })
+      .catch((error) => {
+        console.log(error.response.status)
+      });
+  }
+
+  useEffect(() => {
+    const tokenExist = localStorage.getItem("Token");
+    if (tokenExist) {
+      setIsLoggedIn(true);
+      VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
+        if (res.data.vote == 1 | -1) {
+          setVote({ ...vote, vote: res.data.vote })
+          setVoted(true)
+        }
       })
+        .catch((error) => {
+          console.log(error.response.status)
+        });
+    }
+  }, []);
+
+  const firstClick = (amount) => {
+    if (isloggedin == true) {
+      setRendered(true)
+      if (vote.vote == null) {
+        setVote({ ...vote, vote: amount })
+      }
+      else {
+        handleClick(amount)
+      }
+    }
+    else {
+      setError("Error, please log in before voting")
+    }
+  }
+
+  const handleClick = (amount) => {
+    if (vote.vote == amount) {
+      handleVoteDelete()
+    }
+    else {
+      setVote({ ...vote, vote: amount })
+    }
+  }
+
+  useEffect(() => {
+    if (rendered == true) {
+      if (voted == false) {
+        submitPost()
+      }
+      else {
+        handleVotePut()
+      }
+    }
+  }, [vote.vote]);
+
+  const submitPost = () => {
+    VotesService.PostVoteAnswer(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setError(null)
+      setVoted(true)
+      UpdateVotesAnswers()
+    })
       .catch((error) => {
-        console.log(error.response.data);
+        setError("Error submitting, please try again")
       });
   };
 
-  function HumanDateTime(dateAndTime) {
-    var date = new Date(dateAndTime + "Z");
+  const handleVoteDelete = () => {
+    VotesService.DeleteVoteAnswer(answer.id).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setError(null)
+      UpdateVotesAnswers()
+      setVoted(false)
+      setRendered(false)
+      setVote({ ...vote, vote: null })
+    })
+      .catch((error) => {
+        setError("Error deleting, please try again")
+      });
+  };
+  const handleVotePut = () => {
+    VotesService.PutVoteAnswer(vote).then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setError(null)
+      UpdateVotesAnswers()
+    })
+      .catch((error) => {
+        setError("Error channging vote, please try again")
+      });
+  };
+  const ShowUpvoted = () => {
+    return (
+      <div>
+        {(() => {
+          if (isloggedin == true) {
+            if (vote.vote == 1) {
+              return (
+                <div ><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+              )
+            } else {
+              return (
+                <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+              )
+            }
+          }
+          else {
+            return (
+              <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp}  /></div></a>
+            )
+          }
+        })()}
+      </div>
+    )
+  }
+  const ShowDownvoted = () => {
+    return (
+      <div>
+        {(() => {
+           if (isloggedin == true) {
+          if (vote.vote == -1) {
+            return (
+              <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+            )
+          } else {
+            return (
+              <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+            )
+          }
+        }
+        else {
+          return (
+            <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
+          )
+        }
+        })()}
+      </div>
+    )
+  }
+  function HumanDateTime(dates) {
+    var date = new Date(dates + "Z");
     date = date.toUTCString().split(", ");
     date = date[1].slice(0, 17);
-
-    return date;
+    setDate(date);
   }
+
+  useEffect(() => {
+    if (answer.dateTimeCreated != undefined) {
+      HumanDateTime(answer.dateTimeCreated);
+    }
+  }, [answer]);
+
+
   return (
     <>
       <Row>
@@ -87,15 +241,14 @@ export default function Answer({ answer }) {
             <Card.Body>
               <Row>
                 <Col md={11}>
+                  {error &&
+                    <h6 className="errorVoting"> {error} </h6>}
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
-                  <FontAwesomeIcon className="votingArrow" icon={faChevronUp} />
-                  <p>100</p>
-                  <FontAwesomeIcon
-                    className="votingArrow"
-                    icon={faChevronDown}
-                  />
+                  <ShowUpvoted />
+                  <p>{totalvotes}</p>
+                  <ShowDownvoted />
                 </Col>
               </Row>
               <Row>
@@ -119,11 +272,11 @@ export default function Answer({ answer }) {
                       icon={faCheck}
                     />
                   ) : (
-                    <></>
-                  )}
+                      <></>
+                    )}
                 </p>
               </div>
-              <p>Posted on: {HumanDateTime(answer.dateTimeCreated)}</p>
+              <p>Posted on: {date}</p>
             </Card.Footer>
           </Card>
         </Col>

@@ -28,5 +28,7 @@ namespace AbracadabraAPI.ViewModels
         public long Downvotes { get; set; }
 
         public List<AnswerViewModel> AnswerViewModels { get; set; }
+
+        public int VoteByUser { get; set; } = 0;
     }
 }

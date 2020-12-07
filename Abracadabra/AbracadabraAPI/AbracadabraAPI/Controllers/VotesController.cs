@@ -28,6 +28,20 @@ namespace AbracadabraAPI.Controllers
             this.roleManager = roleManager;
         }
 
+        // GET: api/votes/question/{questionId}
+        [HttpGet("question/{questionId}")]
+        [Authorize]
+        public async Task<ActionResult<QuestionVote>> GetQuestionVote(int questionId)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var questionVote = await _context.QuestionVotes.Where(x => x.QuestionId == questionId && x.UserId == user.Id).FirstOrDefaultAsync();
+            if (questionVote == null)
+            {
+                return NotFound();
+            }
+            return questionVote;
+        }
+
         // POST: api/votes/question
         [HttpPost("question")]
         [Authorize]
@@ -54,7 +68,7 @@ namespace AbracadabraAPI.Controllers
             var questionVote = new QuestionVote
             {
                 QuestionId = model.QuestionId,
-                UserId = model.UserId,
+                UserId = user.Id,
                 Vote = model.Vote
             };
 
@@ -132,10 +146,10 @@ namespace AbracadabraAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/votes/question
-        [HttpDelete("question")]
+        // DELETE: api/votes/question/{questionId}
+        [HttpDelete("question/{questionId}")]
         [Authorize]
-        public async Task<IActionResult> DeleteQuestionVote(QuestionVoteViewModel model)
+        public async Task<IActionResult> DeleteQuestionVote(int questionId)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -143,13 +157,13 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var answer = await _context.Questions.Where(x => x.ID == model.QuestionId).FirstOrDefaultAsync();
+            var answer = await _context.Questions.Where(x => x.ID == questionId).FirstOrDefaultAsync();
             if (answer == null)
             {
                 return NotFound();
             }
 
-            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == model.QuestionId).FirstOrDefaultAsync();
+            var vote = await _context.QuestionVotes.Where(x => x.UserId == user.Id && x.QuestionId == questionId).FirstOrDefaultAsync();
             if (vote == null)
             {
                 return NotFound();
@@ -169,6 +183,20 @@ namespace AbracadabraAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // GET: api/votes/answer/{answerId}
+        [HttpGet("answer/{answerId}")]
+        [Authorize]
+        public async Task<ActionResult<AnswerVote>> GetAnswerVote(int answerId)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var answerVote = await _context.AnswerVotes.Where(x => x.AnswerId == answerId && x.UserId == user.Id).FirstOrDefaultAsync();
+            if (answerVote == null)
+            {
+                return NotFound();
+            }
+            return answerVote;
         }
 
         // POST: api/votes/answer
@@ -197,7 +225,7 @@ namespace AbracadabraAPI.Controllers
             var answerVote = new AnswerVote
             {
                 AnswerId = model.AnswerId,
-                UserId = model.UserId,
+                UserId = user.Id,
                 Vote = model.Vote
             };
 
@@ -275,10 +303,10 @@ namespace AbracadabraAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/votes/answer
-        [HttpDelete("answer")]
+        // DELETE: api/votes/answer/{answerId]
+        [HttpDelete("answer/{answerId}")]
         [Authorize]
-        public async Task<IActionResult> DeleteVote(AnswerVoteViewModel model)
+        public async Task<IActionResult> DeleteVote(int answerId)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -286,13 +314,13 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var answer = await _context.Answers.Where(x => x.ID == model.AnswerId).FirstOrDefaultAsync();
+            var answer = await _context.Answers.Where(x => x.ID == answerId).FirstOrDefaultAsync();
             if (answer == null)
             {
                 return NotFound();
             }
 
-            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == model.AnswerId).FirstOrDefaultAsync();
+            var vote = await _context.AnswerVotes.Where(x => x.UserId == user.Id && x.AnswerId == answerId).FirstOrDefaultAsync();
             if (vote == null)
             {
                 return NotFound();
