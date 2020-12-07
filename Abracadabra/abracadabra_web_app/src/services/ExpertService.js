@@ -1,11 +1,11 @@
 import http from "../unsecure-common-api";
 
 const applyExpert = (data) => {
-  return http.httptoken().post("/expert", data);
+  return http.httptoken().post("/applications", data);
 };
 
 const getPending = (data) => {
-  return http.httptoken().get("/expert" + data);
+  return http.httptoken().get("/applications/" + data);
 };
 
 export default {
