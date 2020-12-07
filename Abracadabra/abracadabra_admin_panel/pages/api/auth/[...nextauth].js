@@ -39,6 +39,7 @@ const options = {
             }
             else {
               error = "Unauthorized";
+              Accepted = false;
             }
           })
           .catch((error) => {

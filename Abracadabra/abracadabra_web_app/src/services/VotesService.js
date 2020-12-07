@@ -27,6 +27,7 @@ const GetQuestionVote = (data) => {
 
 
 
+
 export default {
   PostVoteAnswer,
   DeleteVoteAnswer,
@@ -37,4 +38,3 @@ export default {
   PutVoteQuestion,
   GetQuestionVote,
 };
-

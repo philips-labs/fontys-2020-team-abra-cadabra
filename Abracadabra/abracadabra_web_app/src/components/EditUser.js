@@ -4,6 +4,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
 import Router from "next/router";
 import { Row, Col, Button, Container, Form } from "react-bootstrap";
+import { getSuggestedQuery } from "@testing-library/dom";
 
 const EditUser = () => {
   const [edituserActive, setEditUserActive] = useState(true);
@@ -12,7 +13,15 @@ const EditUser = () => {
     setEditUserActive(!edituserActive);
   };
 
-  const [register, setRegister] = useState({
+  const [editUser, setEditUser] = useState({
+    id: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [userName, setUserName] = useState({
+    id: "",
     username: "",
     email: "",
     password: "",
@@ -24,11 +33,8 @@ const EditUser = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleChange = (event) => {
-    setRegister({ ...register, [event.target.name]: event.target.value });
-  };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
+    setEditUser({ ...editUser, [event.target.name]: event.target.value });
+    console.log(editUser.id);
   };
 
   const handleSubmit = (event) => {
@@ -44,19 +50,19 @@ const EditUser = () => {
     setMessage("");
 
     //check if username isn't empty
-    if (register.username.length === 0) {
+    if (editUser.username.length === 0) {
       userNameErrorList.push("Can't be empty");
       isValid = false;
     }
 
     //check if username doesn't contain symbols
-    if (!RegExp(/^[a-zA-Z0-9]+$/).test(register.username)) {
+    if (!RegExp(/^[a-zA-Z0-9]+$/).test(editUser.username)) {
       userNameErrorList.push("Can't contain any symbols");
       isValid = false;
     }
 
     //check if email isn't empty
-    if (register.email.length === 0) {
+    if (editUser.email.length === 0) {
       emailErrorList.push("Can't be empty");
       isValid = false;
     }
@@ -65,38 +71,34 @@ const EditUser = () => {
     if (
       !RegExp(
         /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-      ).test(register.email)
+      ).test(editUser.email)
     ) {
       emailErrorList.push("Not a valid e-mail address");
       isValid = false;
     }
 
-    //check if passwords match
-    if (confirmPassword !== register.password) {
-      passwordErrorList.push("Passwords don't match");
-      isValid = false;
-    }
     //check if password is between 8 and 200 characters
     if (
-      register.password.length < 8 ||
-      register.password.length > 200 ||
-      register.password.length === 0
+      editUser.password === undefined ||
+      editUser.password.length < 8 ||
+      editUser.password.length > 200 ||
+      editUser.password.length === 0
     ) {
       passwordErrorList.push("Must be 8-200 characters long");
       isValid = false;
     }
     // Check for capital letters
-    if (!RegExp(/.*[A-Z]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[A-Z]+.*/g).test(editUser.password)) {
       passwordErrorList.push("Must contain a capital letter");
       isValid = false;
     }
     // Check for lower letters
-    if (!RegExp(/.*[a-z]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[a-z]+.*/g).test(editUser.password)) {
       passwordErrorList.push("Must contain a lower letter");
       isValid = false;
     }
     // check for numbers
-    if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(editUser.password)) {
       passwordErrorList.push("Must contain a number");
       isValid = false;
     }
@@ -106,7 +108,31 @@ const EditUser = () => {
       setMessageEmail(emailErrorList);
       return;
     }
+
+    AccountService.editUser(editUser)
+      .then((response) => {
+        console.log(response);
+        setEditUserActive(!edituserActive);
+        getUser();
+      })
+      .catch((error) => {
+        setMessage("Credentials did not match");
+      });
   };
+
+  const getUser = async () => {
+    let userId = sessionStorage.getItem("UserId");
+    AccountService.getUser(JSON.parse(JSON.stringify(userId))).then(
+      (response) => {
+        setEditUser(response.data);
+        setUserName(response.data);
+      }
+    );
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <>
       {edituserActive ? (
@@ -116,7 +142,7 @@ const EditUser = () => {
               <Row>
                 <Col>
                   <h3 style={{ textAlign: "center" }}>
-                    Profile page for verylongusername
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
@@ -131,7 +157,7 @@ const EditUser = () => {
                             type="email"
                             className="form-control"
                             aria-describedby="emailHelp"
-                            placeholder="Verylongusername@gmail.com"
+                            value={editUser.email}
                             disabled
                           />
                         </div>
@@ -140,17 +166,7 @@ const EditUser = () => {
                           <input
                             type="Username"
                             className="form-control"
-                            placeholder="Verylongusername"
-                            disabled
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label>Password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
+                            value={editUser.username}
                             disabled
                           />
                         </div>
@@ -170,32 +186,44 @@ const EditUser = () => {
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
                         <Col>
-                          <Button
+                          {/* <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                           >
                             Change
-                          </Button>
+                          </Button> */}
                         </Col>
                       </Row>
                     </Col>
                   </Row>
                   <Row>
-                    <Col md={6}></Col>
                     <Col md={6}>
                       <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col>
+                        <Col md={8}>
+                          <Button
+                            style={{ width: "100%" }}
+                            className="mt-2 btn-secondary"
+                            href="/editpasswordpage"
+                          >
+                            Edit Password
+                          </Button>
+                        </Col>
+                        <Col md={4} className="mr-auto"></Col>
+                      </Row>
+                      <Row>
+                        <Col md={8}>
                           <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                             onClick={changeToActive}
                           >
-                            Edit
+                            Edit Account
                           </Button>
                         </Col>
+                        <Col md={4} className="mr-auto"></Col>
                       </Row>
                     </Col>
+                    <Col md={6}></Col>
                   </Row>
                 </Col>
               </Row>
@@ -209,7 +237,7 @@ const EditUser = () => {
               <Row>
                 <Col>
                   <h3 style={{ textAlign: "center" }}>
-                    Profile page for verylongusername
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
@@ -224,7 +252,7 @@ const EditUser = () => {
                             type="email"
                             className="form-control"
                             aria-describedby="emailHelp"
-                            placeholder="Verylongusername@gmail.com"
+                            value={editUser.email}
                             onChange={handleChange}
                             name="email"
                           />
@@ -244,7 +272,7 @@ const EditUser = () => {
                           <input
                             type="Username"
                             className="form-control"
-                            placeholder="Verylongusername"
+                            value={editUser.username}
                             onChange={handleChange}
                             name="username"
                           />
@@ -259,13 +287,16 @@ const EditUser = () => {
                             </div>
                           ))}
                         </div>
+                        <hr
+                          style={{ borderTop: "1px solid #ccc", width: "100%" }}
+                        />
                         <div className="form-group">
-                          <label>Password</label>
+                          <label>Current password</label>
                           <input
                             type="password"
                             className="form-control"
                             id="exampleInputPassword1"
-                            placeholder="Password"
+                            placeholder="Current password"
                             onChange={handleChange}
                             name="password"
                           />
@@ -280,23 +311,12 @@ const EditUser = () => {
                             </div>
                           ))}
                         </div>
-                        <div className="form-group">
-                          <label>Confirm password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
-                            onChange={handleConfirmPasswordChange}
-                            name="confirmPassword"
-                          />
-                        </div>
                         <Row>
                           <Col md={9}>
                             <Button
                               style={{ width: "100%" }}
                               className="mt-2 btn-info"
-                              // onClick={changeToActive}
+                              onClick={handleSubmit}
                               type="sumbit"
                             >
                               Save changes
@@ -311,6 +331,15 @@ const EditUser = () => {
                               Close
                             </Button>
                           </Col>
+                        </Row>
+                        <Row>
+                          <div
+                            className="text-danger mt-2 ml-3"
+                            role="alert"
+                            style={{ textAlign: "center" }}
+                          >
+                            {message}
+                          </div>
                         </Row>
                       </form>
                     </Col>
@@ -328,12 +357,12 @@ const EditUser = () => {
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
                         <Col>
-                          <Button
+                          {/* <Button
                             style={{ width: "100%" }}
                             className="mt-2 btn-info"
                           >
                             Change
-                          </Button>
+                          </Button> */}
                         </Col>
                       </Row>
                     </Col>

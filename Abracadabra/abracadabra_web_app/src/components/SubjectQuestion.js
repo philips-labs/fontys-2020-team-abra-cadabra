@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Toast } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
@@ -10,6 +10,8 @@ import {
   faFlag,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+//Services
+import ReportService from 'src/services/ReportService';
 
 export default function Question({ question }) {
   const [error, setError] = useState();
@@ -183,6 +185,42 @@ export default function Question({ question }) {
     setDate(date);
   }
 
+
+    //#region FlaggingQuestion
+    const [showToast, setShowToast] = useState(false);
+    const [toastText, setToastText] = useState("");
+    const [toastColor, setToastColor] = useState("");
+  
+    const HandleQuestionFlagClick = async () => {
+      ReportService.FlagQuestion(question.id)
+      .then(res => {
+        setToastText("Question successfully reported");
+        setToastColor("bg-success");
+        setShowToast(true);
+      })
+      .catch(err => {
+        try {
+        setShowToast(true);
+        let text = err.response.status == 400 ? err.response.data : err.response.status == 401 ? "You need to be logged in to report a question!" : "Oops! couldn't reach the report API, try again later."; 
+        if(err.response.status != 400 && err.response.status != 401)
+        {
+          setToastColor("bg-danger");
+        }
+        else 
+        {
+          setToastColor("bg-warning");
+        }
+        setToastText(text);  
+      }
+      catch {
+        setToastText("Oops! couldn't reach the report API, try again later.");
+        setToastColor("bg-danger");
+        setShowToast(true);
+      }
+      });
+    };
+    //#endregion
+
   useEffect(() => {
     if (question.dateTimeCreated != undefined) {
       HumanDateTime(question.dateTimeCreated);
@@ -194,7 +232,7 @@ export default function Question({ question }) {
       <div className="questionHead mx-auto">
         <div className="questionHeadDiv">
           <h1>Q</h1>
-          <FontAwesomeIcon className="flagIcon" icon={faFlag} />
+          <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleQuestionFlagClick} />
         </div>
         <Row>
           <Col md={11} className="mx-auto">
@@ -238,6 +276,17 @@ export default function Question({ question }) {
           </Col>
         </Row>
       </div>
+      <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide className="bg-dark" style={{
+      position: 'fixed',
+      top: 10,
+      right: 10,
+    }}>
+          <Toast.Header className={toastColor + " text-white"}>
+            <strong className="mr-auto">Report</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{toastText}</Toast.Body>
+        </Toast>
     </>
   );
 }

@@ -74,7 +74,6 @@ namespace AbracadabraAPI.Mappers
                DateTimeCreated = user.DateTimeCreated
            };
         }
-
         public static SubjectViewModel SubjectToViewModel(Subject subject) =>
         new SubjectViewModel
         {

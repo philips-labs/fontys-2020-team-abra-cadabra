@@ -103,6 +103,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+
+
             var roles = await userManager.GetRolesAsync(user);
 
             var answer = new Answer
@@ -138,20 +140,21 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
+            var roles = await userManager.GetRolesAsync(user);
+
             var answer = await _context.Answers.FindAsync(id);
             if (answer == null)
             {
                 return NotFound();
             }
-            if (answer.UserID != user.Id)
+
+            if (answer.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
 
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
-
-            var roles = await userManager.GetRolesAsync(user);
 
             return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }

@@ -204,13 +204,15 @@ namespace AbracadabraAPI.Controllers
                 {
                     return Unauthorized();
                 }
-            
+
+            var roles = await userManager.GetRolesAsync(user);
+
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
             }
-            if (question.UserID != user.Id)
+            if (question.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
@@ -220,7 +222,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            var roles = await userManager.GetRolesAsync(user);
+           
 
             return Mapper.QuestionToViewModel(question, user, null, null, roles[0]);
         }

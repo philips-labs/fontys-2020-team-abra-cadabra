@@ -51,6 +51,7 @@ export default function Dashboard() {
     if (!loading && !session) signIn('Credentials')
   
     if (!loading && session) {
+      localStorage.setItem("Token", session.user.image);
   return (
     <>
       <NavBar/>
@@ -84,7 +85,7 @@ export default function Dashboard() {
                   {/* Content */}
                   <Row className="mx-auto">
                     {/* Subjects */}
-                    {Subjects.map((s) => <Dashboard_SubjectCard SubjectName={s.subjectName} SubjectID={s.id} />)}
+                    {Subjects.map((s) => <Dashboard_SubjectCard key={s.id} SubjectName={s.subjectName} SubjectID={s.id} />)}
                                       
                   </Row>
                 </Col>
