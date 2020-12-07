@@ -19,7 +19,7 @@ namespace AbracadabraAPI.Mappers
             Title = question.Title,
             Description = question.Description,
             UserName = user.UserName,
-            SubjectSlug = subject?.SubjectName,
+            SubjectName = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
             Upvotes = question.Upvotes,
