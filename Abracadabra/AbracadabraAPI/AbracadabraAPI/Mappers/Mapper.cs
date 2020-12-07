@@ -19,7 +19,7 @@ namespace AbracadabraAPI.Mappers
             Title = question.Title,
             Description = question.Description,
             UserName = user.UserName,
-            SubjectSlug = subject?.SubjectName,
+            SubjectName = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
             Upvotes = question.Upvotes,
@@ -89,11 +89,19 @@ namespace AbracadabraAPI.Mappers
             QuestionTitles = titles,
         };
         public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
-            new SubjectWithQuestionsViewModel
-            {
-                ID = subject.ID,
-                SubjectName = subject.SubjectName,
-                Questions= viewModels,
-            };
+        new SubjectWithQuestionsViewModel
+        {
+            ID = subject.ID,
+            SubjectName = subject.SubjectName,
+            Questions= viewModels,
+        };
+
+        public static ShortApplicationViewModel ApplicationToShortViewModel(ExpertApplication application, Subject subject) =>
+        new ShortApplicationViewModel
+        {
+            Status = application.Status.ToString(),
+            DateTimeCreated = application.DateTimeCreated,
+            SubjectName = subject.SubjectName
+        };
     }
 }

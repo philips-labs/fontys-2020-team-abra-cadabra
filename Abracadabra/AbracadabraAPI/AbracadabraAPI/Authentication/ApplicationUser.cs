@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using AbracadabraAPI.Models;
+using System.Collections.Generic;
 
 namespace AbracadabraAPI.Authentication
 {
@@ -11,5 +13,7 @@ namespace AbracadabraAPI.Authentication
         public DateTime DateTimeCreated { get; set; }
 
         public DateTime LastLoggedIn { get; set; }
+
+        public List<ExpertSubject> ExpertSubjects { get; set; }
     }
 }
