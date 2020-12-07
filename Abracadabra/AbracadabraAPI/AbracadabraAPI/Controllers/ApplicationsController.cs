@@ -60,6 +60,37 @@ namespace AbracadabraAPI.Controllers
             return shortApplicationViewModels;
         }
 
+        //GET: api/Dashboard/Applications
+        [HttpGet("Dashboard")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<ApplicationViewModel>>> GetApplicationsForDashboard()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            List<ExpertApplication> expertApplications = await _context.ExpertApplications.ToListAsync();
+            if (expertApplications.Count == 0)
+            {
+                return NoContent();
+            }
+
+            List<ApplicationViewModel> applicationViewModels = new List<ApplicationViewModel>();
+
+            foreach (var application in expertApplications)
+            {
+                if (application.Status == ApplicationStatus.Pending) {
+                    applicationViewModels.Add(Mapper.ApplicationToViewModel(application, await _context.Subjects.Where(x => x.ID == application.SubjectId).FirstOrDefaultAsync(), application.UserId));
+                };
+            }
+
+
+            return applicationViewModels;
+        }
+
         // POST: api/Applications
         [HttpPost]
         [Authorize]
@@ -110,7 +141,7 @@ namespace AbracadabraAPI.Controllers
         // PUT api/<ApplicationsController>/5
         [HttpPut("{userId}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutQuestion(string userId, ApplicationViewModel applicationViewModel)
+        public async Task<IActionResult> PutApplication(string userId, ApplicationViewModel applicationViewModel)
         {
             var admin = await _userManager.FindByNameAsync(User.Identity.Name);
 
