@@ -11,18 +11,18 @@ import { getSuggestedQuery } from "@testing-library/dom";
 const ExpertApplication = () => {
   //   let applicationId = sessionStorage.getItem("UserId");
   const [userName, setUserName] = useState({
-    userId: "",
     username: "",
     email: "",
     password: "",
   });
   const [subjects, setSubjcts] = useState([]);
   const [apply, setApply] = useState({
-    userId: "bda67d6c-4568-46ee-8d03-1912a1cc30ab",
     subjectName: "Cooking",
     motivation: "",
   });
   const [pending, setPending] = useState([]);
+  const [message, setMessage] = useState("");
+  const [goodMessage, setGoodMessage] = useState("");
 
   const handleChange = (event) => {
     setApply({ ...apply, [event.target.name]: event.target.value });
@@ -31,14 +31,18 @@ const ExpertApplication = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("foutje");
     ExpertService.applyExpert(apply)
       .then((res) => {
         console.log(res);
         refresh();
+        setMessage("");
+        document.getElementById("create-expert-form").reset();
+        setGoodMessage("The request was successful");
       })
       .catch((error) => {
         console.log(error.response.data);
+        setGoodMessage("");
+        setMessage(error.response.data);
       });
   };
 
@@ -58,13 +62,10 @@ const ExpertApplication = () => {
   };
 
   const pendingSubjects = async () => {
-    let userId = sessionStorage.getItem("UserId");
-    ExpertService.getPending(JSON.parse(JSON.stringify(userId))).then(
-      (response) => {
-        console.log(response.data);
-        setPending(response.data);
-      }
-    );
+    ExpertService.getPending().then((response) => {
+      console.log(response.data);
+      setPending(response.data);
+    });
   };
 
   const refresh = () => {
@@ -102,7 +103,7 @@ const ExpertApplication = () => {
                   <Row>
                     <Col md={6} className="p-3">
                       <h5>Apply for expert:</h5>
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit} id="create-expert-form">
                         <div class="form-group">
                           <label for="sel1">Subjects:</label>
                           <select
@@ -156,6 +157,20 @@ const ExpertApplication = () => {
                           </Col>
                         </Row>
                       </form>
+                      <div
+                        className="text-success mx-auto"
+                        role="alert"
+                        style={{ textAlign: "center" }}
+                      >
+                        {goodMessage}
+                      </div>
+                      <div
+                        className="text-danger mx-auto"
+                        role="alert"
+                        style={{ textAlign: "center" }}
+                      >
+                        {message}
+                      </div>
                     </Col>
                     <Col md={6} className="p-3">
                       <h5>Pending applictations:</h5>
