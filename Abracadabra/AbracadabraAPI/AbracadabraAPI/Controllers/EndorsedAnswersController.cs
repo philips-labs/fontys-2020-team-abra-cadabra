@@ -24,7 +24,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // POST: api/EndorsedAnswers
-        [HttpPost("answer/{answerId}")]
+        [HttpPost("{answerId}")]
         [Authorize(Roles = "Expert")]
         public async Task<ActionResult> EndorseAnswer(int answerId)
         {
@@ -54,7 +54,7 @@ namespace AbracadabraAPI.Controllers
         }
 
         // DELETE: api/EndorsedAnswers
-        [HttpDelete("answer/{answerId}")]
+        [HttpDelete("{answerId}")]
         [Authorize(Roles = "Expert")]
         public async Task<ActionResult> RemoveAnswerEndorsement(int answerId)
         {
