@@ -457,6 +457,25 @@ namespace AbracadabraAPI.Data
                 context.FlaggedAnswers.Add(fa);
             }
             context.SaveChanges();
+
+            var endorsedAnswers = new EndorsedAnswer[]
+            {
+                new EndorsedAnswer
+                {
+                    UserId=userIds[2],
+                    AnswerId=1,
+                },
+                new EndorsedAnswer
+                {
+                    UserId=userIds[2],
+                    AnswerId=3,
+                },
+            };
+            foreach (EndorsedAnswer ea in endorsedAnswers)
+            {
+                context.EndorsedAnswers.Add(ea);
+            }
+            context.SaveChanges();
         }
     }
 }
