@@ -111,6 +111,11 @@ namespace AbracadabraAPI.Controllers
                 return BadRequest("Question has already been flagged by the user.");
             }
 
+            if(await _context.Questions.Where(q => q.ID == questionId && q.UserID == user.Id.ToString()).CountAsync() > 0)
+            {
+                return BadRequest("You can't report your own question.");
+            }
+
             var flaggedQuestion = new FlaggedQuestion
             {
                 UserId = user.Id.ToString(),
@@ -139,6 +144,11 @@ namespace AbracadabraAPI.Controllers
             if (flag != null)
             {
                 return BadRequest("Answer has already been flagged by the user.");
+            }
+
+            if (await _context.Answers.Where(a => a.ID == answerId && a.UserID == user.Id.ToString()).CountAsync() > 0)
+            {
+                return BadRequest("You can't report your own answer.");
             }
 
             var flaggedAnswer = new FlaggedAnswer

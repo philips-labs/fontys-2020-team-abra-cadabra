@@ -161,11 +161,18 @@ namespace AbracadabraAPI.Controllers
             //only unban if the user is banned
             if (Roles[0] == "Banned")
             {
-                await _userManager.RemoveFromRolesAsync(user, new List<string>() { "User", "Expert", "Admin", "Banned" });
+                await _userManager.RemoveFromRoleAsync(user, "Banned");
+                //await _userManager.RemoveFromRolesAsync(user, new List<string>() { "Banned", "User", "Expert", "Admin" });
 
                 //check if user is expert
-
-                await _userManager.AddToRoleAsync(user, "User");
+               if(await _context.ExpertApplications.Where(a => a.UserId == user.Id).CountAsync() > 0)
+                {
+                    await _userManager.AddToRoleAsync(user, "Expert");
+                }
+               else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
 
                 try
                 {
@@ -173,11 +180,12 @@ namespace AbracadabraAPI.Controllers
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    throw ex;
+                    throw ex;                  
                 }
             }
-
-            return NoContent();
+            //get the role after unban and return it
+            var role = await _userManager.GetRolesAsync(user);
+            return Ok(role[0]);
         }
 
         // PUT: api/Users/Edit/5

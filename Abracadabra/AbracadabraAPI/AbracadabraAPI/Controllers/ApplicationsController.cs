@@ -63,7 +63,7 @@ namespace AbracadabraAPI.Controllers
         //GET: api/Applications/all
         [HttpGet("all")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<ApplicationViewModel>>> GetApplicationsForDashboard()
+        public async Task<ActionResult<IEnumerable<ApplicationViewModel>>> GetApplications()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -91,6 +91,38 @@ namespace AbracadabraAPI.Controllers
             return applicationViewModels;
         }
 
+        //GET: api/Applications/dashboard
+        [HttpGet("dashboard")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<ApplicationViewModel>>> GetApplicationsForDashboard()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            List<ExpertApplication> expertApplications = await _context.ExpertApplications.OrderBy(x => x.DateTimeCreated).ToListAsync();
+            if (expertApplications.Count == 0)
+            {
+                return NoContent();
+            }
+
+            List<ApplicationViewModel> applicationViewModels = new List<ApplicationViewModel>();
+
+            foreach (var application in expertApplications)
+            {
+                if (application.Status == ApplicationStatus.Pending)
+                {
+                    applicationViewModels.Add(Mapper.ApplicationToViewModel(application, await _context.Subjects.Where(x => x.ID == application.SubjectId).FirstOrDefaultAsync(), await _userManager.FindByIdAsync(application.UserId)));
+                };
+            }
+
+
+            return applicationViewModels.Take(5).ToList();
+        }
+
         // POST: api/Applications
         [HttpPost]
         [Authorize]
@@ -112,7 +144,7 @@ namespace AbracadabraAPI.Controllers
             var application = new ExpertApplication
             {
                 Motivation = applicationViewModel.Motivation,
-                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm")),
+                DateTimeCreated = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm")),
                 SubjectId = subject.ID,
                 UserId = user.Id,
             };
@@ -125,13 +157,20 @@ namespace AbracadabraAPI.Controllers
             {
                 foreach (var userApplication in expertApplications)
                 {
-                    if (userApplication.SubjectId == application.SubjectId && userApplication.Status == 0)
+                    if (userApplication.SubjectId == application.SubjectId && userApplication.Status == ApplicationStatus.Pending)
                     {
                         return StatusCode(400, "You already have an active request for this subject!");
                     }
-                    if (userApplication.ReviewedBy != null)
+                    if (userApplication.SubjectId == application.SubjectId && userApplication.ReviewedBy != null)
                     {
-                        if (DateTime.Compare(userApplication.ReviewedOn, DateTime.Now.AddSeconds(60)) > 0 && userApplication.SubjectId == application.SubjectId && userApplication.Status == ApplicationStatus.Denied)
+                        int value = DateTime.Compare(userApplication.ReviewedOn.AddMinutes(2), DateTime.Now);
+                        bool TimePassed =  value != 1;
+                        if(TimePassed == false)
+                        {
+                            return StatusCode(400, "Your last request was to recent. you can apply 2 minutes after your last request has been denied.");
+                        }
+
+                        if (TimePassed && userApplication.SubjectId == application.SubjectId && userApplication.Status == ApplicationStatus.Denied)
                         {
                             userApplication.Status = ApplicationStatus.Pending;
                             userApplication.ReviewedBy = null;
@@ -139,7 +178,7 @@ namespace AbracadabraAPI.Controllers
 
                             return StatusCode(200, "Your application for " + applicationViewModel.SubjectName + " has been set to Pending");
                         }
-                         return StatusCode(400, "You have applied for this subject already or have been approved! Apply again in 60 seconds! ");
+                         return StatusCode(400, "You have applied for this subject already or have been approved!");
                     }
                 }
             }
@@ -192,7 +231,7 @@ namespace AbracadabraAPI.Controllers
                 default: application.Status = ApplicationStatus.Pending; break;
             }
             application.ReviewedBy = admin.Id;
-            application.ReviewedOn = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"));
+            application.ReviewedOn = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
 
             try
             {
