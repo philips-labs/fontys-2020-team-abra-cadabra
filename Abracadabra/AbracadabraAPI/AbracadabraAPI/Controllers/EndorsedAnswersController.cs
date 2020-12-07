@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AbracadabraAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EndorsedAnswersController : ControllerBase
     {
         private readonly AbracadabraContext _context;
