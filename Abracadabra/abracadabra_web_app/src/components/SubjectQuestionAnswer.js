@@ -19,7 +19,7 @@ export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [error, setError] = useState();
   const [endorsed, setEndorsed] = useState(false)
-  const [isexpert, setIsExpert] = useState(false)
+  const [isexpert, setIsExpert] = useState(true)
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
@@ -310,7 +310,7 @@ export default function Answer({ answer }) {
               <Row>
                 <Col md={11}></Col>
                 <Col md={1} className="flagDiv">
-                <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faCheck} onClick={HandleAnswerFlagClick} />
+                <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleAnswerFlagClick} />
                 { isexpert ? <ShowEndorse /> : null }
                 </Col>
               </Row>

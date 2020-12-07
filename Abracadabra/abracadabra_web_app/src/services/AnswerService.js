@@ -5,13 +5,13 @@ const GetAnswer = (data) => {
   return http.httptoken().get("/answers/" + data, { timeout: 5000 });
 };
 const GetAnswerEndorsement = (data) => {
-  return http.httptoken().get("/answers/" + data, { timeout: 5000 });
+  return http.httptoken().get("/EndorsedAnswers/" + data, { timeout: 5000 });
 };
 const PostAnswerEndorsement = (data) => {
-  return http.httptoken().post("/answers/" + data, { timeout: 5000 });
+  return http.httptoken().post("/EndorsedAnswers/" + data, { timeout: 5000 });
 };
 const DeleteAnswerEndorsement = (data) => {
-  return http.httptoken().delete("/answers/" + data, { timeout: 5000 });
+  return http.httptoken().delete("/EndorsedAnswers/" + data, { timeout: 5000 });
 };
 
 
