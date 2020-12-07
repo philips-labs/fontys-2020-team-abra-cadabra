@@ -30,7 +30,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/votes/question
         [HttpPost("question")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PostQuestionVote(QuestionVoteViewModel model)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -76,7 +76,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/votes/question
         [HttpPut("question")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PutQuestionVote(QuestionVoteViewModel model)
         {
             if (model.Vote != 1 && model.Vote != -1)
@@ -134,7 +134,7 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/votes/question
         [HttpDelete("question")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> DeleteQuestionVote(QuestionVoteViewModel model)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -173,7 +173,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/votes/answer
         [HttpPost("answer")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PostAnswerVote(AnswerVoteViewModel model)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -219,7 +219,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/votes/answer
         [HttpPut("answer")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PutAnswerVote(AnswerVoteViewModel model)
         {
             if (model.Vote != 1 && model.Vote != -1)
@@ -277,7 +277,7 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/votes/answer
         [HttpDelete("answer")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> DeleteVote(AnswerVoteViewModel model)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);

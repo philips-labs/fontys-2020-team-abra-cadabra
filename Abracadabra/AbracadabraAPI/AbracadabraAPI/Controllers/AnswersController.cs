@@ -50,7 +50,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Answers/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PutAnswer(int id, AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -95,7 +95,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Answers
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<AnswerViewModel>> PostAnswer(AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -103,6 +103,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+
+
             var roles = await userManager.GetRolesAsync(user);
 
             var answer = new Answer
@@ -129,7 +131,7 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/Answers/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<AnswerViewModel>> DeleteAnswer(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -138,20 +140,21 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
+            var roles = await userManager.GetRolesAsync(user);
+
             var answer = await _context.Answers.FindAsync(id);
             if (answer == null)
             {
                 return NotFound();
             }
-            if (answer.UserID != user.Id)
+
+            if (answer.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
 
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
-
-            var roles = await userManager.GetRolesAsync(user);
 
             return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }

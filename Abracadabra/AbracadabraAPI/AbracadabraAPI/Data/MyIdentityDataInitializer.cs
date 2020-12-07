@@ -115,6 +115,13 @@ namespace AbracadabraAPI.Data
                 IdentityResult roleResult = roleManager.
                 CreateAsync(role).Result;
             }
+            if (!roleManager.RoleExistsAsync("Banned").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "Banned";
+                IdentityResult roleResult = roleManager.
+                CreateAsync(role).Result;
+            }
         }
     }
 }

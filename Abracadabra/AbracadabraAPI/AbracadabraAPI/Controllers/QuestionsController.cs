@@ -125,7 +125,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Questions/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PutQuestion(int id, QuestionViewModel questionViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -170,7 +170,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Questions
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<QuestionViewModel>> PostQuestion(QuestionViewModel questionViewModel)
         {
 
@@ -203,7 +203,7 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
  
@@ -212,13 +212,15 @@ namespace AbracadabraAPI.Controllers
                 {
                     return Unauthorized();
                 }
-            
+
+            var roles = await userManager.GetRolesAsync(user);
+
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
             }
-            if (question.UserID != user.Id)
+            if (question.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
@@ -228,7 +230,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            var roles = await userManager.GetRolesAsync(user);
+           
 
             return Mapper.QuestionToViewModel(question, user, null, null, roles[0]);
         }

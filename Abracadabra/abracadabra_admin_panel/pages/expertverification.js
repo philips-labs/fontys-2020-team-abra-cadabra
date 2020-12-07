@@ -23,6 +23,7 @@ export default function Expertverification() {
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {
+    localStorage.setItem("Token", session.user.image);
 return (
     <>
     <NavBar/>
