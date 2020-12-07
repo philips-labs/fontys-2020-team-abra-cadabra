@@ -1,4 +1,4 @@
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Toast } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import {
@@ -7,6 +7,7 @@ import {
   faFlag,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import ReportService from 'src/services/ReportService';
 
 export default function Answer({ answer }) {
   const [voted, setVoted] = useState();
@@ -17,6 +18,48 @@ export default function Answer({ answer }) {
   const handleClick = (amount) => {
     setVote({ ...comment, vote: amount });
   };
+
+  //#region FlaggingQuestion
+  const [showToast, setShowToast] = useState(false);
+  const [toastText, setToastText] = useState("");
+  const [toastColor, setToastColor] = useState("");
+
+  const HandleAnswerFlagClick = async () => {
+    ReportService.FlagAnswer(answer.id)
+    .then(res => {
+      //console.log(res);
+      setToastText("Answer successfully reported");
+      setToastColor("bg-success");
+      setShowToast(true);
+    })
+    .catch(err => {
+      //console.log(err);
+      try {
+      if(err.response.status == 400)
+      {
+        setToastText(err.response.data);
+        setToastColor("bg-warning");
+      }
+      else if(err.response.status == 401)
+      {
+        setToastText("You need to be logged in to report an answer!");
+        setToastColor("bg-warning");
+      }
+      else 
+      {
+        setToastText("Oops! Something went wrong with the API, try again later.");
+        setToastColor("bg-danger");
+      }
+      setShowToast(true);
+    }
+    catch {
+      setToastText("Oops! couldn't reach the report API, try again later.");
+      setToastColor("bg-danger");
+      setShowToast(true);
+    }
+    });
+  };
+  //#endregion
 
   const handlePost = () => {
     VotesService.PostVoteAnswer(vote)
@@ -58,7 +101,7 @@ export default function Answer({ answer }) {
               <Row>
                 <Col md={11}></Col>
                 <Col md={1} className="flagDiv">
-                  <FontAwesomeIcon className="flagIcon" icon={faFlag} />
+                  <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleAnswerFlagClick} />
                 </Col>
               </Row>
             </Card.Body>
@@ -85,6 +128,17 @@ export default function Answer({ answer }) {
           </Card>
         </Col>
       </Row>
+      <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide className="bg-dark" style={{
+      position: 'fixed',
+      top: 10,
+      right: 10,
+    }}>
+          <Toast.Header className={toastColor + " text-white"}>
+            <strong className="mr-auto">Report</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{toastText}</Toast.Body>
+        </Toast>
     </>
   );
 }

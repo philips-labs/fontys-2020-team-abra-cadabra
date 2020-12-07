@@ -379,6 +379,84 @@ namespace AbracadabraAPI.Data
                 context.Answers.Add(answer);
             }
             context.SaveChanges();
+
+            var flaggedQuestions = new FlaggedQuestion[]
+            {
+                new FlaggedQuestion
+                {
+                    UserId=userIds[2],
+                    QuestionId=1,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[1],
+                    QuestionId=1,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[0],
+                    QuestionId=1,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[2],
+                    QuestionId=2,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[1],
+                    QuestionId=2,
+                },
+                new FlaggedQuestion
+                {
+                    UserId=userIds[2],
+                    QuestionId=3,
+                },
+            };
+            foreach (FlaggedQuestion fq in flaggedQuestions)
+            {
+                context.FlaggedQuestions.Add(fq);
+            }
+            context.SaveChanges();
+
+            var flaggedAnswers = new FlaggedAnswer[]
+            {
+                new FlaggedAnswer
+                {
+                    UserId=userIds[2],
+                    AnswerId=1,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[1],
+                    AnswerId=1,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[0],
+                    AnswerId=1,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[2],
+                    AnswerId=2,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[1],
+                    AnswerId=2,
+                },
+                new FlaggedAnswer
+                {
+                    UserId=userIds[2],
+                    AnswerId=3,
+                },
+            };
+            foreach (FlaggedAnswer fa in flaggedAnswers)
+            {
+                context.FlaggedAnswers.Add(fa);
+            }
+            context.SaveChanges();
         }
     }
 }
