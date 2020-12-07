@@ -44,6 +44,9 @@ namespace AbracadabraAPI.Controllers
             }
 
             var roles = await userManager.GetRolesAsync(user);
+            var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
+
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
             return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
@@ -115,9 +118,12 @@ namespace AbracadabraAPI.Controllers
                 Downvotes = 0
             };
 
-            if (roles[0] == "Expert")
+            var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
+
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
+
+            if(roles[0] == "Expert")
             {
-                var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
                 question.IsAnsweredByExpert = true;
             }
 
@@ -153,12 +159,29 @@ namespace AbracadabraAPI.Controllers
 
             var roles = await userManager.GetRolesAsync(user);
 
+            var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
+
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
+
             return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
         private bool AnswerExists(int id)
         {
             return _context.Answers.Any(e => e.ID == id);
+        }
+
+        private async Task<string> ExpertCheck(int subjectId, string userId)
+        {
+            var expertSubject = await _context.ExpertSubjects.Where(x => x.SubjectId == subjectId && x.UserId == userId).FirstOrDefaultAsync();
+            if (expertSubject == null)
+            {
+                return "User";
+            }
+            else
+            {
+                return "Expert";
+            }
         }
     }
 }

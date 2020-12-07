@@ -25,6 +25,7 @@ namespace AbracadabraAPI.Data
         public DbSet<FlaggedQuestion> FlaggedQuestions { get; set; }
         public DbSet<FlaggedAnswer> FlaggedAnswers { get; set; }
         public DbSet<ExpertApplication> ExpertApplications { get; set; }
+        public DbSet<ExpertSubject> ExpertSubjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,7 @@ namespace AbracadabraAPI.Data
             modelBuilder.Entity<FlaggedQuestion>().ToTable("FlaggedQuestion");
             modelBuilder.Entity<FlaggedAnswer>().ToTable("FlaggedAnswer");
             modelBuilder.Entity<ExpertApplication>().ToTable("ExpertApplications");
+            modelBuilder.Entity<ExpertSubject>().HasKey(es => new { es.UserId, es.SubjectId });
         }
     }
 }

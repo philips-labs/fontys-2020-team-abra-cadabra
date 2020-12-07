@@ -129,10 +129,22 @@ namespace AbracadabraAPI.Controllers
                 return StatusCode(404, "No such application exists!");
             }
 
+            var expertSubject = new ExpertSubject
+            {
+                UserId = user.Id,
+                SubjectId = associatedsubject.ID
+            };
+
             switch (applicationViewModel.Status)
             {
-                case ApplicationStatus.Approved: application.Status = ApplicationStatus.Approved; break;
-                case ApplicationStatus.Denied: application.Status = ApplicationStatus.Denied; break;
+                case ApplicationStatus.Approved:
+                    application.Status = ApplicationStatus.Approved;
+                    _context.ExpertSubjects.Add(expertSubject);
+                    break;
+                case ApplicationStatus.Denied:
+                    application.Status = ApplicationStatus.Denied;
+                    break;
+                default: application.Status = ApplicationStatus.Pending; break;
             }
             application.ReviewedBy = admin.Id;
             application.ReviewedOn = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm"));

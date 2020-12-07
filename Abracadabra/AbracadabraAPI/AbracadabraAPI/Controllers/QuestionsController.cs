@@ -48,7 +48,6 @@ namespace AbracadabraAPI.Controllers
             
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
 
-
             foreach (Question question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
@@ -73,8 +72,6 @@ namespace AbracadabraAPI.Controllers
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
 
- 
-
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
@@ -86,6 +83,8 @@ namespace AbracadabraAPI.Controllers
             }
 
             var roles = await userManager.GetRolesAsync(user);
+            
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
         }
@@ -198,6 +197,8 @@ namespace AbracadabraAPI.Controllers
 
             var roles = await userManager.GetRolesAsync(user);
 
+            roles[0] = await ExpertCheck(subject.ID, user.Id);
+
             return CreatedAtAction(nameof(GetQuestion), new { id = questionViewModel.ID }, Mapper.QuestionToViewModel(questionToPost, user, null, subject, roles[0]));
         }
 
@@ -207,11 +208,11 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
  
-                var user = await userManager.FindByNameAsync(User.Identity.Name);
-                if (user == null)
-                {
-                    return Unauthorized();
-                }
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
             
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
@@ -222,13 +223,13 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
-       
-
 
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
             var roles = await userManager.GetRolesAsync(user);
+
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
             return Mapper.QuestionToViewModel(question, user, null, null, roles[0]);
         }
@@ -329,6 +330,19 @@ namespace AbracadabraAPI.Controllers
         private bool QuestionExists(int id)
         {
             return _context.Questions.Any(e => e.ID == id);
+        }
+
+        private async Task<string> ExpertCheck(int subjectId, string userId)
+        {
+            var expertSubject = await _context.ExpertSubjects.Where(x => x.SubjectId == subjectId && x.UserId == userId).FirstOrDefaultAsync();
+            if (expertSubject == null)
+            {
+                 return "User";
+            }
+            else
+            {
+                return "Expert";
+            }
         }
     }
 }
