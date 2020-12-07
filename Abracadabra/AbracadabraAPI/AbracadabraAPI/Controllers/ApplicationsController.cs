@@ -32,11 +32,11 @@ namespace AbracadabraAPI.Controllers
         }
 
         //GET: api/Applications/{userId}
-        [HttpGet("{id}")]
+        [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<ShortApplicationViewModel>>> GetShortApplicationsForSpecificUser(string id)
+        public async Task<ActionResult<IEnumerable<ShortApplicationViewModel>>> GetShortApplicationsForSpecificUser()
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             if (user == null)
             {
@@ -66,7 +66,7 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<ApplicationViewModel>> PostApplication(ApplicationViewModel applicationViewModel)
         {
 
-            var user = await _userManager.FindByIdAsync(applicationViewModel.UserId);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
@@ -96,7 +96,7 @@ namespace AbracadabraAPI.Controllers
                 {
                     if (userApplication.SubjectId == application.SubjectId && userApplication.Status == 0)
                     {
-                        return StatusCode(400, "You already has an active request for this subject!");
+                        return StatusCode(400, "You already have an active request for this subject!");
                     }
                 }
             }
@@ -104,7 +104,7 @@ namespace AbracadabraAPI.Controllers
             _context.ExpertApplications.Add(application);
             await _context.SaveChangesAsync();
 
-            return StatusCode(200, "Application for " + applicationViewModel.SubjectName + " has been submitted");
+            return StatusCode(200, "Your application for " + applicationViewModel.SubjectName + " has been submitted");
         }
 
         // PUT api/<ApplicationsController>/5
