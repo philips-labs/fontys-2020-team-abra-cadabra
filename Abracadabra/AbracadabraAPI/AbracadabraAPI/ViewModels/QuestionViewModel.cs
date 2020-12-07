@@ -15,7 +15,7 @@ namespace AbracadabraAPI.ViewModels
 
         public string Description { get; set; }
 
-        public string SubjectSlug { get; set; }
+        public string SubjectName { get; set; }
 
         public string UserName { get; set; }
 

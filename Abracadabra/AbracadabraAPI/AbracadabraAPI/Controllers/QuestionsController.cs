@@ -69,6 +69,7 @@ namespace AbracadabraAPI.Controllers
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
@@ -173,7 +174,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectSlug).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectName).FirstOrDefaultAsync();
 
             var questionToPost = new Question
             {
@@ -207,6 +208,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+            var roles = await userManager.GetRolesAsync(user);
 
             var question = await _context.Questions.FindAsync(id);
             if (question == null)

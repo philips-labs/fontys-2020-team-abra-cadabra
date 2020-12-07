@@ -103,5 +103,14 @@ namespace AbracadabraAPI.Mappers
             DateTimeCreated = application.DateTimeCreated,
             SubjectName = subject.SubjectName
         };
+        public static UserWithExpertFieldsViewModel UserWithExpertFieldsToViewModel(ApplicationUser user, List<string> roles = null)
+        {
+            return new UserWithExpertFieldsViewModel
+            {
+                ID = user.Id,
+                Username = user.UserName,
+                Fields = roles,
+            };
+        }
     }
 }
