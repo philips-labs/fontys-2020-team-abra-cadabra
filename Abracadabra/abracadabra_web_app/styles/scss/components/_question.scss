@@ -9,6 +9,10 @@
   width: 71vw;
   margin-top: 0.5rem;
 
+  .errorVoting {
+    color: red;
+  }
+
   .questionHeadDiv {
     display: flex;
     justify-content: space-between;
@@ -28,6 +32,38 @@
       margin: 2rem 2px 0 0;
     }
   }
+  .votingDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .votingArrow {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+    }
+    .votingArrowVoted {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+      color: red;
+    }
+    .votingArrowDisabled {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+      color: black;
+    }
+   
+   
+
+    p {
+      padding-top: 5px;
+      margin-right: 3px;
+      font-size: 1rem;
+    }
+  }
+
 
   .questionUsername {
     font-size: 1.5rem;
@@ -69,11 +105,27 @@
         font-size: 1.4rem;
         margin: 0px 2px;
       }
+      .votingArrowVoted {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin: 0px 2px;
+        color: red;
+      }
+      .votingArrowDisabled {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin: 0px 2px;
+        color: black;
+      }
 
       p {
-        margin: 0px;
+        padding-top: 4px;
+        margin-right: 8px;
         font-size: 1rem;
       }
+    }
+    .errorVoting {
+      color: red;
     }
 
     .flagDiv {

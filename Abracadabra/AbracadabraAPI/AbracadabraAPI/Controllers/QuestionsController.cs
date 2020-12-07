@@ -35,8 +35,6 @@ namespace AbracadabraAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestions([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-
-
             List<Question> questions = await _context.Questions.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (var item in questions)
@@ -71,15 +69,12 @@ namespace AbracadabraAPI.Controllers
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
-
+            
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
-                if (answer.QuestionID == question.ID)
-                {
-                    var rolesAnswer = await userManager.GetRolesAsync(answerUser);
-                    answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
-                }
+                var rolesAnswer = await userManager.GetRolesAsync(answerUser);
+                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
             }
 
             var roles = await userManager.GetRolesAsync(user);
@@ -214,12 +209,19 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
             
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
+
+            var roles = await userManager.GetRolesAsync(user);
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
             }
-            if (question.UserID != user.Id)
+            if (question.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
@@ -227,7 +229,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            var roles = await userManager.GetRolesAsync(user);
+           
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 

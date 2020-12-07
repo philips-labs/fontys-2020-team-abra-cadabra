@@ -106,6 +106,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+
+
             var roles = await userManager.GetRolesAsync(user);
 
             var answer = new Answer
@@ -144,12 +146,15 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
+            var roles = await userManager.GetRolesAsync(user);
+
             var answer = await _context.Answers.FindAsync(id);
             if (answer == null)
             {
                 return NotFound();
             }
-            if (answer.UserID != user.Id)
+
+            if (answer.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
@@ -162,7 +167,7 @@ namespace AbracadabraAPI.Controllers
             var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
-
+            
             return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
