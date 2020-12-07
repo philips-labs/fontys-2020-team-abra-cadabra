@@ -60,6 +60,37 @@ namespace AbracadabraAPI.Controllers
             return shortApplicationViewModels;
         }
 
+        //GET: api/Dashboard/Applications
+        [HttpGet("Dashboard")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<ApplicationViewModel>>> GetApplicationsForDashboard()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            List<ExpertApplication> expertApplications = await _context.ExpertApplications.ToListAsync();
+            if (expertApplications.Count == 0)
+            {
+                return NoContent();
+            }
+
+            List<ApplicationViewModel> applicationViewModels = new List<ApplicationViewModel>();
+
+            foreach (var application in expertApplications)
+            {
+                if (application.Status == ApplicationStatus.Pending) {
+                    applicationViewModels.Add(Mapper.ApplicationToViewModel(application, await _context.Subjects.Where(x => x.ID == application.SubjectId).FirstOrDefaultAsync(), application.UserId));
+                };
+            }
+
+
+            return applicationViewModels;
+        }
+
         // POST: api/Applications
         [HttpPost]
         [Authorize]
