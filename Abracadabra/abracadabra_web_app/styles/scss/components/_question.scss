@@ -48,6 +48,12 @@
       margin: 0px 2px;
       color: red;
     }
+    .votingArrowDisabled {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+      color: black;
+    }
    
    
 
@@ -104,6 +110,12 @@
         font-size: 1.4rem;
         margin: 0px 2px;
         color: red;
+      }
+      .votingArrowDisabled {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin: 0px 2px;
+        color: black;
       }
 
       p {

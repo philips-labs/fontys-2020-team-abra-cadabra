@@ -32,7 +32,8 @@ export default function Question({ question }) {
       console.log(res.data);
       setTotalVotes(res.data.upvotes - res.data.downvotes)
     })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error.response.status)
       });
   }
 
@@ -51,7 +52,8 @@ export default function Question({ question }) {
           setVoted(true)
         }
       })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error.response)
         });
 
 
@@ -129,6 +131,7 @@ export default function Question({ question }) {
     return (
       <div>
         {(() => {
+            if (isloggedin == true) {
           if (vote.vote == 1) {
             return (
               <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
@@ -138,6 +141,12 @@ export default function Question({ question }) {
               <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
             )
           }
+        }
+        else {
+          return (
+            <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp}  /></div></a>
+          )
+        }
         })()}
       </div>
     )
@@ -146,6 +155,7 @@ export default function Question({ question }) {
     return (
       <div>
         {(() => {
+            if (isloggedin == true) {
           if (vote.vote == -1) {
             return (
               <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
@@ -155,6 +165,12 @@ export default function Question({ question }) {
               <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
             )
           }
+        }
+        else {
+          return (
+            <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
+          )
+        }
         })()}
       </div>
     )
@@ -185,10 +201,10 @@ export default function Question({ question }) {
           {error &&
               <h6 className="errorVoting"> {error} </h6>}
             <Row>
-              <Col md={10}>
+              <Col md={9}>
                 <h3>{question.title}</h3>
               </Col>
-              <Col md={1} className="d-flex justify-content-end">
+              <Col md={2} className="d-flex justify-content-end">
                 <img
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"

@@ -1,6 +1,6 @@
 import { Card, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect, onClick } from "react";
+import React, { useState, useEffect, onClick, Link } from "react";
 import {
   faChevronUp,
   faChevronDown,
@@ -29,7 +29,8 @@ export default function Answer({ answer }) {
       console.log(res.data);
       setTotalVotes(res.data.upvotes - res.data.downvotes)
     })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error.response.status)
       });
   }
 
@@ -45,21 +46,28 @@ export default function Answer({ answer }) {
           setVoted(true)
         }
       })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error.response.status)
         });
 
     }
   }, []);
 
   const firstClick = (amount) => {
-    setRendered(true)
-    if (vote.vote == null) {
-      setVote({ ...vote, vote: amount })
+    if (isloggedin == true) {
+      setRendered(true)
+      if (vote.vote == null) {
+        setVote({ ...vote, vote: amount })
+      }
+      else {
+        handleClick(amount)
+      }
     }
     else {
-      handleClick(amount)
+      setError("Error, please log in before voting")
     }
   }
+
   const handleClick = (amount) => {
     if (vote.vote == amount) {
       handleVoteDelete()
@@ -122,13 +130,20 @@ export default function Answer({ answer }) {
     return (
       <div>
         {(() => {
-          if (vote.vote == 1) {
+          if (isloggedin == true) {
+            if (vote.vote == 1) {
+              return (
+                <div ><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+              )
+            } else {
+              return (
+                <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+              )
+            }
+          }
+          else {
             return (
-              <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
-            )
-          } else {
-            return (
-              <div><FontAwesomeIcon className="votingArrow" icon={faChevronUp} onClick={() => firstClick(1)} /></div>
+              <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp}  /></div></a>
             )
           }
         })()}
@@ -139,6 +154,7 @@ export default function Answer({ answer }) {
     return (
       <div>
         {(() => {
+           if (isloggedin == true) {
           if (vote.vote == -1) {
             return (
               <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
@@ -148,6 +164,12 @@ export default function Answer({ answer }) {
               <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
             )
           }
+        }
+        else {
+          return (
+            <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
+          )
+        }
         })()}
       </div>
     )
@@ -174,8 +196,8 @@ export default function Answer({ answer }) {
             <Card.Body>
               <Row>
                 <Col md={11}>
-                {error &&
-              <h6 className="errorVoting"> {error} </h6>}
+                  {error &&
+                    <h6 className="errorVoting"> {error} </h6>}
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
