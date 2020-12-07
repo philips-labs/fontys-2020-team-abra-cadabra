@@ -174,7 +174,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
                 }
 
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectSlug).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectName).FirstOrDefaultAsync();
 
             var questionToPost = new Question
             {
@@ -208,14 +208,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
-            
-                var user = await userManager.FindByNameAsync(User.Identity.Name);
-                if (user == null)
-                {
-                    return Unauthorized();
-                }
-
             var roles = await userManager.GetRolesAsync(user);
+
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
