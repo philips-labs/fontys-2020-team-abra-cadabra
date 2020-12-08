@@ -8,6 +8,7 @@ namespace AbracadabraAPI.ViewModels
 {
     public class ApplicationViewModel
     {
+        public int ApplicationId { get; set; }
         public string Motivation { get; set; }
 
         public ApplicationStatus Status { get; set; }
@@ -17,5 +18,6 @@ namespace AbracadabraAPI.ViewModels
         public string SubjectName { get; set; }
 
         public string UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

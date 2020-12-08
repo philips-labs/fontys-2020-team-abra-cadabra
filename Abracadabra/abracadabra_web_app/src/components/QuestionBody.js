@@ -46,9 +46,6 @@ function Title({ question, subject, search, searchLength }) {
                   <div className="col-sm-2">
                     {NrOfAnswers(q.numberOfAnswers)}
                   </div>
-                  <div className="col-sm-1">
-                  <p>{q.upvotes - q.downvotes}</p>
-              </div> 
                 </div>
               </div>
             </div>

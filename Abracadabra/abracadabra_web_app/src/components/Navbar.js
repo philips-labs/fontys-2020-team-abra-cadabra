@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
 //import react-bootstrap navbar parts
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -34,7 +35,32 @@ export default function NavBar({ subjectTitle }) {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [searchString, setSearchString] = useState({ searchString: "" });
+  
+  //#region Profile/logout
+  const [LoginStatus, setLoginStatus] = useState(false);
+  const [CurrentUser, setCurrentUser] = useState("");
 
+  useEffect(() => {
+    //Get token and decode it for login status
+    const token = localStorage.getItem("Token");
+    token != null ? setLoginStatus(true) : setLoginStatus(false);
+    if(token != null) {
+      let decoded = jwt_decode(token);
+      //decode token and set name
+      setCurrentUser(decoded.unique_name);
+    } 
+    else 
+    {
+      setCurrentUser("");
+    }
+
+  }, []);
+
+  const handleLogout = () =>{localStorage.removeItem("Token"); setLoginStatus(false); setCurrentUser(""); };
+  //#endregion Profile/logout
+  
+  
+  
   const handleOpen = () => setOpen(!open);
   const handleClose = () => setOpen(false);
   const handleShow = () => setShow(!show);
@@ -55,12 +81,6 @@ export default function NavBar({ subjectTitle }) {
     console.log(searchString);
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleClick);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  });
   return (
     <Navbar
       collapseOnSelect
@@ -112,11 +132,19 @@ export default function NavBar({ subjectTitle }) {
             </Button>
           </Col>
         </Row>
-        <Nav>
+        <Nav className="ml-auto">
           <Row>
-            <Nav.Link href="/loginpage" className="ml-2 mr-5">
-              Login
-            </Nav.Link>
+              {LoginStatus == false ? 
+           <Nav.Link href="/loginpage" className="ml-2 mr-5">Login</Nav.Link>
+            : 
+            <>
+                <NavDropdown title={CurrentUser} id="nav-dropdown" className="mr-5 p-0">
+                <NavDropdown.Item eventKey="1" href="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item eventKey="2" onClick={handleLogout}>Sign out</NavDropdown.Item>
+              </NavDropdown>
+            </>
+          }
+            
           </Row>
         </Nav>
       </Navbar.Collapse>

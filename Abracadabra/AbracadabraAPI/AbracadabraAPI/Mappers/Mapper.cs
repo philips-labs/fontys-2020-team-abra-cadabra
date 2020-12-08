@@ -95,7 +95,18 @@ namespace AbracadabraAPI.Mappers
             SubjectName = subject.SubjectName,
             Questions= viewModels,
         };
-
+        public static ApplicationViewModel ApplicationToViewModel(ExpertApplication application, Subject subject, ApplicationUser user) =>
+        new ApplicationViewModel
+        {
+            ApplicationId = application.ID,
+            Status = application.Status,
+            Motivation = application.Motivation,
+            DateTimeCreated = application.DateTimeCreated,
+            SubjectName = subject.SubjectName,
+            UserId = user.Id,
+            UserName = user.UserName
+            
+        };
         public static ShortApplicationViewModel ApplicationToShortViewModel(ExpertApplication application, Subject subject) =>
         new ShortApplicationViewModel
         {

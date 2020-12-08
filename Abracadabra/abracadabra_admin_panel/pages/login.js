@@ -50,7 +50,7 @@ export default function Login({ csrfToken }) {
                         <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
                         <Form.Group controlId="email" className="mb-4">
                             <Form.Label className="font-weight-bold">Email</Form.Label>
-                            <Form.Control type="text" placeholder="Enter username" name="email" />
+                            <Form.Control type="text" placeholder="Enter email" name="email" />
                         </Form.Group>
                         <Form.Group controlId="password" className="mb-4">
                             <Form.Label className="font-weight-bold">Password</Form.Label>

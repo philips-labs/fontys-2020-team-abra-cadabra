@@ -13,7 +13,7 @@ const httpdefault = () => {
   });
 };
 const httptoken = () => {
-  const token = localStorage.getItem("Token");
+  const token = localStorage.getItem("AdminToken");
   return axios.create({
     baseURL: url + "/api",
     headers: {
