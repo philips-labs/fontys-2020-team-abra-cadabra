@@ -208,7 +208,15 @@ const EditUser = () => {
                             Edit Password
                           </Button>
                         </Col>
-                        <Col md={4} className="mr-auto"></Col>
+                        <Col md={4} className="mr-auto">
+                          <Button
+                            style={{ width: "100%" }}
+                            className="mt-2 btn-secondary"
+                            href="/expertapplicationpage"
+                          >
+                            Expert
+                          </Button>
+                        </Col>
                       </Row>
                       <Row>
                         <Col md={8}>

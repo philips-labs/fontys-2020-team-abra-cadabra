@@ -120,7 +120,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
-            
+
             if (vote.Vote == model.Vote)
             {
                 return BadRequest($"The vote already is {vote.Vote}");
@@ -277,7 +277,7 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
-            
+
             if (vote.Vote == model.Vote)
             {
                 return BadRequest($"The vote already is {vote.Vote}");

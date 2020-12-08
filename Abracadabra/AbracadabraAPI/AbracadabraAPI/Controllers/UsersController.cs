@@ -40,7 +40,7 @@ namespace AbracadabraAPI.Controllers
             var users = await _userManager.Users.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
             List<UserViewModel> viewModels = new List<UserViewModel>();
 
-            foreach(ApplicationUser user in users)
+            foreach (ApplicationUser user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 viewModels.Add(Mapper.UserToViewModel(user, roles[0]));
@@ -49,9 +49,30 @@ namespace AbracadabraAPI.Controllers
             return viewModels;
         }
 
+        //GET: api/Users/{Username}
+        [HttpGet("byname/{Username}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<UserViewModel>>> GetUsersByName(string Username)
+        {
+            //current user so that the admin can't find himself and ban himself
+            var cuName = User.Identity.Name;
+
+            var users = await _userManager.Users.Where(u => u.NormalizedUserName.ToLower().Contains(Username.ToLower()) && u.UserName != cuName).ToListAsync();
+            List<UserViewModel> viewModels = new List<UserViewModel>();
+
+            foreach (ApplicationUser user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                 viewModels.Add(Mapper.UserToViewModel(user, roles[0]));
+            }
+
+            return viewModels;
+        }
+
         // GET api/Users/5
         [HttpGet("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<UserViewModel>> GetUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -78,7 +99,7 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            await _userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin"});
+            await _userManager.RemoveFromRolesAsync(user, new List<string>() {"User", "Expert", "Admin","Banned"});
 
             user.UserName = userViewModel.Username;
             user.Email = userViewModel.Email;
@@ -97,9 +118,79 @@ namespace AbracadabraAPI.Controllers
             return NoContent();
         }
 
+        // PUT: api/Users/ban/5
+        [HttpPut("ban/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UserViewModel>> BanUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await _userManager.RemoveFromRolesAsync(user, new List<string>() { "User", "Expert", "Admin","Banned" });
+
+            await _userManager.AddToRoleAsync(user, "Banned");
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/Users/ban/5
+        [HttpPut("unban/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UserViewModel>> UnBanUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var Roles = await _userManager.GetRolesAsync(user);
+
+            //only unban if the user is banned
+            if (Roles[0] == "Banned")
+            {
+                await _userManager.RemoveFromRoleAsync(user, "Banned");
+                //await _userManager.RemoveFromRolesAsync(user, new List<string>() { "Banned", "User", "Expert", "Admin" });
+
+                //check if user is expert
+               if(await _context.ExpertApplications.Where(a => a.UserId == user.Id).CountAsync() > 0)
+                {
+                    await _userManager.AddToRoleAsync(user, "Expert");
+                }
+               else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    throw ex;                  
+                }
+            }
+            //get the role after unban and return it
+            var role = await _userManager.GetRolesAsync(user);
+            return Ok(role[0]);
+        }
+
         // PUT: api/Users/Edit/5
         [HttpPut("Edit/{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<UserViewModel>> EditUserDetails(string id, UserViewModelWithPassword userViewModel)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -129,7 +220,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Users/Edit/Password/5
         [HttpPut("Edit/Password/{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<UserViewModel>> EditUserPassword(string id, UserChangePasswordViewModel userViewModel)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -173,6 +264,39 @@ namespace AbracadabraAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(Mapper.UserToViewModel(user, roles[0]));
+        }
+
+        //This should be made as a second call on the profile page if the user has the Expert role.
+        // GET api/Users/Profile/Username
+        [HttpGet("/Profile/{slug}")]
+        [Authorize]
+        public async Task<ActionResult<UserWithExpertFieldsViewModel>> GetExpertWithFields(string slug)
+        {
+            var user = await _userManager.FindByNameAsync(slug);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            if(roles[0] != "Expert")
+            {
+                return Mapper.UserWithExpertFieldsToViewModel(user);
+            }
+
+            var expertFields = await _context.ExpertSubjects.Where(x => x.UserId == user.Id).ToListAsync();
+
+            List<string> subjectNames = new List<string>();
+
+            foreach (var item in expertFields)
+            {
+                var subjectName = await _context.Subjects.FindAsync(item.SubjectId);
+                subjectNames.Add(subjectName.SubjectName);
+            }
+
+            return Mapper.UserWithExpertFieldsToViewModel(user, subjectNames);
         }
     }
 }

@@ -275,3 +275,44 @@ input::-webkit-input-placeholder {
   color: #4c4c50;
 }
 
+.expertPendingBox {
+  background-color: #4c4c50;
+  padding-top: 0.4rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 5px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.expertPendingBox:hover {
+  background-color: #414142;
+  padding-top: 0.4rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 5px;
+}
+
+.hoverDetails {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.hoverDetails .hoverDetailstext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the hoverDetails */
+  position: absolute;
+  z-index: 1;
+}
+
+.hoverDetails:hover .hoverDetailstext {
+  visibility: visible;
+}

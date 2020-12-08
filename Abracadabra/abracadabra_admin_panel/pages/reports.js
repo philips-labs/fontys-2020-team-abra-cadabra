@@ -62,7 +62,7 @@ export default function Reports() {
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {
-    localStorage.setItem("Token", session.user.image);
+    localStorage.setItem("AdminToken", session.user.image);
 
 return (
     <>
@@ -99,7 +99,7 @@ return (
                   <Row className="mx-auto">
                     {/* Reports */}
                     {/* Map the reports */}
-                    {QuestionReports.map((qr) => <Report_CardQuestion key={qr.questionId} ReportData={qr.question} Count={qr.count} type={"Question"} RemoveFunc={RemoveFlaggedQuestions}/>)}                
+                    {QuestionReports.length > 0 ? QuestionReports.map((qr) => <Report_CardQuestion key={qr.questionId} ReportData={qr.question} Count={qr.count} type={"Question"} RemoveFunc={RemoveFlaggedQuestions}/>) : <h4>No reported anwers at the moment...</h4>}                
                   </Row>
                 </Col>
               </Row>
@@ -119,7 +119,7 @@ return (
                   <Row className="mx-auto">
                     {/* Reports */}
                    {/* Map the reports */}
-                   {AnswerReports.map((ar) => <Report_CardAnswer key={ar.answerId} ReportData={ar.answer} Count={ar.count} type={"Answer"} RemoveFunc={RemoveFlaggedAnswer}/>)}     
+                   {AnswerReports.length > 0 ? AnswerReports.map((ar) => <Report_CardAnswer key={ar.answerId} ReportData={ar.answer} Count={ar.count} type={"Answer"} RemoveFunc={RemoveFlaggedAnswer}/>) : <h4>No reported anwers at the moment...</h4>}     
       
                   </Row>
                 </Col>
