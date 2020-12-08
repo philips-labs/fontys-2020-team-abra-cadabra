@@ -6,6 +6,7 @@ import {
   faChevronDown,
   faFlag,
   faUserGraduate,
+  faCheck
 } from "@fortawesome/free-solid-svg-icons";
 
 import VotesService from "../services/VotesService"
@@ -218,18 +219,18 @@ export default function Answer({ answer }) {
     AnswerService.GetAllAnswerEndorsements(answer.id).then((res) => {
       console.log(res)
       console.log(res.data)
-      if (res.data != '')  {
-      setIsAnswerEndorsed(true)
-      setEndorsementCount(res.data.length)   
+      if (res.data != '') {
+        setIsAnswerEndorsed(true)
+        setEndorsementCount(res.data.length)
       }
       else {
         setIsAnswerEndorsed(false)
       }
     })
-    .catch((error) => {
-      console.log(error.response)
-      setIsAnswerEndorsed(false)
-    })
+      .catch((error) => {
+        console.log(error.response)
+        setIsAnswerEndorsed(false)
+      })
   }
   const ShowUpvoted = () => {
     return (
@@ -300,7 +301,7 @@ export default function Answer({ answer }) {
   }
   const ShowIsPostEndorsed = () => {
     return (
-    <div><div className="endorseHasbeenEndorsed"><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /> This post has been endorsed, {endorsementcount} times!</div><br /></div>
+      <div><div className="endorseHasbeenEndorsed"><FontAwesomeIcon className="endorseIconSelected" icon={faCheck} /> This post has been endorsed, {endorsementcount} times!</div><br /></div>
     )
   }
   function HumanDateTime(dates) {
@@ -327,7 +328,7 @@ export default function Answer({ answer }) {
                 <Col md={11}>
                   {error &&
                     <h6 className="errorVoting"> {error} </h6>}
-                     {isanswerendorsed ? <ShowIsPostEndorsed /> : null}
+                  {isanswerendorsed ? <ShowIsPostEndorsed /> : null}
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
