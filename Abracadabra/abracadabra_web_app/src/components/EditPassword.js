@@ -138,7 +138,7 @@ const EditPassword = () => {
                       <br></br>
                     </div>
                   ))}
-                  <hr style={{ borderTop: "1px solid #ccc", width: "100%" }} />
+                  <hr />
 
                   <Form.Group controlId="password" className="mb-4">
                     <Form.Label className="font-weight-bold">

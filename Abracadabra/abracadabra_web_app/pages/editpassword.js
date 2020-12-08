@@ -1,11 +1,10 @@
-import { Nav } from "react-bootstrap";
+import BlankNavBar from "src/components/BlankNavBar.js";
 import EditPassword from "../src/components/EditPassword.js";
-import Navbar from "../src/components/Navbar.js";
 
 function EditPasswordPage() {
   return (
     <>
-      <Navbar />
+      <BlankNavBar />
       <EditPassword />
     </>
   );
