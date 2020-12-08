@@ -15,6 +15,7 @@ dotnet dev-certs https -ep aspnetapp.pfx -p password
 2. Run the docker compose file
 ```bash
 cd ..
+docker-compose build
 docker-compose -f docker-compose.yml up -d
 ```
 
