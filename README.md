@@ -8,14 +8,14 @@
 2. Create a aspnet cert in the cert folder
 
 ```bash
-$cd Abracadabra
-$cd certs
-$dotnet dev-certs https -ep aspnetapp.pfx -p password
+cd Abracadabra
+cd certs
+dotnet dev-certs https -ep aspnetapp.pfx -p password
 ```
 2. Run the docker compose file
 ```bash
-$cd ..
-$docker-compose -f docker-compose.yml up -d
+cd ..
+docker-compose -f docker-compose.yml up -d
 ```
 
 3. When the docker-compose is up.
