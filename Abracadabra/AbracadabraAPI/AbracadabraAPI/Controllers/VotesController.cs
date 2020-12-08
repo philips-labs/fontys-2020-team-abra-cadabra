@@ -34,12 +34,20 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionVote>> GetQuestionVote(int questionId)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
-            var questionVote = await _context.QuestionVotes.Where(x => x.QuestionId == questionId && x.UserId == user.Id).FirstOrDefaultAsync();
-            if (questionVote == null)
+
+            if (user != null)
+            {
+                var questionVote = await _context.QuestionVotes.Where(x => x.QuestionId == questionId && x.UserId == user.Id).FirstOrDefaultAsync();
+                if (questionVote == null)
+                {
+                    return NotFound();
+                }
+                return questionVote;
+            }
+            else
             {
                 return NotFound();
             }
-            return questionVote;
         }
 
         // POST: api/votes/question

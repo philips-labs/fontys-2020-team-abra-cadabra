@@ -179,7 +179,7 @@ export default function Question({ question }) {
   }
 
   function HumanDateTime(dates) {
-    var date = new Date(dates + "Z");
+    var date = new Date(dates);
     date = date.toUTCString().split(", ");
     date = date[1].slice(0, 17);
     setDate(date);

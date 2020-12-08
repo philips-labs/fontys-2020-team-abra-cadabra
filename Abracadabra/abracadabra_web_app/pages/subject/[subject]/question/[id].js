@@ -69,7 +69,7 @@ export async function getServerSideProps({ params }) {
     //apiRes = err;
     apiRes = err.response?.status;
   }
-
+  console.log(apiRes);
   const subject = params?.subject;
 
   if (apiRes?.data?.title != null) {

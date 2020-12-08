@@ -5,7 +5,7 @@ import Providers from 'next-auth/providers';
 import LoginService from 'src/services/LoginService';
 
 const options = {
-  site: process.env.SITE || 'http://localhost:3000',
+  site: process.env.SITE || 'http://localhost:3001',
 
   // Configure one or more authentication providers
   providers: [

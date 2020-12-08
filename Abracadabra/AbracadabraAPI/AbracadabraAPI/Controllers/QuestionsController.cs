@@ -234,7 +234,7 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{subjectName}/new")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByDate(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return BadRequest();

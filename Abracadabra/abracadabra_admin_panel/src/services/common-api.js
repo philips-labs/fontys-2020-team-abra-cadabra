@@ -1,7 +1,9 @@
 //process.env.APP_URL
 import axios from "axios";
 
-const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:44343/";
+const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:5000";
+
+console.log(url)
 
 const httpdefault = () => {
   const https = require("https");

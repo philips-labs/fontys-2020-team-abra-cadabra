@@ -1,17 +1,21 @@
+//process.env.APP_URL
 import axios from "axios";
 
-const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:5001";
+const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:5000";
+
+console.log(url)
 
 const httpdefault = () => {
+  const https = require("https");
   return axios.create({
     baseURL: url + "/api",
-    headers: {
-      "Content-type": "application/json",
-    },
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
   });
 };
 const httptoken = () => {
-  const token = localStorage.getItem("Token");
+  const token = localStorage.getItem("AdminToken");
   return axios.create({
     baseURL: url + "/api",
     headers: {

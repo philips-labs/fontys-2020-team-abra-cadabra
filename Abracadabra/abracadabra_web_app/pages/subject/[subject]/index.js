@@ -26,14 +26,16 @@ function Subject({ subjectName, response }) {
 export default Subject;
 
 export async function getServerSideProps({ params }) {
-  console.log("test");
   // Fetch necessary data for the blog post using params.id
+  if(params != null)
+  {
   let apiRes = null;
   try {
     apiRes = await SubjectService.GetSubjectBySlug(params.subject);
   } catch (err) {
     apiRes = err.response?.status;
   }
+  console.log("SubjectService: " + apiRes?.data)
 
   const subjectName = params?.subject;
 
@@ -44,14 +46,17 @@ export async function getServerSideProps({ params }) {
       rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);
     } catch (err) {
       rspns = err.response?.status;
+      console.log("error: " + rspns);
     }
     const response = JSON.parse(JSON.stringify(rspns.data));
+
+    console.log(response);
 
     return {
       props: {
         subjectName,
         response,
-      },
+      }
     };
   } else if (apiRes === 404 || apiRes === 400) {
     const response = apiRes;
@@ -72,4 +77,5 @@ export async function getServerSideProps({ params }) {
       },
     };
   }
+}
 }

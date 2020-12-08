@@ -75,7 +75,7 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{slug}")]
         public async Task<ActionResult<SubjectWithQuestionsViewModel>> GetSubject(string slug)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == slug).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == slug.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return NotFound();
