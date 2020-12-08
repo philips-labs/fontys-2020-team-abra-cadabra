@@ -28,6 +28,7 @@
 
 .dropdown-menu {
   background-color: $special-color;
+  left: -100%;
   
   .dropdown-item {
     color: $tertiary-color;
