@@ -43,7 +43,7 @@ namespace AbracadabraAPI.Controllers
 
                 users.Add(auser);
             }
-            
+
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
 
             foreach (Question question in questions)
@@ -69,7 +69,7 @@ namespace AbracadabraAPI.Controllers
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
 
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
-            
+
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
@@ -78,7 +78,7 @@ namespace AbracadabraAPI.Controllers
             }
 
             var roles = await userManager.GetRolesAsync(user);
-            
+
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
@@ -168,11 +168,11 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<QuestionViewModel>> PostQuestion(QuestionViewModel questionViewModel)
         {
 
-              var  user = await userManager.FindByNameAsync(User.Identity.Name);
-                if(user == null)
-                {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
                 return Unauthorized();
-                }
+            }
 
             var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectName).FirstOrDefaultAsync();
 
@@ -202,7 +202,7 @@ namespace AbracadabraAPI.Controllers
         [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<QuestionViewModel>> DeleteQuestions(int id)
         {
- 
+
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
             {
@@ -223,7 +223,7 @@ namespace AbracadabraAPI.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-           
+
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
@@ -333,7 +333,7 @@ namespace AbracadabraAPI.Controllers
             var expertSubject = await _context.ExpertSubjects.Where(x => x.SubjectId == subjectId && x.UserId == userId).FirstOrDefaultAsync();
             if (expertSubject == null)
             {
-                 return "User";
+                return "User";
             }
             else
             {

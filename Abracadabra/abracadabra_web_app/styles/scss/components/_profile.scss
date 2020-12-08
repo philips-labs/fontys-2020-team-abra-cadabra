@@ -1,0 +1,114 @@
+.foe {
+    margin: 0 auto 0 auto;
+    width: 95%;
+    text-align: center;
+
+    .title {
+        width: 100%;
+        border-bottom: 1px solid $text-color;
+        margin: 0 auto 0.4rem auto;
+    }
+    
+    .badges {
+
+        .badge {
+            width: 100px;
+            height: 50px;
+            font-size: 1rem;
+            margin: 0.2em 0.48em;
+            padding: 1em 0.4em;
+            background-color: $secondary-color;
+            color: $text-color;
+
+            &:hover {
+                background-color: $hover-color;
+            }
+        }
+
+        .badge-geography {
+            color: $text-color;
+            background-color: rgba(0, 255, 0, 0.507);
+
+            &:hover {
+                background-color: rgba(0, 255, 0, 0.281);
+            }
+        }
+
+        .badge-cooking {
+            color: $text-color;
+            background-color: $tertiary-color;
+
+            &:hover {
+                background-color: #17a3b8a8;
+            }
+        }
+
+        .badge-crafting {
+            color: $text-color;
+            background-color: #8b4513;
+
+            &:hover {
+                background-color: #8b4513c0;
+            }
+        }
+
+        .badge-history {
+            color: $text-color;
+            background-color: #f5bd16;
+
+            &:hover {
+                background-color: #f5bd16a2;
+            }
+        }
+
+        .badge-designing {
+            color: $text-color;
+            background-color: #660066;
+
+            &:hover {
+                background-color: #660066ad;
+            }
+        }
+
+        .badge-cinema {
+            color: $text-color;
+            background-color: #7E0B11;
+
+            &:hover {
+                background-color: #7e0b11b4;
+            }
+        }
+
+        .badge-maths {
+            color: black;
+            background-color: #F3E8E5;
+
+            &:hover {
+                background-color: #f3e8e5ad;
+            }
+        }
+    }
+    
+}
+
+.profilePageAvatar {
+    height: 125px;
+    border-radius: 50%;
+}
+
+
+.editUserContainer {
+    background-color: $primary-color;
+
+    hr {
+        border-top: 1px solid $text-color;
+        width: 100%;
+    }
+}
+
+.LoginArea {
+    hr {
+        border-top: 1px solid $text-color;
+        width: 100%;
+    }
+}

@@ -124,7 +124,7 @@ namespace AbracadabraAPI.Controllers
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
-            if(roles[0] == "Expert")
+            if (roles[0] == "Expert")
             {
                 question.IsAnsweredByExpert = true;
             }
@@ -165,7 +165,7 @@ namespace AbracadabraAPI.Controllers
             var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
-            
+
             return Mapper.AnswerToViewModel(answer, user, roles[0]);
         }
 
