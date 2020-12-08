@@ -19,6 +19,8 @@ export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [error, setError] = useState();
   const [endorsed, setEndorsed] = useState(false)
+  const [endorsementcount, setEndorsementCount] = useState()
+  const [isanswerendorsed, setIsAnswerEndorsed] = useState(false)
   const [isexpert, setIsExpert] = useState(true)
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
@@ -28,46 +30,43 @@ export default function Answer({ answer }) {
     AnswerId: answer.id,
     vote: ""
   })
-  
-    //#region FlaggingQuestion
+
+  //#region FlaggingQuestion
   const [showToast, setShowToast] = useState(false);
   const [toastText, setToastText] = useState("");
   const [toastColor, setToastColor] = useState("");
 
   const HandleAnswerFlagClick = async () => {
     ReportService.FlagAnswer(answer.id)
-    .then(res => {
-      //console.log(res);
-      setToastText("Answer successfully reported");
-      setToastColor("bg-success");
-      setShowToast(true);
-    })
-    .catch(err => {
-      //console.log(err);
-      try {
-      if(err.response.status == 400)
-      {
-        setToastText(err.response.data);
-        setToastColor("bg-warning");
-      }
-      else if(err.response.status == 401)
-      {
-        setToastText("You need to be logged in to report an answer!");
-        setToastColor("bg-warning");
-      }
-      else 
-      {
-        setToastText("Oops! Something went wrong with the API, try again later.");
-        setToastColor("bg-danger");
-      }
-      setShowToast(true);
-    }
-    catch {
-      setToastText("Oops! couldn't reach the report API, try again later.");
-      setToastColor("bg-danger");
-      setShowToast(true);
-    }
-    });
+      .then(res => {
+        //console.log(res);
+        setToastText("Answer successfully reported");
+        setToastColor("bg-success");
+        setShowToast(true);
+      })
+      .catch(err => {
+        //console.log(err);
+        try {
+          if (err.response.status == 400) {
+            setToastText(err.response.data);
+            setToastColor("bg-warning");
+          }
+          else if (err.response.status == 401) {
+            setToastText("You need to be logged in to report an answer!");
+            setToastColor("bg-warning");
+          }
+          else {
+            setToastText("Oops! Something went wrong with the API, try again later.");
+            setToastColor("bg-danger");
+          }
+          setShowToast(true);
+        }
+        catch {
+          setToastText("Oops! couldn't reach the report API, try again later.");
+          setToastColor("bg-danger");
+          setShowToast(true);
+        }
+      });
   };
   //#endregion
 
@@ -87,18 +86,21 @@ export default function Answer({ answer }) {
     const tokenExist = localStorage.getItem("Token");
     if (tokenExist) {
       setIsLoggedIn(true);
-      AnswerService.GetAnswerEndorsement().then((res) => {
-      console.log(res);
-      console.log(res.data);
-      setEndorsed(true)
-      setIsExpert(true)
-      })
-      .catch((error) => {
-        console.log(error.response.status)
-        if (error.response.status == 401) {
-          setIsExpert(false)
+      HandleIsAnswerEndorsed()
+      AnswerService.GetAnswerEndorsement(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        if (res.data != null) {
+          setEndorsed(true)
         }
-      });
+        setIsExpert(true)
+      })
+        .catch((error) => {
+          console.log(error.response.status)
+          if (error.response.status == 401) {
+            setIsExpert(false)
+          }
+        });
       VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
@@ -188,25 +190,42 @@ export default function Answer({ answer }) {
   };
   const HandleEndorseClick = () => {
     if (endorsed == false) {
-    AnswerService.PostAnswerEndorsement(answer.id).then((res) => {
-      console.log(res);
-      console.log(res.data);
-      setEndorsed(true)
+      AnswerService.PostAnswerEndorsement(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setEndorsed(true)
+        HandleIsAnswerEndorsed()
+      })
+        .catch((error) => {
+          setError("Error posting endorsement, please try again")
+        });
+    }
+    else {
+      AnswerService.DeleteAnswerEndorsement(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setEndorsed(false)
+        HandleIsAnswerEndorsed()
+      })
+        .catch((error) => {
+          setError("Error deleting endorsement, please try again")
+        });
+    }
+  }
+
+  const HandleIsAnswerEndorsed = () => {
+    AnswerService.GetAllAnswerEndorsements(answer.id).then((res) => {
+      console.log(res)
+      console.leg(res.data)
+      setEndorsementCount(res.data.length)
+      if (res.data != null) {
+      setIsAnswerEndorsed(true)
+    }
     })
     .catch((error) => {
-      setError("Error posting endorsement, please try again")
-    });
-  }
-  else {
-    AnswerService.DeleteAnswerEndorsement(answer.id).then((res) => {
-      console.log(res);
-      console.log(res.data);
-      setEndorsed(false)
+      console.log(error.response.status)
+      setIsAnswerEndorsed(false)
     })
-    .catch((error) => {
-      setError("Error deleting endorsement, please try again")
-    });
-  }
   }
   const ShowUpvoted = () => {
     return (
@@ -225,7 +244,7 @@ export default function Answer({ answer }) {
           }
           else {
             return (
-              <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp}  /></div></a>
+              <a href="/loginpage"><div href="/registerpage"><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronUp} /></div></a>
             )
           }
         })()}
@@ -236,22 +255,22 @@ export default function Answer({ answer }) {
     return (
       <div>
         {(() => {
-           if (isloggedin == true) {
-          if (vote.vote == -1) {
+          if (isloggedin == true) {
+            if (vote.vote == -1) {
+              return (
+                <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+              )
+            } else {
+              return (
+                <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+              )
+            }
+          }
+          else {
             return (
-              <div><FontAwesomeIcon className="votingArrowVoted" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
-            )
-          } else {
-            return (
-              <div><FontAwesomeIcon className="votingArrow" icon={faChevronDown} onClick={() => firstClick(-1)} /></div>
+              <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
             )
           }
-        }
-        else {
-          return (
-            <a href="/loginpage"><div><FontAwesomeIcon className="votingArrowDisabled" icon={faChevronDown} /></div></a>
-          )
-        }
         })()}
       </div>
     )
@@ -260,20 +279,23 @@ export default function Answer({ answer }) {
     return (
       <div>
         {(() => {
-           if (isloggedin == true) {
-          if (endorsed == true) {
-            return (
-              <div><FontAwesomeIcon className="endorseIconSelected"  icon={faCheck} onClick={HandleEndorseClick} /></div>
-            )
-          } else {
-            return (
-              <div><FontAwesomeIcon className="endorseIcon"  icon={faCheck} onClick={HandleEndorseClick} /></div>
-            )
+          if (isloggedin == true) {
+            if (endorsed == true) {
+              return (
+                <div><FontAwesomeIcon className="endorseIconSelected" icon={faCheck} onClick={HandleEndorseClick} /></div>
+              )
+            } else {
+              return (
+                <div><FontAwesomeIcon className="endorseIcon" icon={faCheck} onClick={HandleEndorseClick} /></div>
+              )
+            }
           }
-        }
         })()}
       </div>
     )
+  }
+  const ShowIsPostEndorsed = () => {
+    <div><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /> This post has been endorsed, {endorsementcount} times!</div>
   }
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
@@ -293,6 +315,7 @@ export default function Answer({ answer }) {
     <>
       <Row>
         <Col md={11} className="mx-auto">
+        {isanswerendorsed ? <ShowIsPostEndorsed /> : null}
           <Card className="answerBody">
             <Card.Body>
               <Row>
@@ -310,8 +333,8 @@ export default function Answer({ answer }) {
               <Row>
                 <Col md={11}></Col>
                 <Col md={1} className="flagDiv">
-                <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleAnswerFlagClick} />
-                { isexpert ? <ShowEndorse /> : null }
+                  <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleAnswerFlagClick} />
+                  {isexpert ? <ShowEndorse /> : null}
                 </Col>
               </Row>
             </Card.Body>
@@ -339,16 +362,16 @@ export default function Answer({ answer }) {
         </Col>
       </Row>
       <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide className="bg-dark" style={{
-      position: 'fixed',
-      top: 10,
-      right: 10,
-    }}>
-          <Toast.Header className={toastColor + " text-white"}>
-            <strong className="mr-auto">Report</strong>
-            <small>just now</small>
-          </Toast.Header>
-          <Toast.Body>{toastText}</Toast.Body>
-        </Toast>
+        position: 'fixed',
+        top: 10,
+        right: 10,
+      }}>
+        <Toast.Header className={toastColor + " text-white"}>
+          <strong className="mr-auto">Report</strong>
+          <small>just now</small>
+        </Toast.Header>
+        <Toast.Body>{toastText}</Toast.Body>
+      </Toast>
     </>
   );
 }
