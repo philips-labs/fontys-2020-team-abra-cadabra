@@ -229,9 +229,6 @@ input::-webkit-input-placeholder {
   margin-right: 10px;
   align-items: center;
 }
-.editUserContainer {
-  background-color: #373a3c;
-}
 
 .divpartsubject {
   -ms-flex: 1 1 auto;

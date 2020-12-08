@@ -1,11 +1,11 @@
 import { Nav } from "react-bootstrap";
+import BlankNavBar from "src/components/BlankNavBar.js";
 import EditUser from "../src/components/EditUser.js";
-import Navbar from "../src/components/Navbar.js";
 
 function EditUserPage() {
   return (
     <>
-      <Navbar />
+      <BlankNavBar />
       <EditUser />
     </>
   );

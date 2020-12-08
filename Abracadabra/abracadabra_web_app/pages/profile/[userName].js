@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Router from "next/router";
 import Profile from "../../src/components/Profile.js";
-import Navbar from "../../src/components/Navbar.js";
+import BlankNavBar from "../../src/components/BlankNavBar.js";
 
 function ProfilePage() {
     const [username, setUsername] = useState(null)
@@ -10,7 +9,7 @@ function ProfilePage() {
     }, [])
     return (
         <>
-            <Navbar />
+            <BlankNavBar />
             {username != null ? <Profile usrNm={username} /> : <></>}
         </>
     );

@@ -10,3 +10,18 @@
     }
     
 }
+
+.profilePageAvatar {
+    height: 125px;
+    border-radius: 50%;
+}
+
+
+.editUserContainer {
+    background-color: $primary-color;
+
+    hr {
+        border-top: 1px solid $text-color;
+        width: 100%;
+    }
+}

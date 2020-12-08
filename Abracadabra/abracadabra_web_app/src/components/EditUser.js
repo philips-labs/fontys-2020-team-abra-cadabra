@@ -141,7 +141,7 @@ const EditUser = () => {
             <Col xl={8} md={11} className="LoginArea pb-3 rounded">
               <Row>
                 <Col>
-                  <h3 style={{ textAlign: "center" }}>
+                  <h3 className="text-center">
                     Profile page for {userName.username}
                   </h3>
                 </Col>
@@ -177,22 +177,13 @@ const EditUser = () => {
                         <Col md={7} className="mr-auto"></Col>
                         <Col md={5}>
                           <img
-                            className="rounded-circle"
-                            style={{ height: "125px" }}
+                            className="profilePageAvatar"
                             src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                           ></img>
                         </Col>
                       </Row>
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
-                        <Col>
-                          {/* <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-info"
-                          >
-                            Change
-                          </Button> */}
-                        </Col>
                       </Row>
                     </Col>
                   </Row>
@@ -201,8 +192,7 @@ const EditUser = () => {
                       <Row>
                         <Col md={8}>
                           <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-secondary"
+                            className="mt-2 btn-secondary w-100"
                             href="/editpasswordpage"
                           >
                             Edit Password
@@ -210,8 +200,7 @@ const EditUser = () => {
                         </Col>
                         <Col md={4} className="mr-auto">
                           <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-secondary"
+                            className="mt-2 btn-secondary w-100"
                             href="/expertapplicationpage"
                           >
                             Expert
@@ -221,8 +210,7 @@ const EditUser = () => {
                       <Row>
                         <Col md={8}>
                           <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-info"
+                            className="mt-2 btn-info w-100"
                             onClick={changeToActive}
                           >
                             Edit Account
@@ -239,148 +227,134 @@ const EditUser = () => {
           </Row>
         </Container>
       ) : (
-        <Container className="h-75">
-          <Row className="h-100 justify-content-center align-items-center">
-            <Col xl={8} md={11} className="LoginArea pb-3 rounded">
-              <Row>
-                <Col>
-                  <h3 style={{ textAlign: "center" }}>
-                    Profile page for {userName.username}
-                  </h3>
-                </Col>
-              </Row>
-              <Row className="editUserContainer pb-3 rounded">
-                <Col>
-                  <Row>
-                    <Col md={6} className="p-3">
-                      <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                          <label>Email address</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            aria-describedby="emailHelp"
-                            value={editUser.email}
-                            onChange={handleChange}
-                            name="email"
-                          />
-                        </div>
-                        <div>
-                          {messageEmail.map((message, index) => (
-                            <div key={index}>
-                              <small className="help-block text-danger">
-                                {message}
-                              </small>{" "}
-                              <br></br>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="form-group">
-                          <label>Username</label>
-                          <input
-                            type="Username"
-                            className="form-control"
-                            value={editUser.username}
-                            onChange={handleChange}
-                            name="username"
-                          />
-                        </div>
-                        <div>
-                          {messageUserName.map((message, index) => (
-                            <div key={index}>
-                              <small className="help-block text-danger">
-                                {message}
-                              </small>{" "}
-                              <br></br>
-                            </div>
-                          ))}
-                        </div>
-                        <hr
-                          style={{ borderTop: "1px solid #ccc", width: "100%" }}
-                        />
-                        <div className="form-group">
-                          <label>Current password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Current password"
-                            onChange={handleChange}
-                            name="password"
-                          />
-                        </div>
-                        <div>
-                          {messagePassword.map((message, index) => (
-                            <div key={index}>
-                              <small className="help-block text-danger">
-                                {message}
-                              </small>{" "}
-                              <br></br>
-                            </div>
-                          ))}
-                        </div>
-                        <Row>
-                          <Col md={9}>
-                            <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-info"
-                              onClick={handleSubmit}
-                              type="sumbit"
-                            >
-                              Save changes
-                            </Button>
-                          </Col>
-                          <Col md={3}>
-                            <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-secondary"
-                              onClick={changeToActive}
-                            >
-                              Close
-                            </Button>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <div
-                            className="text-danger mt-2 ml-3"
-                            role="alert"
-                            style={{ textAlign: "center" }}
-                          >
-                            {message}
+          <Container className="h-75">
+            <Row className="h-100 justify-content-center align-items-center">
+              <Col xl={8} md={11} className="LoginArea pb-3 rounded">
+                <Row>
+                  <Col>
+                    <h3 className="text-center">
+                      Profile page for {userName.username}
+                    </h3>
+                  </Col>
+                </Row>
+                <Row className="editUserContainer pb-3 rounded">
+                  <Col>
+                    <Row>
+                      <Col md={6} className="p-3">
+                        <form onSubmit={handleSubmit}>
+                          <div className="form-group">
+                            <label>Email address</label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              aria-describedby="emailHelp"
+                              value={editUser.email}
+                              onChange={handleChange}
+                              name="email"
+                            />
                           </div>
+                          <div>
+                            {messageEmail.map((message, index) => (
+                              <div key={index}>
+                                <small className="help-block text-danger">
+                                  {message}
+                                </small>{" "}
+                                <br></br>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="form-group">
+                            <label>Username</label>
+                            <input
+                              type="Username"
+                              className="form-control"
+                              value={editUser.username}
+                              onChange={handleChange}
+                              name="username"
+                            />
+                          </div>
+                          <div>
+                            {messageUserName.map((message, index) => (
+                              <div key={index}>
+                                <small className="help-block text-danger">
+                                  {message}
+                                </small>{" "}
+                                <br></br>
+                              </div>
+                            ))}
+                          </div>
+                          <hr />
+                          <div className="form-group">
+                            <label>Current password</label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="exampleInputPassword1"
+                              placeholder="Current password"
+                              onChange={handleChange}
+                              name="password"
+                            />
+                          </div>
+                          <div>
+                            {messagePassword.map((message, index) => (
+                              <div key={index}>
+                                <small className="help-block text-danger">
+                                  {message}
+                                </small>{" "}
+                                <br></br>
+                              </div>
+                            ))}
+                          </div>
+                          <Row>
+                            <Col md={9}>
+                              <Button
+                                className="mt-2 btn-info w-100"
+                                onClick={handleSubmit}
+                                type="sumbit"
+                              >
+                                Save changes
+                            </Button>
+                            </Col>
+                            <Col md={3}>
+                              <Button
+                                className="mt-2 btn-secondary w-100"
+                                onClick={changeToActive}
+                              >
+                                Close
+                            </Button>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <div
+                              className="text-danger text-center mt-2 ml-3"
+                              role="alert"
+                            >
+                              {message}
+                            </div>
+                          </Row>
+                        </form>
+                      </Col>
+                      <Col md={6} className="p-3">
+                        <Row>
+                          <Col md={7} className="mr-auto"></Col>
+                          <Col md={5}>
+                            <img
+                              className="profilePageAvatar"
+                              src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
+                            ></img>
+                          </Col>
                         </Row>
-                      </form>
-                    </Col>
-                    <Col md={6} className="p-3">
-                      <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col md={5}>
-                          <img
-                            className="rounded-circle"
-                            style={{ height: "125px" }}
-                            src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
-                          ></img>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col>
-                          {/* <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-info"
-                          >
-                            Change
-                          </Button> */}
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      )}
+                        <Row>
+                          <Col md={7} className="mr-auto"></Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        )}
     </>
   );
 };

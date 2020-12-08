@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
-import { Row, Col, Container, Badge } from "react-bootstrap";
+import { Row, Col, Container, Form, Button, Badge } from "react-bootstrap";
 
 function Profile({ usrNm }) {
   const [userName, setUserName] = useState({
@@ -32,7 +32,7 @@ function Profile({ usrNm }) {
           <Col xl={8} md={11} className="LoginArea pb-3 rounded">
             <Row>
               <Col>
-                <h3 style={{ textAlign: "center" }}>
+                <h3 className="text-center">
                   Profile page for {userName.username}
                 </h3>
               </Col>
@@ -58,8 +58,7 @@ function Profile({ usrNm }) {
                       <Col md={7} className="mr-auto"></Col>
                       <Col md={5}>
                         <img
-                          className="rounded-circle"
-                          style={{ height: "125px" }}
+                          className="profilePageAvatar"
                           src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                         ></img>
                       </Col>
