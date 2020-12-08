@@ -68,17 +68,18 @@ namespace AbracadabraAPI.Controllers
 
             var user = await userManager.FindByIdAsync(question.UserID);
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
-
+            int endorsements;
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
                 var rolesAnswer = await userManager.GetRolesAsync(answerUser);
-                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
+                endorsements = _context.EndorsedAnswers.Where(x => x.AnswerId == answer.ID).Count();
+                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, endorsements, rolesAnswer[0]));
             }
 
             var roles = await userManager.GetRolesAsync(user);
-
+            answerViewModels = answerViewModels.OrderByDescending(x => x.Endorsements).ToList();
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
         }
 

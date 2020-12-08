@@ -47,7 +47,7 @@ namespace AbracadabraAPI.Mappers
             SubjectID = subject.ID
         };
 
-        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user, string role, int voteByUser = 0) =>
+        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user, int endorsements, string role, int voteByUser = 0) =>
         new AnswerViewModel
         {
             ID = answer.ID,
@@ -58,7 +58,8 @@ namespace AbracadabraAPI.Mappers
             Upvotes = answer.Upvotes,
             Downvotes = answer.Downvotes,
             UserRole = role,
-            VoteByUser = voteByUser
+            VoteByUser = voteByUser,
+            Endorsements = endorsements
         };
 
         public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
