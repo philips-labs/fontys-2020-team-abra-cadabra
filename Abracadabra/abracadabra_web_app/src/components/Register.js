@@ -105,6 +105,7 @@ const Register = () => {
 
     AccountService.Register(register)
       .then((res) => {
+        setMessage("Account created");
         Router.push("/loginpage");
       })
       .catch((error) => {
@@ -219,7 +220,7 @@ const Register = () => {
                       className="btn-block"
                       data-testid="register-input-submit"
                     >
-                      Register
+                      Registering
                     </Button>
                   </Form.Group>
                 </Form>
@@ -231,7 +232,7 @@ const Register = () => {
                 role="alert"
                 style={{ textAlign: "center" }}
               >
-                {message}
+                <p>{message}</p>
               </div>
             </Row>
           </Col>

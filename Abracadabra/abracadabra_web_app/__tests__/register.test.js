@@ -4,15 +4,17 @@ import {
   screen,
   waitFor,
   fireEvent,
+  toBeInTheDocument,
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Register from "../src/components/Register";
 import Login from "../src/components/Login";
 import AccountService from "../src/services/AccountService";
 import React from "react";
-import Router from "next/router";
+import "@testing-library/jest-dom/extend-expect";
 
-//jest.mock("next/router", () => ({ push: jest.fn() }));
+import Router from "next/router";
+jest.mock("next/router", () => ({ push: jest.fn() }));
 
 describe("Register", () => {
   it.only("Register account", async () => {
@@ -41,24 +43,8 @@ describe("Register", () => {
     const inputSubmit = screen.getByTestId("register-input-submit");
     fireEvent.click(inputSubmit);
 
-    const header = await screen.findByTestId("login-page-test-id");
-    expect(header).toBeInTheDocument();
-    //expect(Router.push).toHaveBeenCalledWith("/loginpage");
-
-    //expect(Router.push).toHaveBeenCalledWith("/loginpage");
-    // await AccountService.Register({
-    //   data: {
-    //     email: "test@email.com",
-    //     username: "tester",
-    //     password: "secretP@ssw0rd!",
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    // expect(1).toBe(1);
+    const header = await screen.findByText("Account created");
+    // expect(header).toBeInTheDocument();
+    expect(Router.push).toHaveBeenCalledWith("/loginpage");
   });
 });
