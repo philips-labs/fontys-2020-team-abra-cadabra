@@ -22,10 +22,15 @@ const editPassword = (data) => {
   return http.httptoken().put("/users/edit/password/" + data.id, data);
 };
 
+const getProfile = (data) => {
+  return http.httptoken().get("/users/Profile/" + data);
+}
+
 export default {
   Login,
   Register,
   getUser,
   editUser,
   editPassword,
+  getProfile
 };

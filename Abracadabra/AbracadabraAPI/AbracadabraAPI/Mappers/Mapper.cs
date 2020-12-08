@@ -19,7 +19,7 @@ namespace AbracadabraAPI.Mappers
             Title = question.Title,
             Description = question.Description,
             UserName = user.UserName,
-            SubjectSlug = subject?.SubjectName,
+            SubjectName = subject?.SubjectName,
             DateTimeCreated = question.DateTimeCreated,
             AnswerViewModels = viewModels,
             Upvotes = question.Upvotes,
@@ -90,11 +90,39 @@ namespace AbracadabraAPI.Mappers
             QuestionTitles = titles,
         };
         public static SubjectWithQuestionsViewModel SubjectWithQuestionsToViewModel(Subject subject,List<QuestionWithAnswerCount> viewModels) =>
-            new SubjectWithQuestionsViewModel
+        new SubjectWithQuestionsViewModel
+        {
+            ID = subject.ID,
+            SubjectName = subject.SubjectName,
+            Questions= viewModels,
+        };
+        public static ApplicationViewModel ApplicationToViewModel(ExpertApplication application, Subject subject, ApplicationUser user) =>
+        new ApplicationViewModel
+        {
+            ApplicationId = application.ID,
+            Status = application.Status,
+            Motivation = application.Motivation,
+            DateTimeCreated = application.DateTimeCreated,
+            SubjectName = subject.SubjectName,
+            UserId = user.Id,
+            UserName = user.UserName
+            
+        };
+        public static ShortApplicationViewModel ApplicationToShortViewModel(ExpertApplication application, Subject subject) =>
+        new ShortApplicationViewModel
+        {
+            Status = application.Status.ToString(),
+            DateTimeCreated = application.DateTimeCreated,
+            SubjectName = subject.SubjectName
+        };
+        public static UserWithExpertFieldsViewModel UserWithExpertFieldsToViewModel(ApplicationUser user, List<string> roles = null)
+        {
+            return new UserWithExpertFieldsViewModel
             {
-                ID = subject.ID,
-                SubjectName = subject.SubjectName,
-                Questions= viewModels,
+                ID = user.Id,
+                Username = user.UserName,
+                Fields = roles,
             };
+        }
     }
 }

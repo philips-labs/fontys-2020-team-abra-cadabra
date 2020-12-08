@@ -5,7 +5,7 @@ import {
   faChevronUp,
   faChevronDown,
   faFlag,
-  faCheck,
+  faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 
 import VotesService from "../services/VotesService"
@@ -319,7 +319,7 @@ export default function Answer({ answer }) {
 
   return (
     <>
-      <Row>
+      <Row className="mb-2">
         <Col md={11} className="mx-auto">
           <Card className="answerBody">
             <Card.Body>
@@ -350,17 +350,17 @@ export default function Answer({ answer }) {
                   className="questionPageAvatar"
                   src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                 ></img>
-                <p className="answerUsername">
+                <a href={"/profile/" + answer.userName} className="answerUsername">
                   {answer.userName}
                   {answer.userRole === "Expert" ? (
                     <FontAwesomeIcon
                       className="checkIcon ml-2"
-                      icon={faCheck}
+                      icon={faUserGraduate}
                     />
                   ) : (
                       <></>
                     )}
-                </p>
+                </a>
               </div>
               <p>Posted on: {date}</p>
             </Card.Footer>
