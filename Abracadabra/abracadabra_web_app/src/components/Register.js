@@ -109,11 +109,9 @@ const Register = () => {
         Router.push("/loginpage");
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         setMessage("Something went wrong, try again in a few minutes ...");
       });
-
-    console.log(register);
   };
   return (
     <>
