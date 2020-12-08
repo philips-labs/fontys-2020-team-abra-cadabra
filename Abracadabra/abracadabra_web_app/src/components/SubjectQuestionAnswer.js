@@ -56,13 +56,13 @@ export default function Answer({ answer }) {
             setToastColor("bg-warning");
           }
           else {
-            setToastText("Oops! Something went wrong with the API, try again later.");
+            setToastText("Oops! Something went wrong, try again later.");
             setToastColor("bg-danger");
           }
           setShowToast(true);
         }
         catch {
-          setToastText("Oops! couldn't reach the report API, try again later.");
+          setToastText("Oops! Something went wrong, try again later.");
           setToastColor("bg-danger");
           setShowToast(true);
         }
