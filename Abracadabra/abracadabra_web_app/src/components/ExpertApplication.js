@@ -40,9 +40,9 @@ const ExpertApplication = () => {
         setGoodMessage("The request was successful");
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.log(error.response?.data);
         setGoodMessage("");
-        setMessage(error.response.data);
+        setMessage(error.response?.data);
       });
   };
 
@@ -52,20 +52,20 @@ const ExpertApplication = () => {
       (response) => {
         setUserName(response.data);
       }
-    );
+    ).catch(err => {});
   };
 
   const getSubjects = async () => {
     SubjectService.GetAllSubjects().then((response) => {
-      setSubjcts(response.data);
-    });
+      setSubjcts(response.data)
+    }).catch(err => {});
   };
 
   const pendingSubjects = async () => {
     ExpertService.getPending().then((response) => {
       console.log(response.data);
       setPending(response.data);
-    });
+    }).catch(err => {});
   };
 
   const refresh = () => {

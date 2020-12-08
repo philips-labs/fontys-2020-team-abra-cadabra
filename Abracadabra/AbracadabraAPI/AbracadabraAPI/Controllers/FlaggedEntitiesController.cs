@@ -95,7 +95,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/FlaggedQuestions
         [HttpPost("question/{questionId}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult> FlagQuestion(int questionId)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -109,6 +109,11 @@ namespace AbracadabraAPI.Controllers
             if (flag != null)
             {
                 return BadRequest("Question has already been flagged by the user.");
+            }
+
+            if(await _context.Questions.Where(q => q.ID == questionId && q.UserID == user.Id.ToString()).CountAsync() > 0)
+            {
+                return BadRequest("You can't report your own question.");
             }
 
             var flaggedQuestion = new FlaggedQuestion
@@ -125,7 +130,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/FlaggedAnswers
         [HttpPost("answer/{answerId}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult> FlagAnswer(int answerId)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -139,6 +144,11 @@ namespace AbracadabraAPI.Controllers
             if (flag != null)
             {
                 return BadRequest("Answer has already been flagged by the user.");
+            }
+
+            if (await _context.Answers.Where(a => a.ID == answerId && a.UserID == user.Id.ToString()).CountAsync() > 0)
+            {
+                return BadRequest("You can't report your own answer.");
             }
 
             var flaggedAnswer = new FlaggedAnswer

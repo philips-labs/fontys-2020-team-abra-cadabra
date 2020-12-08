@@ -53,7 +53,7 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Answers/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PutAnswer(int id, AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -98,7 +98,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Answers
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<AnswerViewModel>> PostAnswer(AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -137,7 +137,7 @@ namespace AbracadabraAPI.Controllers
 
         // DELETE: api/Answers/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<AnswerViewModel>> DeleteAnswer(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
