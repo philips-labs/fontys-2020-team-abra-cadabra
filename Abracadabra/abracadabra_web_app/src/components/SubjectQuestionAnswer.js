@@ -14,9 +14,14 @@ import AnswerService from "../services/AnswerService"
 import ReportService from 'src/services/ReportService';
 
 
+
 export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [error, setError] = useState();
+  const [endorsed, setEndorsed] = useState(false)
+  const [endorsementcount, setEndorsementCount] = useState()
+  const [isanswerendorsed, setIsAnswerEndorsed] = useState(false)
+  const [isexpert, setIsExpert] = useState(true)
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
@@ -51,13 +56,13 @@ export default function Answer({ answer }) {
             setToastColor("bg-warning");
           }
           else {
-            setToastText("Oops! Something went wrong with the API, try again later.");
+            setToastText("Oops! Something went wrong, try again later.");
             setToastColor("bg-danger");
           }
           setShowToast(true);
         }
         catch {
-          setToastText("Oops! couldn't reach the report API, try again later.");
+          setToastText("Oops! Something went wrong, try again later.");
           setToastColor("bg-danger");
           setShowToast(true);
         }
@@ -79,8 +84,24 @@ export default function Answer({ answer }) {
 
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
+    HandleIsAnswerEndorsed()
     if (tokenExist) {
       setIsLoggedIn(true);
+      HandleIsAnswerEndorsed()
+      AnswerService.GetAnswerEndorsement(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        if (res.data != null) {
+          setEndorsed(true)
+        }
+        setIsExpert(true)
+      })
+        .catch((error) => {
+          console.log(error.response.status)
+          if (error.response.status == 401) {
+            setIsExpert(false)
+          }
+        });
       VotesService.GetAnswerVote(answer.id).then((res) => {
         console.log(res);
         console.log(res.data);
@@ -168,6 +189,48 @@ export default function Answer({ answer }) {
         setError("Error channging vote, please try again")
       });
   };
+  const HandleEndorseClick = () => {
+    if (endorsed == false) {
+      AnswerService.PostAnswerEndorsement(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setEndorsed(true)
+        HandleIsAnswerEndorsed()
+      })
+        .catch((error) => {
+          setError("Error posting endorsement, please try again")
+        });
+    }
+    else {
+      AnswerService.DeleteAnswerEndorsement(answer.id).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setEndorsed(false)
+        HandleIsAnswerEndorsed()
+      })
+        .catch((error) => {
+          setError("Error deleting endorsement, please try again")
+        });
+    }
+  }
+
+  const HandleIsAnswerEndorsed = () => {
+    AnswerService.GetAllAnswerEndorsements(answer.id).then((res) => {
+      console.log(res)
+      console.log(res.data)
+      if (res.data != '')  {
+      setIsAnswerEndorsed(true)
+      setEndorsementCount(res.data.length)   
+      }
+      else {
+        setIsAnswerEndorsed(false)
+      }
+    })
+    .catch((error) => {
+      console.log(error.response)
+      setIsAnswerEndorsed(false)
+    })
+  }
   const ShowUpvoted = () => {
     return (
       <div>
@@ -216,6 +279,30 @@ export default function Answer({ answer }) {
       </div>
     )
   }
+  const ShowEndorse = () => {
+    return (
+      <div>
+        {(() => {
+          if (isloggedin == true) {
+            if (endorsed == true) {
+              return (
+                <div><FontAwesomeIcon className="endorseIconSelected" icon={faCheck} onClick={HandleEndorseClick} /></div>
+              )
+            } else {
+              return (
+                <div><FontAwesomeIcon className="endorseIcon" icon={faCheck} onClick={HandleEndorseClick} /></div>
+              )
+            }
+          }
+        })()}
+      </div>
+    )
+  }
+  const ShowIsPostEndorsed = () => {
+    return (
+    <div><div className="endorseHasbeenEndorsed"><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /> This post has been endorsed, {endorsementcount} times!</div><br /></div>
+    )
+  }
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
     date = date.toUTCString().split(", ");
@@ -240,6 +327,7 @@ export default function Answer({ answer }) {
                 <Col md={11}>
                   {error &&
                     <h6 className="errorVoting"> {error} </h6>}
+                     {isanswerendorsed ? <ShowIsPostEndorsed /> : null}
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
@@ -252,6 +340,7 @@ export default function Answer({ answer }) {
                 <Col md={11}></Col>
                 <Col md={1} className="flagDiv">
                   <FontAwesomeIcon className="flagIcon WhiteLinks" icon={faFlag} onClick={HandleAnswerFlagClick} />
+                  {isexpert ? <ShowEndorse /> : null}
                 </Col>
               </Row>
             </Card.Body>
