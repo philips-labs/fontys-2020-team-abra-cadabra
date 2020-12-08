@@ -15,11 +15,11 @@ import ReportService from 'src/services/ReportService';
 
 
 
-
 export default function Answer({ answer }) {
   const [date, setDate] = useState();
   const [error, setError] = useState();
   const [endorsed, setEndorsed] = useState(false)
+  const [endorsementcount, setEndorsementCount] = useState()
   const [isanswerendorsed, setIsAnswerEndorsed] = useState(false)
   const [isexpert, setIsExpert] = useState(true)
   const [isloggedin, setIsLoggedIn] = useState(false);
@@ -217,6 +217,7 @@ export default function Answer({ answer }) {
     AnswerService.GetAllAnswerEndorsements(answer.id).then((res) => {
       console.log(res)
       console.leg(res.data)
+      setEndorsementCount(res.data.length)
       if (res.data != null) {
       setIsAnswerEndorsed(true)
     }
@@ -294,7 +295,7 @@ export default function Answer({ answer }) {
     )
   }
   const ShowIsPostEndorsed = () => {
-    <div><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /></div>
+    <div><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /> This post has been endorsed, {endorsementcount} times!</div>
   }
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
