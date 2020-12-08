@@ -65,12 +65,15 @@ function Profile({ usrNm }) {
                 </Row>
               </Col>
             </Row>
-            {userName.fields != null ? <Row className="foe">
-              <div className="title"><h3>Fields of Expertise</h3></div>
-              {userName.fields.map((field) => (
-                <Badge variant="primary">{field}</Badge>
-              ))}
-            </Row> :
+            {userName.fields != null ?
+              <Row className="foe">
+                <div className="title"><h3>Fields of Expertise</h3></div>
+                <div className="badges">
+                  {userName.fields.map((field) => (
+                    <a href={"/subject/" + field.toLowerCase()}><Badge variant={field.toLowerCase()}>{field}</Badge></a>
+                  ))}
+                </div>
+              </Row> :
               <></>}
 
           </Col>
