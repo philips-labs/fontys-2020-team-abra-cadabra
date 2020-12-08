@@ -51,6 +51,39 @@ namespace AbracadabraAPI.Controllers
             };
         }
 
+        //GET: api/EndorsedAnswers/all
+        [HttpGet("{answerId}/all")]
+        public async Task<ActionResult<IEnumerable<EndorsedAnswerViewModel>>> GetAllEndorsedAnswers(int answerId)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            List<EndorsedAnswer> endorsedAnswers = await _context.EndorsedAnswers.Where(x => x.AnswerId == answerId).ToListAsync();
+            if (endorsedAnswers.Count == 0)
+            {
+                return NoContent();
+            }
+
+            List<EndorsedAnswerViewModel> endorsedAnswerViewModels = new List<EndorsedAnswerViewModel>();
+
+            foreach (var endorsment in endorsedAnswers)
+            {
+                endorsedAnswerViewModels.Add(new EndorsedAnswerViewModel
+                {
+                    Id = endorsment.Id,
+                    AnswerId = endorsment.AnswerId,
+                    UserId = endorsment.UserId,
+                }
+                );
+            }
+
+            return endorsedAnswerViewModels;
+        }
+
         // POST: api/EndorsedAnswers
         [HttpPost("{answerId}")]
         [Authorize(Roles = "Expert")]
