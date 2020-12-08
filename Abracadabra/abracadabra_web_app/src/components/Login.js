@@ -30,7 +30,7 @@ const Login = () => {
   };
   return (
     <>
-      <Container className="LoginContainer">
+      <Container className="LoginContainer" data-testid="login-page-test-id">
         <Row className="h-100 justify-content-center align-items-center">
           <Col xl={6} md={8} className="LoginArea pb-3 rounded">
             <Row className="mb-4 p-3">

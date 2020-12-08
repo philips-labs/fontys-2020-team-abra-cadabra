@@ -108,8 +108,11 @@ const Register = () => {
         Router.push("/loginpage");
       })
       .catch((error) => {
+        console.log(error);
         setMessage("Something went wrong, try again in a few minutes ...");
       });
+
+    console.log(register);
   };
   return (
     <>
@@ -134,6 +137,7 @@ const Register = () => {
                       Username
                     </Form.Label>
                     <Form.Control
+                      data-testid="register-input-username"
                       type="text"
                       placeholder="Enter username"
                       onChange={handleChange}
@@ -155,6 +159,7 @@ const Register = () => {
                     <Form.Label className="font-weight-bold">Email</Form.Label>
                     <Form.Control
                       type="text"
+                      data-testid="register-input-email"
                       placeholder="Enter email"
                       name="email"
                       onChange={handleChange}
@@ -177,6 +182,7 @@ const Register = () => {
                     </Form.Label>
                     <Form.Control
                       type="password"
+                      data-testid="register-input-password"
                       placeholder="Enter password"
                       name="password"
                       onChange={handleChange}
@@ -199,6 +205,7 @@ const Register = () => {
                     </Form.Label>
                     <Form.Control
                       type="password"
+                      data-testid="register-input-repeat-password"
                       placeholder="Repeat password"
                       onChange={handleConfirmPasswordChange}
                       name="confirmPassword"
@@ -206,7 +213,12 @@ const Register = () => {
                     />
                   </Form.Group>
                   <Form.Group controlId="LoginButton" className="mb-4">
-                    <Button type="submit" variant="info" className="btn-block">
+                    <Button
+                      type="submit"
+                      variant="info"
+                      className="btn-block"
+                      data-testid="register-input-submit"
+                    >
                       Register
                     </Button>
                   </Form.Group>

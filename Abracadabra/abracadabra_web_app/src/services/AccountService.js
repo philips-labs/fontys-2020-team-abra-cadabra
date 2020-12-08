@@ -1,4 +1,4 @@
-import http from "../common-api";
+import http from "../unsecure-common-api";
 
 const Login = (data) => {
   const httptest = http.httpdefault();
