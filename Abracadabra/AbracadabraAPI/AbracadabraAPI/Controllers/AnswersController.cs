@@ -48,7 +48,7 @@ namespace AbracadabraAPI.Controllers
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
-            return Mapper.AnswerToViewModel(answer, user, roles[0]);
+            return Mapper.AnswerToViewModel(answer, user, 0, roles[0]);
         }
 
         // PUT: api/Answers/5
@@ -124,7 +124,7 @@ namespace AbracadabraAPI.Controllers
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
-            if (roles[0] == "Expert")
+            if(roles[0] == "Expert")
             {
                 question.IsAnsweredByExpert = true;
             }
@@ -132,7 +132,7 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, roles[0]));
+            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, 0, roles[0]));
         }
 
         // DELETE: api/Answers/5
@@ -165,8 +165,8 @@ namespace AbracadabraAPI.Controllers
             var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
-
-            return Mapper.AnswerToViewModel(answer, user, roles[0]);
+            
+            return Mapper.AnswerToViewModel(answer, user, 0, roles[0]);
         }
 
         private bool AnswerExists(int id)
