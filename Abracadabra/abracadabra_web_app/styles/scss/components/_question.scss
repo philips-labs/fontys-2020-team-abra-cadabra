@@ -2,7 +2,7 @@
   width: 40px;
   height: 40px;
   margin-right: 0.5rem;
-  border-radius: 20px;
+  border-radius: 50%;
 }
 
 .questionHead {
@@ -66,7 +66,15 @@
 
 
   .questionUsername {
+    color: $text-color;
+    text-decoration: none;
     font-size: 1.5rem;
+    margin-bottom: 0px;
+
+    &:hover {
+      cursor: pointer;
+      color: $secondary-color;
+    }
   }
 }
 
@@ -162,8 +170,15 @@
     justify-content: space-between;
 
     .answerUsername {
+      color: $text-color;
+      text-decoration: none;
       font-size: 1.7rem;
       margin-bottom: 0px;
+
+      &:hover {
+        cursor: pointer;
+        color: $hover-color;
+      }
     }
 
     .answerPosted {
@@ -184,4 +199,8 @@
 
 .giveAnAnswerArrows {
   font-size: 2rem;
+}
+
+.cursorPointer {
+  cursor: pointer;
 }

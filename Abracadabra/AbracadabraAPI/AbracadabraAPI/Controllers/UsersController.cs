@@ -268,8 +268,7 @@ namespace AbracadabraAPI.Controllers
 
         //This should be made as a second call on the profile page if the user has the Expert role.
         // GET api/Users/Profile/Username
-        [HttpGet("/Profile/{slug}")]
-        [Authorize]
+        [HttpGet("Profile/{slug}")]
         public async Task<ActionResult<UserWithExpertFieldsViewModel>> GetExpertWithFields(string slug)
         {
             var user = await _userManager.FindByNameAsync(slug);
