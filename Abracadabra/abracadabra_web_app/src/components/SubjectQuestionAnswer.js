@@ -84,6 +84,7 @@ export default function Answer({ answer }) {
 
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
+    HandleIsAnswerEndorsed()
     if (tokenExist) {
       setIsLoggedIn(true);
       HandleIsAnswerEndorsed()
