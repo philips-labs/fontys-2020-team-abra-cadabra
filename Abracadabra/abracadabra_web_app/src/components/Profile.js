@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
-import { Row, Col, Container, Form, Button, Badge } from "react-bootstrap";
+import { Row, Col, Container, Badge } from "react-bootstrap";
 
 function Profile({ usrNm }) {
   const [userName, setUserName] = useState({
@@ -32,7 +30,7 @@ function Profile({ usrNm }) {
           <Col xl={8} md={11} className="LoginArea pb-3 rounded">
             <Row>
               <Col>
-                <h3 className="text-center">
+                <h3 className="text-center mt-3">
                   Profile page for {userName.username}
                 </h3>
               </Col>

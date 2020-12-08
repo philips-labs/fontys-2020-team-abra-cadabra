@@ -112,7 +112,7 @@ const EditPassword = () => {
       <Container className="LoginContainer">
         <Row className="h-100 justify-content-center align-items-center">
           <Col xl={6} md={8} className="LoginArea pb-3 rounded">
-            <h4 className="font-weight-bold" style={{ textAlign: "center" }}>
+            <h4 className="font-weight-bold text-center mt-3">
               Edit password of {userName.username}
             </h4>
             <Row className="justify-content-center mb-2">
@@ -176,16 +176,14 @@ const EditPassword = () => {
                   </Form.Group>
                 </Form>
                 <Button
-                  style={{ width: "100%" }}
-                  className="mt-2 btn-info"
+                  className="mt-2 btn-info w-100"
                   onClick={handleSubmit}
                 >
                   Edit password
                 </Button>
                 <Button
-                  style={{ width: "100%" }}
-                  className="mt-2 btn-secondary"
-                  href="EditUserPage"
+                  className="mt-2 btn-secondary w-100"
+                  href="/profile"
                 >
                   Cancel
                 </Button>
@@ -193,9 +191,8 @@ const EditPassword = () => {
             </Row>
             <Row>
               <div
-                className="text-danger mx-auto"
+                className="text-danger mx-auto text-center"
                 role="alert"
-                style={{ textAlign: "center" }}
               >
                 {message}
               </div>

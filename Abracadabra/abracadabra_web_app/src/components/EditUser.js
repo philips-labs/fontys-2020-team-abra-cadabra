@@ -141,7 +141,7 @@ const EditUser = () => {
             <Col xl={8} md={11} className="LoginArea pb-3 rounded">
               <Row>
                 <Col>
-                  <h3 className="text-center">
+                  <h3 className="text-center mt-3">
                     Profile page for {userName.username}
                   </h3>
                 </Col>
@@ -193,7 +193,7 @@ const EditUser = () => {
                         <Col md={8}>
                           <Button
                             className="mt-2 btn-secondary w-100"
-                            href="/editpasswordpage"
+                            href="/editpassword"
                           >
                             Edit Password
                           </Button>
@@ -201,7 +201,7 @@ const EditUser = () => {
                         <Col md={4} className="mr-auto">
                           <Button
                             className="mt-2 btn-secondary w-100"
-                            href="/expertapplicationpage"
+                            href="/expertapplication"
                           >
                             Expert
                           </Button>
@@ -232,7 +232,7 @@ const EditUser = () => {
               <Col xl={8} md={11} className="LoginArea pb-3 rounded">
                 <Row>
                   <Col>
-                    <h3 className="text-center">
+                    <h3 className="text-center mt-3">
                       Profile page for {userName.username}
                     </h3>
                   </Col>

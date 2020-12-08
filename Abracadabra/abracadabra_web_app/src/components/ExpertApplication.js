@@ -150,7 +150,7 @@ const ExpertApplication = () => {
                             <Button
                               style={{ width: "100%" }}
                               className="mt-2 btn-secondary"
-                              href="/EditUserPage"
+                              href="/profile"
                             >
                               Close
                             </Button>
@@ -269,7 +269,7 @@ const ExpertApplication = () => {
                             <Button
                               style={{ width: "100%" }}
                               className="mt-2 btn-secondary"
-                              href="/EditUserPage"
+                              href="/profile"
                             >
                               Close
                             </Button>
