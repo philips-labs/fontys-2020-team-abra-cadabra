@@ -127,6 +127,9 @@
     .errorVoting {
       color: red;
     }
+    .endorseHasbeenEndorsed {
+      color: rgba(255, 255, 255, 0.796)
+    }
 
     .flagDiv {
       display: flex;
@@ -144,6 +147,7 @@
         cursor: pointer;
         color: red;
       }
+
     }
 
     p {

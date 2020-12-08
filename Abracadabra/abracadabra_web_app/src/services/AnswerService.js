@@ -8,7 +8,7 @@ const GetAnswerEndorsement = (data) => {
   return http.httptoken().get("/EndorsedAnswers/" + data, { timeout: 100000 });
 };
 const GetAllAnswerEndorsements = (data) => {
-  return http.httptoken().get("/EndorsedAnswers/" + data, { timeout: 100000 });
+  return http.httptoken().get("/EndorsedAnswers/" + data + "/all", { timeout: 100000 });
 };
 const PostAnswerEndorsement = (data) => {
   return http.httptoken().post("/EndorsedAnswers/" + data, { timeout: 5000 });

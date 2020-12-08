@@ -216,14 +216,17 @@ export default function Answer({ answer }) {
   const HandleIsAnswerEndorsed = () => {
     AnswerService.GetAllAnswerEndorsements(answer.id).then((res) => {
       console.log(res)
-      console.leg(res.data)
-      setEndorsementCount(res.data.length)
-      if (res.data != null) {
+      console.log(res.data)
+      if (res.data != '')  {
       setIsAnswerEndorsed(true)
-    }
+      setEndorsementCount(res.data.length)   
+      }
+      else {
+        setIsAnswerEndorsed(false)
+      }
     })
     .catch((error) => {
-      console.log(error.response.status)
+      console.log(error.response)
       setIsAnswerEndorsed(false)
     })
   }
@@ -295,7 +298,9 @@ export default function Answer({ answer }) {
     )
   }
   const ShowIsPostEndorsed = () => {
-    <div><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /> This post has been endorsed, {endorsementcount} times!</div>
+    return (
+    <div><div className="endorseHasbeenEndorsed"><FontAwesomeIcon className="endorseIconSelected" icon={faCheck}  /> This post has been endorsed, {endorsementcount} times!</div><br /></div>
+    )
   }
   function HumanDateTime(dates) {
     var date = new Date(dates + "Z");
@@ -315,13 +320,13 @@ export default function Answer({ answer }) {
     <>
       <Row>
         <Col md={11} className="mx-auto">
-        {isanswerendorsed ? <ShowIsPostEndorsed /> : null}
           <Card className="answerBody">
             <Card.Body>
               <Row>
                 <Col md={11}>
                   {error &&
                     <h6 className="errorVoting"> {error} </h6>}
+                     {isanswerendorsed ? <ShowIsPostEndorsed /> : null}
                   <Card.Text>{answer.answerContent}</Card.Text>
                 </Col>
                 <Col md={1} className="votingDiv">
