@@ -1,6 +1,7 @@
 .Default-Navbar {
   background-color: $primary-color;
   color: $text-color;
+  width: 100%;
   a {
     color: $text-color;
     text-decoration: none;
@@ -28,6 +29,7 @@
 
 .dropdown-menu {
   background-color: $special-color;
+  left: -120%;
   
   .dropdown-item {
     color: $tertiary-color;

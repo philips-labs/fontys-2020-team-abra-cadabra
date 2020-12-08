@@ -88,12 +88,12 @@ const ExpertApplication = () => {
   if (pending.length > 0) {
     return (
       <>
-        <Container className="h-75" style={{ marginTop: "20px" }}>
+        <Container className="h-75">
           <Row className="h-100 justify-content-center align-items-center">
             <Col xl={8} md={11} className="LoginArea pb-3 rounded">
               <Row>
                 <Col>
-                  <h3 style={{ textAlign: "center" }}>
+                  <h3 className="text-center">
                     Apply to be an expert {userName.username}
                   </h3>
                 </Col>
@@ -138,8 +138,7 @@ const ExpertApplication = () => {
                         <Row>
                           <Col md={9}>
                             <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-info"
+                              className="mt-2 btn-info w-100"
                               onClick={handleSubmit}
                               type="sumbit"
                             >
@@ -148,9 +147,8 @@ const ExpertApplication = () => {
                           </Col>
                           <Col md={3}>
                             <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-secondary"
-                              href="/EditUserPage"
+                              className="mt-2 btn-secondary w-100"
+                              href="/profile"
                             >
                               Close
                             </Button>
@@ -158,16 +156,14 @@ const ExpertApplication = () => {
                         </Row>
                       </form>
                       <div
-                        className="text-success mx-auto"
+                        className="text-success mx-auto text-center"
                         role="alert"
-                        style={{ textAlign: "center" }}
                       >
                         {goodMessage}
                       </div>
                       <div
-                        className="text-danger mx-auto"
+                        className="text-danger mx-auto text-center"
                         role="alert"
-                        style={{ textAlign: "center" }}
                       >
                         {message}
                       </div>
@@ -207,12 +203,12 @@ const ExpertApplication = () => {
   } else {
     return (
       <>
-        <Container className="h-75" style={{ marginTop: "20px" }}>
+        <Container className="h-75">
           <Row className="h-100 justify-content-center align-items-center">
             <Col xl={8} md={11} className="LoginArea pb-3 rounded">
               <Row>
                 <Col>
-                  <h3 style={{ textAlign: "center" }}>
+                  <h3 className="text-center">
                     Apply to be an expert {userName.username}
                   </h3>
                 </Col>
@@ -257,8 +253,7 @@ const ExpertApplication = () => {
                         <Row>
                           <Col md={9}>
                             <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-info"
+                              className="mt-2 btn-info w-100"
                               onClick={handleSubmit}
                               type="sumbit"
                             >
@@ -267,9 +262,8 @@ const ExpertApplication = () => {
                           </Col>
                           <Col md={3}>
                             <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-secondary"
-                              href="/EditUserPage"
+                              className="mt-2 btn-secondary w-100"
+                              href="/profile"
                             >
                               Close
                             </Button>

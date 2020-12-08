@@ -26,5 +26,7 @@ namespace AbracadabraAPI.ViewModels
         public int QuestionID { get; set; }
 
         public int VoteByUser { get; set; } = 0;
+
+        public int Endorsements { get; set; } = 0;
     }
 }
