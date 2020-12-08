@@ -55,13 +55,6 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{answerId}/all")]
         public async Task<ActionResult<IEnumerable<EndorsedAnswerViewModel>>> GetAllEndorsedAnswers(int answerId)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
             List<EndorsedAnswer> endorsedAnswers = await _context.EndorsedAnswers.Where(x => x.AnswerId == answerId).ToListAsync();
             if (endorsedAnswers.Count == 0)
             {
