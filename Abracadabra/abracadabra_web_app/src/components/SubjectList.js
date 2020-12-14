@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronUp,
@@ -7,45 +7,41 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col } from "react-bootstrap";
-import ListItem from "src/components/SubjectListItem";
-import SubjectService from 'src/services/SubjectService';
+import ListItem from "./SubjectListItem";
+import SubjectService from "../services/SubjectService";
 
 const SubjectList = () => {
   const [Subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-
-      //Get subjects
-      SubjectService.GetAllSubjects()
+    //Get subjects
+    SubjectService.GetAllSubjects()
       .then((res) => {
         setSubjects(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
-
   }, [Subjects]);
 
   function filter(letter) {
     let results = [];
     const len = Subjects.length;
     for (var i = 0; i < len; i++) {
-      if (Subjects[i].subjectName.toLowerCase().indexOf(letter.toLowerCase()) == 0) results.push(Subjects[i]);
+      if (
+        Subjects[i].subjectName.toLowerCase().indexOf(letter.toLowerCase()) == 0
+      )
+        results.push(Subjects[i]);
     }
     return results;
   }
 
-  function printSubjects(letter)
-  {
+  function printSubjects(letter) {
     const result = filter(letter);
     return result?.map((q) => {
-      return (
-      <ListItem key={q.id} name={q.subjectName}/>
-      );
+      return <ListItem key={q.id} name={q.subjectName} />;
     });
   }
-
-
 
   return (
     <>
@@ -195,9 +191,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">A</h3>
               </div>
-              <Row className="rowOverflow">
-                {printSubjects('a')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("a")}</Row>
             </div>
           </div>
           <div id="b">
@@ -205,9 +199,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">B</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('b')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("b")}</Row>
             </div>
           </div>
           <div id="c">
@@ -215,9 +207,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">C</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('c')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("c")}</Row>
             </div>
           </div>
           <div id="d">
@@ -225,9 +215,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">D</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('d')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("d")}</Row>
             </div>
           </div>
           <div id="e">
@@ -235,9 +223,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">E</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('e')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("e")}</Row>
             </div>
           </div>
           <div id="f">
@@ -245,9 +231,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">F</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('f')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("f")}</Row>
             </div>
           </div>
           <div id="g">
@@ -255,9 +239,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">G</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('g')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("g")}</Row>
             </div>
           </div>
           <div id="h">
@@ -265,9 +247,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">H</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('h')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("h")}</Row>
             </div>
           </div>
           <div id="i">
@@ -275,9 +255,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">I</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('i')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("i")}</Row>
             </div>
           </div>
           <div id="j">
@@ -285,9 +263,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">J</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('j')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("j")}</Row>
             </div>
           </div>
           <div id="k">
@@ -295,9 +271,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">K</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('k')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("k")}</Row>
             </div>
           </div>
           <div id="l">
@@ -305,9 +279,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">L</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('l')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("l")}</Row>
             </div>
           </div>
           <div id="m">
@@ -315,9 +287,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">M</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('m')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("m")}</Row>
             </div>
           </div>
           <div id="n">
@@ -325,9 +295,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">N</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('n')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("n")}</Row>
             </div>
           </div>
           <div id="o">
@@ -335,9 +303,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">O</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('o')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("o")}</Row>
             </div>
           </div>
           <div id="p">
@@ -345,9 +311,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">P</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('p')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("p")}</Row>
             </div>
           </div>
           <div id="q">
@@ -355,9 +319,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">Q</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('q')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("q")}</Row>
             </div>
           </div>
           <div id="r">
@@ -365,9 +327,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">R</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('r')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("r")}</Row>
             </div>
           </div>
           <div id="s">
@@ -375,9 +335,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">S</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('s')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("s")}</Row>
             </div>
           </div>
           <div id="t">
@@ -385,9 +343,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">T</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('t')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("t")}</Row>
             </div>
           </div>
           <div id="u">
@@ -395,9 +351,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">U</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('u')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("u")}</Row>
             </div>
           </div>
           <div id="v">
@@ -405,9 +359,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">V</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('v')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("v")}</Row>
             </div>
           </div>
           <div id="w">
@@ -415,9 +367,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">W</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('w')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("w")}</Row>
             </div>
           </div>
           <div id="x">
@@ -425,9 +375,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">X</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('x')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("x")}</Row>
             </div>
           </div>
           <div id="y">
@@ -435,9 +383,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">Y</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('y')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("y")}</Row>
             </div>
           </div>
           <div id="z">
@@ -445,9 +391,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">Z</h3>
               </div>
-              <Row className="rowOverflow">
-              {printSubjects('z')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("z")}</Row>
             </div>
           </div>
         </div>

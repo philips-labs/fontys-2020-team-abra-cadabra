@@ -1,13 +1,13 @@
 const {
   interopDefault,
 } = require("next/dist/next-server/server/load-components");
-const SubjectRouting = require("pages/subject/[subject]/index");
+const SubjectRouting = require("../pages/subject/[subject]/index");
 
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import SubjectService from "src/services/SubjectService";
+import SubjectService from "../src/services/SubjectService";
 
-jest.mock("src/services/SubjectService");
+jest.mock("../src/services/SubjectService");
 
 describe("Subject routing tests", () => {
   it("Should return 404 if subject not found", async () => {
