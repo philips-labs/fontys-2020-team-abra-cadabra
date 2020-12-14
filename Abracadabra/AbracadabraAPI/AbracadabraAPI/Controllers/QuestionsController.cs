@@ -89,7 +89,7 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{subjectName}/trending")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return BadRequest();
@@ -175,7 +175,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
                 }
 
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.SubjectName.ToLower() == questionViewModel.SubjectName.ToLower()).FirstOrDefaultAsync();
 
             var questionToPost = new Question
             {
@@ -289,6 +289,39 @@ namespace AbracadabraAPI.Controllers
             foreach (Question question in questions)
             {
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
+            }
+
+            return models;
+        }
+
+        // GET: api/Questions/Cooking/answered[?pagesize=5]
+        [HttpGet("{subjectName}/answered")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByAnswered(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
+            if (subject == null)
+            {
+                return BadRequest();
+            }
+
+            //List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).Where(x => x.Answers.Count() > 0).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
+            foreach (Question question in questions)
+            {
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
             return models;

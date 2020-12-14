@@ -51,14 +51,14 @@ const router = useRouter();
                     </a></Link>
 
                   {/* Detailed statistics */}
-                    <Link href="/statistics"><a className="w-100 wrap">
+                    {/* <Link href="/statistics"><a className="w-100 wrap">
                     <Row className={router.pathname == "/statistics" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaChartBar className="my-auto ml-2 Nav-color"/>
                   <p href="#" className="Nav-color p-2 my-auto">
                      Detailed statistics
                     </p>
                     </Row>
-                    </a></Link>
+                    </a></Link> */}
 
                     {/* User management */}
                     <Link href="/usermanagement"><a className="w-100 wrap">
@@ -71,14 +71,14 @@ const router = useRouter();
                     </a></Link>
 
                     {/* Subject management */}
-                    <Link href="/subjectmanagement"><a className="w-100 wrap">
+                    {/* <Link href="/subjectmanagement"><a className="w-100 wrap">
                     <Row className={router.pathname == "/subjectmanagement" ? "active w-100 m-0 p-2 border-bottom" : "w-100 m-0 p-2 border-bottom"}>
                   <FaNewspaper className="my-auto ml-2 Nav-color"/>
                   <p href="#" className="Nav-color p-2 my-auto">
                      Subject management
                     </p>
                     </Row>   
-                    </a></Link>
+                    </a></Link> */}
                 </Nav>
             </Nav>
           </Col>

@@ -38,14 +38,13 @@ export async function getServerSideProps({ params }) {
 
     if (apiRes?.data?.subjectName != null) {
 
-        const filter = "trending";
+        const filter = "answered";
         let rspns = null;
         try {
             rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);
         } catch (err) {
             rspns = err.response?.status;
         }
-
 
         const response = JSON.parse(JSON.stringify(rspns.data));
 

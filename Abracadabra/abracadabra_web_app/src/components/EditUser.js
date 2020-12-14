@@ -34,7 +34,6 @@ const EditUser = () => {
 
   const handleChange = (event) => {
     setEditUser({ ...editUser, [event.target.name]: event.target.value });
-    console.log(editUser.id);
   };
 
   const handleSubmit = (event) => {
@@ -111,7 +110,6 @@ const EditUser = () => {
 
     AccountService.editUser(editUser)
       .then((response) => {
-        console.log(response);
         setEditUserActive(!edituserActive);
         getUser();
       })

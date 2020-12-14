@@ -76,8 +76,6 @@ export default function NavBar({ subjectTitle }) {
       ...searchString,
       [event.target.name]: event.target.value,
     });
-
-    console.log(searchString);
   };
 
   return (

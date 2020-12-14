@@ -29,12 +29,9 @@ export default function Question({ question }) {
 
   const UpdateVotesQuestion = () => {
     QuestionService.GetQuestion(question.id).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setTotalVotes(res.data.upvotes - res.data.downvotes)
     })
       .catch((error) => {
-        console.log(error.response.status)
       });
   }
 
@@ -46,15 +43,12 @@ export default function Question({ question }) {
       setIsLoggedIn(true);
 
       VotesService.GetQuestionVote(question.id).then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.data.vote == 1 | -1) {
           setVote({ ...vote, vote: res.data.vote })
           setVoted(true)
         }
       })
         .catch((error) => {
-          console.log(error.response)
         });
 
 
@@ -91,8 +85,6 @@ export default function Question({ question }) {
 
   const submitPost = () => {
     VotesService.PostVoteQuestion(vote).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setError(null)
       setVoted(true)
       UpdateVotesQuestion()
@@ -104,8 +96,6 @@ export default function Question({ question }) {
 
   const handleVoteDelete = () => {
     VotesService.DeleteVoteQuestion(question.id).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setError(null)
       setVoted(false)
       setRendered(false)
@@ -118,8 +108,6 @@ export default function Question({ question }) {
   };
   const handleVotePut = () => {
     VotesService.PutVoteQuestion(vote).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setError(null)
       UpdateVotesQuestion()
     })

@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 //bootstrap
-import { Container, Row, Col, Carousel} from 'react-bootstrap';
+import { Container, Row, Col, Modal} from 'react-bootstrap';
 //components
 import NavBar from 'src/components/NavBar';
 import SideBar from 'src/components/SideBar'
@@ -23,9 +23,13 @@ export default function Dashboard() {
     const { date, time, wish } = useDate();
     const [Subjects, setSubjects] = useState([]);
     const [ExpertApplications, setExpertApplications] = useState([]);
+  //modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     function RemoveApplication(id){
-      console.log(id);
+      // console.log(id);
       let apps = ExpertApplications;
       const arr = apps.filter((item) => item.applicationId !== id);
       setExpertApplications(arr);
@@ -34,20 +38,20 @@ export default function Dashboard() {
       //Api call
       DashboardService.Get()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setSubjects(res.data);
       })
       .catch((error) => {
-         console.log(error);
+        //  console.log(error);
       });
       //Api call applications
       ExpertService.GetApplications()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setExpertApplications(res.data);
       })
       .catch((error) => {
-          console.log(error);
+          // console.log(error);
       });
     }, []);
   
@@ -68,6 +72,7 @@ export default function Dashboard() {
   
     if (!loading && session) {
       localStorage.setItem("AdminToken", session.user.image);
+
   return (
     <>
       <NavBar/>
@@ -94,7 +99,7 @@ export default function Dashboard() {
                     <Col>
                       <Row className="border-bottom border-secondary Box">
                         <Col md={8} className=""><h3 className="BoxTitle mb-1">Subjects</h3></Col>
-                        <Col md={4} className=""><a className="BoxTitleLink">see all</a></Col>
+                        <Col md={4} className=""><a className="BoxTitleLink DisabledEdit">see all</a></Col>
                       </Row>
                     </Col>
                   </Row>
@@ -111,7 +116,7 @@ export default function Dashboard() {
                     <Col>
                       <Row className="border-bottom border-secondary Box">
                         <Col md={8} className=""><h3 className="BoxTitle mb-1">Hot right now</h3></Col>
-                        <Col md={4} className=""><a className="BoxTitleLink">definition of hot</a></Col>
+                        <Col md={4} className=""><a className="BoxTitleLink" onClick={handleShow}>definition of hot</a></Col>
                       </Row>
                     </Col>
                   </Row>
@@ -130,7 +135,7 @@ export default function Dashboard() {
                     <Col>
                       <Row className="border-bottom border-secondary Box">
                         <Col md={8} className=""><h3 className="BoxTitle mb-1">Hot by data</h3></Col>
-                        <Col md={4} className=""><a className="BoxTitleLink">about this graph</a></Col>
+                        <Col md={4} className=""><a className="BoxTitleLink DisabledEdit">about this graph</a></Col>
                       </Row>
                     </Col>
                   </Row>
@@ -147,7 +152,7 @@ export default function Dashboard() {
                     <Col>
                       <Row className="border-bottom border-secondary Box">
                         <Col md={9} className=""><h3 className="BoxTitle mb-1">Experts awaiting verification</h3></Col>
-                        <Col md={3} className=""><a className="BoxTitleLink">View all</a></Col>
+                        <Link href={"/expertverification"}><Col md={3} className=""><a className="BoxTitleLink">View all</a></Col></Link>
                       </Row>
                     </Col>
                   </Row>
@@ -162,6 +167,16 @@ export default function Dashboard() {
       </Row>
 
       </Container>
+
+      <Modal show={show} onHide={handleClose} size={"lg"}>
+        <Modal.Header closeButton>
+          <Modal.Title>Definition of hot</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Hot is defined by the amount of upvotes a post has; and how old it is. <br />
+          If the post is just created but already has a lot of upvotes then it will be marked as hot. <br />
+        The top 3 subjects shown here are based on how hot there questions are. This are the 3 subjects with the hottest questions at the moment.
+        </Modal.Body>
+      </Modal>
     </>
   )
   }

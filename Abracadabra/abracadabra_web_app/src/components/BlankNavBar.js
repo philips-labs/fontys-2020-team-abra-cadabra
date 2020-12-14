@@ -41,7 +41,7 @@ export default function BlankNavBar() {
                 </Navbar.Brand>
                 <Nav className="ml-auto">
           <Row>
-              {LoginStatus == false ? 
+              {LoginStatus === false ? 
            <Nav.Link href="/loginpage" className="ml-2 mr-5">Login</Nav.Link>
             : 
             <>

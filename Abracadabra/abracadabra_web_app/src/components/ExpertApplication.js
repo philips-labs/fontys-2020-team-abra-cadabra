@@ -26,21 +26,18 @@ const ExpertApplication = () => {
 
   const handleChange = (event) => {
     setApply({ ...apply, [event.target.name]: event.target.value });
-    console.log(apply);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     ExpertService.applyExpert(apply)
       .then((res) => {
-        console.log(res);
         refresh();
         setMessage("");
         document.getElementById("create-expert-form").reset();
         setGoodMessage("The request was successful");
       })
       .catch((error) => {
-        console.log(error.response?.data);
         setGoodMessage("");
         setMessage(error.response?.data);
       });
@@ -52,20 +49,19 @@ const ExpertApplication = () => {
       (response) => {
         setUserName(response.data);
       }
-    ).catch(err => {});
+    ).catch(err => { });
   };
 
   const getSubjects = async () => {
     SubjectService.GetAllSubjects().then((response) => {
       setSubjcts(response.data)
-    }).catch(err => {});
+    }).catch(err => { });
   };
 
   const pendingSubjects = async () => {
     ExpertService.getPending().then((response) => {
-      console.log(response.data);
       setPending(response.data);
-    }).catch(err => {});
+    }).catch(err => { });
   };
 
   const refresh = () => {

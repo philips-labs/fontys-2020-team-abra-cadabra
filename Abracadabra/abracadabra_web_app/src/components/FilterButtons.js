@@ -33,13 +33,6 @@ function FilterButtons({ subjectTitle }) {
           >
             <FontAwesomeIcon icon={faCertificate} /> New
           </Button>
-          <Button
-            variant="secondary"
-            className={route == "top" ? "btnSmall active" : "btnSmall"}
-            href={"/subject/" + subjectTitle + "/top"}
-          >
-            <FontAwesomeIcon icon={faChartLine} /> Top
-          </Button>
         </Col>
         <Col md="7" className="d-flex justify-content-end">
           <Button
@@ -52,6 +45,7 @@ function FilterButtons({ subjectTitle }) {
           <Button
             variant="secondary"
             className={route == "answered" ? "btnBig active mr-2" : "btnBig mr-2"}
+            href={"/subject/" + subjectTitle + "/answered"}
           >
             <FontAwesomeIcon icon={faComment} /> Answered
           </Button>

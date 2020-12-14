@@ -122,3 +122,27 @@
         cursor: pointer;
     }
 }
+
+.BoxContentLinkDisabled {
+    color: darken($text-color, 25%);
+    text-decoration: line-through;
+    font-size: 0.8vw;
+
+    &:hover {
+        color: darken($text-color, 25%);
+        text-decoration: line-through;
+        cursor: not-allowed;
+    }
+
+    @media (max-width: 767px) {
+        // on mobile
+        font-size: 2vw;
+    }
+}
+
+.DisabledEdit {
+    &:hover {
+        text-decoration: line-through;
+        cursor: not-allowed;
+    }
+}
