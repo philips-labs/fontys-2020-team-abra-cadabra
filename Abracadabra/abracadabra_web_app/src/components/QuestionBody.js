@@ -15,7 +15,6 @@ function Title({ question, subject, search, searchLength }) {
 
   function HumanDateTime(dateAndTime) {
     var date = new Date(dateAndTime);
-    console.log(date);
     date = date.toUTCString().split(", ");
     date = date[1]?.slice(0, 17);
 
@@ -68,7 +67,7 @@ function Title({ question, subject, search, searchLength }) {
         ))}
       </div>
     );
-  } else if ({ search } != undefined) {
+  } else if (search != undefined) {
     return (
       <div className="container mt-5">
         <h1>No results for: {search}</h1>
@@ -78,7 +77,7 @@ function Title({ question, subject, search, searchLength }) {
   else {
     return (
       <div className="container mt-5">
-        <h1>Pepega</h1>
+        <h1>No results for this filter</h1>
       </div>
     );
   }

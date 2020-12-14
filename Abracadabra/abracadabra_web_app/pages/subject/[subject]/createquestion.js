@@ -14,14 +14,15 @@ function QuestionForm() {
 
     const [SubjectSlug, setSubjectSlug] = useState();
     const [validated, setValidated] = useState(false);
-    const initialInputState = { title: "", description: "", subjectslug: "", tags: [] };
+    const initialInputState = { title: "", description: "", subjectname: "", tags: [] };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
     const [tags, setTags] = useState([{ tag: "" }]);
 
 
     const handleInputChange = e => {
-        setQuestion({ ...question, [e.target.name]: e.target.value, subjectslug: router.query.subject });
+        setQuestion({ ...question, [e.target.name]: e.target.value, subjectname: router.query.subject });
+        console.log(question);
     };
 
     const handleSubmit = async (event) => {
@@ -33,7 +34,7 @@ function QuestionForm() {
         else {
             event.preventDefault();
             const { subject } = router.query;
-            setQuestion({ ...question, subjectslug: SubjectSlug });
+            setQuestion({ ...question, subjectname: SubjectSlug });
             console.log(question);
             var response = await QuestionService.Question(question);
             Router.push('/subject/' + subject + '/question/' + response?.data?.id);
@@ -79,31 +80,31 @@ function QuestionForm() {
 
                     <Form.Label className="label">Tags:</Form.Label>
                     <br />
-                        {tags.map((x, i) => {
-                            return (
-                            
-                                    <div className="badge badge-info p-1 mr-1 tags-margin">
-                                        <input className="tags-input"
-                                            name="tag"
-                                            placeholder="Enter Tag"
-                                            value={x.tag}
-                                            onChange={e => handleInputChangeTags(e, i)}
-                                        />
-                                        <a className="badge badge-info p-1 mr-1 tags-button-remove"
-                                            onClick={() => handleRemoveClick(i)}> <FontAwesomeIcon icon={faTimes} /></a>
-                                    </div>
-                                
-                            );
-                        })}
+                    {tags.map((x, i) => {
+                        return (
+
+                            <div className="badge badge-info p-1 mr-1 tags-margin">
+                                <input className="tags-input"
+                                    name="tag"
+                                    placeholder="Enter Tag"
+                                    value={x.tag}
+                                    onChange={e => handleInputChangeTags(e, i)}
+                                />
+                                <a className="badge badge-info p-1 mr-1 tags-button-remove"
+                                    onClick={() => handleRemoveClick(i)}> <FontAwesomeIcon icon={faTimes} /></a>
+                            </div>
+
+                        );
+                    })}
 
                     <a className="badge badge-info p-2 mr-2 tags-button-plus" onClick={handleAddClick}>+</a>
 
-            
+
                 </Form.Group>
-               <div>
-                <Button className="buttonSubmit float-right" type="submit">Submit Question</Button>
+                <div>
+                    <Button className="buttonSubmit float-right" type="submit">Submit Question</Button>
                 </div>
-               
+
             </Form>
         </>
     );
