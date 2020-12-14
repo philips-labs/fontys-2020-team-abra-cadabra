@@ -4,14 +4,14 @@ import QuestionService from "../services/QuestionService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-function QuestionCreateAnwser(questionSendId) {
+function QuestionCreateAnwser({QID, UpdateAnswers}) {
   const [validated, setValidated] = useState(false);
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [answereActive, setAnswerActive] = useState(false);
 
   const [Answer, setAnswer] = useState({
     answercontent: "",
-    questionid: questionSendId.QID,
+    questionid: QID,
   });
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
@@ -21,22 +21,24 @@ function QuestionCreateAnwser(questionSendId) {
   }, []);
 
   useEffect(() => {
-    setAnswer({ answercontent: "", questionid: questionSendId.QID });
-  }, [questionSendId]);
+    setAnswer({ answercontent: "", questionid: QID });
+  }, [QID]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      await QuestionService.QuestionAnswer(Answer)
+      QuestionService.QuestionAnswer(Answer)
         .then((res) => {
           console.log(res);
           console.log(res.data);
+          UpdateAnswers(res.data)
         })
         .catch((error) => {
-          console.log(error.response.data);
+          console.log(error.response);
         });
     }
 
