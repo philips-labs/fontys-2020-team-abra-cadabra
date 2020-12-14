@@ -89,7 +89,7 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{subjectName}/trending")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByTrending(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return BadRequest();
@@ -175,7 +175,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
                 }
 
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.SubjectName.ToLower() == questionViewModel.SubjectName.ToLower()).FirstOrDefaultAsync();
 
             var questionToPost = new Question
             {
