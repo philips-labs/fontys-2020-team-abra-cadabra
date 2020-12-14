@@ -25,10 +25,10 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
   }, [QID]);
 
   const handleSubmit = (event) => {
+    setValidated(true)
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else {
       QuestionService.QuestionAnswer(answer)
@@ -36,14 +36,14 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
           console.log(res);
           console.log(res.data);
           UpdateAnswers(res.data)
-          setAnswer({ ...answer, answercontent: null });
+          setAnswer({ ...answer, answercontent: "" });
+          setValidated(false);
         })
         .catch((error) => {
           console.log(error.response);
         });
     }
-
-    setValidated(true);
+    //setValidated(false);
   };
 
   const handleChange = (event) => {
