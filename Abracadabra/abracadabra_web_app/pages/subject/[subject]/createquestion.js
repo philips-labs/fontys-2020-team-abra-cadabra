@@ -22,7 +22,6 @@ function QuestionForm() {
 
     const handleInputChange = e => {
         setQuestion({ ...question, [e.target.name]: e.target.value, subjectname: router.query.subject });
-        console.log(question);
     };
 
     const handleSubmit = async (event) => {
@@ -35,7 +34,6 @@ function QuestionForm() {
             event.preventDefault();
             const { subject } = router.query;
             setQuestion({ ...question, subjectname: SubjectSlug });
-            console.log(question);
             var response = await QuestionService.Question(question);
             Router.push('/subject/' + subject + '/question/' + response?.data?.id);
         }
