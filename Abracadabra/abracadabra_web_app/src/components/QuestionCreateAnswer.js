@@ -7,9 +7,9 @@ import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 function QuestionCreateAnwser({QID, UpdateAnswers}) {
   const [validated, setValidated] = useState(false);
   const [isloggedin, setIsLoggedIn] = useState(false);
-  const [answereActive, setAnswerActive] = useState(false);
+  const [answerActive, setAnswerActive] = useState(false);
 
-  const [Answer, setAnswer] = useState({
+  const [answer, setAnswer] = useState({
     answercontent: "",
     questionid: QID,
   });
@@ -31,11 +31,12 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      QuestionService.QuestionAnswer(Answer)
+      QuestionService.QuestionAnswer(answer)
         .then((res) => {
           console.log(res);
           console.log(res.data);
           UpdateAnswers(res.data)
+          setAnswer({ ...answer, answercontent: null });
         })
         .catch((error) => {
           console.log(error.response);
@@ -46,16 +47,16 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
   };
 
   const handleChange = (event) => {
-    setAnswer({ ...Answer, [event.target.name]: event.target.value });
+    setAnswer({ ...answer, [event.target.name]: event.target.value });
   };
 
   const changeToActive = () => {
-    setAnswerActive(!answereActive);
+    setAnswerActive(!answerActive);
   };
 
   return (
     <>
-      {answereActive ? (
+      {answerActive ? (
         <Row>
           <Col md={11} className="mx-auto mb-2">
             <div className="BodyQuestion-CardBody giveAnAnswerExtended">
@@ -83,7 +84,7 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
                         disabled={!isloggedin}
                         placeholder="You know the answer, fill it in here!"
                         name="answercontent"
-                        value={Answer.answercontent}
+                        value={answer.answercontent}
                         onChange={handleChange}
                         style={{ height: "100px" }}
                       />
