@@ -17,7 +17,7 @@ import {
 import { useRouter } from "next/router";
 //import image
 // import Logo from "src/images/Abra_Logo_Centered.png";
-import Logo from "../images/Abra_Logo_Centered.png";
+import Logo from "../../public/images/Abra_Logo_Centered.png";
 import cookingLogo from "../images/logo_cooking_wip.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

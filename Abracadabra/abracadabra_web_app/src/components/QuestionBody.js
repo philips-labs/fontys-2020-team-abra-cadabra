@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
-import { slice } from "__mocks__/fileMock";
 
 function Title({ question, subject, search, searchLength }) {
   const [message, setMessage] = useState("");
@@ -29,7 +28,7 @@ function Title({ question, subject, search, searchLength }) {
     }
   }
 
-  if (questions.length > 0) {
+  if (questions?.length > 0) {
     return (
       <div className="container BodyQuestion-Top">
         <h1>{message}</h1>
@@ -37,9 +36,12 @@ function Title({ question, subject, search, searchLength }) {
           <div key={q.id}>
             <div className="BoduQuestion-Total">
               <div className="BodyQuestion-CardBody">
-                <div className='row'>
+                <div className="row">
                   <div className="col-sm-9">
-                    <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + q.id}>
+                    <a
+                      className="BodyQuestionText"
+                      href={"/subject/" + subject + "/question/" + q.id}
+                    >
                       <h4> {q.title} </h4>
                     </a>
                   </div>
@@ -73,8 +75,7 @@ function Title({ question, subject, search, searchLength }) {
         <h1>No results for: {search}</h1>
       </div>
     );
-  }
-  else {
+  } else {
     return (
       <div className="container mt-5">
         <h1>Pepega</h1>

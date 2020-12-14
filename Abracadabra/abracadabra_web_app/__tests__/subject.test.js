@@ -57,12 +57,32 @@ import {
   toBeInTheDocument,
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import QuestionPage from "../pages/subject/[subject]/index";
+const QuestionPage = require("../pages/subject/[subject]/index");
+import QuestionPageRender from "../pages/subject/[subject]/index";
 import "@testing-library/jest-dom/extend-expect";
+
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/Subject/Cooking",
+      pathname: "/Subject/Cooking",
+      query: "",
+      asPath: "Subject/Cooking",
+    };
+  },
+}));
 
 describe("SubjectList", () => {
   it("Get list of subjects", async () => {
-    render(<QuestionPage />);
+    const params = { subject: "Cooking" };
+
+    var response = await QuestionPage.getServerSideProps({ params });
+    render(
+      <QuestionPageRender
+        subjectName={response.props.subjectName}
+        response={response.props.response}
+      />
+    );
 
     const header = await screen.findByText("How to make spaghetti?");
     expect(header).toBeInTheDocument();
