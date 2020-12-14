@@ -29,6 +29,9 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
+ function UpdateAnswers(answer) {
+  setAnswers([answer, ...answers]);
+ }
 
   useEffect(() => {
     //GetQuestion();
@@ -48,7 +51,7 @@ function Question({ data, subject }) {
 
       <div className="answerHead mx-auto">
         <h1>A</h1>
-        <QuestionCreateAnswer QID={question.id} />
+        <QuestionCreateAnswer QID={question.id} UpdateAnswers={UpdateAnswers} />
         {/* Create component for answer tnx */}
         {answers.map((answer) => (
           <SubjectAnswer key={answer.id} answer={answer} />

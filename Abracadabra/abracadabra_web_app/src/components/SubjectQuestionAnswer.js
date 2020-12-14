@@ -22,7 +22,7 @@ export default function Answer({ answer }) {
   const [endorsed, setEndorsed] = useState(false)
   const [endorsementcount, setEndorsementCount] = useState()
   const [isanswerendorsed, setIsAnswerEndorsed] = useState(false)
-  const [isexpert, setIsExpert] = useState(true)
+  const [isexpert, setIsExpert] = useState()
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)

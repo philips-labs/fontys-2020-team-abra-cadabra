@@ -4,14 +4,14 @@ import QuestionService from "../services/QuestionService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-function QuestionCreateAnwser(questionSendId) {
+function QuestionCreateAnwser({QID, UpdateAnswers}) {
   const [validated, setValidated] = useState(false);
   const [isloggedin, setIsLoggedIn] = useState(false);
-  const [answereActive, setAnswerActive] = useState(false);
+  const [answerActive, setAnswerActive] = useState(false);
 
-  const [Answer, setAnswer] = useState({
+  const [answer, setAnswer] = useState({
     answercontent: "",
-    questionid: questionSendId.QID,
+    questionid: QID,
   });
   useEffect(() => {
     const tokenExist = localStorage.getItem("Token");
@@ -21,39 +21,41 @@ function QuestionCreateAnwser(questionSendId) {
   }, []);
 
   useEffect(() => {
-    setAnswer({ answercontent: "", questionid: questionSendId.QID });
-  }, [questionSendId]);
+    setAnswer({ answercontent: "", questionid: QID });
+  }, [QID]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
+    setValidated(true)
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else {
-      await QuestionService.QuestionAnswer(Answer)
+      QuestionService.QuestionAnswer(answer)
         .then((res) => {
           console.log(res);
           console.log(res.data);
+          UpdateAnswers(res.data)
+          setAnswer({ ...answer, answercontent: "" });
+          setValidated(false);
         })
         .catch((error) => {
-          console.log(error.response.data);
+          console.log(error.response);
         });
     }
-
-    setValidated(true);
   };
 
   const handleChange = (event) => {
-    setAnswer({ ...Answer, [event.target.name]: event.target.value });
+    setAnswer({ ...answer, [event.target.name]: event.target.value });
   };
 
   const changeToActive = () => {
-    setAnswerActive(!answereActive);
+    setAnswerActive(!answerActive);
   };
 
   return (
     <>
-      {answereActive ? (
+      {answerActive ? (
         <Row>
           <Col md={11} className="mx-auto mb-2">
             <div className="BodyQuestion-CardBody giveAnAnswerExtended">
@@ -81,7 +83,7 @@ function QuestionCreateAnwser(questionSendId) {
                         disabled={!isloggedin}
                         placeholder="You know the answer, fill it in here!"
                         name="answercontent"
-                        value={Answer.answercontent}
+                        value={answer.answercontent}
                         onChange={handleChange}
                         style={{ height: "100px" }}
                       />
