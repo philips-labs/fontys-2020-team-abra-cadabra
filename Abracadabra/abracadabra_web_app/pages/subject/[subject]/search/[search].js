@@ -10,8 +10,6 @@ function Subject({ subjectName, response }) {
   const router = useRouter();
   const { subject, search } = router.query;
 
-  console.log(subjectName);
-
   if (response === 404 || response == "failure" || response === 400) {
     return <DefaultErrorPage statusCode={404} />;
   }

@@ -45,7 +45,6 @@ export async function getServerSideProps({ params }) {
         } catch (err) {
             rspns = err.response?.status;
         }
-        console.log(rspns.data);
 
         const response = JSON.parse(JSON.stringify(rspns.data));
 

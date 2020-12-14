@@ -110,7 +110,6 @@ const EditUser = () => {
 
     AccountService.editUser(editUser)
       .then((response) => {
-        console.log(response);
         setEditUserActive(!edituserActive);
         getUser();
       })

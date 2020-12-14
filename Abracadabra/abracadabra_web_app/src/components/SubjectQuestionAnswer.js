@@ -40,13 +40,11 @@ export default function Answer({ answer }) {
   const HandleAnswerFlagClick = async () => {
     ReportService.FlagAnswer(answer.id)
       .then(res => {
-        //console.log(res);
         setToastText("Answer successfully reported");
         setToastColor("bg-success");
         setShowToast(true);
       })
       .catch(err => {
-        //console.log(err);
         try {
           if (err.response.status == 400) {
             setToastText(err.response.data);
@@ -74,12 +72,9 @@ export default function Answer({ answer }) {
 
   const UpdateVotesAnswers = () => {
     AnswerService.GetAnswer(answer.id).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setTotalVotes(res.data.upvotes - res.data.downvotes)
     })
       .catch((error) => {
-        console.log(error.response.status)
       });
   }
 
@@ -90,29 +85,23 @@ export default function Answer({ answer }) {
       setIsLoggedIn(true);
       HandleIsAnswerEndorsed()
       AnswerService.GetAnswerEndorsement(answer.id).then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.data != null) {
           setEndorsed(true)
         }
         setIsExpert(true)
       })
         .catch((error) => {
-          console.log(error.response.status)
           if (error.response.status == 401) {
             setIsExpert(false)
           }
         });
       VotesService.GetAnswerVote(answer.id).then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.data.vote == 1 | -1) {
           setVote({ ...vote, vote: res.data.vote })
           setVoted(true)
         }
       })
         .catch((error) => {
-          console.log(error.response.status)
         });
     }
   }, []);
@@ -154,8 +143,6 @@ export default function Answer({ answer }) {
 
   const submitPost = () => {
     VotesService.PostVoteAnswer(vote).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setError(null)
       setVoted(true)
       UpdateVotesAnswers()
@@ -167,8 +154,6 @@ export default function Answer({ answer }) {
 
   const handleVoteDelete = () => {
     VotesService.DeleteVoteAnswer(answer.id).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setError(null)
       UpdateVotesAnswers()
       setVoted(false)
@@ -181,8 +166,6 @@ export default function Answer({ answer }) {
   };
   const handleVotePut = () => {
     VotesService.PutVoteAnswer(vote).then((res) => {
-      console.log(res);
-      console.log(res.data);
       setError(null)
       UpdateVotesAnswers()
     })
@@ -193,8 +176,6 @@ export default function Answer({ answer }) {
   const HandleEndorseClick = () => {
     if (endorsed == false) {
       AnswerService.PostAnswerEndorsement(answer.id).then((res) => {
-        console.log(res);
-        console.log(res.data);
         setEndorsed(true)
         HandleIsAnswerEndorsed()
       })
@@ -204,8 +185,6 @@ export default function Answer({ answer }) {
     }
     else {
       AnswerService.DeleteAnswerEndorsement(answer.id).then((res) => {
-        console.log(res);
-        console.log(res.data);
         setEndorsed(false)
         HandleIsAnswerEndorsed()
       })
@@ -217,8 +196,6 @@ export default function Answer({ answer }) {
 
   const HandleIsAnswerEndorsed = () => {
     AnswerService.GetAllAnswerEndorsements(answer.id).then((res) => {
-      console.log(res)
-      console.log(res.data)
       if (res.data != '') {
         setIsAnswerEndorsed(true)
         setEndorsementCount(res.data.length)
@@ -228,7 +205,6 @@ export default function Answer({ answer }) {
       }
     })
       .catch((error) => {
-        console.log(error.response)
         setIsAnswerEndorsed(false)
       })
   }

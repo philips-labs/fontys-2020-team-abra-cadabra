@@ -21,8 +21,6 @@ function Profile({ usrNm }) {
     getUser();
   }, [usrNm]);
 
-  console.log(userName);
-
   return (
     <>
       <Container className="h-75">

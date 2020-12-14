@@ -32,11 +32,8 @@ function QuestionCreateAnwser(questionSendId) {
     } else {
       await QuestionService.QuestionAnswer(Answer)
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
         })
         .catch((error) => {
-          console.log(error.response.data);
         });
     }
 
