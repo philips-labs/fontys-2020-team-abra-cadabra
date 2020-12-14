@@ -368,24 +368,103 @@ namespace AbracadabraAPI.Data
             {
                 new Answer
                 {
-                    UserID=userIds[2],
+                    UserID=userIds[1],
                     QuestionID=1,
-                    AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
+                    AnswerContent="You can watch Gordon Ramsay's tutorial on how to make the perfect pasta.",
                     DateTimeCreated=DateTime.Parse("2020-09-18 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
+                    UserID=userIds[0],
                     QuestionID=1,
-                    AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
+                    AnswerContent="The best way to cook spaghetti is my way.",
                     DateTimeCreated=DateTime.Parse("2020-10-01 12:56"),
                 },
                 new Answer
                 {
-                    UserID=userIds[2],
+                    UserID=userIds[1],
                     QuestionID=2,
-                    AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
-                    DateTimeCreated=DateTime.Parse("2020-9-19-12:00"),
+                    AnswerContent="I think that this title dates back to King Louis the IV.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02-12:00"),
+                },
+                new Answer
+                {
+                    UserID=userIds[0],
+                    QuestionID=2,
+                    AnswerContent="The King title has originates from a website called Instagram, where all the peasants reside. they all call themselves Kings and Queens, thus making the titles obsolete.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02-12:00"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=3,
+                    AnswerContent="They most likely came from East Asia",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=4,
+                    AnswerContent="How can you even know you've made transparent paint when it's transparent? Just use water.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=4,
+                    AnswerContent="I've been trying to make transparent paint unsuccessfully for 10 years.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=5,
+                    AnswerContent="Because noone cares about an Arts degree. It's a good hobby but nothing more.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[2],
+                    QuestionID=6,
+                    AnswerContent="Get an Arts degree before trying to paint a portrait of your wife.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=7,
+                    AnswerContent="Watch the videos of him painting. He explains his techniques and guides you.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=8,
+                    AnswerContent="Because modern art is much more abstract, to the point that it looks like child drawings.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[2],
+                    QuestionID=9,
+                    Upvotes=221,
+                    Downvotes=17,
+                    AnswerContent="You can get better at Math by simply doing more math or taking up Math courses.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=9,
+                    AnswerContent="Some people are just naturally better at math than others.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 11:12"),
+                },
+                new Answer
+                {
+                    UserID=userIds[1],
+                    QuestionID=10,
+                    AnswerContent="Try to listen to him while he teaches and be more active during his lessions.",
+                    DateTimeCreated=DateTime.Parse("2021-01-02 12:12"),
                 },
             };
             foreach (Answer answer in answers)
