@@ -43,7 +43,6 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
           console.log(error.response);
         });
     }
-    //setValidated(false);
   };
 
   const handleChange = (event) => {

@@ -30,7 +30,7 @@ function Question({ data, subject }) {
   const [answers, setAnswers] = useState([]);
 
  function UpdateAnswers(answer) {
-  setAnswers([ ...answers, answer ]);
+  setAnswers([answer, ...answers]);
  }
 
   useEffect(() => {
