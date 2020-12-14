@@ -19,12 +19,6 @@ namespace AbracadabraAPI.Data
             {
                 return;
             }
-            List<string> userIds = new List<string>();
-
-            foreach (var user in context.Users)
-            {
-                userIds.Add(user.Id);
-            }
             var subjects = new Subject[]
             {
                 new Subject
@@ -67,7 +61,7 @@ namespace AbracadabraAPI.Data
            {
                 new ExpertSubject
                 {
-                    UserId = userIds[2],
+                    UserId = "584DBBE1-1844-4C1C-8DAB-F25C19EFD1AF",
                     SubjectId = 1
                 },
            };
@@ -82,7 +76,7 @@ namespace AbracadabraAPI.Data
             {
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Boil water",
                     Description="How to boil water",
                     SubjectID=1,
@@ -93,7 +87,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[1],
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     SubjectID=2,
@@ -104,7 +98,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Cook lobster",
                     Description="How to cook lobster",
                     SubjectID=1,
@@ -115,7 +109,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Gym crafting question",
                     Description="How do I make a benchpress at home?",
                     SubjectID=2,
@@ -126,7 +120,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[1],
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
                     Title="How to dice carrots?",
                     Description="How do I efficiently dice carrots?",
                     SubjectID=1,
@@ -137,7 +131,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Glass Chair",
                     Description="How can I make a chair from glass?",
                     SubjectID=2,
@@ -148,7 +142,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="How to make spaghetti?",
                     Description="How do I make spaghetti?",
                     IsAnsweredByExpert = true,
@@ -160,7 +154,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="How to not hit my finger while using a hammer",
                     Description="Guys, I've hit tried getting this nail in the wall but I keep hitting my finger with the hammer what should I do?",
                     SubjectID=2,
@@ -171,7 +165,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Where is Africa",
                     Description="Where can I find the African continent on the map?",
                     SubjectID=5,
@@ -182,7 +176,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Where is the Amazon Jungle located at?",
                     Description="I've always heard stories about it but I never knew where it was.",
                     SubjectID=5,
@@ -193,7 +187,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Does Mount Everest really exist?",
                     Description="People say its the talles mountain in the world, but when I gaze out out of my window in Wales I can't see it. Whats up with that?",
                     SubjectID=5,
@@ -204,7 +198,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Which cave is the deepest cave in the world?",
                     Description="I was looking at my broken sink's pipes when I thought of this question",
                     SubjectID=5,
@@ -215,7 +209,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[1],
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
                     Title="Why is Math so boring?",
                     Description="Whenever I look at an algorithm I cannot stop yawning.?",
                     SubjectID=4,
@@ -226,7 +220,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[1],
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
                     Title="What is the full length of pi",
                     Description="Is it that long?",
                     SubjectID=4,
@@ -237,7 +231,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="My Math teacher hates me, what should I do?",
                     Description="My math teacher has a serious problem with me and I have no idea why that is. Can you help me?",
                     SubjectID=4,
@@ -248,7 +242,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="How does a person get better at math?",
                     Description="My mom told me that a person is either good at maths from the beginning or bad at it forever, is this true? ",
                     SubjectID=4,
@@ -259,7 +253,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Why is modern art so bad compared to the older art?",
                     Description="Seriously, how can anyone see a splash of red and blue pain on a white canvas and say its worth millions?",
                     SubjectID=3,
@@ -270,7 +264,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[1],
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
                     Title="How do I paint a tree like Bob Ross?",
                     Description="I've been meaning to paint trees like the way Bob Ross paints them, but every time I try to watch his lession I fall asleep. Please help.",
                     SubjectID=3,
@@ -281,7 +275,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="I tried making a portrait of my wife, but it ended in divorce",
                     Description="My intentions were good, but my art technique wasn't. Any tips on how to improve my portrait paintings?",
                     SubjectID=3,
@@ -292,7 +286,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Why is it so difficult to find a job after getting an Arts degree?",
                     Description="I know my family and friends kept telling me that painting is mostly a hobby, but I didn't realize it would be that bad. How do I find a job as a painter?",
                     SubjectID=3,
@@ -303,7 +297,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[1],
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
                     Title="Can I make transparent paint somehow?",
                     Description="Is it possible to make transparent paint, for a project that I'm currently working on?",
                     SubjectID=3,
@@ -314,7 +308,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Where did the Thracians come from?",
                     Description="I know that the Thracians were situated on the Balkan Peninsula but where did they originate from?",
                     SubjectID=6,
@@ -325,7 +319,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[2],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="The 'King' title",
                     Description="Where did the title 'King' originate from?",
                     IsAnsweredByExpert = true,
@@ -337,7 +331,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="The best movie ever made",
                     Description="What movie is considered the best movie ever made, and who directed it?",
                     SubjectID=7,
@@ -348,7 +342,7 @@ namespace AbracadabraAPI.Data
                 },
                 new Question
                 {
-                    UserID=userIds[0],
+                    UserID="6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F",
                     Title="Schindler's List",
                     Description="Is Schindler's List a good movie? People have always been telling me about it, but its black and white so I figures its just an old movie.",
                     SubjectID=7,
@@ -368,101 +362,99 @@ namespace AbracadabraAPI.Data
             {
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=1,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[6].ID,
                     AnswerContent="You can watch Gordon Ramsay's tutorial on how to make the perfect pasta.",
                     DateTimeCreated=DateTime.Parse("2020-09-18 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[0],
-                    QuestionID=1,
+                    UserID="584DBBE1-1844-4C1C-8DAB-F25C19EFD1AF",
+                    QuestionID=questions[6].ID,
                     AnswerContent="The best way to cook spaghetti is my way.",
                     DateTimeCreated=DateTime.Parse("2020-10-01 12:56"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=2,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[22].ID,
                     AnswerContent="I think that this title dates back to King Louis the IV.",
                     DateTimeCreated=DateTime.Parse("2021-01-02-12:00"),
                 },
                 new Answer
                 {
-                    UserID=userIds[0],
-                    QuestionID=2,
+                    UserID="584DBBE1-1844-4C1C-8DAB-F25C19EFD1AF",
+                    QuestionID=questions[22].ID,
                     AnswerContent="The King title has originates from a website called Instagram, where all the peasants reside. they all call themselves Kings and Queens, thus making the titles obsolete.",
                     DateTimeCreated=DateTime.Parse("2021-01-02-12:00"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=3,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[21].ID,
                     AnswerContent="They most likely came from East Asia",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=4,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[20].ID,
                     AnswerContent="How can you even know you've made transparent paint when it's transparent? Just use water.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=4,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[20].ID,
                     AnswerContent="I've been trying to make transparent paint unsuccessfully for 10 years.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=5,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[19].ID,
                     AnswerContent="Because noone cares about an Arts degree. It's a good hobby but nothing more.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[2],
-                    QuestionID=6,
+                    UserID="584DBBE1-1844-4C1C-8DAB-F25C19EFD1AF",
+                    QuestionID=questions[18].ID,
                     AnswerContent="Get an Arts degree before trying to paint a portrait of your wife.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=7,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[17].ID,
                     AnswerContent="Watch the videos of him painting. He explains his techniques and guides you.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=8,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[16].ID,
                     AnswerContent="Because modern art is much more abstract, to the point that it looks like child drawings.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[2],
-                    QuestionID=9,
-                    Upvotes=221,
-                    Downvotes=17,
+                    UserID="584DBBE1-1844-4C1C-8DAB-F25C19EFD1AF",
+                    QuestionID=questions[15].ID,
                     AnswerContent="You can get better at Math by simply doing more math or taking up Math courses.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 17:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=9,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[15].ID,
                     AnswerContent="Some people are just naturally better at math than others.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 11:12"),
                 },
                 new Answer
                 {
-                    UserID=userIds[1],
-                    QuestionID=10,
+                    UserID="D0B1720E-99A4-47C8-8528-B8839AD0736E",
+                    QuestionID=questions[14].ID,
                     AnswerContent="Try to listen to him while he teaches and be more active during his lessions.",
                     DateTimeCreated=DateTime.Parse("2021-01-02 12:12"),
                 },
