@@ -45,6 +45,7 @@ function FilterButtons({ subjectTitle }) {
           <Button
             variant="secondary"
             className={route == "answered" ? "btnBig active mr-2" : "btnBig mr-2"}
+            href={"/subject/" + subjectTitle + "/answered"}
           >
             <FontAwesomeIcon icon={faComment} /> Answered
           </Button>
