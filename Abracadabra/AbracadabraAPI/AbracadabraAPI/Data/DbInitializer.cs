@@ -63,6 +63,20 @@ namespace AbracadabraAPI.Data
             }
             context.SaveChanges();
 
+            var expertSubject = new ExpertSubject[]
+           {
+                new ExpertSubject
+                {
+                    UserId = userIds[2],
+                    SubjectId = 1
+                },
+           };
+
+            foreach (ExpertSubject relation in expertSubject)
+            {
+                context.ExpertSubjects.Add(relation);
+            }
+            context.SaveChanges();
 
             var questions = new Question[]
             {
