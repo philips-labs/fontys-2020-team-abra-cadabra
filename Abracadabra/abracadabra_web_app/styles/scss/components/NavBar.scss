@@ -1,12 +1,17 @@
 .Default-Navbar {
   background-color: $primary-color;
   color: $text-color;
+  width: 100%;
   a {
     color: $text-color;
     text-decoration: none;
   }
   .navbar-nav .nav-link {
     color: $tertiary-color;
+
+    &:active {
+      color: darken($tertiary-color, 5%);
+    }
   }
   .navbar-nav .nav-link:hover,
   .navbar-dark .navbar-nav .nav-link:focus {
@@ -14,5 +19,22 @@
   }
   .navbar-nav .Nav-color {
     color: $text-color;
+  }
+}
+
+
+.navbar-dark .navbar-nav .show > .nav-link, .navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .nav-link.active {
+  color: darken($tertiary-color, 10%);
+}
+
+.dropdown-menu {
+  background-color: $special-color;
+  left: -120%;
+  
+  .dropdown-item {
+    color: $tertiary-color;
+    &:hover {
+      background-color: darken($special-color, 5%);
+    }
   }
 }

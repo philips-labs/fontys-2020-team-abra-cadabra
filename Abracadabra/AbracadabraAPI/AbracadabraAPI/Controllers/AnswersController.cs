@@ -44,13 +44,16 @@ namespace AbracadabraAPI.Controllers
             }
 
             var roles = await userManager.GetRolesAsync(user);
+            var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
 
-            return Mapper.AnswerToViewModel(answer, user, roles[0]);
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
+
+            return Mapper.AnswerToViewModel(answer, user, 0, roles[0]);
         }
 
         // PUT: api/Answers/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<IActionResult> PutAnswer(int id, AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -95,7 +98,7 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Answers
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<AnswerViewModel>> PostAnswer(AnswerViewModel answerViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -103,6 +106,8 @@ namespace AbracadabraAPI.Controllers
             {
                 return Unauthorized();
             }
+
+
             var roles = await userManager.GetRolesAsync(user);
 
             var answer = new Answer
@@ -115,21 +120,24 @@ namespace AbracadabraAPI.Controllers
                 Downvotes = 0
             };
 
-            if (roles[0] == "Expert")
+            var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
+
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
+
+            if(roles[0] == "Expert")
             {
-                var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
                 question.IsAnsweredByExpert = true;
             }
 
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, roles[0]));
+            return CreatedAtAction(nameof(GetAnswer), new { id = answerViewModel.ID }, Mapper.AnswerToViewModel(answer, user, 0, roles[0]));
         }
 
         // DELETE: api/Answers/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "User,Admin,Expert")]
         public async Task<ActionResult<AnswerViewModel>> DeleteAnswer(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -143,7 +151,10 @@ namespace AbracadabraAPI.Controllers
             {
                 return NotFound();
             }
-            if (answer.UserID != user.Id)
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            if (answer.UserID != user.Id && roles[0] != "Admin")
             {
                 return Unauthorized();
             }
@@ -151,14 +162,29 @@ namespace AbracadabraAPI.Controllers
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
 
-            var roles = await userManager.GetRolesAsync(user);
+            var question = await _context.Questions.Where(x => x.ID == answer.QuestionID).FirstOrDefaultAsync();
 
-            return Mapper.AnswerToViewModel(answer, user, roles[0]);
+            roles[0] = await ExpertCheck(question.SubjectID, user.Id);
+            
+            return Mapper.AnswerToViewModel(answer, user, 0, roles[0]);
         }
 
         private bool AnswerExists(int id)
         {
             return _context.Answers.Any(e => e.ID == id);
+        }
+
+        private async Task<string> ExpertCheck(int subjectId, string userId)
+        {
+            var expertSubject = await _context.ExpertSubjects.Where(x => x.SubjectId == subjectId && x.UserId == userId).FirstOrDefaultAsync();
+            if (expertSubject == null)
+            {
+                return "User";
+            }
+            else
+            {
+                return "Expert";
+            }
         }
     }
 }

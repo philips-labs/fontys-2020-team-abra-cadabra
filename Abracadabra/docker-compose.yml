@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  abracadabraapi:
+    image: abracadabraapi
+    container_name: abracadabraapi
+    restart: always
+    build:
+      context: ./AbracadabraAPI/AbracadabraAPI/
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTPS_PORT=443
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certs/aspnetapp.pfx
+    ports:
+      - 5000:443
+      - 5001:80
+    volumes:
+      - ./certs:/app/certs
+
+  abracadabra_web_app:
+    image: abracadabrawebapp
+    container_name: abracadabrawebapp
+    build:
+      context: ./abracadabra_web_app/
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: https://abracadabraapi
+    depends_on:
+      - abracadabraapi
+    ports:
+      - 3000:3000
+
+  abracadabra_admin_panel:
+    image: abracadabraadminpanel
+    container_name: abracadabraadminpanel
+    build:
+      context: ./abracadabra_admin_panel/
+    restart: always
+    environment:
+      NEXTAUTH_URL: http://localhost:3001
+      NEXT_PUBLIC_API_URL: https://abracadabraapi
+    depends_on:
+      - abracadabraapi
+    ports:
+      - 3001:3001
+          

@@ -17,6 +17,7 @@ export default function Statistics() {
   if (!loading && !session) signIn('Credentials')
 
   if (!loading && session) {
+    localStorage.setItem("AdminToken", session.user.image);
 return (
     <>
     <NavBar/>

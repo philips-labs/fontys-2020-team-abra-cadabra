@@ -14,9 +14,10 @@ function Title({ question, subject, search, searchLength }) {
   }, []);
 
   function HumanDateTime(dateAndTime) {
-    var date = new Date(dateAndTime + "Z");
+    var date = new Date(dateAndTime);
+    console.log(date);
     date = date.toUTCString().split(", ");
-    date = date[1].slice(0, 17);
+    date = date[1]?.slice(0, 17);
 
     return date;
   }
@@ -46,9 +47,6 @@ function Title({ question, subject, search, searchLength }) {
                   <div className="col-sm-2">
                     {NrOfAnswers(q.numberOfAnswers)}
                   </div>
-                  <div className="col-sm-1">
-                  <p>{q.upvotes - q.downvotes}</p>
-              </div> 
                 </div>
               </div>
             </div>

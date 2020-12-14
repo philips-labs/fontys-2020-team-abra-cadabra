@@ -2,12 +2,16 @@
   width: 40px;
   height: 40px;
   margin-right: 0.5rem;
-  border-radius: 20px;
+  border-radius: 50%;
 }
 
 .questionHead {
   width: 71vw;
   margin-top: 0.5rem;
+
+  .errorVoting {
+    color: red;
+  }
 
   .questionHeadDiv {
     display: flex;
@@ -28,9 +32,49 @@
       margin: 2rem 2px 0 0;
     }
   }
+  .votingDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .votingArrow {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+    }
+    .votingArrowVoted {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+      color: red;
+    }
+    .votingArrowDisabled {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin: 0px 2px;
+      color: black;
+    }
+   
+   
+
+    p {
+      padding-top: 5px;
+      margin-right: 3px;
+      font-size: 1rem;
+    }
+  }
+
 
   .questionUsername {
+    color: $text-color;
+    text-decoration: none;
     font-size: 1.5rem;
+    margin-bottom: 0px;
+
+    &:hover {
+      cursor: pointer;
+      color: $secondary-color;
+    }
   }
 }
 
@@ -69,11 +113,30 @@
         font-size: 1.4rem;
         margin: 0px 2px;
       }
+      .votingArrowVoted {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin: 0px 2px;
+        color: red;
+      }
+      .votingArrowDisabled {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin: 0px 2px;
+        color: black;
+      }
 
       p {
-        margin: 0px;
+        padding-top: 4px;
+        margin-right: 8px;
         font-size: 1rem;
       }
+    }
+    .errorVoting {
+      color: red;
+    }
+    .endorseHasbeenEndorsed {
+      color: rgba(255, 255, 255, 0.796)
     }
 
     .flagDiv {
@@ -83,8 +146,16 @@
 
       .flagIcon {
         cursor: pointer;
-        margin: 2rem 2px 0 0;
+     //   margin: 2rem 2px 0 0;
       }
+      .endorseIcon {
+        cursor: pointer;
+      }
+      .endorseIconSelected {
+        cursor: pointer;
+        color: red;
+      }
+
     }
 
     p {
@@ -99,8 +170,15 @@
     justify-content: space-between;
 
     .answerUsername {
+      color: $text-color;
+      text-decoration: none;
       font-size: 1.7rem;
       margin-bottom: 0px;
+
+      &:hover {
+        cursor: pointer;
+        color: $hover-color;
+      }
     }
 
     .answerPosted {
@@ -121,4 +199,8 @@
 
 .giveAnAnswerArrows {
   font-size: 2rem;
+}
+
+.cursorPointer {
+  cursor: pointer;
 }

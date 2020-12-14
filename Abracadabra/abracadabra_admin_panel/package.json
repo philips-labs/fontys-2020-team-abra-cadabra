@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3001"
   },
   "dependencies": {
     "@babel/core": "^7.12.3",
@@ -33,7 +33,6 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.1",
     "babel-jest": "^26.6.3",
-    "jest": "^26.6.3",
-    "jest-dom": "^4.0.0"
+    "jest": "^26.6.3"
   }
 }

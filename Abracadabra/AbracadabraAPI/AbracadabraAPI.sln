@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbracadabraAPI", "AbracadabraAPI\AbracadabraAPI.csproj", "{04E8F06A-489D-4DCB-8ED0-0845F570412D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbraCadabraAPITests", "AbraCadabraAPITests\AbraCadabraAPITests.csproj", "{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker-compose.dcproj", "{A807C0DE-BFBF-404D-A1A7-3309AED206E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{04E8F06A-489D-4DCB-8ED0-0845F570412D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E8F06A-489D-4DCB-8ED0-0845F570412D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E8F06A-489D-4DCB-8ED0-0845F570412D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{380EAA17-8F33-4E2A-B565-2A1C6E9E1FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A807C0DE-BFBF-404D-A1A7-3309AED206E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A807C0DE-BFBF-404D-A1A7-3309AED206E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A807C0DE-BFBF-404D-A1A7-3309AED206E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A807C0DE-BFBF-404D-A1A7-3309AED206E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

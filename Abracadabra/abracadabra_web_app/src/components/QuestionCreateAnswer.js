@@ -67,10 +67,10 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
                       className="textarea"
                       controlId="validationCustom01"
                     >
-                      <Row onClick={changeToActive}>
+                      <Row className="cursorPointer" onClick={changeToActive}>
                         <Col md={11}>
                           <Form.Label>
-                            <h4>Give an answer</h4>
+                            <h4 className="cursorPointer">Give an answer</h4>
                           </Form.Label>
                         </Col>
                         <Col className="text-right">
@@ -113,12 +113,12 @@ function QuestionCreateAnwser({QID, UpdateAnswers}) {
         </Row>
       ) : (
           <Row>
-            <Col md={11} className="mx-auto mb-2" onClick={changeToActive}>
+            <Col md={11} className="mx-auto mb-2 cursorPointer" onClick={changeToActive}>
               <div className="BodyQuestion-CardBody giveAnAnswer">
                 <Row>
                   <Col md={11}>
                     <Form.Label>
-                      <h4>Give an answer</h4>
+                      <h4 className="cursorPointer">Give an answer</h4>
                     </Form.Label>
                   </Col>
                   <Col className="text-right">

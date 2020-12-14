@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace AbracadabraAPI
 {
@@ -35,7 +36,10 @@ namespace AbracadabraAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AbracadabraContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+             options.UseInMemoryDatabase("Abracadabra"));
+
+
+            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
 
             services.AddControllers();
 

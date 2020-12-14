@@ -4,6 +4,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import AccountService from "../services/AccountService";
 import Router from "next/router";
 import { Row, Col, Button, Container, Form } from "react-bootstrap";
+import { getSuggestedQuery } from "@testing-library/dom";
 
 const EditUser = () => {
   const [edituserActive, setEditUserActive] = useState(true);
@@ -12,7 +13,15 @@ const EditUser = () => {
     setEditUserActive(!edituserActive);
   };
 
-  const [register, setRegister] = useState({
+  const [editUser, setEditUser] = useState({
+    id: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [userName, setUserName] = useState({
+    id: "",
     username: "",
     email: "",
     password: "",
@@ -24,11 +33,8 @@ const EditUser = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleChange = (event) => {
-    setRegister({ ...register, [event.target.name]: event.target.value });
-  };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
+    setEditUser({ ...editUser, [event.target.name]: event.target.value });
+    console.log(editUser.id);
   };
 
   const handleSubmit = (event) => {
@@ -44,19 +50,19 @@ const EditUser = () => {
     setMessage("");
 
     //check if username isn't empty
-    if (register.username.length === 0) {
+    if (editUser.username.length === 0) {
       userNameErrorList.push("Can't be empty");
       isValid = false;
     }
 
     //check if username doesn't contain symbols
-    if (!RegExp(/^[a-zA-Z0-9]+$/).test(register.username)) {
+    if (!RegExp(/^[a-zA-Z0-9]+$/).test(editUser.username)) {
       userNameErrorList.push("Can't contain any symbols");
       isValid = false;
     }
 
     //check if email isn't empty
-    if (register.email.length === 0) {
+    if (editUser.email.length === 0) {
       emailErrorList.push("Can't be empty");
       isValid = false;
     }
@@ -65,38 +71,34 @@ const EditUser = () => {
     if (
       !RegExp(
         /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-      ).test(register.email)
+      ).test(editUser.email)
     ) {
       emailErrorList.push("Not a valid e-mail address");
       isValid = false;
     }
 
-    //check if passwords match
-    if (confirmPassword !== register.password) {
-      passwordErrorList.push("Passwords don't match");
-      isValid = false;
-    }
     //check if password is between 8 and 200 characters
     if (
-      register.password.length < 8 ||
-      register.password.length > 200 ||
-      register.password.length === 0
+      editUser.password === undefined ||
+      editUser.password.length < 8 ||
+      editUser.password.length > 200 ||
+      editUser.password.length === 0
     ) {
       passwordErrorList.push("Must be 8-200 characters long");
       isValid = false;
     }
     // Check for capital letters
-    if (!RegExp(/.*[A-Z]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[A-Z]+.*/g).test(editUser.password)) {
       passwordErrorList.push("Must contain a capital letter");
       isValid = false;
     }
     // Check for lower letters
-    if (!RegExp(/.*[a-z]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[a-z]+.*/g).test(editUser.password)) {
       passwordErrorList.push("Must contain a lower letter");
       isValid = false;
     }
     // check for numbers
-    if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(register.password)) {
+    if (!RegExp(/.*[0-1-2-3-4-5-6-7-8-9]+.*/g).test(editUser.password)) {
       passwordErrorList.push("Must contain a number");
       isValid = false;
     }
@@ -106,7 +108,31 @@ const EditUser = () => {
       setMessageEmail(emailErrorList);
       return;
     }
+
+    AccountService.editUser(editUser)
+      .then((response) => {
+        console.log(response);
+        setEditUserActive(!edituserActive);
+        getUser();
+      })
+      .catch((error) => {
+        setMessage("Credentials did not match");
+      });
   };
+
+  const getUser = async () => {
+    let userId = sessionStorage.getItem("UserId");
+    AccountService.getUser(JSON.parse(JSON.stringify(userId))).then(
+      (response) => {
+        setEditUser(response.data);
+        setUserName(response.data);
+      }
+    );
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <>
       {edituserActive ? (
@@ -115,8 +141,8 @@ const EditUser = () => {
             <Col xl={8} md={11} className="LoginArea pb-3 rounded">
               <Row>
                 <Col>
-                  <h3 style={{ textAlign: "center" }}>
-                    Profile page for verylongusername
+                  <h3 className="text-center mt-3">
+                    Profile page for {userName.username}
                   </h3>
                 </Col>
               </Row>
@@ -131,7 +157,7 @@ const EditUser = () => {
                             type="email"
                             className="form-control"
                             aria-describedby="emailHelp"
-                            placeholder="Verylongusername@gmail.com"
+                            value={editUser.email}
                             disabled
                           />
                         </div>
@@ -140,17 +166,7 @@ const EditUser = () => {
                           <input
                             type="Username"
                             className="form-control"
-                            placeholder="Verylongusername"
-                            disabled
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label>Password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
+                            value={editUser.username}
                             disabled
                           />
                         </div>
@@ -161,41 +177,49 @@ const EditUser = () => {
                         <Col md={7} className="mr-auto"></Col>
                         <Col md={5}>
                           <img
-                            className="rounded-circle"
-                            style={{ height: "125px" }}
+                            className="profilePageAvatar"
                             src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
                           ></img>
                         </Col>
                       </Row>
                       <Row>
                         <Col md={7} className="mr-auto"></Col>
-                        <Col>
-                          <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-info"
-                          >
-                            Change
-                          </Button>
-                        </Col>
                       </Row>
                     </Col>
                   </Row>
                   <Row>
-                    <Col md={6}></Col>
                     <Col md={6}>
                       <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col>
+                        <Col md={8}>
                           <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-info"
-                            onClick={changeToActive}
+                            className="mt-2 btn-secondary w-100"
+                            href="/editpassword"
                           >
-                            Edit
+                            Edit Password
+                          </Button>
+                        </Col>
+                        <Col md={4} className="mr-auto">
+                          <Button
+                            className="mt-2 btn-secondary w-100"
+                            href="/expertapplication"
+                          >
+                            Expert
                           </Button>
                         </Col>
                       </Row>
+                      <Row>
+                        <Col md={8}>
+                          <Button
+                            className="mt-2 btn-info w-100"
+                            onClick={changeToActive}
+                          >
+                            Edit Account
+                          </Button>
+                        </Col>
+                        <Col md={4} className="mr-auto"></Col>
+                      </Row>
                     </Col>
+                    <Col md={6}></Col>
                   </Row>
                 </Col>
               </Row>
@@ -203,147 +227,134 @@ const EditUser = () => {
           </Row>
         </Container>
       ) : (
-        <Container className="h-75">
-          <Row className="h-100 justify-content-center align-items-center">
-            <Col xl={8} md={11} className="LoginArea pb-3 rounded">
-              <Row>
-                <Col>
-                  <h3 style={{ textAlign: "center" }}>
-                    Profile page for verylongusername
-                  </h3>
-                </Col>
-              </Row>
-              <Row className="editUserContainer pb-3 rounded">
-                <Col>
-                  <Row>
-                    <Col md={6} className="p-3">
-                      <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                          <label>Email address</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            aria-describedby="emailHelp"
-                            placeholder="Verylongusername@gmail.com"
-                            onChange={handleChange}
-                            name="email"
-                          />
-                        </div>
-                        <div>
-                          {messageEmail.map((message, index) => (
-                            <div key={index}>
-                              <small className="help-block text-danger">
-                                {message}
-                              </small>{" "}
-                              <br></br>
+          <Container className="h-75">
+            <Row className="h-100 justify-content-center align-items-center">
+              <Col xl={8} md={11} className="LoginArea pb-3 rounded">
+                <Row>
+                  <Col>
+                    <h3 className="text-center mt-3">
+                      Profile page for {userName.username}
+                    </h3>
+                  </Col>
+                </Row>
+                <Row className="editUserContainer pb-3 rounded">
+                  <Col>
+                    <Row>
+                      <Col md={6} className="p-3">
+                        <form onSubmit={handleSubmit}>
+                          <div className="form-group">
+                            <label>Email address</label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              aria-describedby="emailHelp"
+                              value={editUser.email}
+                              onChange={handleChange}
+                              name="email"
+                            />
+                          </div>
+                          <div>
+                            {messageEmail.map((message, index) => (
+                              <div key={index}>
+                                <small className="help-block text-danger">
+                                  {message}
+                                </small>{" "}
+                                <br></br>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="form-group">
+                            <label>Username</label>
+                            <input
+                              type="Username"
+                              className="form-control"
+                              value={editUser.username}
+                              onChange={handleChange}
+                              name="username"
+                            />
+                          </div>
+                          <div>
+                            {messageUserName.map((message, index) => (
+                              <div key={index}>
+                                <small className="help-block text-danger">
+                                  {message}
+                                </small>{" "}
+                                <br></br>
+                              </div>
+                            ))}
+                          </div>
+                          <hr />
+                          <div className="form-group">
+                            <label>Current password</label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="exampleInputPassword1"
+                              placeholder="Current password"
+                              onChange={handleChange}
+                              name="password"
+                            />
+                          </div>
+                          <div>
+                            {messagePassword.map((message, index) => (
+                              <div key={index}>
+                                <small className="help-block text-danger">
+                                  {message}
+                                </small>{" "}
+                                <br></br>
+                              </div>
+                            ))}
+                          </div>
+                          <Row>
+                            <Col md={9}>
+                              <Button
+                                className="mt-2 btn-info w-100"
+                                onClick={handleSubmit}
+                                type="sumbit"
+                              >
+                                Save changes
+                            </Button>
+                            </Col>
+                            <Col md={3}>
+                              <Button
+                                className="mt-2 btn-secondary w-100"
+                                onClick={changeToActive}
+                              >
+                                Close
+                            </Button>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <div
+                              className="text-danger text-center mt-2 ml-3"
+                              role="alert"
+                            >
+                              {message}
                             </div>
-                          ))}
-                        </div>
-                        <div className="form-group">
-                          <label>Username</label>
-                          <input
-                            type="Username"
-                            className="form-control"
-                            placeholder="Verylongusername"
-                            onChange={handleChange}
-                            name="username"
-                          />
-                        </div>
-                        <div>
-                          {messageUserName.map((message, index) => (
-                            <div key={index}>
-                              <small className="help-block text-danger">
-                                {message}
-                              </small>{" "}
-                              <br></br>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="form-group">
-                          <label>Password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
-                            onChange={handleChange}
-                            name="password"
-                          />
-                        </div>
-                        <div>
-                          {messagePassword.map((message, index) => (
-                            <div key={index}>
-                              <small className="help-block text-danger">
-                                {message}
-                              </small>{" "}
-                              <br></br>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="form-group">
-                          <label>Confirm password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
-                            onChange={handleConfirmPasswordChange}
-                            name="confirmPassword"
-                          />
-                        </div>
+                          </Row>
+                        </form>
+                      </Col>
+                      <Col md={6} className="p-3">
                         <Row>
-                          <Col md={9}>
-                            <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-info"
-                              // onClick={changeToActive}
-                              type="sumbit"
-                            >
-                              Save changes
-                            </Button>
-                          </Col>
-                          <Col md={3}>
-                            <Button
-                              style={{ width: "100%" }}
-                              className="mt-2 btn-secondary"
-                              onClick={changeToActive}
-                            >
-                              Close
-                            </Button>
+                          <Col md={7} className="mr-auto"></Col>
+                          <Col md={5}>
+                            <img
+                              className="profilePageAvatar"
+                              src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
+                            ></img>
                           </Col>
                         </Row>
-                      </form>
-                    </Col>
-                    <Col md={6} className="p-3">
-                      <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col md={5}>
-                          <img
-                            className="rounded-circle"
-                            style={{ height: "125px" }}
-                            src="https://www.teamphenomenalhope.org/wp-content/uploads/2017/03/avatar-520x520.png"
-                          ></img>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={7} className="mr-auto"></Col>
-                        <Col>
-                          <Button
-                            style={{ width: "100%" }}
-                            className="mt-2 btn-info"
-                          >
-                            Change
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      )}
+                        <Row>
+                          <Col md={7} className="mr-auto"></Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        )}
     </>
   );
 };
