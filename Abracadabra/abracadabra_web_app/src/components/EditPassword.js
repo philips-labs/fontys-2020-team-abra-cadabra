@@ -87,7 +87,7 @@ const EditPassword = () => {
 
     AccountService.editPassword(editPassword)
       .then((response) => {
-        Router.push("/EditUserPage");
+        Router.push("/profile");
       })
       .catch((error) => {
         setMessage("Credentials did not match");

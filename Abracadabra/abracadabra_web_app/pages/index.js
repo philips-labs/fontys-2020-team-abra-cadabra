@@ -1,5 +1,4 @@
 import { Container, Row, Col } from "react-bootstrap";
-// import VideoBackground from '../src/components/VideoBackground'
 
 function HomePage() {
   return (
