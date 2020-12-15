@@ -52,6 +52,7 @@ function Title({ question, subject, search, searchLength }) {
             <div className="BodyQuestion-hastag">
               <div className="row">
                 <div className="col-sm-9">
+                  <p>Posted by: <a className="questionBodyUsername" href={"/profile/" + q.userName}>{q.userName}</a></p>
                 </div>
                 <div className="col-sm-3">
                   <p>Posted on: {HumanDateTime(q.dateTimeCreated)}</p>

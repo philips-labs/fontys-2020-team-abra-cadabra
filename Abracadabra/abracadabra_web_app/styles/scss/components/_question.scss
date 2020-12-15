@@ -204,3 +204,11 @@
 .cursorPointer {
   cursor: pointer;
 }
+
+.questionBodyUsername {
+  color: #1ecee9;
+
+  &:hover {
+    color: #1ecee971;
+  }
+}
