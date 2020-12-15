@@ -4,6 +4,10 @@ const GetAllSubjects = () => {
   return http.httpdefault().get("/subjects");
 };
 
+const GetLandingPageSubjects = () => {
+  return http.httpdefault().get("subjects/landingsubjects");
+};
+
 const GetSubjectBySlug = (data) => {
   return http.httpdefault().get("/subjects/" + data, { timeout: 5000 });
 };
@@ -21,4 +25,5 @@ export default {
   GetAllSubjects,
   GetSubjectBySlug,
   GetQuestionBySearch,
+  GetLandingPageSubjects
 };
