@@ -27,7 +27,6 @@ namespace AbracadabraAPI.Data
             if (userManager.FindByNameAsync("user").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.Id = "6A2ED616-F3C5-4E8B-8D73-3F3D8A47946F";
                 user.UserName = "user";
                 user.NormalizedUserName = "user";
                 user.Email = "user@gmail.com";
@@ -37,7 +36,8 @@ namespace AbracadabraAPI.Data
                 user.DateTimeCreated = DateTime.Now;
                 user.SecurityStamp = Guid.NewGuid().ToString();
 
-                IdentityResult result = userManager.CreateAsync(user, "Password@0").Result;
+                IdentityResult result = userManager.CreateAsync
+                (user, "Password@0").Result;
 
                 if (result.Succeeded)
                 {
@@ -49,7 +49,6 @@ namespace AbracadabraAPI.Data
             if (userManager.FindByNameAsync("admin").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.Id = "D0B1720E-99A4-47C8-8528-B8839AD0736E";
                 user.UserName = "admin";
                 user.NormalizedUserName = "admin";
                 user.Email = "admin@gmail.com";
@@ -71,7 +70,6 @@ namespace AbracadabraAPI.Data
             if (userManager.FindByNameAsync("expert").Result == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.Id = "584DBBE1-1844-4C1C-8DAB-F25C19EFD1AF";
                 user.UserName = "expert";
                 user.NormalizedUserName = "expert";
                 user.Email = "expert@gmail.com";

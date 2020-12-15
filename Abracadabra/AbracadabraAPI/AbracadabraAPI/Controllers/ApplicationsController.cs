@@ -135,7 +135,7 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == applicationViewModel.SubjectName.ToLower()).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName == applicationViewModel.SubjectName).FirstOrDefaultAsync();
             if(subject == null)
             {
                 return NotFound("Subject not found");
@@ -204,7 +204,7 @@ namespace AbracadabraAPI.Controllers
                 return NotFound();
             }
 
-            var associatedsubject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == applicationViewModel.SubjectName.ToLower()).FirstOrDefaultAsync();
+            var associatedsubject = await _context.Subjects.Where(x => x.SubjectName == applicationViewModel.SubjectName).FirstOrDefaultAsync();
 
             var application = await _context.ExpertApplications.Where(x => x.SubjectId == associatedsubject.ID && user.Id == x.UserId).FirstOrDefaultAsync();
             

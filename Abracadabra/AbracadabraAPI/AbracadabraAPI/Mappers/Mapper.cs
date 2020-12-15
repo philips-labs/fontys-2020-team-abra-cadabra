@@ -82,6 +82,14 @@ namespace AbracadabraAPI.Mappers
              SubjectName = subject.SubjectName,
         };
 
+        public static SubjectWithSizeViewModel SubjectWithSizeToViewModel(Subject subject, string size) =>
+        new SubjectWithSizeViewModel
+        {
+            ID = subject.ID,
+            SubjectName = subject.SubjectName,
+            SubjectSize = size
+        };
+
         public static SubjectWithThreeQuestions SubjectWithThreeQuestionsToViewModel(Subject subject, List<string> titles) =>
         new SubjectWithThreeQuestions
         {

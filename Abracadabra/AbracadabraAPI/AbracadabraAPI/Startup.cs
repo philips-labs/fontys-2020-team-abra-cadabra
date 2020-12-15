@@ -36,10 +36,10 @@ namespace AbracadabraAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AbracadabraContext>(options =>
-            options.UseInMemoryDatabase("Abracadabra"));
+             options.UseInMemoryDatabase("Abracadabra"));
 
 
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
 
             services.AddControllers();
 
