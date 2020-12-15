@@ -35,3 +35,6 @@ docker-compose -f docker-compose.yml up -d
 #### Users
 >Email: user@gmail.com
 >Password: Password@0
+
+### Session
+If you restart the back-end you should delete your browers local storage since the back-end uses a in memory database for Dev purposes.
