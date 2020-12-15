@@ -52,11 +52,6 @@ function Title({ question, subject, search, searchLength }) {
             <div className="BodyQuestion-hastag">
               <div className="row">
                 <div className="col-sm-9">
-                  <span className="badge badge-info p-1 mr-1">#Cutting</span>
-                  <span className="badge badge-info p-1 mr-1">#Vegetables</span>
-                  <span className="badge badge-info p-1 mr-1">
-                    #mise-en-place
-                  </span>
                 </div>
                 <div className="col-sm-3">
                   <p>Posted on: {HumanDateTime(q.dateTimeCreated)}</p>

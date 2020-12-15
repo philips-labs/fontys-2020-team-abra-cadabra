@@ -13,6 +13,7 @@ import VotesService from "../services/VotesService"
 import QuestionService from "../services/QuestionService"
 import AnswerService from "../services/AnswerService"
 import ReportService from 'src/services/ReportService';
+import jwt_decode from "jwt-decode";
 
 
 
@@ -22,7 +23,7 @@ export default function Answer({ answer }) {
   const [endorsed, setEndorsed] = useState(false)
   const [endorsementcount, setEndorsementCount] = useState()
   const [isanswerendorsed, setIsAnswerEndorsed] = useState(false)
-  const [isexpert, setIsExpert] = useState()
+  const [isexpert, setIsExpert] = useState(false)
   const [isloggedin, setIsLoggedIn] = useState(false);
   const [totalvotes, setTotalVotes] = useState(answer.upvotes - answer.downvotes)
   const [voted, setVoted] = useState(false)
@@ -82,18 +83,20 @@ export default function Answer({ answer }) {
     const tokenExist = localStorage.getItem("Token");
     HandleIsAnswerEndorsed()
     if (tokenExist) {
+        let decoded = jwt_decode(tokenExist);
+        var expert = Object.values(decoded)[2];
+        if (expert == "Expert") {
+          setIsExpert(true)
+        }
       setIsLoggedIn(true);
       HandleIsAnswerEndorsed()
       AnswerService.GetAnswerEndorsement(answer.id).then((res) => {
         if (res.data != null) {
           setEndorsed(true)
         }
-        setIsExpert(true)
       })
         .catch((error) => {
-          if (error.response.status == 401) {
-            setIsExpert(false)
-          }
+          console.log(error.response)
         });
       VotesService.GetAnswerVote(answer.id).then((res) => {
         if (res.data.vote == 1 | -1) {
