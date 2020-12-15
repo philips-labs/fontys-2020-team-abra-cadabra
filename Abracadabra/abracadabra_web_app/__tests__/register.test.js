@@ -21,12 +21,12 @@ describe("Register", () => {
     render(<Register />);
 
     const inputEmail = screen.getByTestId("register-input-email");
-    fireEvent.change(inputEmail, { target: { value: "test@email.com" } });
-    expect(inputEmail.value).toBe("test@email.com");
+    fireEvent.change(inputEmail, { target: { value: "register@email.com" } });
+    expect(inputEmail.value).toBe("register@email.com");
 
     const inputUsername = screen.getByTestId("register-input-username");
-    fireEvent.change(inputUsername, { target: { value: "tester" } });
-    expect(inputUsername.value).toBe("tester");
+    fireEvent.change(inputUsername, { target: { value: "register" } });
+    expect(inputUsername.value).toBe("register");
 
     const inputPassword = screen.getByTestId("register-input-password");
     fireEvent.change(inputPassword, { target: { value: "secretP@ssw0rd!" } });
@@ -52,12 +52,12 @@ describe("Register", () => {
     render(<Register />);
 
     const inputEmail = screen.getByTestId("register-input-email");
-    fireEvent.change(inputEmail, { target: { value: "test@email.com" } });
-    expect(inputEmail.value).toBe("test@email.com");
+    fireEvent.change(inputEmail, { target: { value: "register@email.com" } });
+    expect(inputEmail.value).toBe("register@email.com");
 
     const inputUsername = screen.getByTestId("register-input-username");
-    fireEvent.change(inputUsername, { target: { value: "tester" } });
-    expect(inputUsername.value).toBe("tester");
+    fireEvent.change(inputUsername, { target: { value: "register" } });
+    expect(inputUsername.value).toBe("register");
 
     const inputPassword = screen.getByTestId("register-input-password");
     fireEvent.change(inputPassword, { target: { value: "secretP@ssw0rd!" } });

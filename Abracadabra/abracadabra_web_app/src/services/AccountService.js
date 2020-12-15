@@ -2,7 +2,6 @@ import http from "../unsecure-common-api";
 
 const Login = (data) => {
   const httptest = http.httpdefault();
-  console.log(httptest);
   return http.httpdefault().post("/authenticate/Login", data);
 };
 

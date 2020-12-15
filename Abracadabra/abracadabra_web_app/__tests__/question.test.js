@@ -8,13 +8,29 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Login from "../src/components/Login";
+
+const QuestionPage = require("../pages/subject/[subject]/question/[id]");
+import QuestionPageRender from "../pages/subject/[subject]/question/[id]";
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 
 import Router from "next/router";
 jest.mock("next/router", () => ({ push: jest.fn() }));
 
-describe("Login", () => {
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/Subject/Cooking/question/1",
+      pathname: "/Subject/Cooking/question/1",
+      query: "",
+      asPath: "/Subject/Cooking/question/1",
+    };
+  },
+}));
+
+const token = "";
+
+describe("Question", () => {
   it("Login account success", async () => {
     render(<Login />);
 
@@ -31,26 +47,23 @@ describe("Login", () => {
 
     const header = await screen.findByText("Login successful");
     expect(Router.push).toHaveBeenCalledWith("/");
+
+    const token = localStorage.getItem("Token");
+    console.log(token);
   });
 
-  it("Login wrong account fail", async () => {
-    render(<Login />);
+  it("Get list of subjects", async () => {
+    const params = { subject: "Cooking", id: 1 };
 
-    const inputEmail = screen.getByTestId("login-input-email");
-    fireEvent.change(inputEmail, { target: { value: "tester@email.com" } });
-    expect(inputEmail.value).toBe("tester@email.com");
-
-    const inputPassword = screen.getByTestId("login-input-password");
-    fireEvent.change(inputPassword, { target: { value: "secretP@ssw0rd!" } });
-    expect(inputPassword.value).toBe("secretP@ssw0rd!");
-
-    const inputSubmit = screen.getByTestId("login-button-submit");
-    fireEvent.click(inputSubmit);
-
-    const header = await screen.findByText(
-      "Account information does not match"
+    var response = await QuestionPage.getServerSideProps({ params });
+    render(
+      <QuestionPageRender
+        subjectName={response.props.subjectName}
+        response={response.props.response}
+      />
     );
 
+    const header = await screen.findByText("How to make spaghetti?");
     expect(header).toBeInTheDocument();
   });
 });

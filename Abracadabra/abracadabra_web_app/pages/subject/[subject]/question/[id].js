@@ -29,12 +29,10 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
-
   useEffect(() => {
     //GetQuestion();
     setQuestion(data);
     setAnswers(data.answerViewModels);
-
   }, [data.answerViewModels]);
 
   if (data === 404 || data == "failure" || data === 400) {
