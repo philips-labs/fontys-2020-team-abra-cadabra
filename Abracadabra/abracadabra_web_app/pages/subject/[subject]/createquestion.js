@@ -17,7 +17,7 @@ function QuestionForm() {
     const initialInputState = { title: "", description: "", subjectname: "", tags: [] };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
-    const [tags, setTags] = useState([{ tag: "" }]);
+    const [tags, setTags] = useState([{ TagName: "" }]);
 
 
     const handleInputChange = e => {
@@ -40,7 +40,21 @@ function QuestionForm() {
 
         setValidated(true);
     };
-  
+    const handleInputChangeTags = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...tags];
+        list[index][name] = value;
+        setTags(list);
+        setQuestion({ ...question, tags: tags });
+    };
+    const handleRemoveClick = index => {
+        const list = [...tags];
+        list.splice(index, 1);
+        setTags(list);
+    };
+    const handleAddClick = () => {
+        setTags([...tags, { TagName: "" }]);
+    };
 
     return (
         <>
@@ -59,6 +73,27 @@ function QuestionForm() {
                     <Form.Control required as="textarea" rows="10" name="description" onChange={handleInputChange} placeholder="Expand on Your Question Here" minLength="25" />
                     <Form.Control.Feedback className="feedback">The Description Looks Good!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid" className="feedback">The Description Needs to be at least 25 Characters long!</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label className="label">Tags:</Form.Label>
+                    <br />
+                    {tags.map((x, i) => {
+                        return (
+
+                            <div className="badge badge-info p-1 mr-1 tags-margin">
+                                <input className="tags-input"
+                                    name="TagName"
+                                    placeholder="Enter Tag"
+                                    value={x.tag}
+                                    onChange={e => handleInputChangeTags(e, i)}
+                                />
+                                <a className="badge badge-info p-1 mr-1 tags-button-remove"
+                                    onClick={() => handleRemoveClick(i)}> <FontAwesomeIcon icon={faTimes} /></a>
+                            </div>
+
+                        );
+                    })}
+                    <a className="badge badge-info p-2 mr-2 tags-button-plus" onClick={handleAddClick}>+</a>
                 </Form.Group>
                 <div>
                     <Button className="buttonSubmit float-right" type="submit">Submit Question</Button>
