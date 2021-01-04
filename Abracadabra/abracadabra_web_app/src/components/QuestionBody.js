@@ -6,14 +6,12 @@ import QuestionService from 'src/services/QuestionService';
 function Title({ question, subject, search, searchLength }) {
   const [message, setMessage] = useState("");
   const [questions, setQuestions] = useState([]);
-  const [tagexists, setTagExists] = useState();
 
   useEffect(() => {
     setQuestions(question);
     if (searchLength > 0) {
       setMessage("Results for: " + search);
     }
-
   }, []);
 
 
@@ -22,7 +20,6 @@ function Title({ question, subject, search, searchLength }) {
     var date = new Date(dateAndTime);
     date = date.toUTCString().split(", ");
     date = date[1]?.slice(0, 17);
-
     return date;
   }
 
