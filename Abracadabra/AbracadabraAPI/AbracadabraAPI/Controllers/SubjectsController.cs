@@ -147,9 +147,14 @@ namespace AbracadabraAPI.Controllers
 
         // PUT: api/Subjects/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "User,Admin,Expert")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutSubject(int id, SubjectViewModel subjectViewModel)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
             {
@@ -159,6 +164,10 @@ namespace AbracadabraAPI.Controllers
             if (id != subjectViewModel.ID)
             {
                 return BadRequest();
+            }
+            if (await _context.Subjects.Where(s => s.SubjectName.ToLower() == subjectViewModel.SubjectName.ToLower() && s.ID != id).CountAsync() > 0)
+            {
+                return BadRequest("Subject name is already in use.");
             }
 
             var subject = await _context.Subjects.FindAsync(id);
@@ -190,13 +199,18 @@ namespace AbracadabraAPI.Controllers
 
         // POST: api/Subjects
         [HttpPost]
-        [Authorize(Roles = "User,Admin,Expert")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<SubjectViewModel>> PostSubject(SubjectViewModel subjectViewModel)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
             {
                 return Unauthorized();
+            }
+
+            if(await _context.Subjects.Where(s => s.SubjectName.ToLower() == subjectViewModel.SubjectName.ToLower()).CountAsync() > 0)
+            {
+                return BadRequest("Subject name is already in use.");
             }
 
             var subject = new Subject
@@ -207,12 +221,12 @@ namespace AbracadabraAPI.Controllers
             _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetSubject), new { id = subjectViewModel.ID }, Mapper.SubjectToViewModel(subject));
+            return Mapper.SubjectToViewModel(subject);
         }
 
         // DELETE: api/Subjects/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "User,Admin,Expert")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<SubjectViewModel>> DeleteSubject(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
