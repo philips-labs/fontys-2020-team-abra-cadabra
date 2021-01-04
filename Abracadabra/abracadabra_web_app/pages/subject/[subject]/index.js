@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-// import Navbar from "../../../src/components/Navbar.js";
+import Navbar from "../../../src/components/Navbar.js";
 import FilterButtons from "../../../src/components/FilterButtons";
 import QuestionBody from "../../../src/components/QuestionBody.js";
 import DefaultErrorPage from "next/error";
@@ -13,7 +13,7 @@ function Subject({ subjectName, response }) {
 
   return (
     <>
-      {/* <Navbar subjectTitle={subjectName} /> */}
+      <Navbar subjectTitle={subjectName} />
       <FilterButtons subjectTitle={subjectName} />
       <QuestionBody question={response} subject={subjectName} />
     </>
