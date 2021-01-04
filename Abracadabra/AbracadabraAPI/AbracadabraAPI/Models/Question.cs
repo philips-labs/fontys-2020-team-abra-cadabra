@@ -30,5 +30,7 @@ namespace AbracadabraAPI.Models
         public int SubjectID { get; set; }
 
         public virtual List<Answer> Answers { get; set; }
+
+        public List<Tag> Tags { get; set; }
     }
 }

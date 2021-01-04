@@ -25,7 +25,8 @@ namespace AbracadabraAPI.Mappers
             Upvotes = question.Upvotes,
             Downvotes = question.Downvotes,
             UserRole = role,
-            VoteByUser = voteByUser
+            VoteByUser = voteByUser,
+            Tags = question.Tags
         };
 
         public static QuestionWithAnswerCount QuestionWithAnswerCountToViewModel(Question question, IdentityUser user, int number) =>
