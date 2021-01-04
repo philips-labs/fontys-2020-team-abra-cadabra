@@ -47,7 +47,7 @@ namespace AbracadabraAPI.Mappers
             SubjectID = subject.ID
         };
 
-        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user, string role, int voteByUser = 0) =>
+        public static AnswerViewModel AnswerToViewModel(Answer answer, ApplicationUser user, int endorsements, string role, int voteByUser = 0) =>
         new AnswerViewModel
         {
             ID = answer.ID,
@@ -58,7 +58,8 @@ namespace AbracadabraAPI.Mappers
             Upvotes = answer.Upvotes,
             Downvotes = answer.Downvotes,
             UserRole = role,
-            VoteByUser = voteByUser
+            VoteByUser = voteByUser,
+            Endorsements = endorsements
         };
 
         public static UserViewModel UserToViewModel(ApplicationUser user, string role) 
@@ -79,6 +80,14 @@ namespace AbracadabraAPI.Mappers
         {
              ID = subject.ID,
              SubjectName = subject.SubjectName,
+        };
+
+        public static SubjectWithSizeViewModel SubjectWithSizeToViewModel(Subject subject, string size) =>
+        new SubjectWithSizeViewModel
+        {
+            ID = subject.ID,
+            SubjectName = subject.SubjectName,
+            SubjectSize = size
         };
 
         public static SubjectWithThreeQuestions SubjectWithThreeQuestionsToViewModel(Subject subject, List<string> titles) =>

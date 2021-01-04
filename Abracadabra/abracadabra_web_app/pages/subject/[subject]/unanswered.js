@@ -7,11 +7,11 @@ import QuestionService from 'src/services/QuestionService';
 
 function Subject({ subjectName, response }) {
 
-    // if (response === 404 || response == "failure" || response === 400) {
-    //     return (
-    //         <DefaultErrorPage statusCode={404} />
-    //     );
-    // }
+    if (response === 404 || response == "failure" || response === 400) {
+        return (
+            <DefaultErrorPage statusCode={404} />
+        );
+    }
 
     return (
         <>
@@ -45,7 +45,6 @@ export async function getServerSideProps({ params }) {
         } catch (err) {
             rspns = err.response?.status;
         }
-        console.log(rspns.data);
 
         const response = JSON.parse(JSON.stringify(rspns.data));
 

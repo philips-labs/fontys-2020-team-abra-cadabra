@@ -32,6 +32,46 @@ namespace AbracadabraAPI.Controllers
         }
 
         // GET: api/Subjects
+        [HttpGet("landingsubjects")]
+        public async Task<ActionResult<IEnumerable<SubjectWithSizeViewModel>>> GetTop8Subjects()
+        {
+            try
+            {
+                //order by the amount of questions. this is also the size.
+                List<Subject> subjects = await _context.Subjects.OrderBy(s => s.Questions.Count()).Take(8).ToListAsync();
+                List<SubjectWithSizeViewModel> models = new List<SubjectWithSizeViewModel>();
+
+                foreach (Subject subject in subjects)
+                {
+                    int questionCount = await _context.Questions.Where(q => q.SubjectID == subject.ID).CountAsync();
+
+                    if (questionCount >= 30)
+                    {
+                        models.Add(Mapper.SubjectWithSizeToViewModel(subject, "VeryBigSubject"));
+                    }
+                    else if (questionCount >= 10)
+                    {
+                        models.Add(Mapper.SubjectWithSizeToViewModel(subject, "BigSubject"));
+                    }
+                    else if (questionCount >= 5)
+                    {
+                        models.Add(Mapper.SubjectWithSizeToViewModel(subject, "MediumSubject"));
+                    }
+                    else
+                    {
+                        models.Add(Mapper.SubjectWithSizeToViewModel(subject, "Normal"));
+                    }  
+                }
+
+                return models;
+            }
+            catch
+            {
+                return new ObjectResult("Something went wrong trying to retrieve the top 8 subjects and their size.") { StatusCode = 500 };
+            }
+        }
+
+        // GET: api/Subjects
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubjectViewModel>>> GetSubjects()
         {
@@ -75,7 +115,7 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{slug}")]
         public async Task<ActionResult<SubjectWithQuestionsViewModel>> GetSubject(string slug)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == slug).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == slug.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return NotFound();

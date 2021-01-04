@@ -8,7 +8,13 @@ import QuestionService from "../../../src/services/QuestionService";
 
 function Subject({ subjectName, response }) {
   if (response === 404 || response == "failure" || response === 400) {
+<<<<<<< HEAD
     return <DefaultErrorPage statusCode={404} />;
+=======
+    return (
+      <DefaultErrorPage statusCode={404} />
+    );
+>>>>>>> dev
   }
 
   return (
@@ -24,48 +30,50 @@ export default Subject;
 
 export async function getServerSideProps({ params }) {
   // Fetch necessary data for the blog post using params.id
-  let apiRes = null;
-  try {
-    apiRes = await SubjectService.GetSubjectBySlug(params.subject);
-  } catch (err) {
-    apiRes = err.response?.status;
-  }
-
-  const subjectName = params?.subject;
-
-  if (apiRes?.data?.subjectName != null) {
-    const filter = "new";
-    let rspns = null;
+  if (params != null) {
+    let apiRes = null;
     try {
-      rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);
+      apiRes = await SubjectService.GetSubjectBySlug(params.subject);
     } catch (err) {
-      rspns = err.response?.status;
+      apiRes = err.response?.status;
     }
-    const response = JSON.parse(JSON.stringify(rspns.data));
 
-    return {
-      props: {
-        subjectName,
-        response,
-      },
-    };
-  } else if (apiRes === 404 || apiRes === 400) {
-    const response = apiRes;
+    const subjectName = params?.subject;
 
-    return {
-      props: {
-        subjectName,
-        response,
-      },
-    };
-  } else {
-    const response = "failure";
+    if (apiRes?.data?.subjectName != null) {
+      const filter = "new";
+      let rspns = null;
+      try {
+        rspns = await QuestionService.GetFilteredQuestions(subjectName, filter);
+      } catch (err) {
+        rspns = err.response?.status;
+      }
+      const response = JSON.parse(JSON.stringify(rspns.data));
 
-    return {
-      props: {
-        subjectName,
-        response,
-      },
-    };
+      return {
+        props: {
+          subjectName,
+          response,
+        }
+      };
+    } else if (apiRes === 404 || apiRes === 400) {
+      const response = apiRes;
+
+      return {
+        props: {
+          subjectName,
+          response,
+        },
+      };
+    } else {
+      const response = "failure";
+
+      return {
+        props: {
+          subjectName,
+          response,
+        },
+      };
+    }
   }
 }

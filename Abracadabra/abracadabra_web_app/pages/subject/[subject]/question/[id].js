@@ -29,6 +29,13 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
+<<<<<<< HEAD
+=======
+ function UpdateAnswers(answer) {
+  setAnswers([answer, ...answers]);
+ }
+
+>>>>>>> dev
   useEffect(() => {
     //GetQuestion();
     setQuestion(data);
@@ -46,7 +53,7 @@ function Question({ data, subject }) {
 
       <div className="answerHead mx-auto">
         <h1>A</h1>
-        <QuestionCreateAnswer QID={question.id} />
+        <QuestionCreateAnswer QID={question.id} UpdateAnswers={UpdateAnswers} />
         {/* Create component for answer tnx */}
         {answers.map((answer) => (
           <SubjectAnswer key={answer.id} answer={answer} />
@@ -67,7 +74,6 @@ export async function getServerSideProps({ params }) {
     //apiRes = err;
     apiRes = err.response?.status;
   }
-
   const subject = params?.subject;
 
   if (apiRes?.data?.title != null) {

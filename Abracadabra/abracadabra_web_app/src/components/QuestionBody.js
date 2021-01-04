@@ -13,9 +13,9 @@ function Title({ question, subject, search, searchLength }) {
   }, []);
 
   function HumanDateTime(dateAndTime) {
-    var date = new Date(dateAndTime + "Z");
+    var date = new Date(dateAndTime);
     date = date.toUTCString().split(", ");
-    date = date[1].slice(0, 17);
+    date = date[1]?.slice(0, 17);
 
     return date;
   }
@@ -54,11 +54,6 @@ function Title({ question, subject, search, searchLength }) {
             <div className="BodyQuestion-hastag">
               <div className="row">
                 <div className="col-sm-9">
-                  <span className="badge badge-info p-1 mr-1">#Cutting</span>
-                  <span className="badge badge-info p-1 mr-1">#Vegetables</span>
-                  <span className="badge badge-info p-1 mr-1">
-                    #mise-en-place
-                  </span>
                 </div>
                 <div className="col-sm-3">
                   <p>Posted on: {HumanDateTime(q.dateTimeCreated)}</p>
@@ -69,7 +64,7 @@ function Title({ question, subject, search, searchLength }) {
         ))}
       </div>
     );
-  } else if ({ search } != undefined) {
+  } else if (search != undefined) {
     return (
       <div className="container mt-5">
         <h1>No results for: {search}</h1>
@@ -78,7 +73,7 @@ function Title({ question, subject, search, searchLength }) {
   } else {
     return (
       <div className="container mt-5">
-        <h1>Pepega</h1>
+        <h1>No results for this filter</h1>
       </div>
     );
   }

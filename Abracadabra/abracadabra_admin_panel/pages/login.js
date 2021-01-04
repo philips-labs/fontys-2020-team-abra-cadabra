@@ -28,8 +28,6 @@ export default function Login({ csrfToken }) {
         erroralert = null;
     }
 
-
-
   return (
     <>
         <BlankNavBar />

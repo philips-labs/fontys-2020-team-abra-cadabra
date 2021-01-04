@@ -67,18 +67,19 @@ namespace AbracadabraAPI.Controllers
 
             var user = await userManager.FindByIdAsync(question.UserID);
             List<Answer> answers = await _context.Answers.Where(x => x.QuestionID == question.ID).ToListAsync();
-
+            int endorsements;
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
             
             foreach (Answer answer in answers)
             {
                 var answerUser = await userManager.FindByIdAsync(answer.UserID);
                 var rolesAnswer = await userManager.GetRolesAsync(answerUser);
-                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, rolesAnswer[0]));
+                endorsements = _context.EndorsedAnswers.Where(x => x.AnswerId == answer.ID).Count();
+                answerViewModels.Add(Mapper.AnswerToViewModel(answer, answerUser, endorsements, rolesAnswer[0]));
             }
 
             var roles = await userManager.GetRolesAsync(user);
-            
+            answerViewModels = answerViewModels.OrderByDescending(x => x.Endorsements).ToList();            
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
             return Mapper.QuestionToViewModel(question, user, answerViewModels, null, roles[0]);
@@ -174,7 +175,7 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
                 }
 
-            var subject = await _context.Subjects.Where(s => s.SubjectName == questionViewModel.SubjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(s => s.SubjectName.ToLower() == questionViewModel.SubjectName.ToLower()).FirstOrDefaultAsync();
 
             var questionToPost = new Question
             {
@@ -234,7 +235,7 @@ namespace AbracadabraAPI.Controllers
         [HttpGet("{subjectName}/new")]
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByDate(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return BadRequest();
@@ -266,7 +267,7 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByUnasnwered(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
 
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return BadRequest();
@@ -298,7 +299,7 @@ namespace AbracadabraAPI.Controllers
         public async Task<ActionResult<IList<QuestionWithAnswerCount>>> SortingQuestionByExpert(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
 
         {
-            var subject = await _context.Subjects.Where(x => x.SubjectName == subjectName).FirstOrDefaultAsync();
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
             if (subject == null)
             {
                 return BadRequest();
