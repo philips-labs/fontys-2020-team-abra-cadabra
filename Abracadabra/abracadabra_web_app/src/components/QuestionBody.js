@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { slice } from "__mocks__/fileMock";
+import QuestionService from 'src/services/QuestionService';
 
 function Title({ question, subject, search, searchLength }) {
   const [message, setMessage] = useState("");
   const [questions, setQuestions] = useState([]);
+  const [tagexists, setTagExists] = useState();
 
   useEffect(() => {
     setQuestions(question);
     if (searchLength > 0) {
       setMessage("Results for: " + search);
     }
+
   }, []);
+
+
 
   function HumanDateTime(dateAndTime) {
     var date = new Date(dateAndTime);
@@ -28,6 +33,16 @@ function Title({ question, subject, search, searchLength }) {
       return numberOfAnswers + " people responded";
     }
   }
+  function IsTagsNull(question) {
+    if (question.tags != 0) {
+      return  question.tags.map((t) => (
+        <span className="badge badge-info p-1 mr-1">{t.tagName}</span>
+      ))
+      }
+  }
+
+
+
 
   if (questions.length > 0) {
     return (
@@ -49,9 +64,11 @@ function Title({ question, subject, search, searchLength }) {
                 </div>
               </div>
             </div>
+
             <div className="BodyQuestion-hastag">
               <div className="row">
                 <div className="col-sm-9">
+                  {IsTagsNull(q)}
                 </div>
                 <div className="col-sm-3">
                   <p>Posted on: {HumanDateTime(q.dateTimeCreated)}</p>

@@ -37,7 +37,8 @@ namespace AbracadabraAPI.Mappers
             Description = question.Description,
             UserName = user.UserName,
             DateTimeCreated = question.DateTimeCreated,
-            NumberOfAnswers = number
+            NumberOfAnswers = number,
+            Tags = question.Tags
         };
 
         public static QuestionTitleViewModel QuestionToQuestionTitleViewModel(Subject subject, Question question) =>
