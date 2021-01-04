@@ -29,13 +29,10 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
-<<<<<<< HEAD
-=======
- function UpdateAnswers(answer) {
-  setAnswers([answer, ...answers]);
- }
+  function UpdateAnswers(answer) {
+    setAnswers([answer, ...answers]);
+  }
 
->>>>>>> dev
   useEffect(() => {
     //GetQuestion();
     setQuestion(data);

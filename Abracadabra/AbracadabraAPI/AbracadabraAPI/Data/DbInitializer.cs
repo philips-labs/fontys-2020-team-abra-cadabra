@@ -83,7 +83,7 @@ namespace AbracadabraAPI.Data
                     Title="Craft table",
                     Description="To craft a table, you have to craft it.",
                     SubjectID=2,
-                    DateTimeCreated=DateTime.Parse("2020-10-19-11:35"),
+                    DateTimeCreated=DateTime.Now.AddHours(3),
                     Upvotes = 553,
                     Downvotes = 90,
                     TrendingScore = null
@@ -371,7 +371,7 @@ namespace AbracadabraAPI.Data
                     UserID=userIds[2],
                     QuestionID=2,
                     AnswerContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec posuere justo. Curabitur vel nulla congue, finibus ex vel, laoreet sapien. Integer eleifend eu diam quis sollicitudin. Suspendisse sapien dolor, accumsan nec nulla non, efficitur pulvinar lacus. Sed pharetra sit amet turpis a placerat. Etiam vulputate, ligula vitae efficitur pellentesque, ante odio cursus leo, non semper purus sapien eget libero. Aliquam id dignissim risus. Ut sodales bibendum metus sed luctus.",
-                    DateTimeCreated=DateTime.Parse("2020-9-19-12:00"),
+                    DateTimeCreated=DateTime.Parse("2020-9-01 11:59"),
                 },
             };
             foreach (Answer answer in answers)

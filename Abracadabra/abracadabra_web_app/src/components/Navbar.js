@@ -48,17 +48,11 @@ export default function NavBar({ subjectTitle }) {
       let decoded = jwt_decode(token);
       //decode token and set name
       setCurrentUser(decoded.unique_name);
-<<<<<<< HEAD
     } else {
-=======
-    }
-    else {
->>>>>>> dev
       setCurrentUser("");
     }
   }, []);
 
-<<<<<<< HEAD
   const handleLogout = () => {
     localStorage.removeItem("Token");
     setLoginStatus(false);
@@ -66,13 +60,6 @@ export default function NavBar({ subjectTitle }) {
   };
   //#endregion Profile/logout
 
-=======
-  const handleLogout = () => { localStorage.removeItem("Token"); setLoginStatus(false); setCurrentUser(""); };
-  //#endregion Profile/logout
-
-
-
->>>>>>> dev
   const handleOpen = () => setOpen(!open);
   const handleClose = () => setOpen(false);
   const handleShow = () => setShow(!show);
@@ -144,7 +131,6 @@ export default function NavBar({ subjectTitle }) {
         </Row>
         <Nav className="ml-auto">
           <Row>
-<<<<<<< HEAD
             {LoginStatus == false ? (
               <Nav.Link href="/loginpage" className="ml-2 mr-5">
                 Login
@@ -154,7 +140,7 @@ export default function NavBar({ subjectTitle }) {
                 <NavDropdown
                   title={CurrentUser}
                   id="nav-dropdown"
-                  className="mr-5 p-0"
+                  className="p-0"
                 >
                   <NavDropdown.Item eventKey="1" href="/profile">
                     Profile
@@ -165,19 +151,6 @@ export default function NavBar({ subjectTitle }) {
                 </NavDropdown>
               </>
             )}
-=======
-            {LoginStatus == false ?
-              <Nav.Link href="/loginpage" className="ml-2 mr-5">Login</Nav.Link>
-              :
-              <>
-                <NavDropdown title={CurrentUser} id="nav-dropdown" className="p-0">
-                  <NavDropdown.Item eventKey="1" href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item eventKey="2" onClick={handleLogout}>Sign out</NavDropdown.Item>
-                </NavDropdown>
-              </>
-            }
-
->>>>>>> dev
           </Row>
         </Nav>
       </Navbar.Collapse>

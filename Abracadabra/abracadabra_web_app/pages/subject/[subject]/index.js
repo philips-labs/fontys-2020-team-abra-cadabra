@@ -8,13 +8,7 @@ import QuestionService from "../../../src/services/QuestionService";
 
 function Subject({ subjectName, response }) {
   if (response === 404 || response == "failure" || response === 400) {
-<<<<<<< HEAD
     return <DefaultErrorPage statusCode={404} />;
-=======
-    return (
-      <DefaultErrorPage statusCode={404} />
-    );
->>>>>>> dev
   }
 
   return (
@@ -54,7 +48,7 @@ export async function getServerSideProps({ params }) {
         props: {
           subjectName,
           response,
-        }
+        },
       };
     } else if (apiRes === 404 || apiRes === 400) {
       const response = apiRes;
