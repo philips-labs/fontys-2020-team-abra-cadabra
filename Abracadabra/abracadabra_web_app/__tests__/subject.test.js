@@ -88,3 +88,21 @@ describe("SubjectList", () => {
     expect(header).toBeInTheDocument();
   });
 });
+// describe("Filter buttons", () => {
+//   it("New button", async () => {
+//     const params = { subject: "Cooking" };
+
+//     var response = await QuestionPage.getServerSideProps({ params });
+//     render(
+//       <QuestionPageRender
+//         subjectName={response.props.subjectName}
+//         response={response.props.response}
+//       />
+//     );
+//     const newButton = await screen.findByText("New");
+//     fireEvent.click(newButton)
+//     const responded = await screen.findByText("0 People Responded");
+//     console.log(responded)
+//     expect(responded).toBeInTheDocument();
+//   });
+// });
