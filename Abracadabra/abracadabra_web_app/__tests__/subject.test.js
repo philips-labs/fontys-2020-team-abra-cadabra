@@ -100,11 +100,11 @@ describe("SubjectList", () => {
 //         response={response.props.response}
 //       />
 //     );
-//     const newButton = await screen.findByText("Expert Answered");
+//     const newButton = await screen.findByTestId("question-button-expert");
 //     fireEvent.click(newButton)
-//     const responded = await screen.findByText("How to make spaghetti?");
+//     const responded = await screen.getAllByTestId("question-label-title")[0];
 //     console.log(responded)
-//     expect(responded).toBeInTheDocument();
+//     expect(responded.textContent).toBe(" How to make spaghetti? ");
 //   });
 //   it("Hot button returns Boil Water as hottest question", async () => {
 //     const params = { subject: "Cooking" };
@@ -116,7 +116,7 @@ describe("SubjectList", () => {
 //         response={response.props.response}
 //       />
 //     );
-//     const newButton = await screen.findByText("Hot");
+//     const newButton = await screen.findByTestId("question-button-trending");
 //     await act(async () => {
 //     fireEvent.click(newButton)
 //     });
@@ -134,7 +134,7 @@ describe("SubjectList", () => {
 //         response={response.props.response}
 //       />
 //     );
-//     const newButton = await screen.findByText("Unanswered");
+//     const newButton = await screen.findByTestId("question-button-unanswered");
 //     await act(async () => {
 //     fireEvent.click(newButton)
 //     });
@@ -155,12 +155,12 @@ describe("SubjectList", () => {
 //         response={response.props.response}
 //       />
 //     );
-//     const newButton = await screen.findByText("Answered");
+//     const newButton = screen.getByTestId("question-button-answered");
 //     await act(async () => {
 //     fireEvent.click(newButton)
 //     });
-//     const responded = screen.getByTestId("question-label-answers")[0]
-//     const respondedTitle = screen.getByTestId("question-label-title")[0]
+//     const responded = screen.getAllByTestId("question-label-answers")[0]
+//     const respondedTitle = screen.getAllByTestId("question-label-title")[0]
 //     console.log(responded)
 //     expect(responded.textContent).toBe("2 people responded")
 //     expect(respondedTitle.textContent).toBe("Boil Water")
