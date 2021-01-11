@@ -54,23 +54,23 @@ This section is about how to set up the project locally to be ready for developm
 
 ### Set Up
 1. Clone the repository
-```console
+```bash
 git clone https://github.com/philips-labs/fontys-2020-team-abra-cadabra
 ```
 2. Insall dependencies for the Web App and run it
-```console
+```bash
 cd Abracadabra/abracadabra_web_app
 npm install
 npm run dev
 ```
 3. Insall dependencies for the Admin Panel and run it
-```console
+```bash
 cd Abracadabra/abracadabra_admin_panel
 npm install
 npm run dev
 ```
 4. Run the API
-```console
+```bash
 cd Abracadabra/AbracadabraAPI/AbracadabraAPI
 dotnet run
 ```
