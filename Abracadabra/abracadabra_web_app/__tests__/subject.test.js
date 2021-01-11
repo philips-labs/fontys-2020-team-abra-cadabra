@@ -145,4 +145,24 @@ describe("SubjectList", () => {
 //     expect(responded[2].textContent).toBe("0 people responded")
 //     expect(responded[3].textContent).toBe("0 people responded")
 //   });
+//   it("Answered button returns Boil Water & 2 people responded", async () => {
+//     const params = { subject: "Cooking" };
+
+//     var response = await QuestionPage.getServerSideProps({ params });
+//     render(
+//       <QuestionPageRender
+//         subjectName={response.props.subjectName}
+//         response={response.props.response}
+//       />
+//     );
+//     const newButton = await screen.findByText("Answered");
+//     await act(async () => {
+//     fireEvent.click(newButton)
+//     });
+//     const responded = screen.getByTestId("question-label-answers")[0]
+//     const respondedTitle = screen.getByTestId("question-label-title")[0]
+//     console.log(responded)
+//     expect(responded.textContent).toBe("2 people responded")
+//     expect(respondedTitle.textContent).toBe("Boil Water")
+//   });
 // });
