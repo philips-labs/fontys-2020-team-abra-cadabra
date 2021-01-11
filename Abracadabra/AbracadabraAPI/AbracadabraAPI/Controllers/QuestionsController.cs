@@ -109,9 +109,16 @@ namespace AbracadabraAPI.Controllers
             }
 
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
             foreach (var question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
@@ -189,6 +196,22 @@ namespace AbracadabraAPI.Controllers
             };
 
             _context.Questions.Add(questionToPost);
+
+            List<Tag> tags = new List<Tag>();
+
+            foreach (var tag in questionViewModel.Tags)
+            {
+                var newTag = new Tag
+                {
+                    QuestionId = questionToPost.ID,
+                    TagName = tag.TagName
+                };
+
+                tags.Add(newTag);
+            }
+
+            _context.Tags.AddRange(tags);
+
             await _context.SaveChangesAsync();
 
             var roles = await userManager.GetRolesAsync(user);
@@ -221,10 +244,13 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
+            List<Tag> tags = new List<Tag>();
+            tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+
+            _context.Tags.RemoveRange(tags);
+            
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
-
-           
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
@@ -255,6 +281,12 @@ namespace AbracadabraAPI.Controllers
             foreach (Question question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
@@ -288,11 +320,56 @@ namespace AbracadabraAPI.Controllers
 
             foreach (Question question in questions)
             {
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
             }
 
             return models;
         }
+        // GET: api/Questions/Cooking/answered[?pagesize=5]
+        [HttpGet("{subjectName}/answered")]
+        public async Task<ActionResult<IList<QuestionWithAnswerCount>>> GetQuestionsSortedByAnswered(string subjectName, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+
+        {
+            var subject = await _context.Subjects.Where(x => x.SubjectName.ToLower() == subjectName.ToLower()).FirstOrDefaultAsync();
+            if (subject == null)
+            {
+                return BadRequest();
+            }
+
+            //List<Question> questions = await _context.Questions.Where(x => x.Category == subject).Where(x => x.Answers.Count() == 0).Skip(pageSize * pageIndex).Take(pageSize).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
+            List<Question> questions = await _context.Questions.Where(x => x.SubjectID == subject.ID).Where(x => x.Answers.Count() > 0).Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var item in questions)
+            {
+                var auser = await userManager.Users.Where(x => x.Id == item.UserID).FirstAsync();
+                users.Add(auser);
+            }
+
+            List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
+            foreach (Question question in questions)
+            {
+
+                int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
+                models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
+            }
+
+            return models;
+        }
+
 
         // GET: api/Questions/Cooking/expert[?pagesize=5]
         [HttpGet("{subjectName}/expert")]
@@ -318,6 +395,12 @@ namespace AbracadabraAPI.Controllers
             foreach (Question question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 

@@ -30,5 +30,7 @@ namespace AbracadabraAPI.ViewModels
         public List<AnswerViewModel> AnswerViewModels { get; set; }
 
         public int VoteByUser { get; set; } = 0;
+
+        public List<Tag> Tags { get; set; }
     }
 }
