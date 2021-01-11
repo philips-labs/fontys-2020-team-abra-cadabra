@@ -6,9 +6,9 @@ This readme lists off all the dependencies required in the project.
     1. react
     1. react-dom
 1. Next
-    1. next-auth
-    1. next-compose-plugins
-    1. next-optimized-images
+1. Next Auth
+1. Next Compose Plugin
+1. Next Optimized Images
 1. React Bootstrap
     1. bootstrap
     1. react-bootstrap
