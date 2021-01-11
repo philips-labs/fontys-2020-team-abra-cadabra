@@ -14,6 +14,7 @@ function QuestionForm() {
 
     const [SubjectSlug, setSubjectSlug] = useState();
     const [validated, setValidated] = useState(false);
+    const [message, setMessage] = useState("");
     const initialInputState = { title: "", description: "", subjectname: "", tags: [] };
     const [question, setQuestion] = useState(initialInputState);
     const { title, description } = question;
@@ -34,10 +35,17 @@ function QuestionForm() {
             event.preventDefault();
             const { subject } = router.query;
             setQuestion({ ...question, subjectname: SubjectSlug });
-            var response = await QuestionService.Question(question);
-            Router.push('/subject/' + subject + '/question/' + response?.data?.id);
+            await QuestionService.Question(question)
+            .then((response) => {
+              setMessage("Question created");
+              Router.push(
+                "/subject/" + subject + "/question/" + response?.data?.id
+              );
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
-
         setValidated(true);
     };
     const handleInputChangeTags = (e, index) => {
@@ -98,7 +106,7 @@ function QuestionForm() {
                 <div>
                     <Button data-testid="question-button-submit" className="buttonSubmit float-right" type="submit">Submit Question</Button>
                 </div>
-
+                <p>{message}</p>
             </Form>
         </>
     );
