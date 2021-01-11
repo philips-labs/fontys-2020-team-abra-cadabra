@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using AbracadabraAPI.Models;
 
 namespace AbracadabraAPI.ViewModels
 {
@@ -29,5 +30,7 @@ namespace AbracadabraAPI.ViewModels
         public long Downvotes { get; set; }
 
         public int NumberOfAnswers { get; set; }
+
+        public List<Tag> Tags { get; set; }
     }
 }

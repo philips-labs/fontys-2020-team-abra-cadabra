@@ -109,9 +109,16 @@ namespace AbracadabraAPI.Controllers
             }
 
             List<QuestionWithAnswerCount> models = new List<QuestionWithAnswerCount>();
+
             foreach (var question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
@@ -189,6 +196,22 @@ namespace AbracadabraAPI.Controllers
             };
 
             _context.Questions.Add(questionToPost);
+
+            List<Tag> tags = new List<Tag>();
+
+            foreach (var tag in questionViewModel.Tags)
+            {
+                var newTag = new Tag
+                {
+                    QuestionId = questionToPost.ID,
+                    TagName = tag.TagName
+                };
+
+                tags.Add(newTag);
+            }
+
+            _context.Tags.AddRange(tags);
+
             await _context.SaveChangesAsync();
 
             var roles = await userManager.GetRolesAsync(user);
@@ -221,10 +244,13 @@ namespace AbracadabraAPI.Controllers
                 return Unauthorized();
             }
 
+            List<Tag> tags = new List<Tag>();
+            tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+
+            _context.Tags.RemoveRange(tags);
+            
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
-
-           
 
             roles[0] = await ExpertCheck(question.SubjectID, user.Id);
 
@@ -255,6 +281,12 @@ namespace AbracadabraAPI.Controllers
             foreach (Question question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 
@@ -288,6 +320,11 @@ namespace AbracadabraAPI.Controllers
 
             foreach (Question question in questions)
             {
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), 0));
             }
 
@@ -318,6 +355,12 @@ namespace AbracadabraAPI.Controllers
             foreach (Question question in questions)
             {
                 int nr = _context.Answers.Where(x => x.QuestionID == question.ID).Count();
+
+                List<Tag> tags = new List<Tag>();
+
+                tags = _context.Tags.Where(x => x.QuestionId == question.ID).ToList();
+                question.Tags = tags;
+
                 models.Add(Mapper.QuestionWithAnswerCountToViewModel(question, users.Find(user => user.Id == question.UserID), nr));
             }
 

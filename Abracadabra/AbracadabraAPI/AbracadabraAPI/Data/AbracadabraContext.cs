@@ -27,6 +27,7 @@ namespace AbracadabraAPI.Data
         public DbSet<EndorsedAnswer> EndorsedAnswers { get; set; }
         public DbSet<ExpertApplication> ExpertApplications { get; set; }
         public DbSet<ExpertSubject> ExpertSubjects { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +42,7 @@ namespace AbracadabraAPI.Data
             modelBuilder.Entity<EndorsedAnswer>().ToTable("EndorsedAnswer");
             modelBuilder.Entity<ExpertApplication>().ToTable("ExpertApplications");
             modelBuilder.Entity<ExpertSubject>().HasKey(es => new { es.UserId, es.SubjectId });
+            modelBuilder.Entity<Tag>().ToTable("Tags");
         }
     }
 }
