@@ -42,10 +42,10 @@ function Title({ question, subject, search, searchLength }) {
                       className="BodyQuestionText"
                       href={"/subject/" + subject + "/question/" + q.id}
                     >
-                      <h4> {q.title} </h4>
+                      <h4 data-testid="question-label-title"> {q.title} </h4>
                     </a>
                   </div>
-                  <div className="col-sm-2">
+                  <div className="col-sm-2" data-testid="question-label-answers">
                     {NrOfAnswers(q.numberOfAnswers)}
                   </div>
                 </div>

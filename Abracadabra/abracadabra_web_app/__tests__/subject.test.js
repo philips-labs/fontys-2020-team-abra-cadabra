@@ -53,6 +53,7 @@ import {
   render,
   screen,
   waitFor,
+  act,
   fireEvent,
   toBeInTheDocument,
 } from "@testing-library/react";
@@ -89,7 +90,7 @@ describe("SubjectList", () => {
   });
 });
 // describe("Filter buttons", () => {
-//   it("New button", async () => {
+//   it("Expert Answered Button returns expert answered question", async () => {
 //     const params = { subject: "Cooking" };
 
 //     var response = await QuestionPage.getServerSideProps({ params });
@@ -99,10 +100,49 @@ describe("SubjectList", () => {
 //         response={response.props.response}
 //       />
 //     );
-//     const newButton = await screen.findByText("New");
+//     const newButton = await screen.findByText("Expert Answered");
 //     fireEvent.click(newButton)
-//     const responded = await screen.findByText("0 People Responded");
+//     const responded = await screen.findByText("How to make spaghetti?");
 //     console.log(responded)
 //     expect(responded).toBeInTheDocument();
+//   });
+//   it("Hot button returns Boil Water as hottest question", async () => {
+//     const params = { subject: "Cooking" };
+
+//     var response = await QuestionPage.getServerSideProps({ params });
+//     render(
+//       <QuestionPageRender
+//         subjectName={response.props.subjectName}
+//         response={response.props.response}
+//       />
+//     );
+//     const newButton = await screen.findByText("Hot");
+//     await act(async () => {
+//     fireEvent.click(newButton)
+//     });
+//     const responded = screen.getAllByTestId("question-label-title")[0]
+//     console.log(responded)
+//     expect(responded.textContent).toBe("Boil Water")
+//   });
+//   it("Unanswered button returns question with 0 people responded", async () => {
+//     const params = { subject: "Cooking" };
+
+//     var response = await QuestionPage.getServerSideProps({ params });
+//     render(
+//       <QuestionPageRender
+//         subjectName={response.props.subjectName}
+//         response={response.props.response}
+//       />
+//     );
+//     const newButton = await screen.findByText("Unanswered");
+//     await act(async () => {
+//     fireEvent.click(newButton)
+//     });
+//     const responded = screen.getAllByTestId("question-label-answers")
+//     console.log(responded)
+//     expect(responded[0].textContent).toBe("0 people responded")
+//     expect(responded[1].textContent).toBe("0 people responded")
+//     expect(responded[2].textContent).toBe("0 people responded")
+//     expect(responded[3].textContent).toBe("0 people responded")
 //   });
 // });
