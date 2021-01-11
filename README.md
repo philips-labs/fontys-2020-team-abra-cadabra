@@ -5,9 +5,6 @@ This project is in collaboration with **Fontys** and **Phillips**. It's a school
 
 Additionally, users can become experts on a subject, if they provide credentials to prove their knowledge. Administrators, manage the approval process through an admin panel, where they can also review flagged questions and answers to determine if they are inappropriate and should be deleted, manage users, subjects and get graphical representation based on statistics of what's popular around the website.
 
-## Technologies
-
-
 ## How to Set Up Locally
 
 1. Clone this git repository
