@@ -90,18 +90,19 @@ function QuestionForm() {
 
                             <div className="badge badge-info p-1 mr-1 tags-margin">
                                 <input className="tags-input"
+                                data-testid={"question-input-tag" + i} 
                                     name="TagName"
                                     placeholder="Enter Tag"
                                     value={x.tag}
                                     onChange={e => handleInputChangeTags(e, i)}
                                 />
-                                <a className="badge badge-info p-1 mr-1 tags-button-remove"
+                                <a data-testid={"question-button-removetag" + i} className="badge badge-info p-1 mr-1 tags-button-remove"
                                     onClick={() => handleRemoveClick(i)}> <FontAwesomeIcon icon={faTimes} /></a>
                             </div>
 
                         );
                     })}
-                    <a className="badge badge-info p-2 mr-2 tags-button-plus" onClick={handleAddClick}>+</a>
+                    <a data-testid="question-button-plustag" className="badge badge-info p-2 mr-2 tags-button-plus" onClick={handleAddClick}>+</a>
                 </Form.Group>
                 <div>
                     <Button data-testid="question-button-submit" className="buttonSubmit float-right" type="submit">Submit Question</Button>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1610444396355" clover="3.2.0">
-  <project timestamp="1610444396356" name="All files">
-    <metrics statements="325" coveredstatements="264" conditionals="120" coveredconditionals="86" methods="75" coveredmethods="52" elements="520" coveredelements="402" complexity="0" loc="325" ncloc="325" packages="4" files="17" classes="17"/>
+<coverage generated="1610446181343" clover="3.2.0">
+  <project timestamp="1610446181344" name="All files">
+    <metrics statements="325" coveredstatements="273" conditionals="120" coveredconditionals="87" methods="75" coveredmethods="56" elements="520" coveredelements="416" complexity="0" loc="325" ncloc="325" packages="4" files="17" classes="17"/>
     <package name="pages.subject.[subject]">
-      <metrics statements="146" coveredstatements="117" conditionals="59" coveredconditionals="47" methods="21" coveredmethods="15"/>
+      <metrics statements="146" coveredstatements="124" conditionals="59" coveredconditionals="47" methods="21" coveredmethods="18"/>
       <file name="answered.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\answered.js">
         <metrics statements="21" coveredstatements="18" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
         <line num="10" count="2" type="cond" truecount="5" falsecount="0"/>
@@ -29,19 +29,19 @@
         <line num="72" count="0" type="stmt"/>
       </file>
       <file name="createquestion.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\createquestion.js">
-        <metrics statements="40" coveredstatements="26" conditionals="2" coveredconditionals="1" methods="11" coveredmethods="5"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="13" count="6" type="stmt"/>
-        <line num="15" count="6" type="stmt"/>
-        <line num="16" count="6" type="stmt"/>
-        <line num="17" count="6" type="stmt"/>
-        <line num="18" count="6" type="stmt"/>
-        <line num="19" count="6" type="stmt"/>
-        <line num="20" count="6" type="stmt"/>
-        <line num="21" count="6" type="stmt"/>
-        <line num="24" count="6" type="stmt"/>
+        <metrics statements="40" coveredstatements="33" conditionals="2" coveredconditionals="1" methods="11" coveredmethods="8"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="15" count="9" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="17" count="9" type="stmt"/>
+        <line num="18" count="9" type="stmt"/>
+        <line num="19" count="9" type="stmt"/>
+        <line num="20" count="9" type="stmt"/>
+        <line num="21" count="9" type="stmt"/>
+        <line num="24" count="9" type="stmt"/>
         <line num="25" count="2" type="stmt"/>
-        <line num="28" count="6" type="stmt"/>
+        <line num="28" count="9" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="31" count="0" type="stmt"/>
@@ -54,22 +54,22 @@
         <line num="41" count="1" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
         <line num="49" count="1" type="stmt"/>
-        <line num="51" count="6" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="58" count="6" type="stmt"/>
+        <line num="51" count="9" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="9" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
-        <line num="63" count="6" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="67" count="6" type="stmt"/>
-        <line num="89" count="6" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="99" count="0" type="stmt"/>
+        <line num="63" count="9" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="67" count="9" type="stmt"/>
+        <line num="89" count="14" type="stmt"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
       </file>
       <file name="expert.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\expert.js">
         <metrics statements="21" coveredstatements="18" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
@@ -184,7 +184,7 @@
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="143" coveredstatements="119" conditionals="59" coveredconditionals="37" methods="38" coveredmethods="29"/>
+      <metrics statements="143" coveredstatements="121" conditionals="59" coveredconditionals="38" methods="38" coveredmethods="30"/>
       <file name="FilterButtons.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\FilterButtons.js">
         <metrics statements="3" coveredstatements="3" conditionals="10" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="15" count="6" type="stmt"/>
@@ -210,55 +210,55 @@
       </file>
       <file name="Navbar.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\Navbar.js">
         <metrics statements="27" coveredstatements="19" conditionals="14" coveredconditionals="6" methods="8" coveredmethods="2"/>
-        <line num="33" count="13" type="stmt"/>
-        <line num="35" count="13" type="stmt"/>
-        <line num="36" count="13" type="stmt"/>
-        <line num="37" count="13" type="stmt"/>
-        <line num="40" count="13" type="stmt"/>
-        <line num="41" count="13" type="stmt"/>
-        <line num="43" count="13" type="stmt"/>
+        <line num="33" count="16" type="stmt"/>
+        <line num="35" count="16" type="stmt"/>
+        <line num="36" count="16" type="stmt"/>
+        <line num="37" count="16" type="stmt"/>
+        <line num="40" count="16" type="stmt"/>
+        <line num="41" count="16" type="stmt"/>
+        <line num="43" count="16" type="stmt"/>
         <line num="45" count="7" type="stmt"/>
         <line num="46" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="47" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="48" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
         <line num="52" count="6" type="stmt"/>
-        <line num="56" count="13" type="stmt"/>
+        <line num="56" count="16" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="63" count="13" type="stmt"/>
-        <line num="64" count="13" type="stmt"/>
-        <line num="65" count="13" type="stmt"/>
+        <line num="63" count="16" type="stmt"/>
+        <line num="64" count="16" type="stmt"/>
+        <line num="65" count="16" type="stmt"/>
         <line num="68" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="69" count="0" type="stmt"/>
         <line num="70" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="71" count="0" type="stmt"/>
-        <line num="74" count="13" type="stmt"/>
+        <line num="74" count="16" type="stmt"/>
         <line num="75" count="0" type="stmt"/>
-        <line num="81" count="13" type="stmt"/>
+        <line num="81" count="16" type="stmt"/>
       </file>
       <file name="QuestionBody.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\QuestionBody.js">
-        <metrics statements="22" coveredstatements="17" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="6"/>
+        <metrics statements="22" coveredstatements="19" conditionals="10" coveredconditionals="7" methods="7" coveredmethods="7"/>
         <line num="7" count="12" type="stmt"/>
         <line num="8" count="12" type="stmt"/>
         <line num="10" count="12" type="stmt"/>
         <line num="11" count="6" type="stmt"/>
         <line num="12" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="20" count="21" type="stmt"/>
-        <line num="21" count="21" type="stmt"/>
-        <line num="22" count="21" type="stmt"/>
-        <line num="23" count="21" type="stmt"/>
-        <line num="27" count="21" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="18" type="stmt"/>
+        <line num="21" count="18" type="stmt"/>
+        <line num="22" count="18" type="stmt"/>
+        <line num="23" count="18" type="stmt"/>
+        <line num="27" count="18" type="cond" truecount="1" falsecount="1"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="30" count="21" type="stmt"/>
-        <line num="34" count="21" type="cond" truecount="1" falsecount="1"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <line num="30" count="18" type="stmt"/>
+        <line num="34" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
         <line num="44" count="12" type="cond" truecount="2" falsecount="0"/>
         <line num="45" count="6" type="stmt"/>
-        <line num="49" count="21" type="stmt"/>
+        <line num="49" count="18" type="stmt"/>
         <line num="82" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="83" count="0" type="stmt"/>
         <line num="89" count="6" type="stmt"/>

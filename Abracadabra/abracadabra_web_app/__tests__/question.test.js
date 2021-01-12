@@ -2,6 +2,7 @@ import {
   getByTestId,
   render,
   screen,
+  act,
   waitFor,
   fireEvent,
   toBeInTheDocument,
@@ -62,6 +63,22 @@ describe("Question", () => {
     expect(description.value).toBe(
       "I want to eat him because I think he looks delicious :)"
     );
+
+    const tag = screen.getByTestId("question-input-tag0");
+    fireEvent.change(tag, {
+      target: { value: "Students" },
+    });
+    expect(tag.value).toBe("Students");
+
+    const plustagButton = screen.getByTestId("question-button-plustag");
+    fireEvent.click(plustagButton);
+
+    const tag2 = screen.getByTestId("question-input-tag1");
+    fireEvent.change(tag2, {
+      target: { value: "Kristian" },
+    });
+    expect(tag2.value).toBe("Kristian");
+
 
     const inputSubmit = screen.getByTestId("question-button-submit");
     fireEvent.click(inputSubmit);
