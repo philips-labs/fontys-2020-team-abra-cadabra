@@ -1,6 +1,5 @@
 # Abra Cadabra - A Questions and Answers Web App
-
-- [Abra Cadabra - A Questions and Answers Web App](#abra-cadabra---a-questions-and-answers-web-app)
+## Table of contents
   - [About the Project](#about-the-project)
   - [Features](#features)
       - [Landingpage](#landingpage)
