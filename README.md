@@ -37,11 +37,11 @@ Additionally, users can become experts on a subject, if they provide credentials
 
 ## Features
 #### Landingpage
-![Landingpage example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/LandingPage.png)
+![Landingpage example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/LandingPage.gif)
 #### List of all subjects
 ![Subject list example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/SubjectList.gif)
 #### Subject page
-![Subject page example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/SubjectPage.png)
+![Subject page example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/SubjectPage.gif)
 #### Filter questions in a subject
 ![Filters example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/Filters.gif)
 #### Accounts
@@ -58,11 +58,11 @@ Additionally, users can become experts on a subject, if they provide credentials
 ![Reporting example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/Reporting.gif)
 #### Tags
 ![Tags example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/Tags.gif)
-![Tags in list example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/TagInList.png)
+![Tags in list example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/TagInList.gif)
 #### Up and down voting
 ![Voting example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/Voting.gif)
 #### Admin dashboard
-![Admin dashboard example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/AdminDashboardPage.png)
+![Admin dashboard example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/AdminDashboardPage.gif)
 #### Admin ban a user
 ![Banning example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/AdminBanUser.gif)
 #### Admin verify expert requests
