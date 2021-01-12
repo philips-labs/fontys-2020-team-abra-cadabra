@@ -37,7 +37,7 @@ Additionally, users can become experts on a subject, if they provide credentials
 
 ## Features
 #### Landingpage
-<img src="" width="600">![Subject list example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/SubjectList.gif)
+<img src="https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/LandingPage.png" width="600">
 #### List of all subjects
 ![Subject list example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/SubjectList.gif)
 #### Subject page
