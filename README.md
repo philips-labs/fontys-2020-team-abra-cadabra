@@ -62,7 +62,7 @@ Additionally, users can become experts on a subject, if they provide credentials
 #### Up and down voting
 ![Voting example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/Voting.gif)
 #### Admin dashboard
-![Admin dashboard example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/AdminDashboardPage.gif)
+![Admin dashboard example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/AdminDashboard.gif)
 #### Admin ban a user
 ![Banning example](https://github.com/philips-labs/fontys-2020-team-abra-cadabra/blob/master/Abracadabra_Docs/images/AdminBanUser.gif)
 #### Admin verify expert requests
