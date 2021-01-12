@@ -137,10 +137,9 @@ npm run dev
 cd Abracadabra/AbracadabraAPI/AbracadabraAPI
 dotnet run
 ```
-5. Create a file named .env.local with the following content
+5. Create a file named .env.local with the following content (replace "http://localhost:5000" with the address your api is running on)
 ```JS
 # API
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
-*replace "http://localhost:5000" with the address your api is running on
 *look at the localhost port presented during the start-up to find the API url*
