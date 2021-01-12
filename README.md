@@ -120,13 +120,13 @@ This section is about how to set up the project locally to be ready for developm
 ```bash
 git clone https://github.com/philips-labs/fontys-2020-team-abra-cadabra
 ```
-2. Insall dependencies for the Web App and run it
+2. Install dependencies for the Web App and run it
 ```bash
 cd Abracadabra/abracadabra_web_app
 npm install
 npm run dev
 ```
-3. Insall dependencies for the Admin Panel and run it
+3. Install dependencies for the Admin Panel and run it
 ```bash
 cd Abracadabra/abracadabra_admin_panel
 npm install
@@ -137,4 +137,10 @@ npm run dev
 cd Abracadabra/AbracadabraAPI/AbracadabraAPI
 dotnet run
 ```
+5. Create a file named .env.local with the following content
+```JS
+# API
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+*replace "http://localhost:5000" with the address your api is running on
 *look at the localhost port presented during the start-up to find the API url*
