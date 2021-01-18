@@ -15,9 +15,6 @@ import {
 } from "react-bootstrap";
 //nextjs router hook
 import { useRouter } from "next/router";
-//import image
-import Logo from "src/images/Abra_Logo_Centered.png";
-import cookingLogo from "../images/logo_cooking_wip.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -87,7 +84,7 @@ export default function NavBar({ subjectTitle }) {
     >
       <Navbar.Brand className="p-0 d-flex">
         <a href="/">
-          <Image src={Logo} height={60} className="my-auto" />
+          <Image src={"/images/Abra_Logo_Centered.png"} height={60} className="my-auto" />
         </a>
         <a href={"/subject/" + subjectTitle} className="my-auto">
           <h3 className="text-capitalize">{subjectTitle}</h3>

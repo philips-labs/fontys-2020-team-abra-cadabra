@@ -6,8 +6,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import {Image, Row, FormControl, InputGroup,Button, Nav, NavDropdown} from 'react-bootstrap';
 //nextjs router hook
 import { useRouter } from "next/router";
-//import image
-import Logo from 'public/images/Abra_Logo_Centered.png';
 
 export default function BlankNavBar() {
       //#region Profile/logout
@@ -36,7 +34,7 @@ export default function BlankNavBar() {
     return (
             <Navbar collapseOnSelect expand="lg" variant="dark" className="Default-Navbar">
                 <Navbar.Brand href="/" className="p-0 d-flex">   
-                    <Image src={Logo} height={60} className="my-auto"/>
+                    <Image src={"/images/Abra_Logo_Centered.png"} height={60} className="my-auto"/>
                     <h5 className="my-auto">Abracadabra</h5>
                 </Navbar.Brand>
                 <Nav className="ml-auto">
