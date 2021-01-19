@@ -41,7 +41,7 @@ function Title({ question, subject, search, searchLength }) {
 
 
 
-  if (questions.length > 0) {
+  if (questions?.length > 0) {
     return (
       <div className="container BodyQuestion-Top">
         <h1>{message}</h1>
@@ -49,13 +49,16 @@ function Title({ question, subject, search, searchLength }) {
           <div key={q.id}>
             <div className="BoduQuestion-Total">
               <div className="BodyQuestion-CardBody">
-                <div className='row'>
+                <div className="row">
                   <div className="col-sm-9">
-                    <a className="BodyQuestionText" href={'/subject/' + subject + '/question/' + q.id}>
-                      <h4> {q.title} </h4>
+                    <a
+                      className="BodyQuestionText"
+                      href={"/subject/" + subject + "/question/" + q.id}
+                    >
+                      <h4 data-testid="question-label-title"> {q.title} </h4>
                     </a>
                   </div>
-                  <div className="col-sm-2">
+                  <div className="col-sm-2" data-testid="question-label-answers">
                     {NrOfAnswers(q.numberOfAnswers)}
                   </div>
                 </div>
@@ -82,8 +85,7 @@ function Title({ question, subject, search, searchLength }) {
         <h1>No results for: {search}</h1>
       </div>
     );
-  }
-  else {
+  } else {
     return (
       <div className="container mt-5">
         <h1>No results for this filter</h1>

@@ -19,7 +19,7 @@ function FilterButtons({ subjectTitle }) {
     <div className="rounded container">
       <Row>
         <Col md="5">
-          <Button
+          <Button data-testid="question-button-trending"
             variant="secondary"
             className={route == "/trending" ? "btnSmall active mr-2" : "btnSmall mr-2"}
             href={"/subject/" + subjectTitle + "/trending"}
@@ -27,6 +27,7 @@ function FilterButtons({ subjectTitle }) {
             <FontAwesomeIcon icon={faFireAlt} /> Hot
           </Button>
           <Button
+          data-testid="question-button-new"
             variant="secondary"
             className={route == undefined ? "btnSmall active mr-2" : "btnSmall mr-2"}
             href={"/subject/" + subjectTitle + "/"}
@@ -36,6 +37,7 @@ function FilterButtons({ subjectTitle }) {
         </Col>
         <Col md="7" className="d-flex justify-content-end">
           <Button
+          data-testid="question-button-unanswered"
             variant="secondary"
             className={route == "unanswered" ? "btnBig active mr-2" : "btnBig mr-2"}
             href={"/subject/" + subjectTitle + "/unanswered"}
@@ -43,6 +45,7 @@ function FilterButtons({ subjectTitle }) {
             <FontAwesomeIcon icon={faCommentSlash} /> Unanswered
           </Button>
           <Button
+          data-testid="question-button-answered"
             variant="secondary"
             className={route == "answered" ? "btnBig active mr-2" : "btnBig mr-2"}
             href={"/subject/" + subjectTitle + "/answered"}
@@ -50,6 +53,7 @@ function FilterButtons({ subjectTitle }) {
             <FontAwesomeIcon icon={faComment} /> Answered
           </Button>
           <Button
+          data-testid="question-button-expert"
             variant="secondary"
             className={route == "expert" ? "btnBig active" : "btnBig"}
             href={'/subject/' + subjectTitle + '/expert'}

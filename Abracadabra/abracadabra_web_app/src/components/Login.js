@@ -23,6 +23,7 @@ const Login = () => {
         Router.push("/");
         localStorage.setItem("Token", res.data.token);
         sessionStorage.setItem("UserId", res.data.id);
+        setMessage("Login successful");
       })
       .catch((error) => {
         setMessage("Account information does not match");
@@ -30,7 +31,7 @@ const Login = () => {
   };
   return (
     <>
-      <Container className="LoginContainer">
+      <Container className="LoginContainer" data-testid="login-page-test-id">
         <Row className="h-100 justify-content-center align-items-center">
           <Col xl={6} md={8} className="LoginArea pb-3 rounded">
             <Row className="mb-4 p-3">
@@ -71,7 +72,12 @@ const Login = () => {
                     />
                   </Form.Group>
                   <Form.Group controlId="LoginButton" className="mb-4">
-                    <Button type="submit" variant="info" className="btn-block">
+                    <Button
+                      type="submit"
+                      variant="info"
+                      className="btn-block"
+                      data-testid="login-button-submit"
+                    >
                       Login
                     </Button>
                   </Form.Group>

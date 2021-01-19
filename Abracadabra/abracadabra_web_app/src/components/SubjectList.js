@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronUp,
@@ -7,14 +7,13 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col } from "react-bootstrap";
-import ListItem from "src/components/SubjectListItem";
-import SubjectService from 'src/services/SubjectService';
+import ListItem from "./SubjectListItem";
+import SubjectService from "../services/SubjectService";
 
 const SubjectList = () => {
   const [Subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-
     //Get subjects
     SubjectService.GetAllSubjects()
       .then((res) => {
@@ -22,14 +21,16 @@ const SubjectList = () => {
       })
       .catch((error) => {
       });
-
   }, [Subjects]);
 
   function filter(letter) {
     let results = [];
     const len = Subjects.length;
     for (var i = 0; i < len; i++) {
-      if (Subjects[i].subjectName.toLowerCase().indexOf(letter.toLowerCase()) == 0) results.push(Subjects[i]);
+      if (
+        Subjects[i].subjectName.toLowerCase().indexOf(letter.toLowerCase()) == 0
+      )
+        results.push(Subjects[i]);
     }
     return results;
   }
@@ -42,8 +43,6 @@ const SubjectList = () => {
       );
     });
   }
-
-
 
   return (
     <>
@@ -193,9 +192,7 @@ const SubjectList = () => {
               <div className="questionHeadDiv">
                 <h3 className="subjectlistIndicator">A</h3>
               </div>
-              <Row className="rowOverflow">
-                {printSubjects('a')}
-              </Row>
+              <Row className="rowOverflow">{printSubjects("a")}</Row>
             </div>
           </div>
           <div id="b">

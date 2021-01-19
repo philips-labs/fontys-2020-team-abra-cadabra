@@ -29,15 +29,14 @@ function Question({ data, subject }) {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
 
- function UpdateAnswers(answer) {
-  setAnswers([answer, ...answers]);
- }
+  function UpdateAnswers(answer) {
+    setAnswers([answer, ...answers]);
+  }
 
   useEffect(() => {
     //GetQuestion();
     setQuestion(data);
     setAnswers(data.answerViewModels);
-
   }, [data.answerViewModels]);
 
   if (data === 404 || data == "failure" || data === 400) {

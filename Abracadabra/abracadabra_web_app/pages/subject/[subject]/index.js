@@ -1,17 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap";
-import Navbar from "src/components/Navbar.js";
-import FilterButtons from "src/components/FilterButtons";
-import QuestionBody from "src/components/QuestionBody.js";
+import Navbar from "../../../src/components/Navbar.js";
+import FilterButtons from "../../../src/components/FilterButtons";
+import QuestionBody from "../../../src/components/QuestionBody.js";
 import DefaultErrorPage from "next/error";
-import SubjectService from "src/services/SubjectService";
-import QuestionService from "src/services/QuestionService";
+import SubjectService from "../../../src/services/SubjectService";
+import QuestionService from "../../../src/services/QuestionService";
 
 function Subject({ subjectName, response }) {
-
   if (response === 404 || response == "failure" || response === 400) {
-    return (
-      <DefaultErrorPage statusCode={404} />
-    );
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   return (
@@ -51,7 +48,7 @@ export async function getServerSideProps({ params }) {
         props: {
           subjectName,
           response,
-        }
+        },
       };
     } else if (apiRes === 404 || apiRes === 400) {
       const response = apiRes;

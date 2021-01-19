@@ -1,9 +1,56 @@
-const {
-  interopDefault,
-} = require("next/dist/next-server/server/load-components");
+import {
+  getByTestId,
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  toBeInTheDocument,
+} from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Login from "../src/components/Login";
+import React from "react";
+import "@testing-library/jest-dom/extend-expect";
 
-describe("Test subjects", () => {
-  it("Should return 404 if subject not found", () => {});
+import Router from "next/router";
+jest.mock("next/router", () => ({ push: jest.fn() }));
 
-  it("Should return page if subject is found", () => {});
+describe("Login", () => {
+  it("Login account success", async () => {
+    render(<Login />);
+
+    const inputEmail = screen.getByTestId("login-input-email");
+    fireEvent.change(inputEmail, { target: { value: "expert@gmail.com" } });
+    expect(inputEmail.value).toBe("expert@gmail.com");
+
+    const inputPassword = screen.getByTestId("login-input-password");
+    fireEvent.change(inputPassword, { target: { value: "Password@2" } });
+    expect(inputPassword.value).toBe("Password@2");
+
+    const inputSubmit = screen.getByTestId("login-button-submit");
+    fireEvent.click(inputSubmit);
+
+    const header = await screen.findByText("Login successful");
+    expect(Router.push).toHaveBeenCalledWith("/");
+  });
+
+  it("Login wrong account fail", async () => {
+    render(<Login />);
+
+    const inputEmail = screen.getByTestId("login-input-email");
+    fireEvent.change(inputEmail, { target: { value: "tester@email.com" } });
+    expect(inputEmail.value).toBe("tester@email.com");
+
+    const inputPassword = screen.getByTestId("login-input-password");
+    fireEvent.change(inputPassword, { target: { value: "secretP@ssw0rd!" } });
+    expect(inputPassword.value).toBe("secretP@ssw0rd!");
+
+    const inputSubmit = screen.getByTestId("login-button-submit");
+    fireEvent.click(inputSubmit);
+
+    const header = await screen.findByText(
+      "Account information does not match"
+    );
+
+    expect(header).toBeInTheDocument();
+  });
 });

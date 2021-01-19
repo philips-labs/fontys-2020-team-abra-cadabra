@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1610446697173" clover="3.2.0">
+  <project timestamp="1610446697173" name="All files">
+    <metrics statements="325" coveredstatements="271" conditionals="120" coveredconditionals="86" methods="75" coveredmethods="55" elements="520" coveredelements="412" complexity="0" loc="325" ncloc="325" packages="4" files="17" classes="17"/>
+    <package name="pages.subject.[subject]">
+      <metrics statements="146" coveredstatements="124" conditionals="59" coveredconditionals="47" methods="21" coveredmethods="18"/>
+      <file name="answered.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\answered.js">
+        <metrics statements="21" coveredstatements="18" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
+        <line num="10" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="58" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+      </file>
+      <file name="createquestion.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\createquestion.js">
+        <metrics statements="40" coveredstatements="33" conditionals="2" coveredconditionals="1" methods="11" coveredmethods="8"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="15" count="9" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="17" count="9" type="stmt"/>
+        <line num="18" count="9" type="stmt"/>
+        <line num="19" count="9" type="stmt"/>
+        <line num="20" count="9" type="stmt"/>
+        <line num="21" count="9" type="stmt"/>
+        <line num="24" count="9" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="28" count="9" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="9" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="9" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="63" count="9" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="67" count="9" type="stmt"/>
+        <line num="89" count="14" type="stmt"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+      </file>
+      <file name="expert.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\expert.js">
+        <metrics statements="21" coveredstatements="18" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
+        <line num="11" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="40" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="58" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+      </file>
+      <file name="index.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\index.js">
+        <metrics statements="22" coveredstatements="19" conditionals="13" coveredconditionals="10" methods="2" coveredmethods="2"/>
+        <line num="10" count="3" type="cond" truecount="5" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="27" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="37" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="53" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+      </file>
+      <file name="trending.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\trending.js">
+        <metrics statements="21" coveredstatements="18" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
+        <line num="10" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="59" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+      </file>
+      <file name="unanswered.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\pages\subject\[subject]\unanswered.js">
+        <metrics statements="21" coveredstatements="18" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
+        <line num="10" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="58" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="unsecure-common-api.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\unsecure-common-api.js">
+        <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="3" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="24" type="stmt"/>
+        <line num="7" count="24" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components">
+      <metrics statements="143" coveredstatements="119" conditionals="59" coveredconditionals="37" methods="38" coveredmethods="29"/>
+      <file name="FilterButtons.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\FilterButtons.js">
+        <metrics statements="3" coveredstatements="3" conditionals="10" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+      </file>
+      <file name="Login.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\Login.js">
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="12" type="stmt"/>
+        <line num="12" count="12" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="18" count="12" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="32" count="12" type="stmt"/>
+      </file>
+      <file name="Navbar.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\Navbar.js">
+        <metrics statements="27" coveredstatements="19" conditionals="14" coveredconditionals="6" methods="8" coveredmethods="2"/>
+        <line num="33" count="16" type="stmt"/>
+        <line num="35" count="16" type="stmt"/>
+        <line num="36" count="16" type="stmt"/>
+        <line num="37" count="16" type="stmt"/>
+        <line num="40" count="16" type="stmt"/>
+        <line num="41" count="16" type="stmt"/>
+        <line num="43" count="16" type="stmt"/>
+        <line num="45" count="7" type="stmt"/>
+        <line num="46" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="52" count="6" type="stmt"/>
+        <line num="56" count="16" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="16" type="stmt"/>
+        <line num="64" count="16" type="stmt"/>
+        <line num="65" count="16" type="stmt"/>
+        <line num="68" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="74" count="16" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="81" count="16" type="stmt"/>
+      </file>
+      <file name="QuestionBody.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\QuestionBody.js">
+        <metrics statements="22" coveredstatements="17" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="6"/>
+        <line num="7" count="12" type="stmt"/>
+        <line num="8" count="12" type="stmt"/>
+        <line num="10" count="12" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="12" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="20" count="17" type="stmt"/>
+        <line num="21" count="17" type="stmt"/>
+        <line num="22" count="17" type="stmt"/>
+        <line num="23" count="17" type="stmt"/>
+        <line num="27" count="17" type="cond" truecount="1" falsecount="1"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="17" type="stmt"/>
+        <line num="34" count="17" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="44" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="6" type="stmt"/>
+        <line num="49" count="17" type="stmt"/>
+        <line num="82" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="89" count="6" type="stmt"/>
+      </file>
+      <file name="Register.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\Register.js">
+        <metrics statements="61" coveredstatements="50" conditionals="23" coveredconditionals="18" methods="9" coveredmethods="8"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="32" type="stmt"/>
+        <line num="16" count="32" type="stmt"/>
+        <line num="17" count="32" type="stmt"/>
+        <line num="18" count="32" type="stmt"/>
+        <line num="19" count="32" type="stmt"/>
+        <line num="20" count="32" type="stmt"/>
+        <line num="22" count="32" type="stmt"/>
+        <line num="23" count="15" type="stmt"/>
+        <line num="26" count="32" type="stmt"/>
+        <line num="27" count="5" type="stmt"/>
+        <line num="30" count="32" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
+        <line num="34" count="5" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="43" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="49" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="61" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="71" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="76" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="85" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="90" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="95" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="96" count="2" type="stmt"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="99" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="100" count="3" type="stmt"/>
+        <line num="101" count="3" type="stmt"/>
+        <line num="102" count="3" type="stmt"/>
+        <line num="103" count="3" type="stmt"/>
+        <line num="106" count="2" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="115" count="32" type="stmt"/>
+        <line num="148" count="0" type="stmt"/>
+        <line num="169" count="1" type="stmt"/>
+        <line num="192" count="5" type="stmt"/>
+      </file>
+      <file name="SubjectList.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\SubjectList.js">
+        <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="27" count="52" type="stmt"/>
+        <line num="28" count="52" type="stmt"/>
+        <line num="29" count="52" type="stmt"/>
+        <line num="30" count="182" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="7" type="stmt"/>
+        <line num="35" count="52" type="stmt"/>
+        <line num="39" count="52" type="stmt"/>
+        <line num="40" count="52" type="stmt"/>
+        <line num="41" count="7" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+      </file>
+      <file name="SubjectListItem.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\components\SubjectListItem.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.services">
+      <metrics statements="28" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="14" coveredmethods="6"/>
+      <file name="AccountService.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\services\AccountService.js">
+        <metrics statements="12" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+      </file>
+      <file name="QuestionService.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\services\QuestionService.js">
+        <metrics statements="8" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+      </file>
+      <file name="SubjectService.js" path="C:\Users\tijme\Documents\Semester 3\fontys-2020-team-abra-cadabra\Abracadabra\abracadabra_web_app\src\services\SubjectService.js">
+        <metrics statements="8" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

@@ -45,17 +45,17 @@ export default function NavBar({ subjectTitle }) {
       let decoded = jwt_decode(token);
       //decode token and set name
       setCurrentUser(decoded.unique_name);
-    }
-    else {
+    } else {
       setCurrentUser("");
     }
-
   }, []);
 
-  const handleLogout = () => { localStorage.removeItem("Token"); setLoginStatus(false); setCurrentUser(""); };
+  const handleLogout = () => {
+    localStorage.removeItem("Token");
+    setLoginStatus(false);
+    setCurrentUser("");
+  };
   //#endregion Profile/logout
-
-
 
   const handleOpen = () => setOpen(!open);
   const handleClose = () => setOpen(false);
@@ -128,17 +128,26 @@ export default function NavBar({ subjectTitle }) {
         </Row>
         <Nav className="ml-auto">
           <Row>
-            {LoginStatus == false ?
-              <Nav.Link href="/loginpage" className="ml-2 mr-5">Login</Nav.Link>
-              :
+            {LoginStatus == false ? (
+              <Nav.Link href="/loginpage" className="ml-2 mr-5">
+                Login
+              </Nav.Link>
+            ) : (
               <>
-                <NavDropdown title={CurrentUser} id="nav-dropdown" className="p-0">
-                  <NavDropdown.Item eventKey="1" href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item eventKey="2" onClick={handleLogout}>Sign out</NavDropdown.Item>
+                <NavDropdown
+                  title={CurrentUser}
+                  id="nav-dropdown"
+                  className="p-0"
+                >
+                  <NavDropdown.Item eventKey="1" href="/profile">
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item eventKey="2" onClick={handleLogout}>
+                    Sign out
+                  </NavDropdown.Item>
                 </NavDropdown>
               </>
-            }
-
+            )}
           </Row>
         </Nav>
       </Navbar.Collapse>

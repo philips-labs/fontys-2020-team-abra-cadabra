@@ -1,4 +1,4 @@
-import http from "../common-api";
+import http from "../unsecure-common-api";
 
 const Login = (data) => {
   return http.httpdefault().post("/authenticate/Login", data);
@@ -22,7 +22,7 @@ const editPassword = (data) => {
 
 const getProfile = (data) => {
   return http.httptoken().get("/users/Profile/" + data);
-}
+};
 
 export default {
   Login,
@@ -30,5 +30,5 @@ export default {
   getUser,
   editUser,
   editPassword,
-  getProfile
+  getProfile,
 };
